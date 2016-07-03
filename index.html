@@ -206,6 +206,126 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/03/Python图片转字符画/" itemprop="url">
+                  Python图片转字符画
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-03T17:03:00+08:00" content="2016-07-03">
+              2016-07-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/图像处理/" itemprop="url" rel="index">
+                    <span itemprop="name">图像处理</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>使用Python处理图片，将图片转换为用特定字符组成的字符画</p>
+<p>第一步:安装pillow(PIL)库:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pip install pillow</span><br></pre></td></tr></table></figure>
+<p>第二步:获取实验用图片</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget http://labfile.oss.aliyuncs.com/courses/370/ascii_dora.png</span><br></pre></td></tr></table></figure>
+<p><img src="http://labfile.oss.aliyuncs.com/courses/370/ascii_dora.png" alt="哆啦A梦"></p>
+<p>第三步:编写程序,假设文件名为ascii.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"># coding=utf-8</span><br><span class="line">from PIL import Image</span><br><span class="line">import argparse</span><br><span class="line"></span><br><span class="line">parser = argparse.ArgumentParser()</span><br><span class="line"></span><br><span class="line">parser.add_argument(&apos;file&apos;)     # 输入文件</span><br><span class="line">parser.add_argument(&apos;-o&apos;, &apos;--output&apos;)   # 输出文件</span><br><span class="line">parser.add_argument(&apos;--width&apos;, type=int, default=80)    # 输出字符画宽</span><br><span class="line">parser.add_argument(&apos;--height&apos;, type=int, default=80)   # 输出字符画高</span><br><span class="line"></span><br><span class="line"># 获取参数</span><br><span class="line">args = parser.parse_args()</span><br><span class="line"></span><br><span class="line">IMG = args.file</span><br><span class="line">WIDTH = args.width</span><br><span class="line">HEIGHT = args.height</span><br><span class="line">OUTPUT = args.output</span><br><span class="line"></span><br><span class="line"># 字符是比较大块的像素,字符种类越多可以表现的颜色也越多,图片更有层次感.下面字符集使用了70个字符</span><br><span class="line">ascii_char = list(&quot;$@B%8&amp;WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1&#123;&#125;[]?-_+~&lt;&gt;i!lI;:,\&quot;^`&apos;. &quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 灰度值指黑白图像中点的颜色深度,范围一般从0到255,白色为255,黑色为0,故黑白图片也称灰度图像</span><br><span class="line"># 灰度值公式 = 0.2126 * r + 0.7152 * g + 0.0722 * b</span><br><span class="line"></span><br><span class="line"># RGB转字符</span><br><span class="line">def RGB2Char(r, b, g, alpha=256):</span><br><span class="line">    if alpha == 0:</span><br><span class="line">        return &apos; &apos;</span><br><span class="line">    length = len(ascii_char)</span><br><span class="line">    gray = int(0.2126 * r + 0.7152 * g + 0.0722 * b)</span><br><span class="line"></span><br><span class="line">    unit = (256.0 + 1) / length</span><br><span class="line">    return ascii_char[int(gray / unit)]</span><br><span class="line"></span><br><span class="line"># 主函数</span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    img = Image.open(IMG)</span><br><span class="line">    img = img.resize((WIDTH, HEIGHT), Image.NEAREST)</span><br><span class="line"></span><br><span class="line">    txt = &quot;&quot;</span><br><span class="line"></span><br><span class="line">    for i in range(HEIGHT):</span><br><span class="line">        for j in range(WIDTH):</span><br><span class="line">            txt += RGB2Char(*img.getpixel((j, i)))</span><br><span class="line">        txt += &apos;\n&apos;</span><br><span class="line"></span><br><span class="line">    print txt</span><br><span class="line"></span><br><span class="line">    # 字符画输出到文件</span><br><span class="line">    if OUTPUT:</span><br><span class="line">        with open(OUTPUT, &apos;w&apos;) as f:</span><br><span class="line">            f.write(txt)</span><br></pre></td></tr></table></figure>
+<p>第四步:查看运行效果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python ascii.py dora.png -o ascii_dora.txt</span><br></pre></td></tr></table></figure>
+<p>看到的效果应该是这样的:</p>
+<p><img src="https://dn-anything-about-doc.qbox.me/document-uid8834labid1191timestamp1437128425410.png?watermark/1/image/aHR0cDovL3N5bC1zdGF0aWMucWluaXVkbi5jb20vaW1nL3dhdGVybWFyay5wbmc=/dissolve/60/gravity/SouthEast/dx/0/dy/10" alt="哆啦A梦字符图"></p>
+<p>然而，并不是对所有图片都有良好的效果，由于采用的字符集只有70个，并且密度分布不均，难以用于转换色彩层次多或内容丰富的图片。需要探索更合理的字符集实现更好的转换效果。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/03/Quick-Start-for-Hexo/" itemprop="url">
                   Quick Start for Hexo
                 </a>
@@ -606,7 +726,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives/">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">3</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -614,7 +734,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories/Hexo/">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
