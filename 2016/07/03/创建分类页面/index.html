@@ -71,7 +71,7 @@
 1$ hexo new page categories
 第二步:编辑新建的md文件，将页面类型设置为”categories”，主题将自动为这个页面显示所有的分类:
 1234title: 分类date: 2014-12-22 12:39:04type: &amp;quot;cate">
-<meta property="og:updated_time" content="2016-07-03T11:00:10.000Z">
+<meta property="og:updated_time" content="2016-07-04T03:39:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="创建分类页面">
 <meta name="twitter:description" content="为Hexo添加分类页面的index.html，并在其菜单中显示各分类的链接
@@ -86,7 +86,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
+    sidebar: {"position":"right","display":"post"},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -126,7 +126,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -304,6 +304,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: /</span><br><span class="line">  categories: /categories</span><br><span class="line">  archives: /archives</span><br><span class="line">  tags: /tags</span><br></pre></td></tr></table></figure>
 <p>第四步:清空缓存、生成静态文件、发布/预览:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo generate</span><br><span class="line">$ hexo deploy	# 发布</span><br><span class="line">$ hexo server	# 打开本地服务器在页面上预览</span><br></pre></td></tr></table></figure>
+
       
     </div>
 
