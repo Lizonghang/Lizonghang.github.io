@@ -58,19 +58,28 @@
 
 
 <meta name="description" content="实现了一个使用Python来解析纯文本文件来生成一个HTML页面的程序，即TXT文本转Markdown。功能不是很完善，其他转换可用类似的方法实现。
-效果展示纯文本文件:12345678910111213141516171819Welcome to ShiYanLouShiYanLou is the first experiment with IT as the core of online ed">
+效果展示纯文本文件:
+Welcome to ShiYanLou
+
+ShiYanLou is the first experiment with IT as the core of online education platform.*Our aim">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python文本解释器">
 <meta property="og:url" content="http://desckie.com/2016/07/05/Python文本解释器/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
 <meta property="og:description" content="实现了一个使用Python来解析纯文本文件来生成一个HTML页面的程序，即TXT文本转Markdown。功能不是很完善，其他转换可用类似的方法实现。
-效果展示纯文本文件:12345678910111213141516171819Welcome to ShiYanLouShiYanLou is the first experiment with IT as the core of online ed">
+效果展示纯文本文件:
+Welcome to ShiYanLou
+
+ShiYanLou is the first experiment with IT as the core of online education platform.*Our aim">
 <meta property="og:image" content="https://dn-anything-about-doc.qbox.me/python_markup/1.png">
-<meta property="og:updated_time" content="2016-07-04T16:56:55.000Z">
+<meta property="og:updated_time" content="2016-07-04T16:59:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python文本解释器">
 <meta name="twitter:description" content="实现了一个使用Python来解析纯文本文件来生成一个HTML页面的程序，即TXT文本转Markdown。功能不是很完善，其他转换可用类似的方法实现。
-效果展示纯文本文件:12345678910111213141516171819Welcome to ShiYanLouShiYanLou is the first experiment with IT as the core of online ed">
+效果展示纯文本文件:
+Welcome to ShiYanLou
+
+ShiYanLou is the first experiment with IT as the core of online education platform.*Our aim">
 <meta name="twitter:image" content="https://dn-anything-about-doc.qbox.me/python_markup/1.png">
 
 
@@ -287,7 +296,29 @@
 
       
         <p>实现了一个使用Python来解析纯文本文件来生成一个HTML页面的程序，即TXT文本转Markdown。功能不是很完善，其他转换可用类似的方法实现。</p>
-<h1 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h1><h2 id="纯文本文件"><a href="#纯文本文件" class="headerlink" title="纯文本文件:"></a>纯文本文件:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Welcome to ShiYanLou</span><br><span class="line"></span><br><span class="line">ShiYanLou is the first experiment with IT as the core of online education platform.*Our aim is to do the experiment, easy to learn IT*.</span><br><span class="line"></span><br><span class="line">Course</span><br><span class="line"></span><br><span class="line">-Basic Course</span><br><span class="line"></span><br><span class="line">-Project Course</span><br><span class="line"></span><br><span class="line">-Evaluation Course</span><br><span class="line"></span><br><span class="line">Contact us</span><br><span class="line"></span><br><span class="line">-Web:http://www.shiyanlou.com</span><br><span class="line"></span><br><span class="line">-QQ Group:241818371</span><br><span class="line"></span><br><span class="line">-E-mail:support@shiyanlou.com</span><br></pre></td></tr></table></figure>
+<h1 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h1><h2 id="纯文本文件"><a href="#纯文本文件" class="headerlink" title="纯文本文件:"></a>纯文本文件:</h2><pre>
+Welcome to ShiYanLou
+
+ShiYanLou is the first experiment with IT as the core of online education platform.*Our aim is to do the experiment, easy to learn IT*.
+
+Course
+
+-Basic Course
+
+-Project Course
+
+-Evaluation Course
+
+Contact us
+
+-Web:http://www.shiyanlou.com
+
+-QQ Group:241818371
+
+-E-mail:support@shiyanlou.com
+
+</pre>
+
 <h2 id="解析后HTML页面"><a href="#解析后HTML页面" class="headerlink" title="解析后HTML页面:"></a>解析后HTML页面:</h2><p><img src="https://dn-anything-about-doc.qbox.me/python_markup/1.png" alt="test.html"></p>
 <h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="文本块生成器"><a href="#文本块生成器" class="headerlink" title="文本块生成器"></a>文本块生成器</h2><p>首先需要有一个文本块生成器把纯文本分成一个一个文本块，以便接下来对每一个文本块进行解析，util.py代码如下:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># encoding: utf-8</span><br><span class="line"></span><br><span class="line">def lines(file):</span><br><span class="line">    &apos;&apos;&apos;生成器，在文本最后加一空行&apos;&apos;&apos;</span><br><span class="line">    for line in file:</span><br><span class="line">        yield line</span><br><span class="line">    yield &apos;\n&apos;</span><br><span class="line"></span><br><span class="line">def blocks(file):</span><br><span class="line">    &apos;&apos;&apos;生成器，生成单独的文本块&apos;&apos;&apos;</span><br><span class="line">    block = []</span><br><span class="line">    for line in lines(file):</span><br><span class="line">        if line.strip():</span><br><span class="line">            block.append(line)</span><br><span class="line">        elif block:</span><br><span class="line">            yield &apos;&apos;.join(block).strip()</span><br><span class="line">            block = []</span><br></pre></td></tr></table></figure>
