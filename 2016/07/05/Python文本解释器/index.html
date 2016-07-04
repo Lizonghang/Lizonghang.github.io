@@ -1,0 +1,571 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="实现了一个使用Python来解析纯文本文件来生成一个HTML页面的程序，即TXT文本转Markdown。功能不是很完善，其他转换可用类似的方法实现。
+效果展示纯文本文件:12345678910111213141516171819Welcome to ShiYanLouShiYanLou is the first experiment with IT as the core of online ed">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python文本解释器">
+<meta property="og:url" content="http://desckie.com/2016/07/05/Python文本解释器/index.html">
+<meta property="og:site_name" content="努力学习天天向上">
+<meta property="og:description" content="实现了一个使用Python来解析纯文本文件来生成一个HTML页面的程序，即TXT文本转Markdown。功能不是很完善，其他转换可用类似的方法实现。
+效果展示纯文本文件:12345678910111213141516171819Welcome to ShiYanLouShiYanLou is the first experiment with IT as the core of online ed">
+<meta property="og:image" content="https://dn-anything-about-doc.qbox.me/python_markup/1.png">
+<meta property="og:updated_time" content="2016-07-04T16:56:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python文本解释器">
+<meta name="twitter:description" content="实现了一个使用Python来解析纯文本文件来生成一个HTML页面的程序，即TXT文本转Markdown。功能不是很完善，其他转换可用类似的方法实现。
+效果展示纯文本文件:12345678910111213141516171819Welcome to ShiYanLouShiYanLou is the first experiment with IT as the core of online ed">
+<meta name="twitter:image" content="https://dn-anything-about-doc.qbox.me/python_markup/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Python文本解释器 | 努力学习天天向上 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80234286-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">努力学习天天向上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">开发学习日志</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Python文本解释器
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-05T00:38:52+08:00" content="2016-07-05">
+              2016-07-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>实现了一个使用Python来解析纯文本文件来生成一个HTML页面的程序，即TXT文本转Markdown。功能不是很完善，其他转换可用类似的方法实现。</p>
+<h1 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h1><h2 id="纯文本文件"><a href="#纯文本文件" class="headerlink" title="纯文本文件:"></a>纯文本文件:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Welcome to ShiYanLou</span><br><span class="line"></span><br><span class="line">ShiYanLou is the first experiment with IT as the core of online education platform.*Our aim is to do the experiment, easy to learn IT*.</span><br><span class="line"></span><br><span class="line">Course</span><br><span class="line"></span><br><span class="line">-Basic Course</span><br><span class="line"></span><br><span class="line">-Project Course</span><br><span class="line"></span><br><span class="line">-Evaluation Course</span><br><span class="line"></span><br><span class="line">Contact us</span><br><span class="line"></span><br><span class="line">-Web:http://www.shiyanlou.com</span><br><span class="line"></span><br><span class="line">-QQ Group:241818371</span><br><span class="line"></span><br><span class="line">-E-mail:support@shiyanlou.com</span><br></pre></td></tr></table></figure>
+<h2 id="解析后HTML页面"><a href="#解析后HTML页面" class="headerlink" title="解析后HTML页面:"></a>解析后HTML页面:</h2><p><img src="https://dn-anything-about-doc.qbox.me/python_markup/1.png" alt="test.html"></p>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="文本块生成器"><a href="#文本块生成器" class="headerlink" title="文本块生成器"></a>文本块生成器</h2><p>首先需要有一个文本块生成器把纯文本分成一个一个文本块，以便接下来对每一个文本块进行解析，util.py代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># encoding: utf-8</span><br><span class="line"></span><br><span class="line">def lines(file):</span><br><span class="line">    &apos;&apos;&apos;生成器，在文本最后加一空行&apos;&apos;&apos;</span><br><span class="line">    for line in file:</span><br><span class="line">        yield line</span><br><span class="line">    yield &apos;\n&apos;</span><br><span class="line"></span><br><span class="line">def blocks(file):</span><br><span class="line">    &apos;&apos;&apos;生成器，生成单独的文本块&apos;&apos;&apos;</span><br><span class="line">    block = []</span><br><span class="line">    for line in lines(file):</span><br><span class="line">        if line.strip():</span><br><span class="line">            block.append(line)</span><br><span class="line">        elif block:</span><br><span class="line">            yield &apos;&apos;.join(block).strip()</span><br><span class="line">            block = []</span><br></pre></td></tr></table></figure>
+<h2 id="处理程序"><a href="#处理程序" class="headerlink" title="处理程序"></a>处理程序</h2><p>通过文本生成器得到了一个一个的文本块，然后需要有处理程序对不同的文本块添加相应的HTML标记，handlers.py代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># encoding: utf-8</span><br><span class="line"></span><br><span class="line">class Handler:</span><br><span class="line">    &apos;&apos;&apos;处理程序父类&apos;&apos;&apos;</span><br><span class="line">    def callback(self, prefix, name, *args):</span><br><span class="line">        method = getattr(self, prefix+name, None) # 检查是否有对应类型的方法</span><br><span class="line">        if callable(method): # 检查函数是否可调用，若可调用，执行调用函数并返回结果</span><br><span class="line">			return method(*args)</span><br><span class="line"></span><br><span class="line">	def start(self, name):</span><br><span class="line">		self.callback(&apos;start_&apos;, name)</span><br><span class="line"></span><br><span class="line">	def end(self, name):</span><br><span class="line">		self.callback(&apos;end_&apos;, name)</span><br><span class="line"></span><br><span class="line">    def sub(self, name):</span><br><span class="line">		def substitution(match):</span><br><span class="line">            result = self.callback(&apos;sub_&apos;, name, match) # 若有相应处理函数，就替换文本并返回给result</span><br><span class="line">            if result is None: # 否则给result赋原文</span><br><span class="line">				result = match.group(0)</span><br><span class="line">			return result</span><br><span class="line">		return substitution</span><br><span class="line"></span><br><span class="line">class HTMLRenderer(Handler):</span><br><span class="line">	&apos;&apos;&apos;HTML处理程序,给文本块加相应的HTML标记&apos;&apos;&apos;</span><br><span class="line">	def start_document(self):</span><br><span class="line">		print &apos;&lt;html&gt;&lt;head&gt;&lt;title&gt;TXT to Markdown&lt;/title&gt;&lt;/head&gt;&lt;/html&gt;&lt;body&gt;&apos;</span><br><span class="line"></span><br><span class="line">	def end_document(self):</span><br><span class="line">		print &apos;&lt;/body&gt;&lt;/html&gt;&apos;</span><br><span class="line"></span><br><span class="line">	def start_paragraph(self):</span><br><span class="line">		print &apos;&lt;p style=&quot;color: #444&quot;&gt;&apos;</span><br><span class="line"></span><br><span class="line">	def end_paragraph(self):</span><br><span class="line">		print &apos;&lt;/p&gt;&apos;</span><br><span class="line"></span><br><span class="line">	def start_heading(self):</span><br><span class="line">		print &apos;&lt;h2 style=&quot;color: #68BE5D;&quot;&gt;&apos;</span><br><span class="line"></span><br><span class="line">	def end_heading(self):</span><br><span class="line">		print &apos;&lt;/h2&gt;&apos;</span><br><span class="line"></span><br><span class="line">	def start_list(self):</span><br><span class="line">		print &apos;&lt;ul style=&quot;color: #363736;&quot;&gt;&apos;</span><br><span class="line"></span><br><span class="line">	def end_list(self):</span><br><span class="line">		print &apos;&lt;/ul&gt;&apos;</span><br><span class="line"></span><br><span class="line">	def start_listitem(self):</span><br><span class="line">		print &apos;&lt;li&gt;&apos;</span><br><span class="line"></span><br><span class="line">	def end_listitem(self):</span><br><span class="line">		print &apos;&lt;/li&gt;&apos;</span><br><span class="line"></span><br><span class="line">	def start_title(self):</span><br><span class="line">		print &apos;&lt;h1 style=&quot;color: #1ABC9C;&quot;&gt;&apos;</span><br><span class="line"></span><br><span class="line">	def end_title(self):</span><br><span class="line">		print &apos;&lt;/h1&gt;&apos;</span><br><span class="line"></span><br><span class="line">	def sub_emphasis(self, match):</span><br><span class="line">		return &apos;&lt;em&gt;%s&lt;/em&gt;&apos; % match.group(1)</span><br><span class="line"></span><br><span class="line">	def sub_url(self, match):</span><br><span class="line">		return &apos;&lt;a target=&quot;_blank&quot; style=&quot;text-decoration: none;color: #BC1A4B;&quot; href=&quot;%s&quot;&gt;%s&lt;/a&gt;&apos; % (match.group(1), match.group(1))</span><br><span class="line"></span><br><span class="line">	def sub_mail(self, match):</span><br><span class="line">		return &apos;&lt;a style=&quot;text-decoration: none;color: #BC1A4B;&quot; href=&quot;mailto:%s&quot;&gt;%s&lt;/a&gt;&apos; % (match.group(1), match.group(1))</span><br><span class="line"></span><br><span class="line">	def feed(self, data):</span><br><span class="line">		print data</span><br></pre></td></tr></table></figure>
+<h2 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h2><p>有了处理程序和文本块生成器，接下来就需要一定的规则来判断每个文本块交给处理程序时要加什么标记，rules.py代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># encoding: utf-8</span><br><span class="line"></span><br><span class="line">class Rule:</span><br><span class="line">    def action(self, block, handler): # 包装数据块</span><br><span class="line">		&apos;&apos;&apos;加标记&apos;&apos;&apos;</span><br><span class="line">        handler.start(self.type) # 标签头</span><br><span class="line">        handler.feed(block) # 数据块</span><br><span class="line">        handler.end(self.type) # 标签尾</span><br><span class="line">		return True</span><br><span class="line"></span><br><span class="line">class HeadingRule(Rule):</span><br><span class="line">	&apos;&apos;&apos;一号标题规则&apos;&apos;&apos;</span><br><span class="line">	type = &apos;heading&apos;</span><br><span class="line">	def condition(self, block):</span><br><span class="line">		&apos;&apos;&apos;判断文本块是否符合规则&apos;&apos;&apos;</span><br><span class="line">		return not &apos;\n&apos; in block and len(block) &lt;= 70 and not block[-1] == &apos;:&apos;</span><br><span class="line"></span><br><span class="line">class TitleRule(HeadingRule):</span><br><span class="line">	&apos;&apos;&apos;二号标题规则&apos;&apos;&apos;</span><br><span class="line">	type = &apos;title&apos;</span><br><span class="line">	first = True</span><br><span class="line">	def condition(self, block):</span><br><span class="line">		if not self.first:</span><br><span class="line">			return False</span><br><span class="line">		self.first = False;</span><br><span class="line">		return HeadingRule.condition(self, block)</span><br><span class="line"></span><br><span class="line">class ListItemRule(Rule):</span><br><span class="line">	&apos;&apos;&apos;列表项规则&apos;&apos;&apos;</span><br><span class="line">	type = &apos;listitem&apos;</span><br><span class="line">    def condition(self, block): # 以&apos;-&apos;开头的数据块是列表项</span><br><span class="line">		return block[0] == &apos;-&apos;</span><br><span class="line"></span><br><span class="line">    def action(self, block, handler): # 重写包装函数</span><br><span class="line">		handler.start(self.type)</span><br><span class="line">		handler.feed(block[1:].strip())</span><br><span class="line">		handler.end(self.type)</span><br><span class="line">		return True</span><br><span class="line"></span><br><span class="line">class ListRule(ListItemRule):</span><br><span class="line">	&apos;&apos;&apos;列表规则&apos;&apos;&apos;</span><br><span class="line">	type = &apos;list&apos;</span><br><span class="line">	inside = False</span><br><span class="line">	def condition(self, block):</span><br><span class="line">		return True</span><br><span class="line"></span><br><span class="line">	def action(self, block, handler):</span><br><span class="line">		if not self.inside and ListItemRule.condition(self, block):</span><br><span class="line">			handler.start(self.type)</span><br><span class="line">			self.inside = True</span><br><span class="line">		elif self.inside and not ListItemRule.condition(self, block):</span><br><span class="line">			handler.end(self.type)</span><br><span class="line">			self.inside = False</span><br><span class="line">		return False</span><br><span class="line"></span><br><span class="line">class ParagraphRule(Rule):</span><br><span class="line">	&apos;&apos;&apos;段落规则&apos;&apos;&apos;</span><br><span class="line">	type = &apos;paragraph&apos;</span><br><span class="line">	def condition(self, block):</span><br><span class="line">		return True</span><br></pre></td></tr></table></figure>
+<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p>最后就可以在主函数中进行解析了，markup.py代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># encoding: utf-8</span><br><span class="line"></span><br><span class="line">import sys, re</span><br><span class="line">from handlers import *</span><br><span class="line">from util import *</span><br><span class="line">from rules import *</span><br><span class="line"></span><br><span class="line">class Parser:</span><br><span class="line">	&apos;&apos;&apos;解析器父类&apos;&apos;&apos;</span><br><span class="line">	def __init__(self, handler):</span><br><span class="line">		self.handler = handler</span><br><span class="line">		self.rules = []</span><br><span class="line">		self.filters = []</span><br><span class="line"></span><br><span class="line">	def addRule(self, rule):</span><br><span class="line">		self.rules.append(rule)</span><br><span class="line"></span><br><span class="line">	def addFilter(self, pattern, name):</span><br><span class="line">		def filter(block, handler):</span><br><span class="line">			return re.sub(pattern, handler.sub(name), block)</span><br><span class="line">		self.filters.append(filter)</span><br><span class="line"></span><br><span class="line">	def parse(self, file):</span><br><span class="line">        self.handler.start(&apos;document&apos;) # 初始html部分</span><br><span class="line">		for block in blocks(file):</span><br><span class="line">			for filter in self.filters:</span><br><span class="line">                block = filter(block, self.handler) # 过滤block中的关键符号，em，url，email等</span><br><span class="line">			for rule in self.rules:</span><br><span class="line">                if rule.condition(block): # 如果满足替换规则，给block添加相应标签</span><br><span class="line">					last = rule.action(block, self.handler)</span><br><span class="line">					if last:	break</span><br><span class="line">        self.handler.end(&apos;document&apos;) # html结尾部分</span><br><span class="line"></span><br><span class="line">class BasicTextParser(Parser):</span><br><span class="line">	&apos;&apos;&apos;纯文本解析器&apos;&apos;&apos;</span><br><span class="line">	def __init__(self, handler):</span><br><span class="line">        Parser.__init__(self, handler) # 父类初始化</span><br><span class="line">        self.addRule(ListRule()) # 添加规则</span><br><span class="line">		self.addRule(ListItemRule())</span><br><span class="line">		self.addRule(TitleRule())</span><br><span class="line">		self.addRule(HeadingRule())</span><br><span class="line">		self.addRule(ParagraphRule())</span><br><span class="line">        self.addFilter(r&apos;\*(.+?)\*&apos;, &apos;emphasis&apos;) # 添加过滤器</span><br><span class="line">		self.addFilter(r&apos;(http://[\.a-zA-Z/]+)&apos;, &apos;url&apos;)</span><br><span class="line">		self.addFilter(r&apos;([\.a-zA-Z]+@[\.a-zA-Z]+[a-zA-Z]+)&apos;, &apos;mail&apos;)</span><br><span class="line"></span><br><span class="line"># 主程序</span><br><span class="line">handler = HTMLRenderer()</span><br><span class="line">parser = BasicTextParser(handler)</span><br><span class="line">parser.parse(sys.stdin)</span><br></pre></td></tr></table></figure>
+<h1 id="运行程序"><a href="#运行程序" class="headerlink" title="运行程序"></a>运行程序</h1><p>假设纯文本文件为test.txt，生成HTML文件为test.html:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python markup.py &lt; test.txt &gt; test.html</span><br></pre></td></tr></table></figure>
+<p>需要注意的是，命令中<code>&lt;和&gt;</code>是stdin和stdout的标识，而不是将test.txt扩起的意思。</p>
+<p>可自行扩展其他的转换功能，以实现类似于Mou的功能。关于markdown的使用和说明可参考<a href="http://www.appinn.com/markdown/" target="_blank" rel="external">markdown语法说明(简明中文版)</a>。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/04/module-argparse/" rel="next" title="module-argparse">
+                <i class="fa fa-chevron-left"></i> module-argparse
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="李宗航" />
+          <p class="site-author-name" itemprop="name">李宗航</p>
+          <p class="site-description motion-element" itemprop="description">开发学习日志</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives/">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizonghang/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#效果展示"><span class="nav-number">1.</span> <span class="nav-text">效果展示</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#纯文本文件"><span class="nav-number">1.1.</span> <span class="nav-text">纯文本文件:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解析后HTML页面"><span class="nav-number">1.2.</span> <span class="nav-text">解析后HTML页面:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码实现"><span class="nav-number">2.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文本块生成器"><span class="nav-number">2.1.</span> <span class="nav-text">文本块生成器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理程序"><span class="nav-number">2.2.</span> <span class="nav-text">处理程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#规则"><span class="nav-number">2.3.</span> <span class="nav-text">规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解析"><span class="nav-number">2.4.</span> <span class="nav-text">解析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行程序"><span class="nav-number">3.</span> <span class="nav-text">运行程序</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李宗航</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
