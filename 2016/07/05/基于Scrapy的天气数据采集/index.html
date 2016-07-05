@@ -1,0 +1,614 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="很多网站都提供了浏览者本地的天气信息，这些信息大多是利用某些网站提供的天气API获取的，也有利用爬虫采集的。本文介绍如何用Scrapy来采集天气信息。天气信息来源为新浪天气频道。本文提取“国内”栏目的天气信息。
+Scrapy是Python开发的一个快速,高层次的屏幕抓取和web抓取框架，用于抓取web站点并从页面中提取结构化的数据。用途广泛，可以用于数据挖掘、监测和自动化测试。
+如果你还没有安装S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于Scrapy的天气数据采集">
+<meta property="og:url" content="http://desckie.com/2016/07/05/基于Scrapy的天气数据采集/index.html">
+<meta property="og:site_name" content="努力学习天天向上">
+<meta property="og:description" content="很多网站都提供了浏览者本地的天气信息，这些信息大多是利用某些网站提供的天气API获取的，也有利用爬虫采集的。本文介绍如何用Scrapy来采集天气信息。天气信息来源为新浪天气频道。本文提取“国内”栏目的天气信息。
+Scrapy是Python开发的一个快速,高层次的屏幕抓取和web抓取框架，用于抓取web站点并从页面中提取结构化的数据。用途广泛，可以用于数据挖掘、监测和自动化测试。
+如果你还没有安装S">
+<meta property="og:image" content="http://desckie.com/images/weather_tree.png">
+<meta property="og:image" content="http://desckie.com/images/item.png">
+<meta property="og:image" content="http://desckie.com/images/province.png">
+<meta property="og:image" content="http://desckie.com/images/province_code.png">
+<meta property="og:image" content="http://desckie.com/images/county.png">
+<meta property="og:image" content="http://desckie.com/images/county_code.png">
+<meta property="og:image" content="http://desckie.com/images/csverr.png">
+<meta property="og:image" content="http://desckie.com/images/csv1.png">
+<meta property="og:image" content="http://desckie.com/images/csv2.png">
+<meta property="og:updated_time" content="2016-07-05T07:45:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于Scrapy的天气数据采集">
+<meta name="twitter:description" content="很多网站都提供了浏览者本地的天气信息，这些信息大多是利用某些网站提供的天气API获取的，也有利用爬虫采集的。本文介绍如何用Scrapy来采集天气信息。天气信息来源为新浪天气频道。本文提取“国内”栏目的天气信息。
+Scrapy是Python开发的一个快速,高层次的屏幕抓取和web抓取框架，用于抓取web站点并从页面中提取结构化的数据。用途广泛，可以用于数据挖掘、监测和自动化测试。
+如果你还没有安装S">
+<meta name="twitter:image" content="http://desckie.com/images/weather_tree.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 基于Scrapy的天气数据采集 | 努力学习天天向上 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80234286-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">努力学习天天向上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">开发学习日志</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                基于Scrapy的天气数据采集
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-05T14:09:01+08:00" content="2016-07-05">
+              2016-07-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>很多网站都提供了浏览者本地的天气信息，这些信息大多是利用某些网站提供的天气API获取的，也有利用爬虫采集的。本文介绍如何用Scrapy来采集天气信息。天气信息来源为<a href="http://weather.sina.com.cn/" target="_blank" rel="external">新浪天气频道</a>。本文提取“国内”栏目的天气信息。</p>
+<p>Scrapy是Python开发的一个快速,高层次的屏幕抓取和web抓取框架，用于抓取web站点并从页面中提取结构化的数据。用途广泛，可以用于数据挖掘、监测和自动化测试。</p>
+<p>如果你还没有安装Scrapy，请参考官方的<a href="http://doc.scrapy.org/en/latest/intro/install.html" target="_blank" rel="external">安装向导</a>或在网上查找安装方法。</p>
+<h1 id="创建Scrapy项目"><a href="#创建Scrapy项目" class="headerlink" title="创建Scrapy项目"></a>创建Scrapy项目</h1><p>在开始爬取之前，需要创建一个scrapy项目。进入需要存储代码的目录，执行命令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ scrapy startproject weather</span><br></pre></td></tr></table></figure>
+<p>正常初始化的文件内容应该是这样的:</p>
+<p><img src="/images/weather_tree.png" alt="weather-dir"></p>
+<h1 id="定义Item"><a href="#定义Item" class="headerlink" title="定义Item"></a>定义Item</h1><p>Item是保存爬取到的数据的容器，使用方法和Python字典相似，并且提供了额外的保护机制来避免拼写错误导致的未定义字段错误。</p>
+<p>首先需要根据从<code><a href="http://weather.sina.com.cn/china/" target="_blank" rel="external">http://weather.sina.com.cn/china/</a></code>中获取到的数据对item进行建模。需要的内容如图:</p>
+<p><img src="/images/item.png" alt="item"></p>
+<p>编辑weather/items.py文件:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">import scrapy</span><br><span class="line"></span><br><span class="line">class WeatherItem(scrapy.Item):</span><br><span class="line">    county = scrapy.Field() # 县/区</span><br><span class="line">    weather_day = scrapy.Field() # 白天天气</span><br><span class="line">    wind_day = scrapy.Field() # 白天风向</span><br><span class="line">    temperate_max = scrapy.Field() # 最高温度</span><br><span class="line">    weather_night = scrapy.Field() # 夜间天气</span><br><span class="line">    wind_night = scrapy.Field() # 夜间风向</span><br><span class="line">    temperate_min = scrapy.Field() # 最低温度</span><br></pre></td></tr></table></figure>
+<h1 id="编写Spider"><a href="#编写Spider" class="headerlink" title="编写Spider"></a>编写Spider</h1><p>Spider是用户编写的用于从单个或多个网页中爬取数据的类。为了创建一个Spider，必须继承scrapy.Spider类，且定义以下三个属性:</p>
+<ul>
+<li>name - 用于区别Spider。该名字必须是唯一的，不可以给不同的Spider使用相同的名字。</li>
+<li>start_urls - 包含了Spider在启动时爬取的url列表。是Spider第一轮爬取的链接。后续的URL则从初始URL获取到的数据中提取。</li>
+<li>parse(self, response) - 被调用时，每个初始URL完成下载后生成的Response对象将会作为唯一的参数传递给该函数。该方法负责解析返回的数据，提取数据以及生成需要进一步处理的URL的Request对象。</li>
+</ul>
+<p>首先分析一下需要爬取的数据的位置和网页源代码:</p>
+<p><img src="/images/province.png" alt="province"></p>
+<p><img src="/images/province_code.png" alt="code"></p>
+<p>我们可以看到，全国城市都位于一个<code>class=”wd_piC”</code>的<code>div</code>中的<code>a</code>标签中，于是我们可以使用如下代码来提取各省份的链接。保存于weather/spiders目录下的localweather.py文件中:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def parse(self, response):</span><br><span class="line">    selector = scrapy.Selector(response)</span><br><span class="line">    for num in selector.xpath(&apos;//div[@class=&quot;wd_piC&quot;]&apos;):</span><br><span class="line">        for province in num.xpath(&apos;a&apos;):</span><br><span class="line">            self.provinces.append(province.xpath(&apos;@href&apos;).extract()[0])</span><br><span class="line">    yield Request(self.provinces.pop(), callback=self.getCountyWeather)</span><br></pre></td></tr></table></figure>
+<p>上述操作将所有省份的链接提取出来，存储到一个叫<code>provinces</code>的列表中，然后从中取出一个链接，进行下一次爬取。在编写回调函数getCountyWeather之前，先查看数据的位置和网页源代码:</p>
+<p><img src="/images/county.png" alt="county"></p>
+<p><img src="/images/county_code.png" alt="code"></p>
+<p>我们需要的信息在多个<code>class=”wd_cm_table”</code>的<code>table</code>标签中，每条信息又在其中的多个<code>tr</code>标签中，最后标签<code>td</code>中含有我们需要的信息。</p>
+<p>用于获取这些信息的方法getCountyWeather()代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">def getCountyWeather(self, response):</span><br><span class="line">    item = WeatherItem()</span><br><span class="line">    selector = scrapy.Selector(response)</span><br><span class="line">    for table in selector.xpath(&apos;//table[@class=&quot;wd_cm_table&quot;]&apos;):</span><br><span class="line">        for each_row in table.xpath(&apos;tr&apos;):</span><br><span class="line">            tds = each_row.xpath(&apos;td&apos;)</span><br><span class="line">            item[&apos;county&apos;] = tds[0].xpath(&apos;a/text()&apos;).extract()[0]</span><br><span class="line">            item[&apos;weather_day&apos;] = tds[1].xpath(&apos;p/text()&apos;).extract()[0]</span><br><span class="line">            item[&apos;wind_day&apos;] = tds[2].xpath(&apos;text()&apos;).extract()[0]</span><br><span class="line">            item[&apos;temperate_max&apos;] = tds[3].xpath(&apos;text()&apos;).extract()[0]</span><br><span class="line">            item[&apos;weather_night&apos;] = tds[4].xpath(&apos;p/text()&apos;).extract()[0]</span><br><span class="line">            item[&apos;wind_night&apos;] = tds[5].xpath(&apos;text()&apos;).extract()[0]</span><br><span class="line">            item[&apos;temperate_min&apos;] = tds[6].xpath(&apos;text()&apos;).extract()[0]</span><br><span class="line">            yield item</span><br><span class="line">    if len(self.provinces) &gt; 0:</span><br><span class="line">        yield Request(self.provinces.pop(), callback=self.getCountyWeather)</span><br><span class="line">    else:</span><br><span class="line">        print &apos;The Spider Has Finished Its Work! Wish To Meet U Later!&apos;</span><br></pre></td></tr></table></figure>
+<h1 id="整体代码"><a href="#整体代码" class="headerlink" title="整体代码"></a>整体代码</h1><p>localweather.py中的全部代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># encoding: utf-8</span><br><span class="line">import scrapy</span><br><span class="line">from scrapy.http import Request</span><br><span class="line">from weather.items import WeatherItem</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class WeatherSpider(scrapy.Spider):</span><br><span class="line">    name = &apos;WeatherSpider&apos;</span><br><span class="line">    allowed_domains = [&apos;sina.com.cn&apos;]</span><br><span class="line">    start_urls = [&apos;http://weather.sina.com.cn/china/&apos;]</span><br><span class="line">    provinces = []</span><br><span class="line"></span><br><span class="line">    def parse(self, response):</span><br><span class="line">        selector = scrapy.Selector(response)</span><br><span class="line">        for num in selector.xpath(&apos;//div[@class=&quot;wd_piC&quot;]&apos;):</span><br><span class="line">            for province in num.xpath(&apos;a&apos;):</span><br><span class="line">                self.provinces.append(province.xpath(&apos;@href&apos;).extract()[0])</span><br><span class="line">        yield Request(self.provinces.pop(), callback=self.getCountyWeather)</span><br><span class="line"></span><br><span class="line">    def getCountyWeather(self, response):</span><br><span class="line">        item = WeatherItem()</span><br><span class="line">        selector = scrapy.Selector(response)</span><br><span class="line">        for table in selector.xpath(&apos;//table[@class=&quot;wd_cm_table&quot;]&apos;):</span><br><span class="line">            for each_row in table.xpath(&apos;tr&apos;):</span><br><span class="line">                tds = each_row.xpath(&apos;td&apos;)</span><br><span class="line">                item[&apos;county&apos;] = tds[0].xpath(&apos;a/text()&apos;).extract()[0]</span><br><span class="line">                item[&apos;weather_day&apos;] = tds[1].xpath(&apos;p/text()&apos;).extract()[0]</span><br><span class="line">                item[&apos;wind_day&apos;] = tds[2].xpath(&apos;text()&apos;).extract()[0]</span><br><span class="line">                item[&apos;temperate_max&apos;] = tds[3].xpath(&apos;text()&apos;).extract()[0]</span><br><span class="line">                item[&apos;weather_night&apos;] = tds[4].xpath(&apos;p/text()&apos;).extract()[0]</span><br><span class="line">                item[&apos;wind_night&apos;] = tds[5].xpath(&apos;text()&apos;).extract()[0]</span><br><span class="line">                item[&apos;temperate_min&apos;] = tds[6].xpath(&apos;text()&apos;).extract()[0]</span><br><span class="line">                yield item</span><br><span class="line">        if len(self.provinces) &gt; 0:</span><br><span class="line">            yield Request(self.provinces.pop(), callback=self.getCountyWeather)</span><br><span class="line">        else:</span><br><span class="line">            print &apos;The Spider Has Finished Its Work! Wish To Meet U Later!&apos;</span><br></pre></td></tr></table></figure>
+<h1 id="数据导出"><a href="#数据导出" class="headerlink" title="数据导出"></a>数据导出</h1><p>存储到Item中的数据可以导出为JSON/JSON lines/CSV/XML格式的文件。以导出为CSV文件为例，其他的请参考<a href="http://doc.scrapy.org/en/1.1/topics/feed-exports.html" target="_blank" rel="external">官方说明</a>。需要修改weather/settings.py中的配置，在配置最后添加代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FEED_URI = u&apos;~/Desktop/Weather.csv&apos; # 存储csv文件的目录，可任意修改</span><br><span class="line">FEED_FORMAT = &apos;CSV&apos; # 存储格式为csv，可修改为json等其他格式</span><br></pre></td></tr></table></figure>
+<p>随后，在项目的scrapt.cfg文件同级目录下使用命令，运行爬虫:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ scrapy crawl WeatherSpider</span><br></pre></td></tr></table></figure>
+<p>等待运行结束，得到一个csv文件如下所示，显示为乱码，这是由于编码问题造成的:</p>
+<p><img src="/images/csverr.png" alt="csv"></p>
+<p>将csv文件用Sublime Text打开，点击File-&gt;Save with Encoding-&gt;UTF-8 with BOM，再用Excel打开，即可恢复正常。该文件中包含了全国所有城市的天气情况。</p>
+<p><img src="/images/csv1.png" alt="csv"></p>
+<p>然而，csv文件中的顺序并不是按照Items.py中指定的顺序来的，可作如下修改:</p>
+<p>第一步:在scrapy的spider同层目录下，新建CsvItemExporter.py文件夹，内容如下(文件名可修改):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from scrapy.conf import settings</span><br><span class="line">from scrapy.contrib.exporter import CsvItemExporter</span><br><span class="line"></span><br><span class="line">class ProjectCsvItemExporter(CsvItemExporter):</span><br><span class="line">    def __init__(self, *args, **kwargs):</span><br><span class="line">        kwargs[&apos;delimiter&apos;] = settings.get(&apos;CSV_DELIMITER&apos;, &apos;,&apos;)</span><br><span class="line">        if settings.get(&apos;FIELDS_TO_EXPORT&apos;, []):</span><br><span class="line">            kwargs[&apos;fields_to_export&apos;] = settings.get(&apos;FIELDS_TO_EXPORT&apos;, [])</span><br><span class="line"></span><br><span class="line">        super(ProjectCsvItemExporter, self).__init__(*args, **kwargs)</span><br></pre></td></tr></table></figure>
+<p>第二步:在settings.py文件末新增如下内容，指定item的field顺序:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">FEED_EXPORTERS = &#123;</span><br><span class="line">    # 项目名.文件名.类名</span><br><span class="line">    &apos;csv&apos;: &apos;weather.CsvItemExporter.ProjectCsvItemExporter&apos;, </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 导出字段顺序</span><br><span class="line">FIELDS_TO_EXPORT = [</span><br><span class="line">    &apos;county&apos;,</span><br><span class="line">    &apos;weather_day&apos;,</span><br><span class="line">    &apos;wind_day&apos;,</span><br><span class="line">    &apos;temperate_max&apos;,</span><br><span class="line">    &apos;weather_night&apos;,</span><br><span class="line">    &apos;wind_night&apos;,</span><br><span class="line">    &apos;temperate_min&apos;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>第三步:再次运行爬虫，获取的csv文件内容如下所示:</p>
+<p><img src="/images/csv2.png" alt="csv"></p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>关于为Item指定中文名的问题作者暂时还未找到类似django model中verbose_name参数的解决方法，若有需要可在程序末对csv文件进行文件IO处理，替换第一行。或者取代scrapy的文件导出，自行将数据导出到csv文件。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/05/Python文本解释器/" rel="next" title="Python文本解释器">
+                <i class="fa fa-chevron-left"></i> Python文本解释器
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="李宗航" />
+          <p class="site-author-name" itemprop="name">李宗航</p>
+          <p class="site-description motion-element" itemprop="description">开发学习日志</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives/">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizonghang/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建Scrapy项目"><span class="nav-number">1.</span> <span class="nav-text">创建Scrapy项目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定义Item"><span class="nav-number">2.</span> <span class="nav-text">定义Item</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编写Spider"><span class="nav-number">3.</span> <span class="nav-text">编写Spider</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#整体代码"><span class="nav-number">4.</span> <span class="nav-text">整体代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据导出"><span class="nav-number">5.</span> <span class="nav-text">数据导出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后"><span class="nav-number">6.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李宗航</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
