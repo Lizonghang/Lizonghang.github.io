@@ -1,0 +1,606 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="使用Image类PIL中最重要的类是Image类，可以通过多种方法创建这个类的实例。可以从文件加载图像，或者处理其他图像，或者从scratch创建。
+要从文件加载图像，可使用Image模块的open()函数:
+12&amp;gt;&amp;gt;&amp;gt; from PIL import Image&amp;gt;&amp;gt;&amp;gt; im = Image.open(&amp;apos;lena.jpg&amp;apos;)
+示例用的图片如下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Quick Start for PIL">
+<meta property="og:url" content="http://desckie.com/2016/07/05/Quick-Start-for-PIL/index.html">
+<meta property="og:site_name" content="努力学习天天向上">
+<meta property="og:description" content="使用Image类PIL中最重要的类是Image类，可以通过多种方法创建这个类的实例。可以从文件加载图像，或者处理其他图像，或者从scratch创建。
+要从文件加载图像，可使用Image模块的open()函数:
+12&amp;gt;&amp;gt;&amp;gt; from PIL import Image&amp;gt;&amp;gt;&amp;gt; im = Image.open(&amp;apos;lena.jpg&amp;apos;)
+示例用的图片如下">
+<meta property="og:image" content="http://desckie.com/images/lena.jpg">
+<meta property="og:image" content="http://desckie.com/images/lena_cut.jpg">
+<meta property="og:image" content="http://desckie.com/images/lena_paste.jpg">
+<meta property="og:image" content="http://desckie.com/images/lena_split.jpg">
+<meta property="og:image" content="http://desckie.com/images/lena_merge.jpg">
+<meta property="og:updated_time" content="2016-07-05T13:44:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Quick Start for PIL">
+<meta name="twitter:description" content="使用Image类PIL中最重要的类是Image类，可以通过多种方法创建这个类的实例。可以从文件加载图像，或者处理其他图像，或者从scratch创建。
+要从文件加载图像，可使用Image模块的open()函数:
+12&amp;gt;&amp;gt;&amp;gt; from PIL import Image&amp;gt;&amp;gt;&amp;gt; im = Image.open(&amp;apos;lena.jpg&amp;apos;)
+示例用的图片如下">
+<meta name="twitter:image" content="http://desckie.com/images/lena.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Quick Start for PIL | 努力学习天天向上 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80234286-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">努力学习天天向上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">开发学习日志</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Quick Start for PIL
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-05T19:41:10+08:00" content="2016-07-05">
+              2016-07-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python-Documentation/" itemprop="url" rel="index">
+                    <span itemprop="name">Python Documentation</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="使用Image类"><a href="#使用Image类" class="headerlink" title="使用Image类"></a>使用Image类</h1><p>PIL中最重要的类是<code>Image</code>类，可以通过多种方法创建这个类的实例。可以从文件加载图像，或者处理其他图像，或者从scratch创建。</p>
+<p>要从文件加载图像，可使用<code>Image</code>模块的<code>open()</code>函数:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from PIL import Image</span><br><span class="line">&gt;&gt;&gt; im = Image.open(&apos;lena.jpg&apos;)</span><br></pre></td></tr></table></figure>
+<p>示例用的图片如下:</p>
+<p><img src="/images/lena.jpg" alt="lena"></p>
+<p>加载成功将返回一个<code>Image</code>对象。可以使用如下命令检查文件内容:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; print im</span><br><span class="line">&lt;PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=500x750 at 0x10B9E3890&gt;</span><br><span class="line">&gt;&gt;&gt; print(im.format, im.size, im.mode)</span><br><span class="line">(&apos;JPEG&apos;, (500, 750), &apos;RGB&apos;)</span><br></pre></td></tr></table></figure>
+<p><code>format</code>这个属性标识了图像来源。如果图像不是从文件读取那它的值为None。<code>size</code>属性是一个二元tuple，包含width和height(单位px)。<code>mode</code>属性定义了图像bands的数量和名称，以及像素类型和深度。常见的modes有“L”(luminance)表示灰度图像，“RGB”表示真彩色图像，“CMYK”表示出版图像。</p>
+<p>如果文件打开错误，则返回<code>IOError</code>错误。</p>
+<p>只要有了<code>Image</code>类的实例，就可以通过类的方法处理图像。比如下面的方法可以用来显示图像:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; im.show()</span><br></pre></td></tr></table></figure>
+<pre>
+注解：标准的<code>show()</code>效率不高，它需要保存图像到临时文件然后通过xv显示图像。
+</pre>
+
+<h1 id="读写图像"><a href="#读写图像" class="headerlink" title="读写图像"></a>读写图像</h1><p>PIL模块支持大量图片格式。使用在<code>Image</code>模块的<code>open()</code>函数从磁盘读取文件。不需要知道文件格式就能打开它，这个库能够根据文件内容自动确定文件格式。</p>
+<p>要保存文件，使用<code>Image</code>类的<code>save()</code>方法。保存文件时文件名变得重要了。除非指定格式，否则这个库将会以文件名的扩展名作为格式保存。</p>
+<h2 id="创建略缩图"><a href="#创建略缩图" class="headerlink" title="创建略缩图"></a>创建略缩图</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from PIL import Image</span><br><span class="line">&gt;&gt;&gt; im = Image.open(&apos;lena.jpg&apos;)</span><br><span class="line">&gt;&gt;&gt; print im.size</span><br><span class="line">(500, 750)</span><br><span class="line">&gt;&gt;&gt; size = (250, 375)</span><br><span class="line">&gt;&gt;&gt; im.thumbnail(size)</span><br><span class="line">&gt;&gt;&gt; print im.size</span><br><span class="line">(250, 375)</span><br></pre></td></tr></table></figure>
+<p>使用<code>thumbnail()</code>方法需要注意的是，指定的<code>size</code>应当比原尺寸小，且转换后的图片比例与原图片比例相同。</p>
+<h2 id="保存图片"><a href="#保存图片" class="headerlink" title="保存图片"></a>保存图片</h2><p>继续执行下述步骤,将转换后的图片保存:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; im.save(&apos;lena_thumbnail.jpg&apos;, &apos;JPEG&apos;)</span><br></pre></td></tr></table></figure>
+<h1 id="剪切、粘贴、合并图像"><a href="#剪切、粘贴、合并图像" class="headerlink" title="剪切、粘贴、合并图像"></a>剪切、粘贴、合并图像</h1><p><code>Image</code>类包含的方法允许操作图像部分选区，使用<code>Image.crop()</code>方法获取图像的一个子矩形选区。</p>
+<h2 id="从图像中复制出一个矩形选区"><a href="#从图像中复制出一个矩形选区" class="headerlink" title="从图像中复制出一个矩形选区"></a>从图像中复制出一个矩形选区</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; print im.size</span><br><span class="line">(500, 750)</span><br><span class="line">&gt;&gt;&gt; box = (100, 100, 400, 400)</span><br><span class="line">&gt;&gt;&gt; region = im.crop(box)</span><br><span class="line">&gt;&gt;&gt; region.show()</span><br></pre></td></tr></table></figure>
+<p>矩形选区有一个四元元组定义，分别表示左上、右下的坐标。这个库以左上角为坐标原点，单位是px，所以上述代码复制了一个 300x300 pixels 的矩形选区。这个选区现在可以被处理并且粘贴到原图。</p>
+<p>剪下来的 300x300px 图片如下所示:</p>
+<p><img src="/images/lena_cut.jpg" alt="lena_cut"></p>
+<h2 id="处理复制的矩形选区并粘贴到原图"><a href="#处理复制的矩形选区并粘贴到原图" class="headerlink" title="处理复制的矩形选区并粘贴到原图"></a>处理复制的矩形选区并粘贴到原图</h2><p>继续上面的步骤:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; region = region.transpose(Image.ROTATE_180)</span><br><span class="line">&gt;&gt;&gt; im.paste(region, box)</span><br><span class="line">&gt;&gt;&gt; im.show()</span><br></pre></td></tr></table></figure>
+<p>当粘贴矩形选区的时候必须保证尺寸一致。此外，矩形选区不能在图像外。然而不必保证矩形选区和原图的颜色模式一致，因为矩形选区会被自动转换颜色。</p>
+<p>效果图如下:</p>
+<p><img src="/images/lena_paste.jpg" alt="lena_paste"></p>
+<h2 id="分离和合并颜色通道"><a href="#分离和合并颜色通道" class="headerlink" title="分离和合并颜色通道"></a>分离和合并颜色通道</h2><p>由于上面例子已经对im进行了改变，我们重新将im指向原图片:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; im = Image.open(&apos;lena.jpg&apos;)</span><br><span class="line">&gt;&gt;&gt; r, g, b = im.split()</span><br></pre></td></tr></table></figure>
+<p>如果是单色通道的图片，使用<code>split()</code>之后会返回图片本身。你可以使用<code>r.show()</code>来查看分离颜色通道后的图片。</p>
+<p><img src="/images/lena_split.jpg" alt="lena_split"></p>
+<p>将分离的颜色合并为RGB可用<code>merge()</code>方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; img = Image.merge(&apos;RGB&apos;, (b, g, r))</span><br><span class="line">&gt;&gt;&gt; img.show()</span><br></pre></td></tr></table></figure>
+<p>以b,g,r顺序合并成的图片如图所示:</p>
+<p><img src="/images/lena_merge.jpg" alt="lena_merge"></p>
+<h1 id="几何变换"><a href="#几何变换" class="headerlink" title="几何变换"></a>几何变换</h1><p>Continue from <a href="http://pillow-cn.readthedocs.io/zh_CN/latest/handbook/tutorial.html#id9" target="_blank" rel="external">几何变换</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/05/基于Scrapy的天气数据采集/" rel="next" title="基于Scrapy的天气数据采集">
+                <i class="fa fa-chevron-left"></i> 基于Scrapy的天气数据采集
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="李宗航" />
+          <p class="site-author-name" itemprop="name">李宗航</p>
+          <p class="site-description motion-element" itemprop="description">开发学习日志</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives/">
+              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizonghang/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Image类"><span class="nav-number">1.</span> <span class="nav-text">使用Image类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#读写图像"><span class="nav-number">2.</span> <span class="nav-text">读写图像</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建略缩图"><span class="nav-number">2.1.</span> <span class="nav-text">创建略缩图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保存图片"><span class="nav-number">2.2.</span> <span class="nav-text">保存图片</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#剪切、粘贴、合并图像"><span class="nav-number">3.</span> <span class="nav-text">剪切、粘贴、合并图像</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#从图像中复制出一个矩形选区"><span class="nav-number">3.1.</span> <span class="nav-text">从图像中复制出一个矩形选区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理复制的矩形选区并粘贴到原图"><span class="nav-number">3.2.</span> <span class="nav-text">处理复制的矩形选区并粘贴到原图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分离和合并颜色通道"><span class="nav-number">3.3.</span> <span class="nav-text">分离和合并颜色通道</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#几何变换"><span class="nav-number">4.</span> <span class="nav-text">几何变换</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李宗航</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
