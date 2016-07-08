@@ -57,16 +57,21 @@
 
 
 
-<meta name="description" content="开发学习日志">
+<meta name="description" content="本项目使用PIL库及向量空间搜索引擎理论实现验证码破解。先下载实验用文件便于解释图片解析的原理12$ wget http://labfile.oss.aliyuncs.com/courses/364/python_captcha.zip$ unzip python_captcha.zip
+或直接访问http://labfile.oss.aliyuncs.com/courses/364/python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python破解验证码">
 <meta property="og:url" content="http://desckie.com/2016/07/09/Python破解验证码/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="开发学习日志">
-<meta property="og:updated_time" content="2016-07-08T16:22:59.000Z">
+<meta property="og:description" content="本项目使用PIL库及向量空间搜索引擎理论实现验证码破解。先下载实验用文件便于解释图片解析的原理12$ wget http://labfile.oss.aliyuncs.com/courses/364/python_captcha.zip$ unzip python_captcha.zip
+或直接访问http://labfile.oss.aliyuncs.com/courses/364/python">
+<meta property="og:image" content="http://desckie.com/images/captcha.gif">
+<meta property="og:updated_time" content="2016-07-08T16:43:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python破解验证码">
-<meta name="twitter:description" content="开发学习日志">
+<meta name="twitter:description" content="本项目使用PIL库及向量空间搜索引擎理论实现验证码破解。先下载实验用文件便于解释图片解析的原理12$ wget http://labfile.oss.aliyuncs.com/courses/364/python_captcha.zip$ unzip python_captcha.zip
+或直接访问http://labfile.oss.aliyuncs.com/courses/364/python">
+<meta name="twitter:image" content="http://desckie.com/images/captcha.gif">
 
 
 
@@ -281,7 +286,17 @@
       
 
       
-        
+        <p>本项目使用<strong>PIL库</strong>及<strong>向量空间搜索引擎理论</strong>实现验证码破解。先下载实验用文件便于解释图片解析的原理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ wget http://labfile.oss.aliyuncs.com/courses/364/python_captcha.zip</span><br><span class="line">$ unzip python_captcha.zip</span><br></pre></td></tr></table></figure></p>
+<p>或直接访问<a href="http://labfile.oss.aliyuncs.com/courses/364/python_captcha.zip并解压。python_captcha目录下的内容有" target="_blank" rel="external">http://labfile.oss.aliyuncs.com/courses/364/python_captcha.zip并解压。python_captcha目录下的内容有</a>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">python_captcha</span><br><span class="line">├── captcha.gif</span><br><span class="line">├── crack.py</span><br><span class="line">├── examples</span><br><span class="line">└── iconset</span><br><span class="line">    ├── 0~9</span><br><span class="line">    ├── a~z</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>captcha.gif - 试验用验证码图片</li>
+<li>crack.py - 即将编写的实现验证码破解的程序</li>
+<li>examples/ - 存放了其他可用于测试的验证码图片</li>
+<li>iconset/ - 存放了训练集，即用于对比的单符号图片</li>
+</ul>
+<p>下图为试验用验证码图片:</p>
+<p><img src="/images/captcha.gif" alt=""></p>
+<h1 id="从文件中提取图片"><a href="#从文件中提取图片" class="headerlink" title="从文件中提取图片"></a>从文件中提取图片</h1>
       
     </div>
 
@@ -424,7 +439,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#从文件中提取图片"><span class="nav-number">1.</span> <span class="nav-text">从文件中提取图片</span></a></li></ol></div>
             
           </div>
         </section>
