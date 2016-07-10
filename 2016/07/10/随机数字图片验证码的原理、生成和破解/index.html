@@ -1,0 +1,601 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="验证码的功能一般是防止使用程序恶意注册、暴力破解或批量发帖而设置的。所谓验证码，就是将一串随机产生的数字或符号，生成一幅图片，图片里加上一些干扰象素（防止OCR），由用户肉眼识别其中的验证码信息，输入表单提交网站验证，验证成功后才能使用某项功能。学习验证码的破解/识别技术，不仅可以知道验证码的原理，而且可以让你知道怎样才能防止验证码被破解。
+常见验证码类型
+
+图片背景和数字都使用相同的颜色，字符规">
+<meta property="og:type" content="article">
+<meta property="og:title" content="随机数字图片验证码的原理、生成和破解">
+<meta property="og:url" content="http://desckie.com/2016/07/10/随机数字图片验证码的原理、生成和破解/index.html">
+<meta property="og:site_name" content="努力学习天天向上">
+<meta property="og:description" content="验证码的功能一般是防止使用程序恶意注册、暴力破解或批量发帖而设置的。所谓验证码，就是将一串随机产生的数字或符号，生成一幅图片，图片里加上一些干扰象素（防止OCR），由用户肉眼识别其中的验证码信息，输入表单提交网站验证，验证成功后才能使用某项功能。学习验证码的破解/识别技术，不仅可以知道验证码的原理，而且可以让你知道怎样才能防止验证码被破解。
+常见验证码类型
+
+图片背景和数字都使用相同的颜色，字符规">
+<meta property="og:image" content="http://desckie.com/images/authtype.png">
+<meta property="og:image" content="http://desckie.com/images/authexam.jpg">
+<meta property="og:image" content="http://desckie.com/images/noise.jpg">
+<meta property="og:image" content="http://desckie.com/images/1336829447_7784.jpg">
+<meta property="og:image" content="http://desckie.com/images/1336829468_5425.jpg">
+<meta property="og:updated_time" content="2016-07-10T09:29:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="随机数字图片验证码的原理、生成和破解">
+<meta name="twitter:description" content="验证码的功能一般是防止使用程序恶意注册、暴力破解或批量发帖而设置的。所谓验证码，就是将一串随机产生的数字或符号，生成一幅图片，图片里加上一些干扰象素（防止OCR），由用户肉眼识别其中的验证码信息，输入表单提交网站验证，验证成功后才能使用某项功能。学习验证码的破解/识别技术，不仅可以知道验证码的原理，而且可以让你知道怎样才能防止验证码被破解。
+常见验证码类型
+
+图片背景和数字都使用相同的颜色，字符规">
+<meta name="twitter:image" content="http://desckie.com/images/authtype.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 随机数字图片验证码的原理、生成和破解 | 努力学习天天向上 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80234286-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">努力学习天天向上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">开发学习日志</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                随机数字图片验证码的原理、生成和破解
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-10T12:52:08+08:00" content="2016-07-10">
+              2016-07-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>验证码的功能一般是防止使用程序恶意注册、暴力破解或批量发帖而设置的。所谓验证码，就是将一串随机产生的数字或符号，生成一幅图片，图片里加上一些干扰象素（防止OCR），由用户肉眼识别其中的验证码信息，输入表单提交网站验证，验证成功后才能使用某项功能。学习验证码的破解/识别技术，不仅可以知道验证码的原理，而且可以让你知道怎样才能防止验证码被破解。</p>
+<h1 id="常见验证码类型"><a href="#常见验证码类型" class="headerlink" title="常见验证码类型"></a>常见验证码类型</h1><p><img src="/images/authtype.png" alt=""></p>
+<ol>
+<li>图片背景和数字都使用相同的颜色，字符规整，字符位置统一</li>
+<li>验证字符规整，颜色相同，排除干扰素容易，只要是非字符色素全部排除即可</li>
+<li>处理背景色和干扰色一直变换，验证字符的颜色也在变化，各个字符的颜色也各不相同</li>
+<li>在第三个基础上，在文字上加了两条直线干扰率，容易去掉</li>
+</ol>
+<h1 id="验证码识别步骤"><a href="#验证码识别步骤" class="headerlink" title="验证码识别步骤"></a>验证码识别步骤</h1><h2 id="取出干扰素"><a href="#取出干扰素" class="headerlink" title="取出干扰素"></a>取出干扰素</h2><p>干扰素的一个重要特征是不能影响验证码的显示效果，所以制作干扰素时它的RGB可能低于或高于某个特定值。比如例子中的图片，干扰素的RGB各项值小于125，依此很容易去掉干扰素。</p>
+<h2 id="取出字模"><a href="#取出字模" class="headerlink" title="取出字模"></a>取出字模</h2><p>由于各个网站的验证码各不相同，最常见的方法是建立验证码的特征码库。取字模时，需要多收集几张图片，使这些图片中包括所有的字符。一般来说有0~9、a~z</p>
+<h2 id="二值化"><a href="#二值化" class="headerlink" title="二值化"></a>二值化</h2><p>把图片上的验证字符上每个像素用一种数字表示1，其他部分用0表示。这样就可以计算每个数字字模，记录下这些字模当作key</p>
+<h2 id="计算特征"><a href="#计算特征" class="headerlink" title="计算特征"></a>计算特征</h2><p>把要识别的图片进行二值化，得到图片特征</p>
+<h2 id="对照样本"><a href="#对照样本" class="headerlink" title="对照样本"></a>对照样本</h2><p>把上一步图片特征码和验证码的字模进行对比，得到验证图片上的数字</p>
+<h1 id="复杂验证码"><a href="#复杂验证码" class="headerlink" title="复杂验证码"></a>复杂验证码</h1><p>识别的目标验证码由字符和数字组成，验证码存在旋转，位置不固定，存在字符与字符之间的粘连，且验证码有更强的干扰素。以下图为例：</p>
+<p><img src="/images/authexam.jpg" alt=""></p>
+<h2 id="二值化-1"><a href="#二值化-1" class="headerlink" title="二值化"></a>二值化</h2><p>把验证码的部分用1表示，背景部分用0表示。识别方法为：打印出验证码图片的RGB，分辨出图片的R值大于120，G和B小于80的像素，依据这个规则把图片二值化。</p>
+<p>常见验证码第三张图片中，验证码的图片每次背景色都不相同，且不是单色，各个验证码数字的颜色每次也各不相同。打印出其 RGB 值很容易就发现。无论验证数字颜色如何变化，该数字的 RGB 值总有一个值小于 125 ，所以通过判断<code> rgbarray[‘red’] &lt; 125 || rgbarray[‘green’] &lt; 125 || rgbarray[‘blue’] &lt; 125 </code>就很容易分辨出数字和背景。</p>
+<p>这些规律的原因是，在制作验证码的干扰素时，为了使干扰素不影响数字的显示效果，必须使干扰素的 RGB 和数字的 RGB 相互独立，互不干扰。依照这个规律就容易实现二值化。</p>
+<p>我们找到的 120 ， 80 ， 125 等阈值，可能和实际的 RGB 有出入，所以，有时二值化后，会有部分地方出现 1 ，对于验证码上固定位置显示数字，这种干扰没有太大意义。但是对于验证码位置不确定的图片来说，在我们切割字符时，很可能造成干扰。所以，在二值化后要进行去噪处理。</p>
+<h2 id="去噪处理"><a href="#去噪处理" class="headerlink" title="去噪处理"></a>去噪处理</h2><p>去噪就是把孤立的有效值去掉。如果一个点为1，则判断这个点的周围一圈上的数字是否为1，若没有则认为是一个噪点，直接设置为0即可。</p>
+<p><img src="/images/noise.jpg" alt=""></p>
+<p>如图所示，红色方框部分的 1 为噪点，直接设置为 0 即可。有时候噪点可能是两个连续的 1 ，可以计算这个点 8 个方向上的值之和，判断和是否小于特定的阈值。</p>
+<h2 id="切割字符"><a href="#切割字符" class="headerlink" title="切割字符"></a>切割字符</h2><p>切割方法有很多种，最简单的一种为竖直切割。先沿垂直方向切割为字符，然后再水平方向去掉多余的 0 。如下图所示</p>
+<p><img src="/images/1336829447_7784.jpg" alt=""></p>
+<p>第一步切割红线部分，第二步切割蓝线部分，就可以得到独立的字符了。但是像下面的情况：</p>
+<p><img src="/images/1336829468_5425.jpg" alt=""></p>
+<p>按上面的方法会把 dw 字符切割成一个字符，这是错误的切割，这里涉及到粘连字符的切割。</p>
+<h2 id="粘连字符切割"><a href="#粘连字符切割" class="headerlink" title="粘连字符切割"></a>粘连字符切割</h2><p>制作验证码时，规则字符的粘连很容易分割开，如果字符本身有缩放，变形就很难处理。上述字符粘连是规则字符的粘连，完成分割操作后，不能马上确定分割的部分为一个字符，要进行验证。验证的关键是切割下来的字符的宽是否大于阈值。阈值的取舍标准是一个字符无论怎么旋转变形都不会大于这个阈值。若切割的块大于这个阈值，可以认为是一个粘连字符；如果大于两个阈值之和，认为是三个字符粘连，以此类推。如果发现粘连字符块，直接平分为两个或多个小块即可。为了更好的还原字符，一般采用平分±1对字符块部分进行适当的补充。</p>
+<h2 id="匹配字符"><a href="#匹配字符" class="headerlink" title="匹配字符"></a>匹配字符</h2><p>最简单的方式是为所有的字符所有情况建立匹配库，目的是现有人工识别图片的验证码，处理后写入特征码库以便匹配。特征码库的图片数据越多，验证识别的准确性就越高。</p>
+<h1 id="制作验证码的建议"><a href="#制作验证码的建议" class="headerlink" title="制作验证码的建议"></a>制作验证码的建议</h1><p>对于识别验证码的程序来说最难的部分是验证码字符的切割和特征码的建立。很多验证码加了很多干扰素和干扰线，不仅影响用户体验还达不到防止破解的很好的效果。若要使验证码难于被程序识别，需要注意：</p>
+<ul>
+<li>字符粘连，最后所有字符都有粘连的部分</li>
+<li>不适用规则字符，验证码的各个部分使用不同比例的缩放或者旋转</li>
+</ul>
+<p>一般实现以上两点或这两点的变性，破解程序就很难识别。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/09/Python破解验证码/" rel="next" title="Python破解验证码">
+                <i class="fa fa-chevron-left"></i> Python破解验证码
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="李宗航" />
+          <p class="site-author-name" itemprop="name">李宗航</p>
+          <p class="site-description motion-element" itemprop="description">开发学习日志</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives/">
+              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizonghang/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常见验证码类型"><span class="nav-number">1.</span> <span class="nav-text">常见验证码类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#验证码识别步骤"><span class="nav-number">2.</span> <span class="nav-text">验证码识别步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#取出干扰素"><span class="nav-number">2.1.</span> <span class="nav-text">取出干扰素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#取出字模"><span class="nav-number">2.2.</span> <span class="nav-text">取出字模</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二值化"><span class="nav-number">2.3.</span> <span class="nav-text">二值化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算特征"><span class="nav-number">2.4.</span> <span class="nav-text">计算特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对照样本"><span class="nav-number">2.5.</span> <span class="nav-text">对照样本</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#复杂验证码"><span class="nav-number">3.</span> <span class="nav-text">复杂验证码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二值化-1"><span class="nav-number">3.1.</span> <span class="nav-text">二值化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#去噪处理"><span class="nav-number">3.2.</span> <span class="nav-text">去噪处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#切割字符"><span class="nav-number">3.3.</span> <span class="nav-text">切割字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#粘连字符切割"><span class="nav-number">3.4.</span> <span class="nav-text">粘连字符切割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匹配字符"><span class="nav-number">3.5.</span> <span class="nav-text">匹配字符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#制作验证码的建议"><span class="nav-number">4.</span> <span class="nav-text">制作验证码的建议</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李宗航</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
