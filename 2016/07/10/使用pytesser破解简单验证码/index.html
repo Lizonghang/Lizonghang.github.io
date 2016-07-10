@@ -1,0 +1,590 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="Tesseract是一款开源 OCR（Optical Character Recognition，光学字符识别）软件。所谓OCR是图像识别领域中一个子领域，该领域专注于对图片中的文字信息进行识别并转换成能被常规文本编辑器编辑的文本。
+Tesseract 已经有30年历史，开始它是惠普实验室的一款专利软件，然后在 2005 年开源，自 2006 年后由 Google 赞助进行后续的开发和维护。在 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用pytesser破解简单验证码">
+<meta property="og:url" content="http://desckie.com/2016/07/10/使用pytesser破解简单验证码/index.html">
+<meta property="og:site_name" content="努力学习天天向上">
+<meta property="og:description" content="Tesseract是一款开源 OCR（Optical Character Recognition，光学字符识别）软件。所谓OCR是图像识别领域中一个子领域，该领域专注于对图片中的文字信息进行识别并转换成能被常规文本编辑器编辑的文本。
+Tesseract 已经有30年历史，开始它是惠普实验室的一款专利软件，然后在 2005 年开源，自 2006 年后由 Google 赞助进行后续的开发和维护。在 1">
+<meta property="og:image" content="http://desckie.com/images/20140811163359656.png">
+<meta property="og:updated_time" content="2016-07-10T13:34:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用pytesser破解简单验证码">
+<meta name="twitter:description" content="Tesseract是一款开源 OCR（Optical Character Recognition，光学字符识别）软件。所谓OCR是图像识别领域中一个子领域，该领域专注于对图片中的文字信息进行识别并转换成能被常规文本编辑器编辑的文本。
+Tesseract 已经有30年历史，开始它是惠普实验室的一款专利软件，然后在 2005 年开源，自 2006 年后由 Google 赞助进行后续的开发和维护。在 1">
+<meta name="twitter:image" content="http://desckie.com/images/20140811163359656.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 使用pytesser破解简单验证码 | 努力学习天天向上 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80234286-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">努力学习天天向上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">开发学习日志</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                使用pytesser破解简单验证码
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-10T20:42:35+08:00" content="2016-07-10">
+              2016-07-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Tesseract是一款开源 OCR（Optical Character Recognition，光学字符识别）软件。所谓OCR是图像识别领域中一个子领域，该领域专注于对图片中的文字信息进行识别并转换成能被常规文本编辑器编辑的文本。</p>
+<p>Tesseract 已经有30年历史，开始它是惠普实验室的一款专利软件，然后在 2005 年开源，自 2006 年后由 Google 赞助进行后续的开发和维护。在 1995 年 Tesseract 曾是世界前三的 OCR 引擎，而且在现在的免费 OCR 引擎中，其识别精度也仍然是出类拔萃的。因为其免费与较好的效果，许多的个人开发者以及一些较小的团队在使用着 Tesseract ，诸如验证码识别、车牌号识别等应用中，不难见到 Tesseract 的身影。</p>
+<p>测试图片如下，文件名为test.png :<br><img src="/images/20140811163359656.png" alt=""></p>
+<h1 id="安装与错误信息"><a href="#安装与错误信息" class="headerlink" title="安装与错误信息"></a>安装与错误信息</h1><h2 id="安装PIL"><a href="#安装PIL" class="headerlink" title="安装PIL"></a>安装PIL</h2><p>详见<a href="/2016/07/05/快速入门PIL/">快速入门PIL</a></p>
+<h2 id="安装pytesseract"><a href="#安装pytesseract" class="headerlink" title="安装pytesseract"></a>安装pytesseract</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install pytesseract</span><br></pre></td></tr></table></figure>
+<p>此时直接使用会出现错误，如下所示:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from PIL import Image</span><br><span class="line">&gt;&gt;&gt; import pytesseract</span><br><span class="line">&gt;&gt;&gt; im = Image.open(&apos;test.png&apos;)</span><br><span class="line">&gt;&gt;&gt; print pytesseract.image_to_string(im)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">  File &quot;/usr/lib/python2.7/dist-packages/spyderlib/widgets/externalshell/sitecustomize.py&quot;, line 540, in runfile</span><br><span class="line">    execfile(filename, namespace)</span><br><span class="line">  File &quot;/home/chaitanya/pythonapp/localcopy.py&quot;, line 4, in &lt;module&gt;</span><br><span class="line">    print pytesseract.image_to_string(im)</span><br><span class="line">  File &quot;/usr/local/lib/python2.7/dist-packages/pytesseract/pytesseract.py&quot;, line 142, in image_to_string</span><br><span class="line">    config=config)</span><br><span class="line">  File &quot;/usr/local/lib/python2.7/dist-packages/pytesseract/pytesseract.py&quot;, line 75, in run_tesseract</span><br><span class="line">    stderr=subprocess.PIPE)</span><br><span class="line">  File &quot;/usr/lib/python2.7/subprocess.py&quot;, line 710, in __init__</span><br><span class="line">    errread, errwrite)</span><br><span class="line">  File &quot;/usr/lib/python2.7/subprocess.py&quot;, line 1327, in _execute_child</span><br><span class="line">    raise child_exception</span><br><span class="line">OSError: [Errno 2] No such file or directory</span><br></pre></td></tr></table></figure>
+<p>原因是还没有安装tesseract-ocr</p>
+<h2 id="安装tesseract-ocr"><a href="#安装tesseract-ocr" class="headerlink" title="安装tesseract-ocr"></a>安装tesseract-ocr</h2><p>Linux可使用<code>apt-get</code>直接安装:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install tesseract-ocr</span><br></pre></td></tr></table></figure>
+<p>如果想用 Tesseract 对图像进行识别，还需要对应的语言文件。所谓的语言文件是 Tesseract 识别某种语言的文字图像时需要的一些资源，这些东西也可以通过包管理器获取。比如我们需要识别英语和简体中文，那么使用命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install tesseract-ocr-eng tesseract-ocr-chi-sim</span><br></pre></td></tr></table></figure>
+<p>如果没有<code>apt-get</code>，需要的话可以使用编译安装的方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://tesseract-ocr.googlecode.com/files/tesseract-ocr-3.02.02.tar.gz</span><br><span class="line">tar -xzvf tesseract-ocr-3.02.02.tar.gz</span><br></pre></td></tr></table></figure>
+<p>编译需要<code>automake</code>、<code>autoconf</code>、<code>libtool</code>支持，如果有的话可以跳过该步骤，命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install autoconf automake libtool</span><br></pre></td></tr></table></figure>
+<p>然后进入文件夹 tesseract-ocr-3.02.02 编译安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+<p>Tesseract还依赖一些图像库，你可以选择性安装，也可不安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install ligjpeg62-dev libtiff4-dev libpng12-dev libleptonica-dev</span><br></pre></td></tr></table></figure>
+<p>再运行测试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from PIL import Image</span><br><span class="line">&gt;&gt;&gt; import pytesseract</span><br><span class="line">&gt;&gt;&gt; im = Image.open(&apos;test.png&apos;)</span><br><span class="line">&gt;&gt;&gt; print pytesseract.image_to_string(im)</span><br></pre></td></tr></table></figure>
+<p>可能会出现’Leptonica not found’错误。如果出现该错误，下载安装Leptonica包即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://leptonica.googlecode.com/files/leptonica-1.69.tar.bz2</span><br></pre></td></tr></table></figure>
+<h2 id="安装语言训练集"><a href="#安装语言训练集" class="headerlink" title="安装语言训练集"></a>安装语言训练集</h2><p>解压后进入目录执行命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+<p>如果没有出现上述错误，应该会出现<code>TesseractError</code>，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; print pytesseract.image_to_string(im)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/pytesseract/pytesseract.py&quot;, line 164, in image_to_string</span><br><span class="line">    raise TesseractError(status, errors)</span><br><span class="line">pytesseract.pytesseract.TesseractError: (1, &apos;Error opening data file /usr/local/share/tessdata/eng.traineddata&apos;)</span><br></pre></td></tr></table></figure>
+<p>这是由于没有下载语音训练集造成，你可以使用命令查看目前的语言训练集：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tesseract --list-langs</span><br></pre></td></tr></table></figure>
+<p>训练集放置于/usr/local/share/目录中的tessdata文件夹中，你需要手动下载训练集并添加到这个文件夹，添加后可以使用上述命令查看。你可以从<a href="https://github.com/tesseract-ocr/tessdata" target="_blank" rel="external">Github</a>获取到训练集。</p>
+<p>再次尝试运行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from PIL import Image</span><br><span class="line">&gt;&gt;&gt; import pytesseract</span><br><span class="line">&gt;&gt;&gt; im = Image.open(&apos;test.png&apos;)</span><br><span class="line">&gt;&gt;&gt; print pytesseract.image_to_string(im)</span><br><span class="line">hoke</span><br></pre></td></tr></table></figure>
+<h1 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h1><p>经测试，pytesser适用于比较规范的英文/数字，对于中文的识别能力较差，对于有干扰素的验证码图片性能较差，可以用来提取简单的英文/数字。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/10/随机数字图片验证码的原理、生成和破解/" rel="next" title="随机数字图片验证码的原理、生成和破解">
+                <i class="fa fa-chevron-left"></i> 随机数字图片验证码的原理、生成和破解
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="李宗航" />
+          <p class="site-author-name" itemprop="name">李宗航</p>
+          <p class="site-description motion-element" itemprop="description">开发学习日志</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives/">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizonghang/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装与错误信息"><span class="nav-number">1.</span> <span class="nav-text">安装与错误信息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装PIL"><span class="nav-number">1.1.</span> <span class="nav-text">安装PIL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装pytesseract"><span class="nav-number">1.2.</span> <span class="nav-text">安装pytesseract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装tesseract-ocr"><span class="nav-number">1.3.</span> <span class="nav-text">安装tesseract-ocr</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装语言训练集"><span class="nav-number">1.4.</span> <span class="nav-text">安装语言训练集</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能"><span class="nav-number">2.</span> <span class="nav-text">性能</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李宗航</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
