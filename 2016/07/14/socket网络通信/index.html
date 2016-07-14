@@ -1,0 +1,579 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;socket模块提供了一个底层C API，可以使用BSD套接字接口实现网络通信。它包括socket类，用于处理具体的数据通道，还包括用于完成网络相关任务的函数，如将一个服务器名称转换为一个地址，以及格式化数据以便在网络上发送。
+寻址、协议簇和套接字类型&amp;emsp;&amp;emsp;套接字（socket）是程序在本地或者通过互联网来回传递数据时所用通信通道的一个端点。套接字有两个主">
+<meta property="og:type" content="article">
+<meta property="og:title" content="socket网络通信">
+<meta property="og:url" content="http://desckie.com/2016/07/14/socket网络通信/index.html">
+<meta property="og:site_name" content="努力学习天天向上">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;socket模块提供了一个底层C API，可以使用BSD套接字接口实现网络通信。它包括socket类，用于处理具体的数据通道，还包括用于完成网络相关任务的函数，如将一个服务器名称转换为一个地址，以及格式化数据以便在网络上发送。
+寻址、协议簇和套接字类型&amp;emsp;&amp;emsp;套接字（socket）是程序在本地或者通过互联网来回传递数据时所用通信通道的一个端点。套接字有两个主">
+<meta property="og:updated_time" content="2016-07-14T12:38:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="socket网络通信">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;socket模块提供了一个底层C API，可以使用BSD套接字接口实现网络通信。它包括socket类，用于处理具体的数据通道，还包括用于完成网络相关任务的函数，如将一个服务器名称转换为一个地址，以及格式化数据以便在网络上发送。
+寻址、协议簇和套接字类型&amp;emsp;&amp;emsp;套接字（socket）是程序在本地或者通过互联网来回传递数据时所用通信通道的一个端点。套接字有两个主">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> socket网络通信 | 努力学习天天向上 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80234286-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">努力学习天天向上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">开发学习日志</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                socket网络通信
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-14T16:34:43+08:00" content="2016-07-14">
+              2016-07-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;socket模块提供了一个底层C API，可以使用BSD套接字接口实现网络通信。它包括socket类，用于处理具体的数据通道，还包括用于完成网络相关任务的函数，如将一个服务器名称转换为一个地址，以及格式化数据以便在网络上发送。</p>
+<h1 id="寻址、协议簇和套接字类型"><a href="#寻址、协议簇和套接字类型" class="headerlink" title="寻址、协议簇和套接字类型"></a>寻址、协议簇和套接字类型</h1><p>&emsp;&emsp;套接字（socket）是程序在本地或者通过互联网来回传递数据时所用通信通道的一个端点。套接字有两个主要属性来控制如何发送数据：地址簇（address family）控制所用的OSI网络层协议，套接字类型（socket type）控制传输层协议。</p>
+<p>&emsp;&emsp;Python支持3个地址簇。最常用的是AF_INET，用于IPv4 Internet寻址。IPv4地址长度为4个字节，通常表示为4个数的序列，每个字节对应一个数，用点号分隔（如10.1.1.5和127.0.0.1）。这些值通常被称为“IP地址”。目前几乎所有互联网网络应用都使用IPv4.</p>
+<p>&emsp;&emsp;AF_INET6用于IPv6 Internet寻址。IPv6是下一代Internet协议。它支持128位地址和通信流调整，还支持IPv4所不支持的一些路由特性。目前采用IPv6的应用还很有限，不过在不断增长。</p>
+<p>&emsp;&emsp;AF_UNIX是UNIX域套接字（UNIX Domain Sockets， UDS）的地址簇，这是一种POSIX兼容系统上的进程间通信协议。UDS的实现通常允许操作系统直接从进程向进程传递数据，而不用通过网络栈。这比使用AF_INET更高效，但是由于要用文件系统作为寻址的命名空间，UDS仅限于同一个系统上的进程。相比其他IPC机制（如命名管道或共享内存），使用UDS的优势在于它与IP网络应用的编程接口是一样的。这说明应用在单个主机上运行时可以利用高效的通信，在网络上发送数据时仍然可以使用同样的代码。</p>
+<pre>注意：AF_UNIX常量仅在支持UDS的系统上定义。</pre>
+
+<p>&emsp;&emsp;套接字类型往往是SOCK_DGRAM或SOCK_STREAM，SOCK_DGRAM对应用户数据报协议（user datagram protocol，UDP），SOCK_STREAM对应传输控制协议（transmission control protocol，TCP）。UDP不需要传输握手过程或其他设置过程（setup），但是提供的传输可靠性较低。UDP消息可能乱序传送，也可能传送多次，或者根本不传送。TCP则相反，可以确保每个消息只传送一次，而且按正确的顺序传送。不过，由于增加了可靠性，可能会引入额外的延迟，因为数据报可能需要重新传输。大多数传送大量数据的应用协议（如HTTP）都建立在TCP基础上。UDP通常用于顺序不太重要的协议（因为消息可以放在一个数据包中，例如DNS），或者用于广播（向多个主机发送相同的数据）。</p>
+<h2 id="在网络上查找主机"><a href="#在网络上查找主机" class="headerlink" title="在网络上查找主机"></a>在网络上查找主机</h2><p>&emsp;&emsp;socket包含一些函数与网络上的域名服务交互，使得程序可以将服务器的主机名转换为其数字网络地址。应用使用地址来连接一个服务器之前不需要显式转换地址，不过报告错误时除了报告所用的名字之外，还包含这个数字地址会很有用。</p>
+<h3 id="socket-gethostname"><a href="#socket-gethostname" class="headerlink" title="socket.gethostname()"></a>socket.gethostname()</h3><p>&emsp;&emsp;要查找当前主机的名字，可以使用<code>gethostname()</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import socket</span><br><span class="line">&gt;&gt;&gt; print socket.gethostname()</span><br><span class="line">macdeMacBook-Pro.local</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;返回的名字取决于当前系统的网络设置，在不同的网络上返回的名字可能有变化（如一个连接到WLAN的笔记本电脑）。</p>
+<h3 id="socket-gethostbyname"><a href="#socket-gethostbyname" class="headerlink" title="socket.gethostbyname()"></a>socket.gethostbyname()</h3><p>&emsp;&emsp;下面使用<code>gethostbyname()</code>访问操作系统主机名解析API，将服务器名字转换为其数字地址。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import socket</span><br><span class="line">&gt;&gt;&gt; for host in [&apos;homer&apos;, &apos;www&apos;, &apos;www.python.org&apos;, socket.gethostname()]:</span><br><span class="line">...     try:</span><br><span class="line">...             print &apos;%s : %s&apos; % (host, socket.gethostbyname(host))</span><br><span class="line">...     except socket.error, msg:</span><br><span class="line">...             print &apos;%s : %s&apos; % (host, msg)</span><br><span class="line">... </span><br><span class="line">homer : [Errno 8] nodename nor servname provided, or not known</span><br><span class="line">www : [Errno 8] nodename nor servname provided, or not known</span><br><span class="line">www.python.org : 151.101.36.223</span><br><span class="line">macdeMacBook-Pro.local : 192.168.0.101</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;如果当前系统的DNS配置在搜索中包括一个或多个域，名字（name）参数不要求是完全限定名（不需要包含域名和基名）。如果一个名字无法找到，会产生一个socket.error类型的异常。</p>
+<h3 id="socket-gethostbyname-ex"><a href="#socket-gethostbyname-ex" class="headerlink" title="socket.gethostbyname_ex()"></a>socket.gethostbyname_ex()</h3><p>&emsp;&emsp;要访问有关服务器的更多命名信息，可以使用函数<code>gethostbyname_ex()</code>，它会返回服务器的标准主机名、所有别名，以及可以用来到达这个主机的所有可用IP地址。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import socket</span><br><span class="line">&gt;&gt;&gt; for host in [&apos;baidu.com&apos;, &apos;www.python.org&apos;, socket.gethostname(), &apos;nosuchname&apos;]:</span><br><span class="line">...     print host</span><br><span class="line">...     try:</span><br><span class="line">...             hostname, aliases, addresses = socket.gethostbyname_ex(host)</span><br><span class="line">...             print &apos; Hostname:&apos;, hostname</span><br><span class="line">...             print &apos; Aliases:&apos;, aliases</span><br><span class="line">...             print &apos; Addresses:&apos;, addresses</span><br><span class="line">...     except socket.error as msg:</span><br><span class="line">...             print &apos;ERROR:&apos;, msg</span><br><span class="line">...     print</span><br><span class="line">...</span><br><span class="line">baidu.com</span><br><span class="line"> Hostname: baidu.com</span><br><span class="line"> Aliases: []</span><br><span class="line"> Addresses: [&apos;111.13.101.208&apos;, &apos;123.125.114.144&apos;, &apos;180.149.132.47&apos;, &apos;220.181.57.217&apos;]</span><br><span class="line"></span><br><span class="line">www.python.org</span><br><span class="line"> Hostname: prod.python.map.fastlylb.net</span><br><span class="line"> Aliases: [&apos;www.python.org&apos;, &apos;python.map.fastly.net&apos;]</span><br><span class="line"> Addresses: [&apos;151.101.16.223&apos;]</span><br><span class="line"></span><br><span class="line">macdeMacBook-Pro.local</span><br><span class="line"> Hostname: macdemacbook-pro.local</span><br><span class="line"> Aliases: []</span><br><span class="line"> Addresses: [&apos;10.200.55.2&apos;, &apos;10.57.129.2&apos;, &apos;192.168.0.103&apos;]</span><br><span class="line"></span><br><span class="line">nosuchname</span><br><span class="line">ERROR: [Errno 8] nodename nor servname provided, or not known</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;如果能得到一个服务器的所有已知IP地址，客户端就可以实现其自己的负载平衡或故障恢复算法。</p>
+<h3 id="socket-gethostbyaddr"><a href="#socket-gethostbyaddr" class="headerlink" title="socket.gethostbyaddr()"></a>socket.gethostbyaddr()</h3><p>&emsp;&emsp;如果得到一个服务器的地址，可以使用<code>gethostbyaddr()</code>完成一个逆向查找来得到主机名：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import socket</span><br><span class="line">&gt;&gt;&gt; hostname, aliases, addresses = socket.gethostbyaddr(&apos;127.0.0.1&apos;)</span><br><span class="line">&gt;&gt;&gt; print &apos;Hostname: %s\nAliases: %s\nAddresses: %s&apos; % (hostname, aliases, addresses)</span><br><span class="line">Hostname: localhost</span><br><span class="line">Aliases: [&apos;1.0.0.127.in-addr.arpa&apos;]</span><br><span class="line">Addresses: [&apos;127.0.0.1&apos;]</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;返回值是一个元组，其中包含完全主机名、所有别名、以及与这个名字关联的所有IP地址。</p>
+<h2 id="查找服务信息"><a href="#查找服务信息" class="headerlink" title="查找服务信息"></a>查找服务信息</h2>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/14/Python制作长图/" rel="next" title="Python制作长图">
+                <i class="fa fa-chevron-left"></i> Python制作长图
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/14/多张图片合成GIF图/" rel="prev" title="多张图片合成GIF图">
+                多张图片合成GIF图 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="李宗航" />
+          <p class="site-author-name" itemprop="name">李宗航</p>
+          <p class="site-description motion-element" itemprop="description">开发学习日志</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives/">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizonghang/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#寻址、协议簇和套接字类型"><span class="nav-number">1.</span> <span class="nav-text">寻址、协议簇和套接字类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在网络上查找主机"><span class="nav-number">1.1.</span> <span class="nav-text">在网络上查找主机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#socket-gethostname"><span class="nav-number">1.1.1.</span> <span class="nav-text">socket.gethostname()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#socket-gethostbyname"><span class="nav-number">1.1.2.</span> <span class="nav-text">socket.gethostbyname()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#socket-gethostbyname-ex"><span class="nav-number">1.1.3.</span> <span class="nav-text">socket.gethostbyname_ex()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#socket-gethostbyaddr"><span class="nav-number">1.1.4.</span> <span class="nav-text">socket.gethostbyaddr()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找服务信息"><span class="nav-number">1.2.</span> <span class="nav-text">查找服务信息</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李宗航</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

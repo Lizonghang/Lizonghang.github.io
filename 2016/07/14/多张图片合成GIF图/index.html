@@ -1,0 +1,588 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="需要的库PIL1$ sudo pip install Pillow
+images2gif1$ sudo pip install images2gif
+图片素材将以下gif图分割为多张静态PNG格式图，并以这些PNG图为例：
+
+帧分割由于需要将图片按顺序进行合成，需要将图片在文件夹中顺序排列。假设文件名为split.py
+1234567891011from PIL import Imageim =">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多张图片合成GIF图">
+<meta property="og:url" content="http://desckie.com/2016/07/14/多张图片合成GIF图/index.html">
+<meta property="og:site_name" content="努力学习天天向上">
+<meta property="og:description" content="需要的库PIL1$ sudo pip install Pillow
+images2gif1$ sudo pip install images2gif
+图片素材将以下gif图分割为多张静态PNG格式图，并以这些PNG图为例：
+
+帧分割由于需要将图片按顺序进行合成，需要将图片在文件夹中顺序排列。假设文件名为split.py
+1234567891011from PIL import Imageim =">
+<meta property="og:image" content="http://desckie.com/images/niko.gif">
+<meta property="og:updated_time" content="2016-07-14T15:11:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多张图片合成GIF图">
+<meta name="twitter:description" content="需要的库PIL1$ sudo pip install Pillow
+images2gif1$ sudo pip install images2gif
+图片素材将以下gif图分割为多张静态PNG格式图，并以这些PNG图为例：
+
+帧分割由于需要将图片按顺序进行合成，需要将图片在文件夹中顺序排列。假设文件名为split.py
+1234567891011from PIL import Imageim =">
+<meta name="twitter:image" content="http://desckie.com/images/niko.gif">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 多张图片合成GIF图 | 努力学习天天向上 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80234286-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">努力学习天天向上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">开发学习日志</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                多张图片合成GIF图
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-14T22:30:02+08:00" content="2016-07-14">
+              2016-07-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="需要的库"><a href="#需要的库" class="headerlink" title="需要的库"></a>需要的库</h1><h2 id="PIL"><a href="#PIL" class="headerlink" title="PIL"></a>PIL</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pip install Pillow</span><br></pre></td></tr></table></figure>
+<h2 id="images2gif"><a href="#images2gif" class="headerlink" title="images2gif"></a>images2gif</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pip install images2gif</span><br></pre></td></tr></table></figure>
+<h1 id="图片素材"><a href="#图片素材" class="headerlink" title="图片素材"></a>图片素材</h1><p>将以下gif图分割为多张静态PNG格式图，并以这些PNG图为例：</p>
+<p><img src="/images/niko.gif" alt=""></p>
+<h1 id="帧分割"><a href="#帧分割" class="headerlink" title="帧分割"></a>帧分割</h1><p>由于需要将图片按顺序进行合成，需要将图片在文件夹中顺序排列。假设文件名为split.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from PIL import Image</span><br><span class="line"></span><br><span class="line">im = Image.open(&apos;niko.gif&apos;)</span><br><span class="line">im.seek(0)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    while True:</span><br><span class="line">        im.save(&apos;./nikos/&apos; + chr(im.tell() + ord(&apos;a&apos;))  + &apos;.png&apos;, &apos;PNG&apos;)</span><br><span class="line">        im.seek(im.tell()+1)</span><br><span class="line">except EOFError, msg:</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure>
+<p>执行分割GIF图程序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python split.py</span><br></pre></td></tr></table></figure>
+<p>将得到的图片放置于nikos/文件夹中</p>
+<h1 id="帧合成"><a href="#帧合成" class="headerlink" title="帧合成"></a>帧合成</h1><p>假设文件名为GetGifAnimation.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line">#encoding: utf-8</span><br><span class="line">from PIL import Image</span><br><span class="line">import os</span><br><span class="line">import images2gif</span><br><span class="line">import argparse</span><br><span class="line"></span><br><span class="line">parser = argparse.ArgumentParser()</span><br><span class="line">parser.add_argument(&apos;image_path&apos;, help=&apos;The Path to Source Images, to Create the Gif Animation.&apos;)</span><br><span class="line">parser.add_argument(&apos;-T&apos;, help=&apos;Target to Save the Gif&apos;, default=&apos;./generate.gif&apos;)</span><br><span class="line">parser.add_argument(&apos;-W&apos;, help=&apos;Width of the Gif&apos;, default=300)</span><br><span class="line">parser.add_argument(&apos;-H&apos;, help=&apos;Height of the Gif&apos;, default=281)</span><br><span class="line">args = parser.parse_args()</span><br><span class="line">srcImageFilePath = args.image_path</span><br><span class="line">if srcImageFilePath.split(&apos;/&apos;)[-1]:</span><br><span class="line">    srcImageFilePath += &apos;/&apos;</span><br><span class="line">targetGIFPath = args.T</span><br><span class="line">targetGIFWidth = args.W</span><br><span class="line">targetGIFHeight = args.H</span><br><span class="line">targetSize = (targetGIFWidth, targetGIFHeight)</span><br><span class="line"></span><br><span class="line">def GetGifAnimationFromImages(srcImageFilePath):</span><br><span class="line">    images = []</span><br><span class="line">    for item in os.listdir(srcImageFilePath):</span><br><span class="line">        suffix = item.split(&apos;.&apos;)[-1]</span><br><span class="line">        if suffix == &apos;png&apos;:</span><br><span class="line">            images.append(Image.open(srcImageFilePath + item).resize(targetSize))</span><br><span class="line">    images2gif.writeGif(targetGIFPath, images, duration=0.1, nq=0.1)</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    GetGifAnimationFromImages(srcImageFilePath)</span><br></pre></td></tr></table></figure>
+<h1 id="运行程序"><a href="#运行程序" class="headerlink" title="运行程序"></a>运行程序</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python GetGifAnimation.py &lt;path-to-images&gt; [-T targetGIFPath] [-W targetGIFWidth] [-H targetGIFHeight]</span><br></pre></td></tr></table></figure>
+<p>合成的gif图为generate.gif</p>
+<h1 id="可能出现的错误"><a href="#可能出现的错误" class="headerlink" title="可能出现的错误"></a>可能出现的错误</h1><h2 id="TypeError"><a href="#TypeError" class="headerlink" title="TypeError"></a>TypeError</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;images2gif.py&quot;, line 436, in writeGifToFile</span><br><span class="line">  fp.write(globalPalette)</span><br><span class="line">TypeError: must be string or buffer, not None</span><br></pre></td></tr></table></figure>
+<p>将images2gif.py文件中的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for im in images:</span><br><span class="line">    palettes.append( getheader(im)[1] )</span><br></pre></td></tr></table></figure>
+<p>更改为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for im in images:</span><br><span class="line">    palettes.append(im.palette.getdata()[1])</span><br></pre></td></tr></table></figure>
+<h2 id="ValueError"><a href="#ValueError" class="headerlink" title="ValueError"></a>ValueError</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;./GetGifAnimation.py&quot;, line 31, in &lt;module&gt;</span><br><span class="line">    GetGifAnimationFromImages(srcImageFilePath)</span><br><span class="line">  File &quot;./GetGifAnimation.py&quot;, line 28, in GetGifAnimationFromImages</span><br><span class="line">    images2gif.writeGif(targetGIFPath, images, duration=0.1, nq=0.1)</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/images2gif/images2gif.py&quot;, line 572, in writeGif</span><br><span class="line">    images, xy, images_info = gifWriter.handleSubRectangles(images, subRectangles)</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/images2gif/images2gif.py&quot;, line 295, in handleSubRectangles</span><br><span class="line">    images, xy = self.getSubRectangles(images)</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/images2gif/images2gif.py&quot;, line 332, in getSubRectangles</span><br><span class="line">    diff = np.abs(im-prev)</span><br><span class="line">ValueError: operands could not be broadcast together with shapes (281,300,4) (281,300,3)</span><br></pre></td></tr></table></figure>
+<p>错误的原因是存在png图片（a.png）不含有alpha通道，可能是分割GIF图时PIL库中代码导致透明通道丢失。可以手动将图片导出为带alpha通道的PNG图片，ValueError即解除。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/14/socket网络通信/" rel="next" title="socket网络通信">
+                <i class="fa fa-chevron-left"></i> socket网络通信
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="李宗航" />
+          <p class="site-author-name" itemprop="name">李宗航</p>
+          <p class="site-description motion-element" itemprop="description">开发学习日志</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives/">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizonghang/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#需要的库"><span class="nav-number">1.</span> <span class="nav-text">需要的库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PIL"><span class="nav-number">1.1.</span> <span class="nav-text">PIL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#images2gif"><span class="nav-number">1.2.</span> <span class="nav-text">images2gif</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图片素材"><span class="nav-number">2.</span> <span class="nav-text">图片素材</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#帧分割"><span class="nav-number">3.</span> <span class="nav-text">帧分割</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#帧合成"><span class="nav-number">4.</span> <span class="nav-text">帧合成</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行程序"><span class="nav-number">5.</span> <span class="nav-text">运行程序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#可能出现的错误"><span class="nav-number">6.</span> <span class="nav-text">可能出现的错误</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeError"><span class="nav-number">6.1.</span> <span class="nav-text">TypeError</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ValueError"><span class="nav-number">6.2.</span> <span class="nav-text">ValueError</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李宗航</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
