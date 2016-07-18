@@ -60,14 +60,14 @@
 <meta name="description" content="&amp;emsp;&amp;emsp;socket模块提供了一个底层C API，可以使用BSD套接字接口实现网络通信。它包括socket类，用于处理具体的数据通道，还包括用于完成网络相关任务的函数，如将一个服务器名称转换为一个地址，以及格式化数据以便在网络上发送。
 寻址、协议簇和套接字类型&amp;emsp;&amp;emsp;套接字（socket）是程序在本地或者通过互联网来回传递数据时所用通信通道的一个端点。套接字有两个主">
 <meta property="og:type" content="article">
-<meta property="og:title" content="socket网络通信">
-<meta property="og:url" content="http://desckie.com/2016/07/14/socket网络通信/index.html">
+<meta property="og:title" content="socket网络通信——寻址、协议簇和套接字类型">
+<meta property="og:url" content="http://desckie.com/2016/07/14/socket网络通信——寻址、协议簇和套接字类型/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
 <meta property="og:description" content="&amp;emsp;&amp;emsp;socket模块提供了一个底层C API，可以使用BSD套接字接口实现网络通信。它包括socket类，用于处理具体的数据通道，还包括用于完成网络相关任务的函数，如将一个服务器名称转换为一个地址，以及格式化数据以便在网络上发送。
 寻址、协议簇和套接字类型&amp;emsp;&amp;emsp;套接字（socket）是程序在本地或者通过互联网来回传递数据时所用通信通道的一个端点。套接字有两个主">
-<meta property="og:updated_time" content="2016-07-14T12:38:46.000Z">
+<meta property="og:updated_time" content="2016-07-18T13:02:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="socket网络通信">
+<meta name="twitter:title" content="socket网络通信——寻址、协议簇和套接字类型">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;socket模块提供了一个底层C API，可以使用BSD套接字接口实现网络通信。它包括socket类，用于处理具体的数据通道，还包括用于完成网络相关任务的函数，如将一个服务器名称转换为一个地址，以及格式化数据以便在网络上发送。
 寻址、协议簇和套接字类型&amp;emsp;&amp;emsp;套接字（socket）是程序在本地或者通过互联网来回传递数据时所用通信通道的一个端点。套接字有两个主">
 
@@ -87,7 +87,7 @@
   };
 </script>
 
-  <title> socket网络通信 | 努力学习天天向上 </title>
+  <title> socket网络通信——寻址、协议簇和套接字类型 | 努力学习天天向上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -226,7 +226,7 @@
             
             
               
-                socket网络通信
+                socket网络通信——寻址、协议簇和套接字类型
               
             
           </h1>
@@ -252,8 +252,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
+                  <a href="/categories/网络通信/" itemprop="url" rel="index">
+                    <span itemprop="name">网络通信</span>
                   </a>
                 </span>
 
@@ -305,7 +305,36 @@
 <h3 id="socket-gethostbyaddr"><a href="#socket-gethostbyaddr" class="headerlink" title="socket.gethostbyaddr()"></a>socket.gethostbyaddr()</h3><p>&emsp;&emsp;如果得到一个服务器的地址，可以使用<code>gethostbyaddr()</code>完成一个逆向查找来得到主机名：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import socket</span><br><span class="line">&gt;&gt;&gt; hostname, aliases, addresses = socket.gethostbyaddr(&apos;127.0.0.1&apos;)</span><br><span class="line">&gt;&gt;&gt; print &apos;Hostname: %s\nAliases: %s\nAddresses: %s&apos; % (hostname, aliases, addresses)</span><br><span class="line">Hostname: localhost</span><br><span class="line">Aliases: [&apos;1.0.0.127.in-addr.arpa&apos;]</span><br><span class="line">Addresses: [&apos;127.0.0.1&apos;]</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;返回值是一个元组，其中包含完全主机名、所有别名、以及与这个名字关联的所有IP地址。</p>
-<h2 id="查找服务信息"><a href="#查找服务信息" class="headerlink" title="查找服务信息"></a>查找服务信息</h2>
+<h2 id="查找服务信息"><a href="#查找服务信息" class="headerlink" title="查找服务信息"></a>查找服务信息</h2><p>&emsp;&emsp;除了IP地址之外，每个套接字地址还包括一个整数端口号（port number）。很多应用可以在用一个端口上运行并监听一个IP地址，不过一次只有一个套接字可以使用该地址端口。通过结合IP地址、协议和端口号，可以唯一的标识一个通信通道，确保通过一个套接字发送的消息可以到达正确的目标。</p>
+<h3 id="socket-getservbyname"><a href="#socket-getservbyname" class="headerlink" title="socket.getservbyname()"></a>socket.getservbyname()</h3><p>&emsp;&emsp;有些端口号已经预先分配给某个特定的协议。例如，使用SMTP的 email 服务器使用 TCP 在端口25相互通信，Web 客户和服务器使用 80 作为 HTTP 的端口号。网络服务的端口号和标准名可以使用 <code>getservbyname()</code> 查找：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; print socket.getservbyname(&apos;ftp&apos;)</span><br><span class="line">21</span><br><span class="line">&gt;&gt;&gt; print socket.getservbyname(&apos;https&apos;)</span><br><span class="line">443</span><br><span class="line">&gt;&gt;&gt; print socket.getservbyname(&apos;http&apos;)</span><br><span class="line">80</span><br><span class="line">&gt;&gt;&gt; print socket.getservbyname(&apos;smtp&apos;)</span><br><span class="line">25</span><br></pre></td></tr></table></figure>
+<h3 id="socket-getservbyport"><a href="#socket-getservbyport" class="headerlink" title="socket.getservbyport()"></a>socket.getservbyport()</h3><p>要逆向完成服务端口查找，可以使用 <code>getservbyport</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; print socket.getservbyport(80)</span><br><span class="line">http</span><br></pre></td></tr></table></figure>
+<h3 id="socket-getprotobyname"><a href="#socket-getprotobyname" class="headerlink" title="socket.getprotobyname()"></a>socket.getprotobyname()</h3><p>可以使用 <code>getprotobyname()</code> 获取分配给一个传输协议的端口号：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; print socket.getprotobyname(&apos;tcp&apos;)</span><br><span class="line">6</span><br><span class="line">&gt;&gt;&gt; print socket.getprotobyname(&apos;udp&apos;)</span><br><span class="line">17</span><br><span class="line">&gt;&gt;&gt; print socket.getprotobyname(&apos;icmp&apos;)</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+<p>协议码值是标准化的，作为常量在 socket 中定义，这些协议码都有前缀 <code>IPPROTO_</code>：</p>
+<ul>
+<li>TCP - <code>socket.IPPROTO_TCP = 6</code></li>
+<li>UDP - <code>socket.IPPROTO_UDP = 17</code></li>
+<li>ICMP - <code>socket.IPPROTO_ICMP = 1</code> </li>
+</ul>
+<h2 id="查找服务器地址"><a href="#查找服务器地址" class="headerlink" title="查找服务器地址"></a>查找服务器地址</h2><h3 id="socket-getaddrinfo"><a href="#socket-getaddrinfo" class="headerlink" title="socket.getaddrinfo()"></a>socket.getaddrinfo()</h3><p><code>getaddrinfo()</code> 将一个服务的基本地址转换为一个元组列表，其中包含建立一个连接所需的全部信息。每个元组的内容会有变化，包含不同的网络簇或协议：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; print socket.getaddrinfo(&apos;www.python.org&apos;, &apos;http&apos;)</span><br><span class="line">[(2, 2, 17, &apos;&apos;, (&apos;151.101.36.223&apos;, 80)), (2, 1, 6, &apos;&apos;, (&apos;151.101.36.223&apos;, 80))]</span><br></pre></td></tr></table></figure>
+<p>下面的程序将解释上述元素的含义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import socket</span><br><span class="line"></span><br><span class="line">def get_constants(prefix):</span><br><span class="line">	return dict((getattr(socket, n), n) for n in dir(socket) if n.startswith(prefix))</span><br><span class="line"></span><br><span class="line">families = get_constants(&apos;AF_&apos;)</span><br><span class="line">types = get_constants(&apos;SOCK_&apos;)</span><br><span class="line">protocols = get_constants(&apos;IPPROTO_&apos;)</span><br><span class="line">response = socket.getaddrinfo(&apos;www.python.org&apos;, &apos;http&apos;)</span><br><span class="line">for family, socktype, proto, canonname, sockaddr in response:</span><br><span class="line">	print &apos;Family		:&apos;, families[family]</span><br><span class="line">	print &apos;Type		:&apos;, types[socktype]</span><br><span class="line">	print &apos;Protocol	:&apos;, protocols[proto]</span><br><span class="line">	print &apos;Canonical Name	:&apos;, canonname</span><br><span class="line">	print &apos;Socket Address	:&apos;, sockaddr</span><br><span class="line">	print</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Family		: AF_INET</span><br><span class="line">Type		: SOCK_DGRAM</span><br><span class="line">Protocol	: IPPROTO_UDP</span><br><span class="line">Canonical Name	:</span><br><span class="line">Socket Address	: (&apos;151.101.16.223&apos;, 80)</span><br><span class="line"></span><br><span class="line">Family		: AF_INET</span><br><span class="line">Type		: SOCK_STREAM</span><br><span class="line">Protocol	: IPPROTO_TCP</span><br><span class="line">Canonical Name	:</span><br><span class="line">Socket Address	: (&apos;151.101.16.223&apos;, 80)</span><br></pre></td></tr></table></figure>
+<p><code>getaddrinfo()</code> 有多个参数来过滤结果列表。例子中给出的主机和端口值是必要参数。可选参数包括 family、socktype、proto 和 flags。这些可选值可以取 0 或 socket 定义的某个常量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response = socket.getaddrinfo(&apos;www.python.org&apos;, &apos;http&apos;, socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP, socket.AI_CANONNAME)</span><br></pre></td></tr></table></figure>
+<p>这一次由于标志（flags）包括 <code>AI_CONONNAME</code>，如果这个主机有别名，结果中会包含服务器的标准名（可能与查找所用的值不同）。如果没有这个标志，标准名值则为空。</p>
+<h2 id="IP地址表示"><a href="#IP地址表示" class="headerlink" title="IP地址表示"></a>IP地址表示</h2><h3 id="socket-inet-aton-和socket-inet-ntoa"><a href="#socket-inet-aton-和socket-inet-ntoa" class="headerlink" title="socket.inet_aton()和socket.inet_ntoa()"></a>socket.inet_aton()和socket.inet_ntoa()</h3><p>用 C 编写的网络程序使用数据类型 struct sockaddr 将 IP 地址表示为二进制值（而不是Python程序中常见的地址）。要在 Python 表示和 C 表示之间转换 IPv4 地址，可以使用 <code>inet_aton()</code> 和 <code>inet_ntoa()</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import binascii</span><br><span class="line">import socket</span><br><span class="line">import struct</span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line">for string_address in [&apos;192.168.1.1&apos;, &apos;127.0.0.1&apos;]:</span><br><span class="line">    packed = socket.inet_aton(string_address)</span><br><span class="line">    print &apos;Original: &apos;, string_address</span><br><span class="line">    print &apos;Packed: &apos;, binascii.hexlify(packed)</span><br><span class="line">    print &apos;Unpacked: &apos;, socket.inet_ntoa(packed)</span><br><span class="line">    print</span><br></pre></td></tr></table></figure>
+<p>数据包格式中的4个字节可以传递到C库、通过网络安全地传输，或者紧凑地保存在一个数据库。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Original:  192.168.1.1</span><br><span class="line">Packed:  c0a80101</span><br><span class="line">Unpacked:  192.168.1.1</span><br><span class="line"></span><br><span class="line">Original:  127.0.0.1</span><br><span class="line">Packed:  7f000001</span><br><span class="line">Unpacked:  127.0.0.1</span><br></pre></td></tr></table></figure>
+<h3 id="socket-inet-pton-和socket-inet-ntop"><a href="#socket-inet-pton-和socket-inet-ntop" class="headerlink" title="socket.inet_pton()和socket.inet_ntop()"></a>socket.inet_pton()和socket.inet_ntop()</h3><p>相关函数 <code>inet_pton()</code> 和 <code>inet_ntop()</code> 都能处理 IPv4 和 IPv6 地址，根据传入的地址簇参数生成适当的格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import binascii</span><br><span class="line">import socket</span><br><span class="line">import struct</span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line">string_address = &apos;2002:ac10:10a:1234:21e:52ff:fe74:40e&apos;</span><br><span class="line">packed = socket.inet_pton(socket.AF_INET6, string_address)</span><br><span class="line">print &apos;Original: &apos;, string_address</span><br><span class="line">print &apos;Packed: &apos;, binascii.hexlify(packed)</span><br><span class="line">print &apos;Unpacked: &apos;, socket.inet_ntop(socket.AF_INET6, packed)</span><br></pre></td></tr></table></figure>
+<p>IPv6 地址已经是十六进制值，所以将打包版本转换为一个十六进制数系列时会生成一个与原值类似的串：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Original:  2002:ac10:10a:1234:21e:52ff:fe74:40e</span><br><span class="line">Packed:  2002ac10010a1234021e52fffe74040e</span><br><span class="line">Unpacked:  2002:ac10:10a:1234:21e:52ff:fe74:40e</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -408,7 +437,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories/">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -452,7 +481,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#寻址、协议簇和套接字类型"><span class="nav-number">1.</span> <span class="nav-text">寻址、协议簇和套接字类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在网络上查找主机"><span class="nav-number">1.1.</span> <span class="nav-text">在网络上查找主机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#socket-gethostname"><span class="nav-number">1.1.1.</span> <span class="nav-text">socket.gethostname()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#socket-gethostbyname"><span class="nav-number">1.1.2.</span> <span class="nav-text">socket.gethostbyname()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#socket-gethostbyname-ex"><span class="nav-number">1.1.3.</span> <span class="nav-text">socket.gethostbyname_ex()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#socket-gethostbyaddr"><span class="nav-number">1.1.4.</span> <span class="nav-text">socket.gethostbyaddr()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找服务信息"><span class="nav-number">1.2.</span> <span class="nav-text">查找服务信息</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#寻址、协议簇和套接字类型"><span class="nav-number">1.</span> <span class="nav-text">寻址、协议簇和套接字类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在网络上查找主机"><span class="nav-number">1.1.</span> <span class="nav-text">在网络上查找主机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#socket-gethostname"><span class="nav-number">1.1.1.</span> <span class="nav-text">socket.gethostname()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#socket-gethostbyname"><span class="nav-number">1.1.2.</span> <span class="nav-text">socket.gethostbyname()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#socket-gethostbyname-ex"><span class="nav-number">1.1.3.</span> <span class="nav-text">socket.gethostbyname_ex()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#socket-gethostbyaddr"><span class="nav-number">1.1.4.</span> <span class="nav-text">socket.gethostbyaddr()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找服务信息"><span class="nav-number">1.2.</span> <span class="nav-text">查找服务信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#socket-getservbyname"><span class="nav-number">1.2.1.</span> <span class="nav-text">socket.getservbyname()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#socket-getservbyport"><span class="nav-number">1.2.2.</span> <span class="nav-text">socket.getservbyport()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#socket-getprotobyname"><span class="nav-number">1.2.3.</span> <span class="nav-text">socket.getprotobyname()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找服务器地址"><span class="nav-number">1.3.</span> <span class="nav-text">查找服务器地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#socket-getaddrinfo"><span class="nav-number">1.3.1.</span> <span class="nav-text">socket.getaddrinfo()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP地址表示"><span class="nav-number">1.4.</span> <span class="nav-text">IP地址表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#socket-inet-aton-和socket-inet-ntoa"><span class="nav-number">1.4.1.</span> <span class="nav-text">socket.inet_aton()和socket.inet_ntoa()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#socket-inet-pton-和socket-inet-ntop"><span class="nav-number">1.4.2.</span> <span class="nav-text">socket.inet_pton()和socket.inet_ntop()</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>
