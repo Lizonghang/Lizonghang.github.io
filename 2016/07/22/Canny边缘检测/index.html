@@ -57,40 +57,41 @@
 
 
 
-<meta name="description" content="使用Python处理图片，将图片转换为用特定字符组成的字符画
-第一步:安装pillow(PIL)库:
-1$ sudo pip install pillow
-第二步:获取实验用图片
-1$ wget http://labfile.oss.aliyuncs.com/courses/370/ascii_dora.png
+<meta name="description" content="Canny函数原型OpenCV-Python 中 Canny 函数的原型为：
+1edge = cv2.Canny(image, threshold1, threshold2[, edges[, apertureSize[, L2gradient]]])
 
-第三步:编写程序,假设文件名为ascii.py
-123456789101112131">
+第一个参数是需要处理的原图像，该图像必须为单通道的灰度图
+第二个参数是阈值1
+第三个参数是阈值2
+
+其中较大的阈值2用于检测图像中明显的边缘，但">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python图片转字符画">
-<meta property="og:url" content="http://desckie.com/2016/07/03/Python图片转字符画/index.html">
+<meta property="og:title" content="Canny边缘检测">
+<meta property="og:url" content="http://desckie.com/2016/07/22/Canny边缘检测/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="使用Python处理图片，将图片转换为用特定字符组成的字符画
-第一步:安装pillow(PIL)库:
-1$ sudo pip install pillow
-第二步:获取实验用图片
-1$ wget http://labfile.oss.aliyuncs.com/courses/370/ascii_dora.png
+<meta property="og:description" content="Canny函数原型OpenCV-Python 中 Canny 函数的原型为：
+1edge = cv2.Canny(image, threshold1, threshold2[, edges[, apertureSize[, L2gradient]]])
 
-第三步:编写程序,假设文件名为ascii.py
-123456789101112131">
-<meta property="og:image" content="http://labfile.oss.aliyuncs.com/courses/370/ascii_dora.png">
-<meta property="og:image" content="https://dn-anything-about-doc.qbox.me/document-uid8834labid1191timestamp1437128425410.png?watermark/1/image/aHR0cDovL3N5bC1zdGF0aWMucWluaXVkbi5jb20vaW1nL3dhdGVybWFyay5wbmc=/dissolve/60/gravity/SouthEast/dx/0/dy/10">
-<meta property="og:updated_time" content="2016-07-04T03:46:31.000Z">
+第一个参数是需要处理的原图像，该图像必须为单通道的灰度图
+第二个参数是阈值1
+第三个参数是阈值2
+
+其中较大的阈值2用于检测图像中明显的边缘，但">
+<meta property="og:image" content="http://desckie.com/images/tower.jpg">
+<meta property="og:image" content="http://desckie.com/images/canny.jpg">
+<meta property="og:image" content="http://desckie.com/images/canny_dial.jpg">
+<meta property="og:updated_time" content="2016-07-22T12:44:43.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python图片转字符画">
-<meta name="twitter:description" content="使用Python处理图片，将图片转换为用特定字符组成的字符画
-第一步:安装pillow(PIL)库:
-1$ sudo pip install pillow
-第二步:获取实验用图片
-1$ wget http://labfile.oss.aliyuncs.com/courses/370/ascii_dora.png
+<meta name="twitter:title" content="Canny边缘检测">
+<meta name="twitter:description" content="Canny函数原型OpenCV-Python 中 Canny 函数的原型为：
+1edge = cv2.Canny(image, threshold1, threshold2[, edges[, apertureSize[, L2gradient]]])
 
-第三步:编写程序,假设文件名为ascii.py
-123456789101112131">
-<meta name="twitter:image" content="http://labfile.oss.aliyuncs.com/courses/370/ascii_dora.png">
+第一个参数是需要处理的原图像，该图像必须为单通道的灰度图
+第二个参数是阈值1
+第三个参数是阈值2
+
+其中较大的阈值2用于检测图像中明显的边缘，但">
+<meta name="twitter:image" content="http://desckie.com/images/tower.jpg">
 
 
 
@@ -108,7 +109,7 @@
   };
 </script>
 
-  <title> Python图片转字符画 | 努力学习天天向上 </title>
+  <title> Canny边缘检测 | 努力学习天天向上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -247,7 +248,7 @@
             
             
               
-                Python图片转字符画
+                Canny边缘检测
               
             
           </h1>
@@ -259,8 +260,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-03T17:03:00+08:00" content="2016-07-03">
-              2016-07-03
+            <time itemprop="dateCreated" datetime="2016-07-22T16:40:13+08:00" content="2016-07-22">
+              2016-07-22
             </time>
           </span>
 
@@ -273,8 +274,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
+                  <a href="/categories/Python-OpenCV/" itemprop="url" rel="index">
+                    <span itemprop="name">Python-OpenCV</span>
                   </a>
                 </span>
 
@@ -305,19 +306,28 @@
       
 
       
-        <p>使用Python处理图片，将图片转换为用特定字符组成的字符画</p>
-<p>第一步:安装pillow(PIL)库:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pip install pillow</span><br></pre></td></tr></table></figure>
-<p>第二步:获取实验用图片</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget http://labfile.oss.aliyuncs.com/courses/370/ascii_dora.png</span><br></pre></td></tr></table></figure>
-<p><img src="http://labfile.oss.aliyuncs.com/courses/370/ascii_dora.png" alt="哆啦A梦"></p>
-<p>第三步:编写程序,假设文件名为ascii.py</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"># coding=utf-8</span><br><span class="line">from PIL import Image</span><br><span class="line">import argparse</span><br><span class="line"></span><br><span class="line">parser = argparse.ArgumentParser()</span><br><span class="line"></span><br><span class="line">parser.add_argument(&apos;file&apos;)     # 输入文件</span><br><span class="line">parser.add_argument(&apos;-o&apos;, &apos;--output&apos;)   # 输出文件</span><br><span class="line">parser.add_argument(&apos;--width&apos;, type=int, default=80)    # 输出字符画宽</span><br><span class="line">parser.add_argument(&apos;--height&apos;, type=int, default=80)   # 输出字符画高</span><br><span class="line"></span><br><span class="line"># 获取参数</span><br><span class="line">args = parser.parse_args()</span><br><span class="line"></span><br><span class="line">IMG = args.file</span><br><span class="line">WIDTH = args.width</span><br><span class="line">HEIGHT = args.height</span><br><span class="line">OUTPUT = args.output</span><br><span class="line"></span><br><span class="line"># 字符是比较大块的像素,字符种类越多可以表现的颜色也越多,图片更有层次感.下面字符集使用了70个字符</span><br><span class="line">ascii_char = list(&quot;$@B%8&amp;WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1&#123;&#125;[]?-_+~&lt;&gt;i!lI;:,\&quot;^`&apos;. &quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 灰度值指黑白图像中点的颜色深度,范围一般从0到255,白色为255,黑色为0,故黑白图片也称灰度图像</span><br><span class="line"># 灰度值公式 = 0.2126 * r + 0.7152 * g + 0.0722 * b</span><br><span class="line"></span><br><span class="line"># RGB转字符</span><br><span class="line">def RGB2Char(r, b, g, alpha=256):</span><br><span class="line">    if alpha == 0:</span><br><span class="line">        return &apos; &apos;</span><br><span class="line">    length = len(ascii_char)</span><br><span class="line">    gray = int(0.2126 * r + 0.7152 * g + 0.0722 * b)</span><br><span class="line"></span><br><span class="line">    unit = (256.0 + 1) / length</span><br><span class="line">    return ascii_char[int(gray / unit)]</span><br><span class="line"></span><br><span class="line"># 主函数</span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    img = Image.open(IMG)</span><br><span class="line">    img = img.resize((WIDTH, HEIGHT), Image.NEAREST)</span><br><span class="line"></span><br><span class="line">    txt = &quot;&quot;</span><br><span class="line"></span><br><span class="line">    for i in range(HEIGHT):</span><br><span class="line">        for j in range(WIDTH):</span><br><span class="line">            txt += RGB2Char(*img.getpixel((j, i)))</span><br><span class="line">        txt += &apos;\n&apos;</span><br><span class="line"></span><br><span class="line">    print txt</span><br><span class="line"></span><br><span class="line">    # 字符画输出到文件</span><br><span class="line">    if OUTPUT:</span><br><span class="line">        with open(OUTPUT, &apos;w&apos;) as f:</span><br><span class="line">            f.write(txt)</span><br></pre></td></tr></table></figure>
-<p>第四步:查看运行效果</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python ascii.py dora.png -o ascii_dora.txt</span><br></pre></td></tr></table></figure>
-<p>看到的效果应该是这样的:</p>
-<p><img src="https://dn-anything-about-doc.qbox.me/document-uid8834labid1191timestamp1437128425410.png?watermark/1/image/aHR0cDovL3N5bC1zdGF0aWMucWluaXVkbi5jb20vaW1nL3dhdGVybWFyay5wbmc=/dissolve/60/gravity/SouthEast/dx/0/dy/10" alt="哆啦A梦字符图"></p>
-<p>然而，并不是对所有图片都有良好的效果，由于采用的字符集只有70个，并且密度分布不均，难以用于转换色彩层次多或内容丰富的图片。需要探索更合理的字符集实现更好的转换效果。</p>
+        <h1 id="Canny函数原型"><a href="#Canny函数原型" class="headerlink" title="Canny函数原型"></a>Canny函数原型</h1><p>OpenCV-Python 中 Canny 函数的原型为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">edge = cv2.Canny(image, threshold1, threshold2[, edges[, apertureSize[, L2gradient]]])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一个参数是需要处理的原图像，该图像必须为单通道的灰度图</li>
+<li>第二个参数是阈值1</li>
+<li>第三个参数是阈值2</li>
+</ul>
+<p>其中较大的阈值2用于检测图像中明显的边缘，但一般情况下检测的效果不大完美，边缘检测出来是断断续续的。所以用较小的阈值1将这些间断的边缘连接起来。</p>
+<p>可选参数中 <code>apertureSize</code> 就是 Sobel 算子的大小。而 <code>L2gradient</code> 参数是一个布尔值，若为真则使用更精确的 L2 范数进行计算（即两个方向的导数的平方和再开方），否则使用 L1 范数（直接将两个方向导数的绝对值相加）。</p>
+<p>函数返回一幅二值图，其中包含检测出的边缘。</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>Canny 函数使用只需要指定最大和最小阈值即可。以下图为例：</p>
+<p><img src="/images/tower.jpg" alt=""></p>
+<p>使用如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import cv2</span><br><span class="line">im = cv2.imread(&apos;tower.jpg&apos;)</span><br><span class="line">im = cv2.GaussianBlur(im, (3,3), 0)</span><br><span class="line">canny = cv2.Canny(im, 30, 100)</span><br><span class="line">cv2.imwrite(&apos;canny.jpg&apos;, canny)</span><br></pre></td></tr></table></figure>
+<p>效果图如下：</p>
+<p><img src="/images/canny.jpg" alt=""></p>
+<p>可以调整阈值以改变边缘效果。</p>
+<p>由于 Canny 只能处理灰度图，所以需要先将读取的图像转成灰度图。然后使用高斯平滑处理原图像以降噪。最后调用 Canny 函数，指定最大和最小阈值，其中 <code>apertureSize</code> 默认为 3。</p>
+<h1 id="动态调整阈值"><a href="#动态调整阈值" class="headerlink" title="动态调整阈值"></a>动态调整阈值</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">def CannyThreshold(lowThreshold):</span><br><span class="line">    detected_edges = cv2.GaussianBlur(gray, (3,3), 0) # Denoise</span><br><span class="line">    detected_edges = cv2.Canny(detected_edges, lowThreshold, lowThreshold*ratio,apertureSize=kernel_size) # Canny Edge Detect</span><br><span class="line">    dst = cv2.bitwise_and(im, im, mask=detected_edges) # Get Edge Image With Color</span><br><span class="line">    cv2.imshow(&apos;canny&apos;, dst)</span><br><span class="line"></span><br><span class="line"># Settings</span><br><span class="line">lowThreshold = 0 # Track Bar Start from State-0</span><br><span class="line">max_lowThreshold = 100 # Track Bar End with State-100</span><br><span class="line">ratio = 3 # threshold2 = threshold1 * ratio</span><br><span class="line">kernel_size = 3 # Size of Sobel</span><br><span class="line"></span><br><span class="line"># Running</span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    im = cv2.imread(&apos;tower.jpg&apos;) # Read From File</span><br><span class="line">    gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY) # GBR Convert To Gray</span><br><span class="line">    cv2.namedWindow(&apos;canny&apos;) # Create New Window</span><br></pre></td></tr></table></figure>
+<p>得到的局部效果图如下：</p>
+<p><img src="/images/canny_dial.jpg" alt=""></p>
+<p>上图中有一个滑动条，拖动可改变 Canny 边缘检测效果，可以自行尝试一下。</p>
 
       
     </div>
@@ -335,17 +345,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/30/使用Hexo搭建Github-Page/" rel="next" title="使用Hexo搭建Github Page">
-                <i class="fa fa-chevron-left"></i> 使用Hexo搭建Github Page
+              <a href="/2016/07/22/直方图的计算与显示/" rel="next" title="直方图的计算与显示">
+                <i class="fa fa-chevron-left"></i> 直方图的计算与显示
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/03/创建分类页面/" rel="prev" title="创建分类页面">
-                创建分类页面 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -465,7 +471,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Canny函数原型"><span class="nav-number">1.</span> <span class="nav-text">Canny函数原型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动态调整阈值"><span class="nav-number">3.</span> <span class="nav-text">动态调整阈值</span></a></li></ol></div>
             
           </div>
         </section>
