@@ -57,36 +57,19 @@
 
 
 
-<meta name="description" content="Sobel 算子是一种过滤器，但它带有方向。在 OpenCV-Python 中，使用 Sobel 算子的函数原型如下：
-1dst = cv2.Sobel(src, ddepth, dx, dy[, dst[, ksize[, scale[, delta[, borderType]]]]])
-必选参数：
-
-src - 需要处理的图像。
-ddepth - 图像深度。-1 表示采用与原图像相同的深度。目">
+<meta name="description" content="轮廓检测12345678910import cv2im = cv2.imread(&amp;apos;star.png&amp;apos;)im = im.copy()gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)contours, hierarchy">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Sobel算子">
-<meta property="og:url" content="http://desckie.com/2016/07/24/Sobel算子/index.html">
+<meta property="og:title" content="轮廓检测">
+<meta property="og:url" content="http://desckie.com/2016/07/25/轮廓检测/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="Sobel 算子是一种过滤器，但它带有方向。在 OpenCV-Python 中，使用 Sobel 算子的函数原型如下：
-1dst = cv2.Sobel(src, ddepth, dx, dy[, dst[, ksize[, scale[, delta[, borderType]]]]])
-必选参数：
-
-src - 需要处理的图像。
-ddepth - 图像深度。-1 表示采用与原图像相同的深度。目">
-<meta property="og:image" content="http://desckie.com/images/lion.jpg">
-<meta property="og:image" content="http://desckie.com/images/absX.jpg">
-<meta property="og:image" content="http://desckie.com/images/absY.jpg">
-<meta property="og:image" content="http://desckie.com/images/sobel.jpg">
-<meta property="og:updated_time" content="2016-07-24T14:26:46.000Z">
+<meta property="og:description" content="轮廓检测12345678910import cv2im = cv2.imread(&amp;apos;star.png&amp;apos;)im = im.copy()gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)contours, hierarchy">
+<meta property="og:image" content="http://desckie.com/images/star.png">
+<meta property="og:image" content="http://desckie.com/images/star-edge.jpg">
+<meta property="og:updated_time" content="2016-07-25T13:55:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sobel算子">
-<meta name="twitter:description" content="Sobel 算子是一种过滤器，但它带有方向。在 OpenCV-Python 中，使用 Sobel 算子的函数原型如下：
-1dst = cv2.Sobel(src, ddepth, dx, dy[, dst[, ksize[, scale[, delta[, borderType]]]]])
-必选参数：
-
-src - 需要处理的图像。
-ddepth - 图像深度。-1 表示采用与原图像相同的深度。目">
-<meta name="twitter:image" content="http://desckie.com/images/lion.jpg">
+<meta name="twitter:title" content="轮廓检测">
+<meta name="twitter:description" content="轮廓检测12345678910import cv2im = cv2.imread(&amp;apos;star.png&amp;apos;)im = im.copy()gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)contours, hierarchy">
+<meta name="twitter:image" content="http://desckie.com/images/star.png">
 
 
 
@@ -104,7 +87,7 @@ ddepth - 图像深度。-1 表示采用与原图像相同的深度。目">
   };
 </script>
 
-  <title> Sobel算子 | 努力学习天天向上 </title>
+  <title> 轮廓检测 | 努力学习天天向上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -243,7 +226,7 @@ ddepth - 图像深度。-1 表示采用与原图像相同的深度。目">
             
             
               
-                Sobel算子
+                轮廓检测
               
             
           </h1>
@@ -255,8 +238,8 @@ ddepth - 图像深度。-1 表示采用与原图像相同的深度。目">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-24T21:44:56+08:00" content="2016-07-24">
-              2016-07-24
+            <time itemprop="dateCreated" datetime="2016-07-25T17:16:08+08:00" content="2016-07-25">
+              2016-07-25
             </time>
           </span>
 
@@ -301,39 +284,44 @@ ddepth - 图像深度。-1 表示采用与原图像相同的深度。目">
       
 
       
-        <p>Sobel 算子是一种过滤器，但它带有方向。在 OpenCV-Python 中，使用 Sobel 算子的函数原型如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dst = cv2.Sobel(src, ddepth, dx, dy[, dst[, ksize[, scale[, delta[, borderType]]]]])</span><br></pre></td></tr></table></figure>
-<p>必选参数：</p>
-<ul>
-<li>src - 需要处理的图像。</li>
-<li>ddepth - 图像深度。-1 表示采用与原图像相同的深度。目标图像深度≥原图像深度。</li>
-<li>dx, dy - 求导阶数，0 表示不求导。</li>
-</ul>
-<p>可选参数：</p>
-<ul>
-<li>ksize - Sobel 算子大小，必须为 1、3、5、7。</li>
-<li>scale - 缩放导数的比例常数，默认情况下不伸缩。</li>
-<li>delta - 可选增量，会加到最终 dst 中，默认情况下不额外增加。</li>
-<li>borderType - 判断图像边界的模式。默认值为 <code>cv2.BORDER_DEFAULT。</code></li>
-</ul>
-<p>Sobel 函数使用如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">im = cv2.imread(&apos;lion.jpg&apos;)</span><br><span class="line">im = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)</span><br><span class="line"></span><br><span class="line">x = cv2.Sobel(im, cv2.CV_16S, 1, 0)</span><br><span class="line">y = cv2.Sobel(im, cv2.CV_16S, 0, 1)</span><br><span class="line"></span><br><span class="line">absX = cv2.convertScaleAbs(x)</span><br><span class="line">absY = cv2.convertScaleAbs(y)</span><br><span class="line"></span><br><span class="line">dst = cv2.addWeighted(absX, 0.5, absY, 0.5, 0)</span><br><span class="line"></span><br><span class="line">cv2.imshow(&apos;origin&apos;, im)</span><br><span class="line">cv2.imshow(&quot;absX&quot;, absX)</span><br><span class="line">cv2.imshow(&quot;absY&quot;, absY)</span><br><span class="line">cv2.imshow(&quot;Result&quot;, dst)</span><br><span class="line">cv2.waitKey(0)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
-<p>由于 Sobel 函数求导数后会有负值，还会有大于 255 的值，而原图像是 uint8 ，所以 Sobel 建立的图像位数不够，会有截断。因此要使用 16 位有符号的数据类型，即 <code>cv2.CV_16S</code>。</p>
-<p>处理后要用 <code>cv2.convertScaleAbs()</code> 将其转回原来的 uint8 形式，否则无法显示图像。 <code>cv2.convertScaleAbs()</code> 的原型为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dst = cv2.convertScaleAbs(src[, dst[, alpha[, beta]]])</span><br></pre></td></tr></table></figure>
-<p>其中可选参数 <code>alpha</code> 是伸缩系数， <code>beta</code> 是加到结果上的一个值。结果返回 uint8 类型的图片。</p>
-<p>由于 Sobel 算子是在两个方向计算的，最后要使用 <code>cv2.addWeighted()</code> 函数将其组合起来。函数原型为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dst = cv2.addWeighted(src1, alpha, src2, beta, gamma[, dst[, dtype]])</span><br></pre></td></tr></table></figure>
-<p>其中 <code>alpha</code> 是第一幅图片中元素的权重， <code>beta</code> 是第二个图片中元素的权重， <code>gamma</code> 是加到最后结果上的一个值。</p>
+        <h1 id="轮廓检测"><a href="#轮廓检测" class="headerlink" title="轮廓检测"></a>轮廓检测</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">im = cv2.imread(&apos;star.png&apos;)</span><br><span class="line">im = im.copy()</span><br><span class="line">gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)</span><br><span class="line">ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)</span><br><span class="line">contours, hierarchy = cv2.findContours(binary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)</span><br><span class="line">cv2.drawContours(im, contours, -1, (0,0,255), 3)</span><br><span class="line">cv2.imshow(&apos;img&apos;, im)</span><br><span class="line">cv2.waitKey(0)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+<p>需要注意的是 <code>cv2.findContours()</code> 函数接受的参数为二值图，所以读取的图像要先转成灰度图，再转成二值图。</p>
 <p>原图：</p>
-<p><img src="/images/lion.jpg" alt=""></p>
-<p>absX：</p>
-<p><img src="/images/absX.jpg" alt=""></p>
-<p>absY：</p>
-<p><img src="/images/absY.jpg" alt=""></p>
-<p>Result：</p>
-<p><img src="/images/sobel.jpg" alt=""></p>
-
+<p><img src="/images/star.png" alt=""></p>
+<p>检测结果：</p>
+<p><img src="/images/star-edge.jpg" alt=""></p>
+<p>注意，<code>cv2.findContours()</code> 函数会修改输入的图像。</p>
+<h1 id="cv2-findContours"><a href="#cv2-findContours" class="headerlink" title="cv2.findContours()"></a>cv2.findContours()</h1><p>函数原型为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">contours, hierarchy = cv2.findContours(image, mode, method[, contours[, hierarchy[, offset]]])</span><br></pre></td></tr></table></figure>
+<p>参数说明：</p>
+<ul>
+<li>image - 输入图像</li>
+<li>mode - 轮廓的检索模式。* <code>cv2.RETR_EXTERNAL</code> 只检测外轮廓；<code>RETR_LIST</code> 检测的轮廓不建立等级关系；<code>RETR_CCOMP</code> 建立两个等级的轮廓，上一层为外边界，内层为内孔的边界。如果内孔内还有连通物体，则这个物体的边界也在顶层；<code>RETR_TREE</code> 建立一个等级树结构的轮廓。</li>
+<li>method - 轮廓的近似办法。<code>cv2.CHAIN_APPROX_NONE</code> 存储所有的轮廓点，相邻的两个点的像素位置差不超过 1 ，即 max(abs(x1-x2), abs(y1-y2)) == 1；<code>cv2.CHAIN_APPROX_SIMP</code> 压缩水平方向、垂直方向、对角线方向的元素，只保留该方向的终点坐标。例如一个矩形轮廓只需要 4 个点来保存轮廓信息；<code> cv2.CHAIN_APPROX_TC89_L1</code>，CV_CHAIN_APPROX_TC89_KCOS 使用 teh-Chinl chain 近似算法。</li>
+<li>contours - 返回的轮廓</li>
+<li>hierarchy - 每条轮廓对应的属性</li>
+</ul>
+<h2 id="返回值contour"><a href="#返回值contour" class="headerlink" title="返回值contour"></a>返回值contour</h2><p><code>cv2.findContours()</code> 函数首先返回一个 list，list 中每个元素都是图像中的一个轮廓，用 numpy 中的 ndarray 表示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print type(contours)</span><br><span class="line">print type(contours[0])</span><br><span class="line">print len(contours)</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;type &apos;list&apos;&gt;</span><br><span class="line">&lt;type &apos;numpy.ndarray&apos;&gt;</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+<p>可以验证上述信息。可以看到本例中有两条轮廓，一个是五角星的，一个是矩形的。每个轮廓是一个 ndarray，每个 ndarray 是轮廓上的点的集合。</p>
+<p>由于知道返回的轮廓有两个，因此可以通过：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cv2.drawContours(im, contours, 0, (0,0,255), 3)</span><br><span class="line">cv2.drawContours(im, contours, 1, (0,255,0), 3)</span><br></pre></td></tr></table></figure>
+<p>分别绘制两个轮廓。同时使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print len(contours[0])</span><br><span class="line">print len(contours[1])</span><br></pre></td></tr></table></figure>
+<p>输出两个轮廓中存储的点的个数。可见五角星只有 5 个元素，这是因为轮廓中并不是存储轮廓上所有点，而是只存储可以用直线描述轮廓的点的个数，比如一个矩形只需要 4 个顶点就可以描述轮廓。</p>
+<h2 id="返回值hierarchy"><a href="#返回值hierarchy" class="headerlink" title="返回值hierarchy"></a>返回值hierarchy</h2><p>该函数还返回一个可选的 hierarchy 结果，这是一个 ndarray，其中元素个数和轮廓个数相同，每个轮廓 <code>contours[i]</code> 对应 4 个 hierarchy 元素 <code>hierarchy[i][0] ~ hierarchy[i][3]</code>，分别表示后一个轮廓、前一个轮廓、父轮廓、内嵌轮廓的索引编号，如果没有对应项，则该值为负数。通过如下查看各属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print type(hierarchy)</span><br><span class="line">print hierarchy.ndim</span><br><span class="line">print hierarchy[0].ndim</span><br><span class="line">print hierarchy.shape</span><br></pre></td></tr></table></figure>
+<h1 id="轮廓的绘制"><a href="#轮廓的绘制" class="headerlink" title="轮廓的绘制"></a>轮廓的绘制</h1><p>OpenCV 通过 <code>cv2.drawContours()</code> 在图像上绘制轮廓。函数原型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cv2.drawContours(image, contours, contourIdx, color[, thickness[, lineType[, hierarchy[, maxLevel[, offset ]]]]])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>image - 在选定的图像上绘制轮廓</li>
+<li>contours - 轮廓本身，是一个 list</li>
+<li>contourIdx - 指定绘制哪条轮廓，如果为 -1 则绘制所有轮廓</li>
+<li>后续参数比较显而易见，其中 thickness 表明轮廓线宽度，如果为 -1 （<code>cv2.FILLED</code>），则为填充模式。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cv2.drawContours(im, contours, -1, (0,0,255), 2)</span><br><span class="line">cv2.imshow(&apos;image&apos;, im)</span><br><span class="line">cv2.waitKey(0)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -350,17 +338,13 @@ ddepth - 图像深度。-1 表示采用与原图像相同的深度。目">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/24/滤波/" rel="next" title="滤波">
-                <i class="fa fa-chevron-left"></i> 滤波
+              <a href="/2016/07/25/霍夫变换检测直线/" rel="next" title="霍夫变换检测直线">
+                <i class="fa fa-chevron-left"></i> 霍夫变换检测直线
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/25/Laplacian算子/" rel="prev" title="Laplacian算子">
-                Laplacian算子 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -480,7 +464,7 @@ ddepth - 图像深度。-1 表示采用与原图像相同的深度。目">
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#轮廓检测"><span class="nav-number">1.</span> <span class="nav-text">轮廓检测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cv2-findContours"><span class="nav-number">2.</span> <span class="nav-text">cv2.findContours()</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#返回值contour"><span class="nav-number">2.1.</span> <span class="nav-text">返回值contour</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回值hierarchy"><span class="nav-number">2.2.</span> <span class="nav-text">返回值hierarchy</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#轮廓的绘制"><span class="nav-number">3.</span> <span class="nav-text">轮廓的绘制</span></a></li></ol></div>
             
           </div>
         </section>
