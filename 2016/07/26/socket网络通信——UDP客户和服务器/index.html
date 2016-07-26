@@ -57,16 +57,16 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;用户数据报协议（user datagram protocol，UDP）的工作方式与 TCP/IP 不同。TCP 是一个面向流（stream-oriented）的协议，确保所有数据以正确的顺序传输。UDP 是一个面向消息（message-oriented）的协议。UDP 不需要一个长期活动的连接，所以建立 UDP 套接字要简单些。另一方面，UDP 消息必须放在一个数据包中（对">
+<meta name="description" content="用户数据报协议（user datagram protocol，UDP）的工作方式与 TCP/IP 不同。TCP 是一个面向流（stream-oriented）的协议，确保所有数据以正确的顺序传输。UDP 是一个面向消息（message-oriented）的协议。UDP 不需要一个长期活动的连接，所以建立 UDP 套接字要简单些。另一方面，UDP 消息必须放在一个数据包中（对于IPv4，意味着它们可">
 <meta property="og:type" content="article">
 <meta property="og:title" content="socket网络通信——UDP客户和服务器">
 <meta property="og:url" content="http://desckie.com/2016/07/26/socket网络通信——UDP客户和服务器/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;用户数据报协议（user datagram protocol，UDP）的工作方式与 TCP/IP 不同。TCP 是一个面向流（stream-oriented）的协议，确保所有数据以正确的顺序传输。UDP 是一个面向消息（message-oriented）的协议。UDP 不需要一个长期活动的连接，所以建立 UDP 套接字要简单些。另一方面，UDP 消息必须放在一个数据包中（对">
-<meta property="og:updated_time" content="2016-07-26T12:31:27.000Z">
+<meta property="og:description" content="用户数据报协议（user datagram protocol，UDP）的工作方式与 TCP/IP 不同。TCP 是一个面向流（stream-oriented）的协议，确保所有数据以正确的顺序传输。UDP 是一个面向消息（message-oriented）的协议。UDP 不需要一个长期活动的连接，所以建立 UDP 套接字要简单些。另一方面，UDP 消息必须放在一个数据包中（对于IPv4，意味着它们可">
+<meta property="og:updated_time" content="2016-07-26T12:36:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="socket网络通信——UDP客户和服务器">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;用户数据报协议（user datagram protocol，UDP）的工作方式与 TCP/IP 不同。TCP 是一个面向流（stream-oriented）的协议，确保所有数据以正确的顺序传输。UDP 是一个面向消息（message-oriented）的协议。UDP 不需要一个长期活动的连接，所以建立 UDP 套接字要简单些。另一方面，UDP 消息必须放在一个数据包中（对">
+<meta name="twitter:description" content="用户数据报协议（user datagram protocol，UDP）的工作方式与 TCP/IP 不同。TCP 是一个面向流（stream-oriented）的协议，确保所有数据以正确的顺序传输。UDP 是一个面向消息（message-oriented）的协议。UDP 不需要一个长期活动的连接，所以建立 UDP 套接字要简单些。另一方面，UDP 消息必须放在一个数据包中（对于IPv4，意味着它们可">
 
 
 
@@ -281,8 +281,8 @@
       
 
       
-        <p>&emsp;&emsp;用户数据报协议（user datagram protocol，UDP）的工作方式与 TCP/IP 不同。TCP 是一个面向流（stream-oriented）的协议，确保所有数据以正确的顺序传输。UDP 是一个面向消息（message-oriented）的协议。UDP 不需要一个长期活动的连接，所以建立 UDP 套接字要简单些。另一方面，UDP 消息必须放在一个数据包中（对于IPv4，意味着它们可以包含 65507 字节，因为 65535 字节大小的数据包还包括首部信息），而且无法得到 TCP 提供的传输保障。</p>
-<h1 id="回应服务器"><a href="#回应服务器" class="headerlink" title="回应服务器"></a>回应服务器</h1><p>&emsp;&emsp;由于实际上并没有连接，服务器不需要监听和接受连接。它只需要使用 <code>bind()</code> 将其套接字与一个端口关联，然后等待各个消息。</p>
+        <p>用户数据报协议（user datagram protocol，UDP）的工作方式与 TCP/IP 不同。TCP 是一个面向流（stream-oriented）的协议，确保所有数据以正确的顺序传输。UDP 是一个面向消息（message-oriented）的协议。UDP 不需要一个长期活动的连接，所以建立 UDP 套接字要简单些。另一方面，UDP 消息必须放在一个数据包中（对于IPv4，意味着它们可以包含 65507 字节，因为 65535 字节大小的数据包还包括首部信息），而且无法得到 TCP 提供的传输保障。</p>
+<h1 id="回应服务器"><a href="#回应服务器" class="headerlink" title="回应服务器"></a>回应服务器</h1><p>由于实际上并没有连接，服务器不需要监听和接受连接。它只需要使用 <code>bind()</code> 将其套接字与一个端口关联，然后等待各个消息。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import socket</span><br><span class="line"># Create a UDP socket</span><br><span class="line">sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</span><br><span class="line"># Bind the socket to the port</span><br><span class="line">sock.bind((&apos;localhost&apos;, 10000))</span><br></pre></td></tr></table></figure>
 <p>使用 <code>recvfrom()</code> 从套接字读取消息，这个函数会返回数据，还会返回发出这个数据的客户地址。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">while True:</span><br><span class="line">    print &apos;Waiting to receive message ...&apos;</span><br><span class="line">    data, address = sock.recvfrom(4096)</span><br><span class="line">    print &apos;Received %s bytes from %s&apos; % (len(data), address)</span><br><span class="line">    print &apos;Data: &apos;, data</span><br><span class="line">    if data:</span><br><span class="line">        sent = sock.sendto(data, address)</span><br><span class="line">        print &apos;sent data &quot;%s&quot; back to %s&apos; % (data, address)</span><br></pre></td></tr></table></figure>
@@ -315,6 +315,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/26/socket网络通信——UNIX域套接字/" rel="prev" title="socket网络通信——UNIX域套接字">
+                socket网络通信——UNIX域套接字 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -382,7 +386,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives/">
-              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
