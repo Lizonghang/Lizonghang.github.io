@@ -1,0 +1,568 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;(New in 1.1.3) The ImageOps module contains a number of ‘ready-made’ image processing operations. This module is somewhat experimental, and most operators only work on L and RGB images.
+Fu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ImageOps模块">
+<meta property="og:url" content="http://desckie.com/2016/07/29/ImageOps模块/index.html">
+<meta property="og:site_name" content="努力学习天天向上">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;(New in 1.1.3) The ImageOps module contains a number of ‘ready-made’ image processing operations. This module is somewhat experimental, and most operators only work on L and RGB images.
+Fu">
+<meta property="og:updated_time" content="2016-07-29T13:39:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ImageOps模块">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;(New in 1.1.3) The ImageOps module contains a number of ‘ready-made’ image processing operations. This module is somewhat experimental, and most operators only work on L and RGB images.
+Fu">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> ImageOps模块 | 努力学习天天向上 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80234286-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">努力学习天天向上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">开发学习日志</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ImageOps模块
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-29T20:51:42+08:00" content="2016-07-29">
+              2016-07-29
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/PIL/" itemprop="url" rel="index">
+                    <span itemprop="name">PIL</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;(New in 1.1.3) The ImageOps module contains a number of ‘ready-made’ image processing operations. This module is somewhat experimental, and most operators only work on L and RGB images.</p>
+<h1 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h1><h2 id="ImageOps-autocontrast-im-cutoff-0"><a href="#ImageOps-autocontrast-im-cutoff-0" class="headerlink" title="ImageOps.autocontrast(im, cutoff=0)"></a>ImageOps.autocontrast(im, cutoff=0)</h2><p>&emsp;&emsp;Maximize (normalize) image contrast. This function calculates a histogram of the input image, removes cutoff percent of the lightest and darkest pixels from the histogram, and remaps the image so that the darkest remaining pixel becomes black (0), and the lightest becomes white (255).</p>
+<h2 id="ImageOps-colorize-im-black-white"><a href="#ImageOps-colorize-im-black-white" class="headerlink" title="ImageOps.colorize(im, black, white)"></a>ImageOps.colorize(im, black, white)</h2><p>&emsp;&emsp;Colorize grayscale image. The black and white arguments should be RGB tuples or color names; this function calculates a colour wedge mapping all black pixels in the source image to the first colour, and all white pixels to the second colour.</p>
+<h2 id="ImageOps-crop-im-border-0"><a href="#ImageOps-crop-im-border-0" class="headerlink" title="ImageOps.crop(im, border=0)"></a>ImageOps.crop(im, border=0)</h2><p>&emsp;&emsp;Remove border pixels from all four edges. This function works on all image modes.</p>
+<h2 id="ImageOps-deform-im-deformer-filter-Image-BILINEAR"><a href="#ImageOps-deform-im-deformer-filter-Image-BILINEAR" class="headerlink" title="ImageOps.deform(im, deformer, filter=Image.BILINEAR)"></a>ImageOps.deform(im, deformer, filter=Image.BILINEAR)</h2><p>&emsp;&emsp;Deform the image using the given deformer object. The deformer should provide a getmesh method, which returns a MESH list suitable for the Image transform method. See the transform method for details.</p>
+<h2 id="ImageOps-equalize-im"><a href="#ImageOps-equalize-im" class="headerlink" title="ImageOps.equalize(im)"></a>ImageOps.equalize(im)</h2><p>&emsp;&emsp;Equalize the image histogram. This function applies a non-linear mapping to the input image, in order to create a uniform distribution of grayscale values in the output image.</p>
+<h2 id="ImageOps-expand-im-border-0-fill-0"><a href="#ImageOps-expand-im-border-0-fill-0" class="headerlink" title="ImageOps.expand(im, border=0, fill=0)"></a>ImageOps.expand(im, border=0, fill=0)</h2><p>&emsp;&emsp;Add border pixels of border to the image, at all four edges.</p>
+<h2 id="ImageOps-fit-im-size-method-0-bleed-0-0-centering-0-5-0-5"><a href="#ImageOps-fit-im-size-method-0-bleed-0-0-centering-0-5-0-5" class="headerlink" title="ImageOps.fit(im, size, method=0, bleed=0.0, centering=(0.5, 0.5))"></a>ImageOps.fit(im, size, method=0, bleed=0.0, centering=(0.5, 0.5))</h2><p>&emsp;&emsp;Returns a sized and cropped version of the image, cropped to the requested aspect ratio and size. The size argument is the requested output size in pixels, given as a (width, height) tuple.<br>&emsp;&emsp;The method argument is what resampling method to use. The default is Image.NEAREST (nearest neighbour).<br>&emsp;&emsp;The bleed argument allows you to remove a border around the outside the image (from all four edges). The value is a decimal percentage (use 0.01 for one percent). The default value is 0 (no border).<br>&emsp;&emsp;The centering argument is used to control the cropping position. (0.5, 0.5) is center cropping (i.e. if cropping the width, take 50% off of the left side (and therefore 50% off the right side), and same with top/bottom).<br>&emsp;&emsp;(0.0, 0.0) will crop from the top left corner (i.e. if cropping the width, take all of the crop off of the right side, and if cropping the height, take all of it off the bottom).<br>&emsp;&emsp;(1.0, 0.0) will crop from the bottom left corner, etc. (i.e. if cropping the width, take all of the crop off the left side, and if cropping the height take none from the top (and therefore all off the bottom)).<br>&emsp;&emsp;The fit function was contributed by Kevin Cazabon.</p>
+<h2 id="ImageOps-flip-im"><a href="#ImageOps-flip-im" class="headerlink" title="ImageOps.flip(im)"></a>ImageOps.flip(im)</h2><p>&emsp;&emsp;Flip the image vertically (top to bottom).</p>
+<h2 id="ImageOps-grayscale-im"><a href="#ImageOps-grayscale-im" class="headerlink" title="ImageOps.grayscale(im)"></a>ImageOps.grayscale(im)</h2><p>&emsp;&emsp;Convert the image to grayscale.</p>
+<h2 id="ImageOps-invert-im"><a href="#ImageOps-invert-im" class="headerlink" title="ImageOps.invert(im)"></a>ImageOps.invert(im)</h2><p>&emsp;&emsp;Invert (negate) the image.</p>
+<h2 id="ImageOps-mirror-im"><a href="#ImageOps-mirror-im" class="headerlink" title="ImageOps.mirror(im)"></a>ImageOps.mirror(im)</h2><p>&emsp;&emsp;Flip image horizontally (left to right).</p>
+<h2 id="ImageOps-posterize-im-bits"><a href="#ImageOps-posterize-im-bits" class="headerlink" title="ImageOps.posterize(im, bits)"></a>ImageOps.posterize(im, bits)</h2><p>&emsp;&emsp;Reduce the number of bits for each colour channel.</p>
+<h2 id="ImageOps-solarize-im-threshold-128"><a href="#ImageOps-solarize-im-threshold-128" class="headerlink" title="ImageOps.solarize(im, threshold=128)"></a>ImageOps.solarize(im, threshold=128)</h2><p>&emsp;&emsp;Invert all pixel values above the given threshold.</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/29/ImageMath模块/" rel="next" title="ImageMath模块">
+                <i class="fa fa-chevron-left"></i> ImageMath模块
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="李宗航" />
+          <p class="site-author-name" itemprop="name">李宗航</p>
+          <p class="site-description motion-element" itemprop="description">开发学习日志</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives/">
+              <span class="site-state-item-count">48</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizonghang/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Functions"><span class="nav-number">1.</span> <span class="nav-text">Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageOps-autocontrast-im-cutoff-0"><span class="nav-number">1.1.</span> <span class="nav-text">ImageOps.autocontrast(im, cutoff=0)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageOps-colorize-im-black-white"><span class="nav-number">1.2.</span> <span class="nav-text">ImageOps.colorize(im, black, white)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageOps-crop-im-border-0"><span class="nav-number">1.3.</span> <span class="nav-text">ImageOps.crop(im, border=0)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageOps-deform-im-deformer-filter-Image-BILINEAR"><span class="nav-number">1.4.</span> <span class="nav-text">ImageOps.deform(im, deformer, filter=Image.BILINEAR)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageOps-equalize-im"><span class="nav-number">1.5.</span> <span class="nav-text">ImageOps.equalize(im)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageOps-expand-im-border-0-fill-0"><span class="nav-number">1.6.</span> <span class="nav-text">ImageOps.expand(im, border=0, fill=0)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageOps-fit-im-size-method-0-bleed-0-0-centering-0-5-0-5"><span class="nav-number">1.7.</span> <span class="nav-text">ImageOps.fit(im, size, method=0, bleed=0.0, centering=(0.5, 0.5))</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageOps-flip-im"><span class="nav-number">1.8.</span> <span class="nav-text">ImageOps.flip(im)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageOps-grayscale-im"><span class="nav-number">1.9.</span> <span class="nav-text">ImageOps.grayscale(im)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageOps-invert-im"><span class="nav-number">1.10.</span> <span class="nav-text">ImageOps.invert(im)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageOps-mirror-im"><span class="nav-number">1.11.</span> <span class="nav-text">ImageOps.mirror(im)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageOps-posterize-im-bits"><span class="nav-number">1.12.</span> <span class="nav-text">ImageOps.posterize(im, bits)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageOps-solarize-im-threshold-128"><span class="nav-number">1.13.</span> <span class="nav-text">ImageOps.solarize(im, threshold=128)</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李宗航</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
