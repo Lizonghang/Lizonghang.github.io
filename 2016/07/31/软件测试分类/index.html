@@ -1,0 +1,597 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;关于软件测试领域名词很多，从不同的角度可以将软件测试分为不同的类，这里汇总常见软件测试的相关名词，对软件测试领域有个概况的了解。
+项目流程划分
+&amp;emsp;&amp;emsp;单元测试：单元测试(或模块测试)是对程序中的单个子程序或具有独立功能的代码段进行测试的过程。
+&amp;emsp;&amp;emsp;集成测试：集成测试是单元测试的基础上，将通过单元模块组装成系统或子系统，再进行测试，重点是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件测试分类">
+<meta property="og:url" content="http://desckie.com/2016/07/31/软件测试分类/index.html">
+<meta property="og:site_name" content="努力学习天天向上">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;关于软件测试领域名词很多，从不同的角度可以将软件测试分为不同的类，这里汇总常见软件测试的相关名词，对软件测试领域有个概况的了解。
+项目流程划分
+&amp;emsp;&amp;emsp;单元测试：单元测试(或模块测试)是对程序中的单个子程序或具有独立功能的代码段进行测试的过程。
+&amp;emsp;&amp;emsp;集成测试：集成测试是单元测试的基础上，将通过单元模块组装成系统或子系统，再进行测试，重点是">
+<meta property="og:image" content="http://desckie.com/images/v-mode.png">
+<meta property="og:updated_time" content="2016-07-31T06:46:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="软件测试分类">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;关于软件测试领域名词很多，从不同的角度可以将软件测试分为不同的类，这里汇总常见软件测试的相关名词，对软件测试领域有个概况的了解。
+项目流程划分
+&amp;emsp;&amp;emsp;单元测试：单元测试(或模块测试)是对程序中的单个子程序或具有独立功能的代码段进行测试的过程。
+&amp;emsp;&amp;emsp;集成测试：集成测试是单元测试的基础上，将通过单元模块组装成系统或子系统，再进行测试，重点是">
+<meta name="twitter:image" content="http://desckie.com/images/v-mode.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 软件测试分类 | 努力学习天天向上 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80234286-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">努力学习天天向上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">开发学习日志</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                软件测试分类
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-31T13:30:07+08:00" content="2016-07-31">
+              2016-07-31
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/软件测试/" itemprop="url" rel="index">
+                    <span itemprop="name">软件测试</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;关于软件测试领域名词很多，从不同的角度可以将软件测试分为不同的类，这里汇总常见软件测试的相关名词，对软件测试领域有个概况的了解。</p>
+<h1 id="项目流程划分"><a href="#项目流程划分" class="headerlink" title="项目流程划分"></a>项目流程划分</h1><p><img src="/images/v-mode.png" alt=""></p>
+<p>&emsp;&emsp;<strong>单元测试</strong>：单元测试(或模块测试)是对程序中的单个子程序或具有独立功能的代码段进行测试的过程。</p>
+<p>&emsp;&emsp;<strong>集成测试</strong>：集成测试是单元测试的基础上，将通过单元模块组装成系统或子系统，再进行测试，重点是检查模块之间的接口是否正确。</p>
+<p>&emsp;&emsp;<strong>系统测试</strong>：系统测试是针对整个产品系统进行的测试，验证系统是否满足了需求规格的定义，以及软件系统的正确性和性能等是否满足其规约所指定的要求。</p>
+<p>&emsp;&emsp;<strong>验收测试</strong>：验收测试是部署软件之前的最后一个测试操作。验收测试的目的是确保软件准备就绪，向软件购买者展示该软件系统满足其用户的需求。</p>
+<h1 id="黑盒、白盒、灰盒测试"><a href="#黑盒、白盒、灰盒测试" class="headerlink" title="黑盒、白盒、灰盒测试"></a>黑盒、白盒、灰盒测试</h1><p>&emsp;&emsp;<strong>黑盒测试</strong>：黑盒测试指的是把被测的软件看作黑盒子，不需要关心盒子里面的结构，只关心软件的输入和输出。它只检查程序呈现给用户的功能是否按照需求规格说明书的规定正常使用，程序是否能适当的接收输入数据并产生正确的输出信息。黑盒测试着眼于程序外部结构，不考虑内部逻辑结构，主要针对软件界面和软件功能进行测试。</p>
+<p>&emsp;&emsp;<strong>白盒测试</strong>：白盒测试指将盒子打开，研究内部源代码和程序执行结果。它是按照程序内部的结构测试程序，通过测试来检测产品内部动作是否按照设计规格说明书的规定正常进行，检验程序中的每条通路是否都能按预定要求正确工作。</p>
+<p>&emsp;&emsp;<strong>灰盒测试</strong>：灰盒测试介于黑盒测试和灰盒测试之间，灰盒测试关注输出对输入的正确性，同时也关注内部表现，但这种关注不如白盒测试详细完整，只是通过一些表征性的现象、事件、标志来判断内部的运行状态。有时输出正确但内部出现错误，如果每次都用白盒测试来操作，效率会很低，因此需要采取灰盒测试的方法。</p>
+<h1 id="功能测试与性能测试"><a href="#功能测试与性能测试" class="headerlink" title="功能测试与性能测试"></a>功能测试与性能测试</h1><p>&emsp;&emsp;<strong>功能测试</strong>：功能测试检查实际的功能是否符合用户的需求。测试的大部分工作也是围绕软件的功能进行，设计软件的目的也就是满足客户对功能的需求。如果偏离这个目的，任何测试工作都失去意义。功能测试又可以分为逻辑功能测试、界面测试、易用性测试、安装测试、兼容性测试等。</p>
+<p>&emsp;&emsp;<strong>性能测试</strong>：性能测试是通过自动化的测试工具模拟多种正常、峰值以及异常负载条件来对系统的各项性能指标进行测试。软件的性能包括很多方面，主要有时间性能和空间性能两种。<br>&emsp;&emsp;&emsp;&emsp;<strong>时间性能</strong>：主要是指软件的一个具体的响应时间。比如一次登录需要的时间，一次交易需要的时间等。抛开具体的测试环境来分析一次事务的响应时间没有意义。需要搭建一个具体且独立的测试环境。<br>&emsp;&emsp;&emsp;&emsp;<strong>空间性能</strong>：主要指软件运行时所消耗的系统资源，比如硬件资源、CPU、内存、网络带宽等。</p>
+<h1 id="手工测试与自动化测试"><a href="#手工测试与自动化测试" class="headerlink" title="手工测试与自动化测试"></a>手工测试与自动化测试</h1><p>&emsp;&emsp;<strong>手工测试</strong>：手工测试是由人去执行测试用例，通过键盘鼠标等输入一些参数，查看返回结果是否符合预期结果。手工测试并非专业术语，手工测试通常是指在系统测试阶段所进行的功能测试，为了更明显的与自动化测试进行区分，这里使用了手工测试。</p>
+<p>&emsp;&emsp;<strong>自动化测试</strong>：自动化测试时把以人为驱动的测试行为转化为机器执行的过程。通常在设计了测试用例并通过评审之后，由测试人员根据测试用例中描述的规程一步步执行测试，得到实际结果与期望结果比较。在此过程中，为了节省人力、时间或硬件资源，提高测试效率，便引入了自动化测试的概念。<br>&emsp;&emsp;自动化测试又可分为功能自动化测试与性能自动化测试。<br>&emsp;&emsp;&emsp;&emsp;<strong>功能自动化测试</strong>：一般所说的自动化测试指功能自动化测试，通过相关的测试技术，通过编码的方式用一段程序来测试一个软件的功能，这样就可以重复执行程序来进行重复的测试。如果一个软件一小部分发生改变，只需要修改一部分自动化测试代码就可以重复对整个软件进行功能测试，从而大大提高测试效率。<br>&emsp;&emsp;&emsp;&emsp;<strong>性能自动化测试</strong>：目前性能测试工作都是通过性能测试工具辅助完成的。通过工具可以模拟大量的用户向系统发送请求，用来验证系统的处理能力。</p>
+<h1 id="冒烟、回归、随机测试"><a href="#冒烟、回归、随机测试" class="headerlink" title="冒烟、回归、随机测试"></a>冒烟、回归、随机测试</h1><p>&emsp;&emsp;<strong>冒烟测试</strong>：冒烟测试是指在对一个新版本进行系统大规模测试之前，先验证软件的基本功能是否实现，是否具备可测性。引入到软件测试中，就是指测试小组在正规测试一个新版本之前，先投入较少的人力和时间验证一个软件的主要功能，如果主要功能都没有实现，则打回开发组重新开发。这样做可以节省大量的时间成本和人力成本。</p>
+<p>&emsp;&emsp;<strong>回归测试</strong>：回归测试是指修改了旧代码后，重新进行测试以确认修改后没有引入新的错误或导致其他代码产生错误。回归测试一般是在进行软件的第二轮测试开始的，验证第一轮中发现的问题是否得到修复。回归也是一个循环的过程，如果回归的问题通不过则需要开发人员修改后再次进行回归，直到通过为止。</p>
+<p>&emsp;&emsp;<strong>随机测试</strong>：随机测试是指测试中所有输入数据都是随机生成的，其目的是模拟用户的真实操作，并发现一些边缘性的错误。随机测试可以发现一些隐蔽的错误，但是也有很多缺点，比如测试不系统，无法统计代码覆盖率和需求覆盖率，发现的问题难以重现。一般是放在测试的最后执行。随机测试更专业的升级版称为探索性测试。</p>
+<h1 id="其他测试"><a href="#其他测试" class="headerlink" title="其他测试"></a>其他测试</h1><p>&emsp;&emsp;<strong>探索性测试</strong>：探索性测试可以说是一种测试思维技术。它没有很多实际的测试方法、技术和工具，但却是所有测试人员都应该掌握的测试思维方式。探索性强调测试人员的主观能动性，抛弃繁杂的测试计划和测试用例设计过程，强调在碰到问题时及时改变测试策略。</p>
+<p>&emsp;&emsp;<strong>安全测试</strong>：安全测试是在 IT 软件产品生命周期中，特别是产品开发基本完成到发布阶段，对产品进行校验以验证产品符合安全需求定义和产品质量标准的过程。安全测试越来越受到企业的关注和重视，因为由于安全性问题造成的后果是不可估量的。尤其互联网产品最容易受到各种安全攻击。</p>
+<h1 id="适合自动化测试的项目"><a href="#适合自动化测试的项目" class="headerlink" title="适合自动化测试的项目"></a>适合自动化测试的项目</h1><p>&emsp;&emsp;不是所有项目都适合实施自动化测试，否则可能会浪费大量的人力和时间却没有得到应有的收益。是否可以对项目开展自动化测试可以参考以下 10 个条件：</p>
+<ol>
+<li>测试任务明确，不会频繁变动</li>
+<li>每日构建后的测试验证</li>
+<li>比较频繁的回归测试</li>
+<li>软件系统界面稳定，变动少</li>
+<li>需要在多平台上运行相同的测试案例、组合遍历型的测试、大量的重复任务</li>
+<li>软件维护周期长</li>
+<li>项目进度压力不大</li>
+<li>被测软件系统开发比较规范，能够保证系统的可测试性</li>
+<li>具备大量的自动化测试平台</li>
+<li>测试人员具备较强的编程能力</li>
+</ol>
+<p>&emsp;&emsp;并非以上条件都具备才能开展测试工作。在普遍经验中，只要满足下面三个条件就可以对项目开展自动化测试：</p>
+<p>&emsp;&emsp;<strong>软件需求编程不频繁</strong><br>&emsp;&emsp;测试脚本的稳定性决定了自动化测试的维护成本。如果软件需求变动过于频繁，测试人员需要根据变动的需求来更新测试用例以及相关的测试脚本，而脚本的维护本身就是代码开发的过程，需要修改、调试，必要的时候还要修改自动化测试的框架，如果花费的成本不低于利用其节省的测试成本，那么自动化测试便是失败的。<br>&emsp;&emsp;项目中的某些模块相对稳定，而某些模块需求变动性很大。可以对相对稳定的模块进行自动化测试，而变动大的使用手工测试。</p>
+<p>&emsp;&emsp;<strong>项目周期较长</strong><br>&emsp;&emsp;由于自动化测试需求的确定、自动化测试框架的设计、测试脚本的编写与调试均需要相当长的时间来完成，这样的过程本身就是一个测试软件的开发过程，需要较长的时间来完成。如果项目的周期比较短，没有足够的时间去支持这个过程，那么最好不适用自动化测试。</p>
+<p>&emsp;&emsp;<strong>自动化测试脚本可重复使用</strong><br>&emsp;&emsp;自动化测试脚本的重复使用要从三个方面考虑。测试的项目之间是否有很大的差异性（如 C/S 系统和 B/S 系统的差异）；选择的测试工具是否适应这种差异；测试人员是否有能力开发适应这种差异的自动化测试框架。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/30/Python实现录音功能/" rel="next" title="Python实现录音功能">
+                <i class="fa fa-chevron-left"></i> Python实现录音功能
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="李宗航" />
+          <p class="site-author-name" itemprop="name">李宗航</p>
+          <p class="site-description motion-element" itemprop="description">开发学习日志</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives/">
+              <span class="site-state-item-count">52</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizonghang/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#项目流程划分"><span class="nav-number">1.</span> <span class="nav-text">项目流程划分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#黑盒、白盒、灰盒测试"><span class="nav-number">2.</span> <span class="nav-text">黑盒、白盒、灰盒测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#功能测试与性能测试"><span class="nav-number">3.</span> <span class="nav-text">功能测试与性能测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#手工测试与自动化测试"><span class="nav-number">4.</span> <span class="nav-text">手工测试与自动化测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#冒烟、回归、随机测试"><span class="nav-number">5.</span> <span class="nav-text">冒烟、回归、随机测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他测试"><span class="nav-number">6.</span> <span class="nav-text">其他测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#适合自动化测试的项目"><span class="nav-number">7.</span> <span class="nav-text">适合自动化测试的项目</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李宗航</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
