@@ -1,0 +1,578 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="参考Selenium官方文档 http://selenium-python.readthedocs.io/getting-started.html
+第三方库selenium1$ sudo pip install selenium
+如果下载时抛出了如下错误，可不予理会：
+1OSError: [Errno 1] Operation not permitted: &amp;apos;/System/Librar">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Selenium自动化测试">
+<meta property="og:url" content="http://desckie.com/2016/07/31/Selenium自动化测试/index.html">
+<meta property="og:site_name" content="努力学习天天向上">
+<meta property="og:description" content="参考Selenium官方文档 http://selenium-python.readthedocs.io/getting-started.html
+第三方库selenium1$ sudo pip install selenium
+如果下载时抛出了如下错误，可不予理会：
+1OSError: [Errno 1] Operation not permitted: &amp;apos;/System/Librar">
+<meta property="og:updated_time" content="2016-07-31T12:36:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Selenium自动化测试">
+<meta name="twitter:description" content="参考Selenium官方文档 http://selenium-python.readthedocs.io/getting-started.html
+第三方库selenium1$ sudo pip install selenium
+如果下载时抛出了如下错误，可不予理会：
+1OSError: [Errno 1] Operation not permitted: &amp;apos;/System/Librar">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Selenium自动化测试 | 努力学习天天向上 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80234286-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">努力学习天天向上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">开发学习日志</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Selenium自动化测试
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-31T15:03:45+08:00" content="2016-07-31">
+              2016-07-31
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/软件测试/" itemprop="url" rel="index">
+                    <span itemprop="name">软件测试</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>参考Selenium官方文档 <a href="http://selenium-python.readthedocs.io/getting-started.html" target="_blank" rel="external">http://selenium-python.readthedocs.io/getting-started.html</a></p>
+<h1 id="第三方库"><a href="#第三方库" class="headerlink" title="第三方库"></a>第三方库</h1><h2 id="selenium"><a href="#selenium" class="headerlink" title="selenium"></a>selenium</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pip install selenium</span><br></pre></td></tr></table></figure>
+<p>如果下载时抛出了如下错误，可不予理会：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OSError: [Errno 1] Operation not permitted: &apos;/System/Library/Frameworks/Python.framework/Versions/2.7/selenium&apos;</span><br></pre></td></tr></table></figure>
+<p>进入 python 交互环境，尝试导入 selenium 模块即可</p>
+<h2 id="chromedriver"><a href="#chromedriver" class="headerlink" title="chromedriver"></a>chromedriver</h2><p>如果要选择 Chrome 作为测试浏览器，需要先安装 chromedriver，否则在实例化时会抛出以下错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; brower = webdriver.chrome()</span><br><span class="line">...</span><br><span class="line">selenium.common.exceptions.WebDriverException: Message: &apos;chromedriver&apos; executable needs to be in PATH. Please see https://sites.google.com/a/chromium.org/chromedriver/home</span><br></pre></td></tr></table></figure>
+<p>Mac 用户可使用 Homebrew 直接下载：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install chromedriver</span><br></pre></td></tr></table></figure>
+<p>下载完成后可能会出现以下错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Error: parent directory is world writable but not sticky</span><br><span class="line">Please report this bug:</span><br><span class="line">    https://git.io/brew-troubleshooting</span><br><span class="line">/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/2.0.0/tmpdir.rb:92:in `mktmpdir&apos;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>解决方法为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo chmod +t /private/tmp/</span><br></pre></td></tr></table></figure>
+<p>随后再尝试下载 chromedriver，进入 python 交互环境尝试实例化即可。</p>
+<h1 id="简单用例"><a href="#简单用例" class="headerlink" title="简单用例"></a>简单用例</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver</span><br><span class="line">from selenium.webdriver.common.keys import Keys</span><br><span class="line">import time</span><br><span class="line"># The instance of Chrome WebDriver is created.</span><br><span class="line">driver = webdriver.Chrome()</span><br><span class="line"># The driver.get() method will navigate to a page given by the URL. WebDriver will wait until the page has fully loaded (that is, the “onload” event has fired) before returning control to your test or script. It’s worth noting that if your page uses a lot of AJAX on load then WebDriver may not know when it has completely loaded.</span><br><span class="line">driver.get(&apos;http://www.python.org&apos;)</span><br><span class="line">print driver.title</span><br><span class="line"># WebDriver offers a number of ways to find elements using one of the find_element_by_* methods. For example, the input text element can be located by its name attribute using find_element_by_name method. Detailed explanation of finding elements is available in the Locating Elements chapter</span><br><span class="line">elem = driver.find_element_by_name(&apos;q&apos;)</span><br><span class="line"># Next we are sending keys, this is similar to entering keys using your keyboard. Special keys can be send using Keys class imported from selenium.webdriver.common.keys. To be safe, we’ll first clear any prepopulated text in the input field (e.g. “Search”) so it doesn’t affect our search results</span><br><span class="line">elem.clear()</span><br><span class="line">elem.send_keys(&apos;pycon&apos;)</span><br><span class="line">elem.send_keys(Keys.RETURN)</span><br><span class="line">print driver.page_source</span><br><span class="line">time.sleep(5)</span><br><span class="line"># Finally, the browser window is closed. You can also call quit method instead of close. The quit will exit entire browser whereas close` will close one tab, but if just one tab was open, by default most browser will exit entirely.</span><br><span class="line">driver.close()</span><br></pre></td></tr></table></figure>
+<p>这段程序会打开浏览器，访问 <a href="http://www.python.org" target="_blank" rel="external">http://www.python.org</a> 并搜索 pycon，等待 5s 后关闭浏览器。</p>
+<h1 id="用Selenium写测试单元"><a href="#用Selenium写测试单元" class="headerlink" title="用Selenium写测试单元"></a>用Selenium写测试单元</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import unittest</span><br><span class="line">from selenium import webdriver</span><br><span class="line">from selenium.webdriver.common.keys import Keys</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">class PythonOrgSearch(unittest.TestCase):</span><br><span class="line">    def setUp(self):</span><br><span class="line">        self.driver = webdriver.Chrome()</span><br><span class="line"></span><br><span class="line">    def test_search_in_python_org(self):</span><br><span class="line">        driver = self.driver</span><br><span class="line">        driver.get(&apos;http://www.python.org&apos;)</span><br><span class="line">        self.assertIn(&apos;Python&apos;, driver.title)</span><br><span class="line">        elem = driver.find_element_by_name(&apos;q&apos;)</span><br><span class="line">        elem.send_keys(&apos;pycon&apos;)</span><br><span class="line">        elem.send_keys(Keys.RETURN)</span><br><span class="line">        assert &apos;No results found.&apos; not in driver.page_source</span><br><span class="line">        time.sleep(5)</span><br><span class="line"></span><br><span class="line">    def tearDown(self):</span><br><span class="line">        self.driver.quit()</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    unittest.main()</span><br></pre></td></tr></table></figure>
+<p>以上仅为关于 selenium 的一些简要功能介绍，详细用法参考后续文档</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/31/软件测试分类/" rel="next" title="软件测试分类">
+                <i class="fa fa-chevron-left"></i> 软件测试分类
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="李宗航" />
+          <p class="site-author-name" itemprop="name">李宗航</p>
+          <p class="site-description motion-element" itemprop="description">开发学习日志</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives/">
+              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizonghang/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第三方库"><span class="nav-number">1.</span> <span class="nav-text">第三方库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#selenium"><span class="nav-number">1.1.</span> <span class="nav-text">selenium</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chromedriver"><span class="nav-number">1.2.</span> <span class="nav-text">chromedriver</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#简单用例"><span class="nav-number">2.</span> <span class="nav-text">简单用例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用Selenium写测试单元"><span class="nav-number">3.</span> <span class="nav-text">用Selenium写测试单元</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李宗航</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
