@@ -1,0 +1,614 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="The first thing you’ll want to do with WebDriver is navigate to a link. The normal way to do this is by calling get method:
+1driver.get(&amp;quot;http://www.google.com&amp;quot;)
+WebDriver will wait until the">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Selenium-Navigating">
+<meta property="og:url" content="http://desckie.com/2016/07/31/Selenium-Navigating/index.html">
+<meta property="og:site_name" content="努力学习天天向上">
+<meta property="og:description" content="The first thing you’ll want to do with WebDriver is navigate to a link. The normal way to do this is by calling get method:
+1driver.get(&amp;quot;http://www.google.com&amp;quot;)
+WebDriver will wait until the">
+<meta property="og:updated_time" content="2016-07-31T13:20:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Selenium-Navigating">
+<meta name="twitter:description" content="The first thing you’ll want to do with WebDriver is navigate to a link. The normal way to do this is by calling get method:
+1driver.get(&amp;quot;http://www.google.com&amp;quot;)
+WebDriver will wait until the">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Selenium-Navigating | 努力学习天天向上 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80234286-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">努力学习天天向上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">开发学习日志</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Selenium-Navigating
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-31T20:39:43+08:00" content="2016-07-31">
+              2016-07-31
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/软件测试/" itemprop="url" rel="index">
+                    <span itemprop="name">软件测试</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>The first thing you’ll want to do with WebDriver is navigate to a link. The normal way to do this is by calling <code>get</code> method:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.get(&quot;http://www.google.com&quot;)</span><br></pre></td></tr></table></figure>
+<p>WebDriver will wait until the page has fully loaded (that is, the <code>onload</code> event has fired) before returning control to your test or script. It’s worth noting that if your page uses a lot of AJAX on load then WebDriver may not know when it has completely loaded. If you need to ensure such pages are fully loaded then you can use waits.</p>
+<h1 id="Interacting-with-the-page"><a href="#Interacting-with-the-page" class="headerlink" title="Interacting with the page"></a>Interacting with the page</h1><h2 id="driver-find-element-by"><a href="#driver-find-element-by" class="headerlink" title="driver.find_element_by_*()"></a>driver.find_element_by_*()</h2><p>Just being able to go to places isn’t terribly useful. What we’d really like to do is to interact with the pages, or, more specifically, the HTML elements within a page. First of all, we need to find one. WebDriver offers a number of ways to find elements. For example, given an element defined as:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=&quot;text&quot; name=&quot;passwd&quot; id=&quot;passwd-id&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>you could find it using any of:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">element = driver.find_element_by_id(&quot;passwd-id&quot;)</span><br><span class="line">element = driver.find_element_by_name(&quot;passwd&quot;)</span><br><span class="line">element = driver.find_element_by_xpath(&quot;//input[@id=&apos;passwd-id&apos;]&quot;)</span><br></pre></td></tr></table></figure>
+<p>You can also look for a link by its text, but be careful! The text must be an exact match! You should also be careful when using XPATH in WebDriver. If there’s more than one element that matches the query, then only the first will be returned. If nothing can be found, a NoSuchElementException will be raised.</p>
+<p>WebDriver has an “Object-based” API; we represent all types of elements using the same interface. This means that although you may see a lot of possible methods you could invoke when you hit your IDE’s auto-complete key combination, not all of them will make sense or be valid. Don’t worry! WebDriver will attempt to do the Right Thing, and if you call a method that makes no sense (“setSelected()” on a “meta” tag, for example) an exception will be raised.</p>
+<h2 id="element-send-keys"><a href="#element-send-keys" class="headerlink" title="element.send_keys()"></a>element.send_keys()</h2><p>So, you’ve got an element. What can you do with it? First of all, you may want to enter some text into a text field:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">element.send_keys(&quot;some text&quot;)</span><br></pre></td></tr></table></figure>
+<p>You can simulate pressing the arrow keys by using the “Keys” class:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">element.send_keys(&quot; and some&quot;, Keys.ARROW_DOWN)</span><br></pre></td></tr></table></figure>
+<p>It is possible to call send_keys on any element, which makes it possible to test keyboard shortcuts such as those used on GMail. </p>
+<h2 id="element-clear"><a href="#element-clear" class="headerlink" title="element.clear()"></a>element.clear()</h2><p>A side-effect of this is that typing something into a text field won’t automatically clear it. Instead, what you type will be appended to what’s already there. You can easily clear the contents of a text field or textarea with clear method:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">element.clear()</span><br></pre></td></tr></table></figure>
+<h1 id="Filling-in-forms"><a href="#Filling-in-forms" class="headerlink" title="Filling in forms"></a>Filling in forms</h1><p>We’ve already seen how to enter text into a textarea or text field, but what about the other elements? You can “toggle” the state of drop down, and you can use “setSelected” to set something like an OPTION tag selected. </p>
+<h2 id="element-click"><a href="#element-click" class="headerlink" title="element.click()"></a>element.click()</h2><p>Dealing with SELECT tags isn’t too bad:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">element = driver.find_element_by_xpath(&quot;//select[@name=&apos;name&apos;]&quot;)</span><br><span class="line">all_options = element.find_elements_by_tag_name(&quot;option&quot;)</span><br><span class="line">for option in all_options:</span><br><span class="line">    print(&quot;Value is: %s&quot; % option.get_attribute(&quot;value&quot;))</span><br><span class="line">    option.click()</span><br></pre></td></tr></table></figure>
+<p>This will find the first “SELECT” element on the page, and cycle through each of it’s OPTIONs in turn, printing out their values, and selecting each in turn.</p>
+<h2 id="select-select-by"><a href="#select-select-by" class="headerlink" title="select.select_by_*()"></a>select.select_by_*()</h2><p>As you can see, this isn’t the most efficient way of dealing with SELECT elements . WebDriver’s support classes include one called “Select”, which provides useful methods for interacting with these:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from selenium.webdriver.support.ui import Select</span><br><span class="line">select = Select(driver.find_element_by_name(&apos;name&apos;))</span><br><span class="line">select.select_by_index(index)</span><br><span class="line">select.select_by_visible_text(&quot;text&quot;)</span><br><span class="line">select.select_by_value(value)</span><br></pre></td></tr></table></figure>
+<h2 id="select-deselect-all"><a href="#select-deselect-all" class="headerlink" title="select.deselect_all()"></a>select.deselect_all()</h2><p>WebDriver also provides features for deselecting all the selected options:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select = Select(driver.find_element_by_id(&apos;id&apos;))</span><br><span class="line">select.deselect_all()</span><br></pre></td></tr></table></figure>
+<p>This will deselect all OPTIONs from the first SELECT on the page.</p>
+<h2 id="select-all-selected-options"><a href="#select-all-selected-options" class="headerlink" title="select.all_selected_options"></a>select.all_selected_options</h2><p>Suppose in a test, we need the list of all default selected options, Select class provides a property method that returns a list:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select = Select(driver.find_element_by_xpath(&quot;xpath&quot;))</span><br><span class="line">all_selected_options = select.all_selected_options</span><br></pre></td></tr></table></figure>
+<h2 id="select-options"><a href="#select-options" class="headerlink" title="select.options"></a>select.options</h2><p>To get all available options:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">options = select.options</span><br></pre></td></tr></table></figure>
+<h2 id="element-submit"><a href="#element-submit" class="headerlink" title="element.submit()"></a>element.submit()</h2><p>Once you’ve finished filling out the form, you probably want to submit it. One way to do this would be to find the “submit” button and click it:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Assume the button has the ID &quot;submit&quot;</span><br><span class="line">driver.find_element_by_id(&quot;submit&quot;).click()</span><br></pre></td></tr></table></figure>
+<p>Alternatively, WebDriver has the convenience method “submit” on every element. If you call this on an element within a form, WebDriver will walk up the DOM until it finds the enclosing form and then calls submit on that. If the element isn’t in a form, then the <code>NoSuchElementException</code> will be raised:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">element.submit()</span><br></pre></td></tr></table></figure>
+<h1 id="Drag-and-drop"><a href="#Drag-and-drop" class="headerlink" title="Drag and drop"></a>Drag and drop</h1><h2 id="action-chains-drag-and-drop"><a href="#action-chains-drag-and-drop" class="headerlink" title="action_chains.drag_and_drop()"></a>action_chains.drag_and_drop()</h2><p>You can use drag and drop, either moving an element by a certain amount, or on to another element:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">element = driver.find_element_by_name(&quot;source&quot;)</span><br><span class="line">target = driver.find_element_by_name(&quot;target&quot;)</span><br><span class="line"></span><br><span class="line">from selenium.webdriver import ActionChains</span><br><span class="line">action_chains = ActionChains(driver)</span><br><span class="line">action_chains.drag_and_drop(element, target).perform()</span><br></pre></td></tr></table></figure>
+<h1 id="Moving-between-windows-and-frames"><a href="#Moving-between-windows-and-frames" class="headerlink" title="Moving between windows and frames"></a>Moving between windows and frames</h1><h2 id="driver-switch-to-window"><a href="#driver-switch-to-window" class="headerlink" title="driver.switch_to_window()"></a>driver.switch_to_window()</h2><p>It’s rare for a modern web application not to have any frames or to be constrained to a single window. WebDriver supports moving between named windows using the “switch_to_window” method:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.switch_to_window(&quot;windowName&quot;)</span><br></pre></td></tr></table></figure>
+<p>All calls to <code>driver</code> will now be interpreted as being directed to the particular window. But how do you know the window’s name? Take a look at the javascript or link that opened it:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;somewhere.html&quot; target=&quot;windowName&quot;&gt;Click here to open a new window&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="driver-window-handles"><a href="#driver-window-handles" class="headerlink" title="driver.window_handles"></a>driver.window_handles</h2><p>Alternatively, you can pass a “window handle” to the “switch_to_window()” method. Knowing this, it’s possible to iterate over every open window like so:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for handle in driver.window_handles:</span><br><span class="line">    driver.switch_to_window(handle)</span><br></pre></td></tr></table></figure>
+<h2 id="driver-switch-to-frame"><a href="#driver-switch-to-frame" class="headerlink" title="driver.switch_to_frame()"></a>driver.switch_to_frame()</h2><p>You can also swing from frame to frame (or into iframes):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.switch_to_frame(&quot;frameName&quot;)</span><br></pre></td></tr></table></figure>
+<p>It’s possible to access subframes by separating the path with a dot, and you can specify the frame by its index too. That is:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.switch_to_frame(&quot;frameName.0.child&quot;)</span><br></pre></td></tr></table></figure>
+<p>would go to the frame named “child” of the first subframe of the frame called “frameName”. All frames are evaluated as if from *top*.</p>
+<h2 id="driver-switch-to-default-content"><a href="#driver-switch-to-default-content" class="headerlink" title="driver.switch_to_default_content()"></a>driver.switch_to_default_content()</h2><p>Once we are done with working on frames, we will have to come back to the parent frame which can be done using:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.switch_to_default_content()</span><br></pre></td></tr></table></figure>
+<h1 id="Popup-dialogs"><a href="#Popup-dialogs" class="headerlink" title="Popup dialogs"></a>Popup dialogs</h1><h2 id="driver-switch-to-alert"><a href="#driver-switch-to-alert" class="headerlink" title="driver.switch_to_alert()"></a>driver.switch_to_alert()</h2><p>Selenium WebDriver has built-in support for handling popup dialog boxes. After you’ve triggerd action that would open a popup, you can access the alert with the following:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert = driver.switch_to_alert()</span><br></pre></td></tr></table></figure>
+<p>This will return the currently open alert object. With this object you can now accept, dismiss, read its contents or even type into a prompt. This interface works equally well on alerts, confirms, prompts. Refer to the API documentation for more information.</p>
+<h1 id="history-and-location"><a href="#history-and-location" class="headerlink" title="history and location"></a>history and location</h1><h2 id="driver-forward-driver-back"><a href="#driver-forward-driver-back" class="headerlink" title="driver.forward()/driver.back()"></a>driver.forward()/driver.back()</h2><p>Earlier, we covered navigating to a page using the “get” command. As you’ve seen, WebDriver has a number of smaller, task-focused interfaces, and navigation is a useful task. To move backwards and forwards in your browser’s history:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">driver.forward()</span><br><span class="line">driver.back()</span><br></pre></td></tr></table></figure>
+<p>Please be aware that this functionality depends entirely on the underlying driver. It’s just possible that something unexpected may happen when you call these methods if you’re used to the behaviour of one browser over another.</p>
+<h1 id="Cookies"><a href="#Cookies" class="headerlink" title="Cookies"></a>Cookies</h1><p>Before we leave these next steps, you may be interested in understanding how to use cookies. First of all, you need to be on the domain that the cookie will be valid for：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Go to the correct domain</span><br><span class="line">driver.get(&quot;http://www.example.com&quot;)</span><br></pre></td></tr></table></figure>
+<h2 id="driver-add-cookie"><a href="#driver-add-cookie" class="headerlink" title="driver.add_cookie()"></a>driver.add_cookie()</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Now set the cookie. This one&apos;s valid for the entire domain</span><br><span class="line">cookie = &#123;‘name’ : ‘foo’, ‘value’ : ‘bar’&#125;</span><br><span class="line">driver.add_cookie(cookie)</span><br></pre></td></tr></table></figure>
+<h2 id="driver-get-cookies"><a href="#driver-get-cookies" class="headerlink" title="driver.get_cookies()"></a>driver.get_cookies()</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># And now output all the available cookies for the current URL</span><br><span class="line">driver.get_cookies()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/31/Selenium自动化测试/" rel="next" title="Selenium自动化测试">
+                <i class="fa fa-chevron-left"></i> Selenium自动化测试
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="李宗航" />
+          <p class="site-author-name" itemprop="name">李宗航</p>
+          <p class="site-description motion-element" itemprop="description">开发学习日志</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives/">
+              <span class="site-state-item-count">54</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizonghang/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Interacting-with-the-page"><span class="nav-number">1.</span> <span class="nav-text">Interacting with the page</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#driver-find-element-by"><span class="nav-number">1.1.</span> <span class="nav-text">driver.find_element_by_*()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#element-send-keys"><span class="nav-number">1.2.</span> <span class="nav-text">element.send_keys()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#element-clear"><span class="nav-number">1.3.</span> <span class="nav-text">element.clear()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Filling-in-forms"><span class="nav-number">2.</span> <span class="nav-text">Filling in forms</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#element-click"><span class="nav-number">2.1.</span> <span class="nav-text">element.click()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#select-select-by"><span class="nav-number">2.2.</span> <span class="nav-text">select.select_by_*()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#select-deselect-all"><span class="nav-number">2.3.</span> <span class="nav-text">select.deselect_all()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#select-all-selected-options"><span class="nav-number">2.4.</span> <span class="nav-text">select.all_selected_options</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#select-options"><span class="nav-number">2.5.</span> <span class="nav-text">select.options</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#element-submit"><span class="nav-number">2.6.</span> <span class="nav-text">element.submit()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Drag-and-drop"><span class="nav-number">3.</span> <span class="nav-text">Drag and drop</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#action-chains-drag-and-drop"><span class="nav-number">3.1.</span> <span class="nav-text">action_chains.drag_and_drop()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Moving-between-windows-and-frames"><span class="nav-number">4.</span> <span class="nav-text">Moving between windows and frames</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#driver-switch-to-window"><span class="nav-number">4.1.</span> <span class="nav-text">driver.switch_to_window()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#driver-window-handles"><span class="nav-number">4.2.</span> <span class="nav-text">driver.window_handles</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#driver-switch-to-frame"><span class="nav-number">4.3.</span> <span class="nav-text">driver.switch_to_frame()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#driver-switch-to-default-content"><span class="nav-number">4.4.</span> <span class="nav-text">driver.switch_to_default_content()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Popup-dialogs"><span class="nav-number">5.</span> <span class="nav-text">Popup dialogs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#driver-switch-to-alert"><span class="nav-number">5.1.</span> <span class="nav-text">driver.switch_to_alert()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#history-and-location"><span class="nav-number">6.</span> <span class="nav-text">history and location</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#driver-forward-driver-back"><span class="nav-number">6.1.</span> <span class="nav-text">driver.forward()/driver.back()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cookies"><span class="nav-number">7.</span> <span class="nav-text">Cookies</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#driver-add-cookie"><span class="nav-number">7.1.</span> <span class="nav-text">driver.add_cookie()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#driver-get-cookies"><span class="nav-number">7.2.</span> <span class="nav-text">driver.get_cookies()</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李宗航</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
