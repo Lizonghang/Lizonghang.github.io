@@ -57,19 +57,16 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;The ImageFilter module contains definitions for a pre-defined set of filters, which can be be used with the filter method of the Image class.
-Example12345from PIL import Image, ImageFilter">
+<meta name="description" content="These days most of the web apps are using AJAX techniques. When a page is loaded to browser, the elements within that page may load at different time intervals. This makes locating elements difficult,">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ImageFilter模块">
-<meta property="og:url" content="http://desckie.com/2016/07/29/ImageFilter模块/index.html">
+<meta property="og:title" content="Selenium-Waits">
+<meta property="og:url" content="http://desckie.com/2016/08/01/Selenium-Waits/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;The ImageFilter module contains definitions for a pre-defined set of filters, which can be be used with the filter method of the Image class.
-Example12345from PIL import Image, ImageFilter">
-<meta property="og:updated_time" content="2016-07-29T01:57:48.000Z">
+<meta property="og:description" content="These days most of the web apps are using AJAX techniques. When a page is loaded to browser, the elements within that page may load at different time intervals. This makes locating elements difficult,">
+<meta property="og:updated_time" content="2016-08-01T11:43:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ImageFilter模块">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;The ImageFilter module contains definitions for a pre-defined set of filters, which can be be used with the filter method of the Image class.
-Example12345from PIL import Image, ImageFilter">
+<meta name="twitter:title" content="Selenium-Waits">
+<meta name="twitter:description" content="These days most of the web apps are using AJAX techniques. When a page is loaded to browser, the elements within that page may load at different time intervals. This makes locating elements difficult,">
 
 
 
@@ -87,7 +84,7 @@ Example12345from PIL import Image, ImageFilter">
   };
 </script>
 
-  <title> ImageFilter模块 | 努力学习天天向上 </title>
+  <title> Selenium-Waits | 努力学习天天向上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -226,7 +223,7 @@ Example12345from PIL import Image, ImageFilter">
             
             
               
-                ImageFilter模块
+                Selenium-Waits
               
             
           </h1>
@@ -238,8 +235,8 @@ Example12345from PIL import Image, ImageFilter">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-29T09:43:23+08:00" content="2016-07-29">
-              2016-07-29
+            <time itemprop="dateCreated" datetime="2016-08-01T19:03:41+08:00" content="2016-08-01">
+              2016-08-01
             </time>
           </span>
 
@@ -252,8 +249,8 @@ Example12345from PIL import Image, ImageFilter">
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/PIL/" itemprop="url" rel="index">
-                    <span itemprop="name">PIL</span>
+                  <a href="/categories/软件测试/" itemprop="url" rel="index">
+                    <span itemprop="name">软件测试</span>
                   </a>
                 </span>
 
@@ -284,27 +281,35 @@ Example12345from PIL import Image, ImageFilter">
       
 
       
-        <p>&emsp;&emsp;The ImageFilter module contains definitions for a pre-defined set of filters, which can be be used with the filter method of the Image class.</p>
-<h1 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from PIL import Image, ImageFilter</span><br><span class="line">im = Image.open(&apos;lena.jpg&apos;)</span><br><span class="line">im1 = im.filter(ImageFilter.BLUR)</span><br><span class="line">im2 = im.filter(ImageFilter.MinFilter(3))</span><br><span class="line">im3 = im.filter(ImageFilter.MinFilter)</span><br></pre></td></tr></table></figure>
-<h1 id="Filters"><a href="#Filters" class="headerlink" title="Filters"></a>Filters</h1><p>&emsp;&emsp;The current version of the library provides the following set of predefined image enhancement filters:</p>
+        <p>These days most of the web apps are using AJAX techniques. When a page is loaded to browser, the elements within that page may load at different time intervals. This makes locating elements difficult, if the element is not present in the DOM, it will raise ElementNotVisibleException exception. Using waits, we can solve this issue. Waiting provides some time interval between actions performed - mostly locating element or any other operation with the element.</p>
+<p>Selenium Webdriver provides two types of waits - implicit &amp; explicit. An explicit wait makes WebDriver to wait for a certain condition to occur before proceeding further with executions. An implicit wait makes WebDriver to poll the DOM for a certain amount of time when trying to locate an element.</p>
+<h1 id="Explicit-Waits"><a href="#Explicit-Waits" class="headerlink" title="Explicit Waits"></a>Explicit Waits</h1><p>An explicit wait is code you define to wait for a certain condition to occur before proceeding further in the code. The worst case of this is time.sleep(), which sets the condition to an exact time period to wait. There are some convenience methods provided that help you write code that will wait only as long as required. WebDriverWait in combination with ExpectedCondition is one way this can be accomplished.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver</span><br><span class="line">from selenium.webdriver.common.by import By</span><br><span class="line">from selenium.webdriver.support.ui import WebDriverWait</span><br><span class="line">from selenium.webdriver.support import expected_conditions as EC</span><br><span class="line"></span><br><span class="line">driver = webdriver.Chrome()</span><br><span class="line">driver.get(&quot;http://somedomain/url_that_delays_loading&quot;)</span><br><span class="line">try:</span><br><span class="line">    element = WebDriverWait(driver, 10).until(</span><br><span class="line">        EC.presence_of_element_located((By.ID, &quot;myDynamicElement&quot;))</span><br><span class="line">    )</span><br><span class="line">finally:</span><br><span class="line">    driver.quit()</span><br></pre></td></tr></table></figure>
+<p>This waits up to 10 seconds before throwing a TimeoutException or if it finds the element will return it in 0 - 10 seconds. WebDriverWait by default calls the ExpectedCondition every 500 milliseconds until it returns successfully. A successful return is for ExpectedCondition type is Boolean return true or not null return value for all other ExpectedCondition types.</p>
+<h2 id="Expected-Conditions"><a href="#Expected-Conditions" class="headerlink" title="Expected Conditions"></a>Expected Conditions</h2><p>There are some common conditions that are frequent when automating web browsers. Listed below are Implementations of each. Selenium Python binding provides some convienence methods so you don’t have to code an expected_condition class yourself or create your own utility package for them.</p>
 <ul>
-<li>BLUR</li>
-<li>CONTOUR</li>
-<li>DETAIL</li>
-<li>EDGE_ENHANCE</li>
-<li>EDGE_ENHANCE_MORE</li>
-<li>EMBOSS</li>
-<li>FIND_EDGES</li>
-<li>SMOOTH_MORE</li>
-<li>SHARPEN</li>
+<li>title_is</li>
+<li>title_contains</li>
+<li>presence_of_element_located</li>
+<li>visibility_of_element_located</li>
+<li>visibility_of</li>
+<li>presence_of_all_elements_located</li>
+<li>text_to_be_present_in_element</li>
+<li>text_to_be_present_in_element_value</li>
+<li>frame_to_be_available_and_switch_to_it</li>
+<li>invisibility_of_element_located</li>
+<li>element_to_be_clickable - it is Displayed and Enabled.</li>
+<li>staleness_of</li>
+<li>element_to_be_selected</li>
+<li>element_located_to_be_selected</li>
+<li>element_selection_state_to_be</li>
+<li>element_located_selection_state_to_be</li>
+<li>alert_is_present</li>
 </ul>
-<h2 id="ImageFilter-Kernel-size-kernel-scale-None-offset-0"><a href="#ImageFilter-Kernel-size-kernel-scale-None-offset-0" class="headerlink" title="ImageFilter.Kernel(size, kernel, scale=None, offset=0)"></a>ImageFilter.Kernel(size, kernel, scale=None, offset=0)</h2><p>&emsp;&emsp;(New in 1.1.5) Creates a convolution kernel of the given size. In the current version, size must be either (3, 3) or (5, 5), and the kernel argument must be a sequence containing 9 or 25 integer or floating point weights.<br>&emsp;&emsp;If scale is given, the result of applying the kernel to each pixel is divided by the scale value. The default is the sum of the kernel weights.<br>&emsp;&emsp;If offset is given, this value is added to the result, after it has been divided by scale.</p>
-<h2 id="ImageFilter-RankFilter-size-rank"><a href="#ImageFilter-RankFilter-size-rank" class="headerlink" title="ImageFilter.RankFilter(size, rank)"></a>ImageFilter.RankFilter(size, rank)</h2><p>&emsp;&emsp;(New in 1.1.5) Creates a rank filter of the given size. For each pixel in the input image, the rank filter sorts all pixels in a (size, size) environment by pixel value, and copies the rank‘th value to the output image.</p>
-<h2 id="ImageFilter-MinFilter-size-3"><a href="#ImageFilter-MinFilter-size-3" class="headerlink" title="ImageFilter.MinFilter(size=3)"></a>ImageFilter.MinFilter(size=3)</h2><p>&emsp;&emsp;(New in 1.1.5) Creates a min filter of the given size. For each pixel in the input image, this filter copies the smallest pixel value from a (size, size) environment to the output image.</p>
-<h2 id="ImageFilter-MedianFilter-size-3"><a href="#ImageFilter-MedianFilter-size-3" class="headerlink" title="ImageFilter.MedianFilter(size=3)"></a>ImageFilter.MedianFilter(size=3)</h2><p>&emsp;&emsp;(New in 1.1.5) Creates a median filter of the given size. For each pixel in the input image, this filter copies the median pixel value from a (size, size) environment to the output image.</p>
-<h2 id="ImageFilter-MaxFilter-size-3"><a href="#ImageFilter-MaxFilter-size-3" class="headerlink" title="ImageFilter.MaxFilter(size=3)"></a>ImageFilter.MaxFilter(size=3)</h2><p>&emsp;&emsp;(New in 1.1.5) Creates a max filter of the given size. For each pixel in the input image, this filter copies the largest pixel value from a (size, size) environment to the output image.</p>
-<h2 id="ImageFilter-ModeFilter-size-3"><a href="#ImageFilter-ModeFilter-size-3" class="headerlink" title="ImageFilter.ModeFilter(size=3)"></a>ImageFilter.ModeFilter(size=3)</h2><p>&emsp;&emsp;(New in 1.1.5) Creates a mode filter of the given size. For each pixel in the input image, this filter copies the most common pixel value in a (size, size) environment to the output image. If no pixel value occurs more than once, the original pixel value is used.</p>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from selenium.webdriver.support import expected_conditions as EC</span><br><span class="line"></span><br><span class="line">wait = WebDriverWait(driver, 10)</span><br><span class="line">element = wait.until(EC.element_to_be_clickable((By.ID,&apos;someid&apos;)))</span><br></pre></td></tr></table></figure>
+<p>The expected_conditions module contains a set of predefined conditions to use with WebDriverWait.</p>
+<h1 id="Implicit-Waits"><a href="#Implicit-Waits" class="headerlink" title="Implicit Waits"></a>Implicit Waits</h1><p>An implicit wait is to tell WebDriver to poll the DOM for a certain amount of time when trying to find an element or elements if they are not immediately available. The default setting is 0. Once set, the implicit wait is set for the life of the WebDriver object instance.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver</span><br><span class="line"></span><br><span class="line">driver = webdriver.Firefox()</span><br><span class="line">driver.implicitly_wait(10) # seconds</span><br><span class="line">driver.get(&quot;http://somedomain/url_that_delays_loading&quot;)</span><br><span class="line">myDynamicElement = driver.find_element_by_id(&quot;myDynamicElement&quot;)</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -321,16 +326,16 @@ Example12345from PIL import Image, ImageFilter">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/28/ImageFont模块/" rel="next" title="ImageFont模块">
-                <i class="fa fa-chevron-left"></i> ImageFont模块
+              <a href="/2016/08/01/Selenium-Locating/" rel="next" title="Selenium-Locating">
+                <i class="fa fa-chevron-left"></i> Selenium-Locating
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/07/29/ImageEnhance模块/" rel="prev" title="ImageEnhance模块">
-                ImageEnhance模块 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/08/01/Selenium-Page-Object/" rel="prev" title="Selenium-Page-Object">
+                Selenium-Page-Object <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -451,7 +456,7 @@ Example12345from PIL import Image, ImageFilter">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Example"><span class="nav-number">1.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Filters"><span class="nav-number">2.</span> <span class="nav-text">Filters</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageFilter-Kernel-size-kernel-scale-None-offset-0"><span class="nav-number">2.1.</span> <span class="nav-text">ImageFilter.Kernel(size, kernel, scale=None, offset=0)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageFilter-RankFilter-size-rank"><span class="nav-number">2.2.</span> <span class="nav-text">ImageFilter.RankFilter(size, rank)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageFilter-MinFilter-size-3"><span class="nav-number">2.3.</span> <span class="nav-text">ImageFilter.MinFilter(size=3)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageFilter-MedianFilter-size-3"><span class="nav-number">2.4.</span> <span class="nav-text">ImageFilter.MedianFilter(size=3)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageFilter-MaxFilter-size-3"><span class="nav-number">2.5.</span> <span class="nav-text">ImageFilter.MaxFilter(size=3)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageFilter-ModeFilter-size-3"><span class="nav-number">2.6.</span> <span class="nav-text">ImageFilter.ModeFilter(size=3)</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Explicit-Waits"><span class="nav-number">1.</span> <span class="nav-text">Explicit Waits</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Expected-Conditions"><span class="nav-number">1.1.</span> <span class="nav-text">Expected Conditions</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Implicit-Waits"><span class="nav-number">2.</span> <span class="nav-text">Implicit Waits</span></a></li></ol></div>
             
           </div>
         </section>
