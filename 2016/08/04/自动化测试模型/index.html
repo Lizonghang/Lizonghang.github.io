@@ -1,0 +1,600 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;一个自动化测试框架就是一个集成体系，在这一体系中包含测试功能的函数库、测试数据源、测试对象识别标准、以及多种可重用的模块。自动化测试框架在发展的过程中经历了几个阶段：模块驱动测试、数据驱动测试、对象驱动测试。
+自动化测试模型&amp;emsp;&amp;emsp;自动化测试模型是自动化测试架构的基础，自动化测试的发展也经历了不同的阶段，不断有新的模型（概念）被提出，了解和使用这些自动化模型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自动化测试模型">
+<meta property="og:url" content="http://desckie.com/2016/08/04/自动化测试模型/index.html">
+<meta property="og:site_name" content="努力学习天天向上">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;一个自动化测试框架就是一个集成体系，在这一体系中包含测试功能的函数库、测试数据源、测试对象识别标准、以及多种可重用的模块。自动化测试框架在发展的过程中经历了几个阶段：模块驱动测试、数据驱动测试、对象驱动测试。
+自动化测试模型&amp;emsp;&amp;emsp;自动化测试模型是自动化测试架构的基础，自动化测试的发展也经历了不同的阶段，不断有新的模型（概念）被提出，了解和使用这些自动化模型">
+<meta property="og:updated_time" content="2016-08-04T13:42:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自动化测试模型">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;一个自动化测试框架就是一个集成体系，在这一体系中包含测试功能的函数库、测试数据源、测试对象识别标准、以及多种可重用的模块。自动化测试框架在发展的过程中经历了几个阶段：模块驱动测试、数据驱动测试、对象驱动测试。
+自动化测试模型&amp;emsp;&amp;emsp;自动化测试模型是自动化测试架构的基础，自动化测试的发展也经历了不同的阶段，不断有新的模型（概念）被提出，了解和使用这些自动化模型">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 自动化测试模型 | 努力学习天天向上 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80234286-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">努力学习天天向上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">开发学习日志</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                自动化测试模型
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-04T16:13:01+08:00" content="2016-08-04">
+              2016-08-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/软件测试/" itemprop="url" rel="index">
+                    <span itemprop="name">软件测试</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;一个自动化测试框架就是一个集成体系，在这一体系中包含测试功能的函数库、测试数据源、测试对象识别标准、以及多种可重用的模块。自动化测试框架在发展的过程中经历了几个阶段：模块驱动测试、数据驱动测试、对象驱动测试。</p>
+<h1 id="自动化测试模型"><a href="#自动化测试模型" class="headerlink" title="自动化测试模型"></a>自动化测试模型</h1><p>&emsp;&emsp;自动化测试模型是自动化测试架构的基础，自动化测试的发展也经历了不同的阶段，不断有新的模型（概念）被提出，了解和使用这些自动化模型有利于构建一个灵活可维护的自动化架构。</p>
+<h2 id="线性测试"><a href="#线性测试" class="headerlink" title="线性测试"></a>线性测试</h2><p>&emsp;&emsp;通过录制或编写脚本，一个脚本完成一个场景（一组完整功能操作），通过对脚本的回放来进行自动化测试。这是早期进行自动化测试的一种形式。例如在<a href="/2016/08/03/Selenium模拟操作实例/">模拟登陆实例</a>中的脚本就是线性测试形式。它的优势是每个脚本都是独立的，任何一个脚本文件可以单独运行。缺点是用例的开发与维护成本很高：</p>
+<ul>
+<li>一个用例对应一个脚本。如果登陆发送变化，例如用户名的属性发生改变，就不得不对每个脚本进行修改。测试用例形成规模，大量的工作被用于脚本的维护，从而失去自动化的意义。</li>
+<li>这种模式下数据和脚本是混合在一起的，如果数据发生改变就需要修改脚本。这种模式下，脚本没有可重复使用的概念。</li>
+</ul>
+<h2 id="模块化与类库"><a href="#模块化与类库" class="headerlink" title="模块化与类库"></a>模块化与类库</h2><p>&emsp;&emsp;在脚本中有很多内容是重复的，于是可以将重复的部分写成公共模块，在需要的时候进行调用，这样就提高了编写脚本的效率。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># login.py</span><br><span class="line">def login():</span><br><span class="line">    driver.find_element_by_id(&quot;username&quot;).send_keys(&quot;username&quot;)</span><br><span class="line">    driver.find_element_by_id(&quot;password&quot;).send_keys(&quot;password&quot;)</span><br><span class="line">    driver.find_element_by_id(&quot;btnLogin&quot;).click()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># quit.py</span><br><span class="line">def quit():</span><br><span class="line">    driver.find_element_by_id(&quot;btnQuit&quot;).click()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver</span><br><span class="line">import login, quit</span><br><span class="line">driver = webdriver.Chrome()</span><br><span class="line">driver.get(&apos;http://www.ooxx.com&apos;)</span><br><span class="line">login.login()</span><br><span class="line">quit.quit()</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;通过上述不完整样例发现，可以将脚本中相同的部分代码独立出来形成模块或库。这样做有两方面优点：</p>
+<ul>
+<li>提高了开发效率，不用重复编写相同的脚本。之后需要时调用已写好的模块即可。</li>
+<li>方便代码的维护。如果某个模块发生变化，只需要修改对应模块的代码即可。</li>
+</ul>
+<h2 id="数据驱动"><a href="#数据驱动" class="headerlink" title="数据驱动"></a>数据驱动</h2><p>&emsp;&emsp;数据驱动是自动化的进步，数据的改变驱动自动化的执行，从而引起测试结果的改变。简单的说，通过输入数据的不同引起输出结果的变化。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver</span><br><span class="line">from selenium.webdriver.common.keys import Keys</span><br><span class="line">import time</span><br><span class="line">values = [&apos;selenium&apos;, &apos;webdriver&apos;]</span><br><span class="line">for search in values:</span><br><span class="line">    driver = webdriver.Chrome()</span><br><span class="line">    driver.get(http://www.baidu.com)</span><br><span class="line">    driver.find_element_by_id(&apos;kw&apos;).send_keys(search, Keys.RETURN)</span><br><span class="line">    time.sleep(3)</span><br><span class="line">    driver.close()</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;读取的数据源可能是数组、字典、函数、CSV或TXT文件，上面的例子实现了数据与脚本的分离，实现了参数化。同样的脚本执行不同的数据得到不同的结果，从而增强了脚本的复用性。</p>
+<h2 id="关键字驱动"><a href="#关键字驱动" class="headerlink" title="关键字驱动"></a>关键字驱动</h2><p>&emsp;&emsp;关键词驱动就是通过关键字的改变引起测试结果改变。QTP、robot framework 等都是以关键字驱动为主的自动化工具，因为这类工具的易用性，‘填表’式的关键字驱动帮助封装了很多底层的东西，测试人员只需要考虑三个问题：做什么、对谁做、怎么做。可以将 Selenium IDE 看做一种关键字驱动的自动化工具，Selenium IDE 脚本分：命令（command）、对象（target）、值（value），通过这样的格式去描述不同的对象，从而引起结果的改变。</p>
+<h1 id="登陆模块化"><a href="#登陆模块化" class="headerlink" title="登陆模块化"></a>登陆模块化</h1><p>&emsp;&emsp;在目前的脚本中有很多代码是可以模块化的，比如登陆模块。几乎每一个用例的执行都需要登陆脚本，那么久可以将登陆脚本独立到单独的文件调用。以<a href="/2016/08/03/Selenium模拟操作实例/#模拟百度登入登出">模拟百度登入登出</a>为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># login.py</span><br><span class="line">from selenium import webdriver</span><br><span class="line">from selenium.common.exceptions import NoSuchElementException</span><br><span class="line"></span><br><span class="line">def login(self):</span><br><span class="line">    driver = self.driver</span><br><span class="line">    driver.find_element_by_id(&apos;u1&apos;).find_element_by_name(&apos;tj_login&apos;).click()</span><br><span class="line">    try:</span><br><span class="line">        usernameInput = driver.find_element_by_id(&apos;TANGRAM__PSP_8__userName&apos;)</span><br><span class="line">        passwordInput = driver.find_element_by_id(&apos;TANGRAM__PSP_8__password&apos;)</span><br><span class="line">        usernameInput.clear()</span><br><span class="line">        passwordInput.clear()</span><br><span class="line">        usernameInput.send_keys(self.username)</span><br><span class="line">        passwordInput.send_keys(self.password)</span><br><span class="line">        driver.find_element_by_id(&apos;TANGRAM__PSP_8__submit&apos;).submit()</span><br><span class="line">    except NoSuchElementException as msg:</span><br><span class="line">        return False</span><br><span class="line">    return True</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"># baidu.py</span><br><span class="line">from selenium import webdriver</span><br><span class="line">from selenium.webdriver.common.action_chains import ActionChains</span><br><span class="line">from selenium.webdriver.common.by import By</span><br><span class="line">from selenium.webdriver.support.ui import WebDriverWait</span><br><span class="line">from selenium.webdriver.support import expected_conditions as EC</span><br><span class="line">import unittest, time</span><br><span class="line">import login</span><br><span class="line"></span><br><span class="line">class Login(unittest.TestCase):</span><br><span class="line"></span><br><span class="line">    def setUp(self):</span><br><span class="line">        self.driver = webdriver.Chrome()</span><br><span class="line">        self.driver.implicitly_wait(5)</span><br><span class="line">        self.username = &apos;username&apos;</span><br><span class="line">        self.password = &apos;password&apos;</span><br><span class="line"></span><br><span class="line">    def test_login(self):</span><br><span class="line">        driver = self.driver</span><br><span class="line">        driver.get(&apos;https://www.baidu.com&apos;)</span><br><span class="line">        if login.login(self):</span><br><span class="line">            ActionChains(driver).move_to_element(driver.find_element_by_id(&apos;s_username_top&apos;)).perform()</span><br><span class="line">            ActionChains(driver).move_to_element(driver.find_element_by_class_name(&apos;quit&apos;)).click().perform()</span><br><span class="line">            ActionChains(driver).move_to_element(driver.find_elements_by_xpath(&apos;//div[@class=&quot;button-wrap&quot;]/a&apos;)[2]).click().perform()</span><br><span class="line">            time.sleep(3)</span><br><span class="line"></span><br><span class="line">    def tearDown(self):</span><br><span class="line">        self.driver.quit()</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    unittest.main()</span><br></pre></td></tr></table></figure>
+<h1 id="数据驱动-1"><a href="#数据驱动-1" class="headerlink" title="数据驱动"></a>数据驱动</h1><h2 id="数据参数化"><a href="#数据参数化" class="headerlink" title="数据参数化"></a>数据参数化</h2><p>&emsp;&emsp;在上面关于数据驱动的介绍中已经示例了使用数组进行参数化设置，这里将通过读取 txt 文件中的数据来实现参数化。</p>
+<p>创建一个 data.txt 文件，文件内有三行数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">selenium</span><br><span class="line">webdriver</span><br><span class="line">bokeyuan</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;通过 for 循环，search 可以每次获取到文件中的一行数据，在定位到百度搜索框后将数据传入 send_keys()。这样通过循环调用，直到文件中的所有内容被读取</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver</span><br><span class="line">from selenium.webdriver.common.keys import Keys</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">source = open(&apos;data.txt&apos;)</span><br><span class="line">values = source.readlines()</span><br><span class="line">source.close()</span><br><span class="line">for search in values:</span><br><span class="line">    driver = webdriver.Chrome()</span><br><span class="line">    driver.get(&apos;http://www.baidu.com&apos;)</span><br><span class="line">    driver.find_element_by_id(&apos;kw&apos;).send_keys(search, Keys.RETURN)</span><br><span class="line">    time.sleep(2)</span><br><span class="line">    driver.close()</span><br></pre></td></tr></table></figure>
+<h2 id="登录参数化-读取txt文件"><a href="#登录参数化-读取txt文件" class="headerlink" title="登录参数化(读取txt文件)"></a>登录参数化(读取txt文件)</h2><p>&emsp;&emsp;按照上述思路，对自动化脚本中用户名、密码进行参数化。创建 userdata.txt 文件，存放用户名和密码，假设存放格式为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username1 password1</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;在之前编写的 login.py 文件基础上作如下修改：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver</span><br><span class="line">from selenium.common.exceptions import NoSuchElementException</span><br><span class="line"></span><br><span class="line">source = open(&apos;userdata.txt&apos;)</span><br><span class="line">username, password = source.readlines()[0].split()</span><br><span class="line">source.close()</span><br><span class="line"></span><br><span class="line">def login(self):</span><br><span class="line">    driver = self.driver</span><br><span class="line">    driver.find_element_by_id(&apos;u1&apos;).find_element_by_name(&apos;tj_login&apos;).click()</span><br><span class="line">    try:</span><br><span class="line">        usernameInput = driver.find_element_by_id(&apos;TANGRAM__PSP_8__userName&apos;)</span><br><span class="line">        passwordInput = driver.find_element_by_id(&apos;TANGRAM__PSP_8__password&apos;)</span><br><span class="line">        usernameInput.clear()</span><br><span class="line">        passwordInput.clear()</span><br><span class="line">        usernameInput.send_keys(username)</span><br><span class="line">        passwordInput.send_keys(password)</span><br><span class="line">        driver.find_element_by_id(&apos;TANGRAM__PSP_8__submit&apos;).submit()</span><br><span class="line">    except NoSuchElementException as msg:</span><br><span class="line">        return False</span><br><span class="line">    return True</span><br></pre></td></tr></table></figure>
+<h2 id="登录参数化-函数"><a href="#登录参数化-函数" class="headerlink" title="登录参数化(函数)"></a>登录参数化(函数)</h2><p>&emsp;&emsp;函数可以预先给参数化赋值，借助这个特性，可以通过调用函数对用户名和密码进行参数化。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># userinfo.py</span><br><span class="line">def Tester_Li(username=&apos;testusername&apos;, password=&apos;testpassword&apos;):</span><br><span class="line">    return username, password</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;通过给函数参数赋予默认值并返回的方法可以在函数中存储一些信息。再次修改 login.py 文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># login.py</span><br><span class="line">from selenium import webdriver</span><br><span class="line">from selenium.common.exceptions import NoSuchElementException</span><br><span class="line">import userinfo</span><br><span class="line"></span><br><span class="line">username, password = userinfo.Tester_Li()</span><br><span class="line"></span><br><span class="line">def login(self):</span><br><span class="line">    driver = self.driver</span><br><span class="line">    driver.find_element_by_id(&apos;u1&apos;).find_element_by_name(&apos;tj_login&apos;).click()</span><br><span class="line">    try:</span><br><span class="line">        usernameInput = driver.find_element_by_id(&apos;TANGRAM__PSP_8__userName&apos;)</span><br><span class="line">        passwordInput = driver.find_element_by_id(&apos;TANGRAM__PSP_8__password&apos;)</span><br><span class="line">        usernameInput.clear()</span><br><span class="line">        passwordInput.clear()</span><br><span class="line">        usernameInput.send_keys(username)</span><br><span class="line">        passwordInput.send_keys(password)</span><br><span class="line">        driver.find_element_by_id(&apos;TANGRAM__PSP_8__submit&apos;).submit()</span><br><span class="line">    except NoSuchElementException as msg:</span><br><span class="line">        return False</span><br><span class="line">    return True</span><br></pre></td></tr></table></figure>
+<h2 id="登录参数化-读取字典"><a href="#登录参数化-读取字典" class="headerlink" title="登录参数化(读取字典)"></a>登录参数化(读取字典)</h2><p>&emsp;&emsp;使用一个函数来存储字典，假设文件名为 userinfo.py：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># userinfo.py</span><br><span class="line">def getUserInfo():</span><br><span class="line">    data = &#123;</span><br><span class="line">    &apos;Tester_Li&apos;: &#123;&apos;username&apos;: &apos;Li_username&apos;, &apos;password&apos;: &apos;Li_password&apos;&#125;,</span><br><span class="line">    &apos;Tester_Wang&apos;: &#123;&apos;username&apos;: &apos;Wang_username&apos;, &apos;password&apos;: &apos;Wang_password&apos;&#125;,</span><br><span class="line">    &#125;</span><br><span class="line">    return data</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># login.py</span><br><span class="line">from selenium import webdriver</span><br><span class="line">from selenium.common.exceptions import NoSuchElementException</span><br><span class="line">import userinfo</span><br><span class="line"></span><br><span class="line">info_dict = userinfo.getUserInfo()[&apos;Tester_Li&apos;]</span><br><span class="line">username = info_dict[&apos;username&apos;]</span><br><span class="line">password = info_dict[&apos;password&apos;]</span><br><span class="line"></span><br><span class="line">def login(self):</span><br><span class="line">    driver = self.driver</span><br><span class="line">    driver.find_element_by_id(&apos;u1&apos;).find_element_by_name(&apos;tj_login&apos;).click()</span><br><span class="line">    try:</span><br><span class="line">        usernameInput = driver.find_element_by_id(&apos;TANGRAM__PSP_8__userName&apos;)</span><br><span class="line">        passwordInput = driver.find_element_by_id(&apos;TANGRAM__PSP_8__password&apos;)</span><br><span class="line">        usernameInput.clear()</span><br><span class="line">        passwordInput.clear()</span><br><span class="line">        usernameInput.send_keys(username)</span><br><span class="line">        passwordInput.send_keys(password)</span><br><span class="line">        driver.find_element_by_id(&apos;TANGRAM__PSP_8__submit&apos;).submit()</span><br><span class="line">    except NoSuchElementException as msg:</span><br><span class="line">        return False</span><br><span class="line">    return True</span><br></pre></td></tr></table></figure>
+<h2 id="表单参数化-CSV"><a href="#表单参数化-CSV" class="headerlink" title="表单参数化(CSV)"></a>表单参数化(CSV)</h2><p>&emsp;&emsp;假设自动化脚本中要参数化一张表单，表单需要填写用户名、邮箱、年龄、性别等信息，就适合用读取 CSV 文件的方法来解决。创建 userinfo.csv 文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">laowang,123456@126.com,23,男,</span><br><span class="line">xiaoli,123123@qq.com, 18, 女,</span><br><span class="line">xiaomin,456123@gmail.com, 29,女,</span><br></pre></td></tr></table></figure>
+<p>使用 csv 库来读取 CSV 文件中的数据并格式化输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># encoding: utf-8</span><br><span class="line">import csv</span><br><span class="line">for user in csv.reader(file(&apos;userinfo.csv&apos;, &apos;rb&apos;)):</span><br><span class="line">    print &apos;Name: %s, Mail: %s, Age: %s, Sex: %s&apos; % tuple(user[0:4])</span><br></pre></td></tr></table></figure>
+<p>输出结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Name: laowang, Mail: 123456@126.com, Age: 23, Sex: 男</span><br><span class="line">Name: xiaoli, Mail: 123123@qq.com, Age:  18, Sex:  女</span><br><span class="line">Name: xiaomin, Mail: 456123@gmail.com, Age:  29, Sex: 女</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;csv.reader() 用于读取 CSV 文件，每一次循环的 user 变量是一个列表，可以通过 user[index] 来读取其中的数据，上面将 user 中的数据抽取出来并转换为元组来简化代码。通过 csv 读取文件比较灵活，可以循环读取每一条数据，又不局限每次读取数据的个数。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/03/Selenium模拟操作实例/" rel="next" title="Selenium模拟操作实例">
+                <i class="fa fa-chevron-left"></i> Selenium模拟操作实例
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="李宗航" />
+          <p class="site-author-name" itemprop="name">李宗航</p>
+          <p class="site-description motion-element" itemprop="description">开发学习日志</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives/">
+              <span class="site-state-item-count">60</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizonghang/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#自动化测试模型"><span class="nav-number">1.</span> <span class="nav-text">自动化测试模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#线性测试"><span class="nav-number">1.1.</span> <span class="nav-text">线性测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块化与类库"><span class="nav-number">1.2.</span> <span class="nav-text">模块化与类库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据驱动"><span class="nav-number">1.3.</span> <span class="nav-text">数据驱动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关键字驱动"><span class="nav-number">1.4.</span> <span class="nav-text">关键字驱动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#登陆模块化"><span class="nav-number">2.</span> <span class="nav-text">登陆模块化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据驱动-1"><span class="nav-number">3.</span> <span class="nav-text">数据驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据参数化"><span class="nav-number">3.1.</span> <span class="nav-text">数据参数化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#登录参数化-读取txt文件"><span class="nav-number">3.2.</span> <span class="nav-text">登录参数化(读取txt文件)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#登录参数化-函数"><span class="nav-number">3.3.</span> <span class="nav-text">登录参数化(函数)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#登录参数化-读取字典"><span class="nav-number">3.4.</span> <span class="nav-text">登录参数化(读取字典)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表单参数化-CSV"><span class="nav-number">3.5.</span> <span class="nav-text">表单参数化(CSV)</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李宗航</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
