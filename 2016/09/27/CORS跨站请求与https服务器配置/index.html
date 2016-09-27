@@ -1,0 +1,774 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="CORS跨站资源共享现象很多习惯了自己做网站的后台开发者在初次与前端或移动端合作开发时，常常遇到这么一个问题: 后台所开发出的 API 都是经过 Postman 或其他接口测试工具测试过，确认提供的这些 API 并没有异常后，将这些 API 整理成文档发给前端，但是前端的小伙伴并不能成功访问到这些接口，而是会报错: 
+123XMLHttpRequest cannot load http://www">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CORS跨站请求与https服务器配置">
+<meta property="og:url" content="http://lizonghang.github.io/2016/09/27/CORS跨站请求与https服务器配置/index.html">
+<meta property="og:site_name" content="努力学习天天向上">
+<meta property="og:description" content="CORS跨站资源共享现象很多习惯了自己做网站的后台开发者在初次与前端或移动端合作开发时，常常遇到这么一个问题: 后台所开发出的 API 都是经过 Postman 或其他接口测试工具测试过，确认提供的这些 API 并没有异常后，将这些 API 整理成文档发给前端，但是前端的小伙伴并不能成功访问到这些接口，而是会报错: 
+123XMLHttpRequest cannot load http://www">
+<meta property="og:image" content="http://lizonghang.github.io/images/https.png">
+<meta property="og:updated_time" content="2016-09-27T15:44:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CORS跨站请求与https服务器配置">
+<meta name="twitter:description" content="CORS跨站资源共享现象很多习惯了自己做网站的后台开发者在初次与前端或移动端合作开发时，常常遇到这么一个问题: 后台所开发出的 API 都是经过 Postman 或其他接口测试工具测试过，确认提供的这些 API 并没有异常后，将这些 API 整理成文档发给前端，但是前端的小伙伴并不能成功访问到这些接口，而是会报错: 
+123XMLHttpRequest cannot load http://www">
+<meta name="twitter:image" content="http://lizonghang.github.io/images/https.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> CORS跨站请求与https服务器配置 | 努力学习天天向上 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80234286-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">努力学习天天向上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">开发学习日志</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CORS跨站请求与https服务器配置
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-27T21:14:32+08:00" content="2016-09-27">
+              2016-09-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Django/" itemprop="url" rel="index">
+                    <span itemprop="name">Django</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="CORS跨站资源共享"><a href="#CORS跨站资源共享" class="headerlink" title="CORS跨站资源共享"></a>CORS跨站资源共享</h1><h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>很多习惯了自己做网站的后台开发者在初次与前端或移动端合作开发时，常常遇到这么一个问题: 后台所开发出的 API 都是经过 Postman 或其他接口测试工具测试过，确认提供的这些 API 并没有异常后，将这些 API 整理成文档发给前端，但是前端的小伙伴并不能成功访问到这些接口，而是会报错: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">XMLHttpRequest cannot load http://www.desckie.com/iwantrent/getAllProduct</span><br><span class="line">/. No &apos;Access-Control-Allow-Origin&apos; header is present on the requested re</span><br><span class="line">source. Origin &apos;http://www.puahome.com&apos; is therefore not allowed access.</span><br></pre></td></tr></table></figure>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>这是由于浏览器安全的基石是”同源政策”，同源指是协议相同、域名相同、端口相同。同源政策的目的是为了保证用户信息的安全，防止恶意网站窃取数据。因此现在我们用 JS 或 AJAX 进行跨站请求时，由于浏览器的同源原则，使得 <code>XMLHttpRequest</code> 不能跨域通讯。</p>
+<p>为了实现跨域有多种做法，其中一种较为优雅的是使用 <code>JSONP</code> 方案，但 <code>JSONP</code> 仅限于 <code>GET</code> 方法，局限性较大。</p>
+<p>报错信息中有这么一句话: <code>No ‘Access-Control-Allow-Origin’ header is present on the requested resource.</code>。请求的资源中没有 <code>‘Access-Control-Allow-Origin’</code> 请求头，它指定服务器端允许进行跨域资源访问的来源域，允许任何域的 Javascript 访问资源的方式为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Accesss-Control-Allow-Origin: *</span><br></pre></td></tr></table></figure>
+<p>或指定具体的域可访问，如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin: http://foo.example.com</span><br></pre></td></tr></table></figure>
+<p>如此一来，除了 foo.example.com ，其他站点都不能跨站访问本站的资源。那么如何添加请求头呢？</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="直接处理请求头"><a href="#直接处理请求头" class="headerlink" title="直接处理请求头"></a>直接处理请求头</h3><p>在 Django 后台中我们可以通过简单的方式添加请求头，如下所示:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">response[&apos;Access-Control-Allow-Origin&apos;] = &apos;*&apos;</span><br><span class="line">return response</span><br></pre></td></tr></table></figure>
+<p>这也是实现跨站登录最基本的实现，但不推荐这种跨站访问方式。</p>
+<h3 id="CORS跨站资源共享-1"><a href="#CORS跨站资源共享-1" class="headerlink" title="CORS跨站资源共享"></a>CORS跨站资源共享</h3><p>在 Django 中有CORS-header开源的中间件，利用这些现成的中间件，我们只需要在 settings.py 中做一些简单的配置即可实现 CORS 跨站资源共享，使得服务器端 API 完全开放，使得前后台能够较为独立的工作。</p>
+<p>django-cors-headers开源项目地址为: <a href="https://github.com/ottoyiu/django-cors-headers/" target="_blank" rel="external">https://github.com/ottoyiu/django-cors-headers/</a></p>
+<p>使用方法如下:</p>
+<ol>
+<li>安装django-cors-headers</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install django-cors-headers</span><br></pre></td></tr></table></figure>
+<ol>
+<li>将 corsheaders 加入 installed apps:</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = (</span><br><span class="line">    ...</span><br><span class="line">    &apos;corsheaders&apos;,</span><br><span class="line">    ...</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>添加中间件类</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MIDDLEWARE_CLASSES = (</span><br><span class="line">    ...</span><br><span class="line">    &apos;corsheaders.middleware.CorsMiddleware&apos;,</span><br><span class="line">    &apos;django.middleware.common.CommonMiddleware&apos;,</span><br><span class="line">    ...</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p><strong>Note</strong>: CorsMiddleware needs to come before Django’s CommonMiddleware if you are using Django’s <code>USE_ETAGS = True</code> setting, otherwise the CORS headers will be lost from the 304 not-modified responses, causing errors in some browsers.</p>
+<ol>
+<li>添加配置</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CORS_ORIGIN_ALLOW_ALL = True</span><br><span class="line">CORS_URLS_REGEX = r&apos;^/api/.*$&apos;</span><br><span class="line">CORS_ALLOW_METHODS = (&apos;GET&apos;, &apos;POST&apos;)</span><br></pre></td></tr></table></figure>
+<p>生产环境中推荐使用白名单，此处为测试才设为全域。按照需要可以设置其他配置，具体设置见 <a href="https://github.com/ottoyiu/django-cors-headers/#configuration。" target="_blank" rel="external">https://github.com/ottoyiu/django-cors-headers/#configuration。</a></p>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>重新用 JS 或 AJAX 跨站访问，没有出现 No ‘Access-Control-Allow-Origin’ header 报错。</p>
+<h1 id="HTTPS-Nginx服务器部署"><a href="#HTTPS-Nginx服务器部署" class="headerlink" title="HTTPS Nginx服务器部署"></a>HTTPS Nginx服务器部署</h1><h2 id="现象-1"><a href="#现象-1" class="headerlink" title="现象"></a>现象</h2><p>跨站访问的问题解决了，再次测试又出现了新的错误，错误信息如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[blocked] The page at https://www.baidu.com/… was not allowed to display insecure content from http://www.desckie.com/iwantrent/getAllProduct/.</span><br></pre></td></tr></table></figure>
+<h2 id="原因-1"><a href="#原因-1" class="headerlink" title="原因"></a>原因</h2><p>从报错信息上我们可以判断出，请求的网页被作为不安全的网页给浏览器阻塞了，原因就出在使用的协议为 http 协议。http 协议传输的数据在网络上为明文传输，容易被中间人窃取导致用户信息泄露，因此 http 协议实际上是不安全的。https 协议是 http 的安全版，即 http 下加入 SSL 层。要解决这个问题我们需要将协议更改为 https 协议。以 Nginx 服务器为例。</p>
+<h2 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="申请-SSL-证书"><a href="#申请-SSL-证书" class="headerlink" title="申请 SSL 证书"></a>申请 SSL 证书</h3><p>这里我们使用自行颁发的免费 SSL 证书，它虽然能实现加密传输功能，但这类证书是不受浏览器信任的。用户在进入该网站时可能会出现提示: 此网站的安全证书有问题。但向专业机构申请 SSL 证书不仅需要出示相关证件，而且还要付费，所以我们这里就使用自行颁发的 SSL 证书。</p>
+<ol>
+<li>openssl genrsa -des3 -out api.bz.key 1024</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ubuntu@VM-96-46-ubuntu:~$ openssl genrsa -des3 -out api.bz.key 1024</span><br><span class="line">Generating RSA private key, 1024 bit long modulus</span><br><span class="line">............................++++++</span><br><span class="line">..............++++++</span><br><span class="line">e is 65537 (0x10001)</span><br><span class="line">Enter pass phrase for api.bz.key:</span><br><span class="line">Verifying - Enter pass phrase for api.bz.key:输入密码</span><br></pre></td></tr></table></figure>
+<ol>
+<li>openssl req -new -key api.bz.key -out api.bz.csr</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">ubuntu@VM-96-46-ubuntu:~$ openssl req -new -key api.bz.key -out api.bz.csr</span><br><span class="line">Enter pass phrase for api.bz.key: 刚刚设置的密码</span><br><span class="line">You are about to be asked to enter information that will be incorporated</span><br><span class="line">into your certificate request.</span><br><span class="line">What you are about to enter is what is called a Distinguished Name or a DN.</span><br><span class="line">There are quite a few fields but you can leave some blank</span><br><span class="line">For some fields there will be a default value,</span><br><span class="line">If you enter &apos;.&apos;, the field will be left blank.</span><br><span class="line">-----</span><br><span class="line">Country Name (2 letter code) [AU]:CN</span><br><span class="line">State or Province Name (full name) [Some-State]:Beijing</span><br><span class="line">Locality Name (eg, city) []:Beijing</span><br><span class="line">Organization Name (eg, company) [Internet Widgits Pty Ltd]:API.BZ</span><br><span class="line">Organizational Unit Name (eg, section) []:API.BZ</span><br><span class="line">Common Name (e.g. server FQDN or YOUR name) []:*.api.bz</span><br><span class="line">Email Address []:admin@api.bz</span><br><span class="line"></span><br><span class="line">Please enter the following &apos;extra&apos; attributes</span><br><span class="line">to be sent with your certificate request</span><br><span class="line">A challenge password []: 回车</span><br><span class="line">An optional company name []: 回车</span><br></pre></td></tr></table></figure>
+<ol>
+<li>openssl rsa -in api.bz.key -out api.bz_nopass.key</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ubuntu@VM-96-46-ubuntu:~$ openssl rsa -in api.bz.key -out api.bz_nopass.key</span><br><span class="line">Enter pass phrase for api.bz.key:</span><br><span class="line">writing RSA key</span><br></pre></td></tr></table></figure>
+<ol>
+<li>openssl req -new -x509 -days 3650 -key api.bz_nopass.key -out api.bz.crt</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ubuntu@VM-96-46-ubuntu:~$ openssl req -new -x509 -days 3650 -key api.bz_nopass.key -out api.bz.crt</span><br><span class="line">You are about to be asked to enter information that will be incorporated</span><br><span class="line">into your certificate request.</span><br><span class="line">What you are about to enter is what is called a Distinguished Name or a DN.</span><br><span class="line">There are quite a few fields but you can leave some blank</span><br><span class="line">For some fields there will be a default value,</span><br><span class="line">If you enter &apos;.&apos;, the field will be left blank.</span><br><span class="line">-----</span><br><span class="line">Country Name (2 letter code) [AU]:CN</span><br><span class="line">State or Province Name (full name) [Some-State]:Beijing</span><br><span class="line">Locality Name (eg, city) []:Beijing</span><br><span class="line">Organization Name (eg, company) [Internet Widgits Pty Ltd]:API.BZ</span><br><span class="line">Organizational Unit Name (eg, section) []:API.BZ</span><br><span class="line">Common Name (e.g. server FQDN or YOUR name) []:*.api.bz</span><br><span class="line">Email Address []:admin@api.bz</span><br></pre></td></tr></table></figure>
+<p>到这里 SSL 证书就申请好了，此时应该有四个文件，如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ubuntu@VM-96-46-ubuntu:~$ ls</span><br><span class="line">api.bz.crt  api.bz.csr  api.bz.key  api.bz_nopass.key ...</span><br></pre></td></tr></table></figure>
+<p>我们要用的是 <code>api.bz.crt</code> 和 <code>api.bz_nopass.key</code> 两个文件。</p>
+<h3 id="更改-Nginx-配置"><a href="#更改-Nginx-配置" class="headerlink" title="更改 Nginx 配置"></a>更改 Nginx 配置</h3><p>在配置文件 nginx.conf 中的 server 字段中有这么一段被注释的 HTTPS 配置:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># HTTPS server</span><br><span class="line">#</span><br><span class="line"># server &#123;</span><br><span class="line">#   listen 443;</span><br><span class="line">#   server_name localhost;</span><br><span class="line">#</span><br><span class="line">#   root html;</span><br><span class="line">#   index index.html index.htm;</span><br><span class="line">#</span><br><span class="line">#   ssl on;</span><br><span class="line">#   ssl_certificate cert.pem;</span><br><span class="line">#   ssl_certificate_key cert.key;</span><br><span class="line">#</span><br><span class="line">#   ssl_session_timeout 5m;</span><br><span class="line">#</span><br><span class="line">#   ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">#   ssl_ciphers &quot;HIGH:!aNULL:!MD5 or HIGH:!aNULL:!MD5:!3DES&quot;;</span><br><span class="line">#   ssl_prefer_server_ciphers on;</span><br><span class="line">#</span><br><span class="line">#   location / &#123;</span><br><span class="line">#       try_files $uri $uri/ =404;</span><br><span class="line">#   &#125;</span><br><span class="line">#&#125;</span><br></pre></td></tr></table></figure>
+<p>我们不需要使用其中所有的配置，根据 SSL 证书的路径修改相应的配置项(省去了注释项):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen 443;</span><br><span class="line">        server_name sms.api.bz;</span><br><span class="line"></span><br><span class="line">        ssl on;</span><br><span class="line">        ssl_certificate /root/api.bz.crt;</span><br><span class="line">        ssl_certificate_key /root/api.bz_nopass.key;</span><br><span class="line">        </span><br><span class="line">        location / &#123;</span><br><span class="line">                include /etc/nginx/uwsgi_params;</span><br><span class="line">                uwsgi_pass 127.0.0.1:8077;</span><br><span class="line">                include /etc/nginx/mime.types;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location ~* \.*(gif|png|jpg|jpeg|css|js|ttf|less)$ &#123;</span><br><span class="line">                root /root/RentMe;</span><br><span class="line">                access_log /root/nginx_access.log;</span><br><span class="line">                error_log /root/nginx_error.log;</span><br><span class="line">                include /etc/nginx/mime.types;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中 location 可以从 HTTP 的配置项中复制过来。修改完成后，验证配置文件有效性并重启 nginx 服务器:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@iZ28zgwg61iZ:~# /usr/sbin/nginx -t</span><br><span class="line">nginx: the configuration file /etc/nginx/nginx.conf syntax is ok</span><br><span class="line">nginx: configuration file /etc/nginx/nginx.conf test is successful</span><br><span class="line">root@iZ28zgwg61iZ:~# /usr/sbin/nginx -s reload</span><br></pre></td></tr></table></figure>
+<p>随后使用 https 方式进入你的网站，会先提示网站的安全证书有问题，无需理会。到这里网站就从 http 协议更换成 https 协议了，之后就可以用 https 方式更安全的访问网站。</p>
+<h2 id="效果-1"><a href="#效果-1" class="headerlink" title="效果"></a>效果</h2><p>下图是从 leancloud.cn 通过 js 跨站访问的截图，没有出现跨站访问错误和安全警告，如图:</p>
+<p><img src="/images/https.png" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/16/Getting-Started-With-Videos/" rel="next" title="Getting Started With Videos">
+                <i class="fa fa-chevron-left"></i> Getting Started With Videos
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="李宗航" />
+          <p class="site-author-name" itemprop="name">李宗航</p>
+          <p class="site-description motion-element" itemprop="description">开发学习日志</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives/">
+              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizonghang/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CORS跨站资源共享"><span class="nav-number">1.</span> <span class="nav-text">CORS跨站资源共享</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#现象"><span class="nav-number">1.1.</span> <span class="nav-text">现象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原因"><span class="nav-number">1.2.</span> <span class="nav-text">原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">1.3.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#直接处理请求头"><span class="nav-number">1.3.1.</span> <span class="nav-text">直接处理请求头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CORS跨站资源共享-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">CORS跨站资源共享</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果"><span class="nav-number">1.4.</span> <span class="nav-text">效果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTPS-Nginx服务器部署"><span class="nav-number">2.</span> <span class="nav-text">HTTPS Nginx服务器部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#现象-1"><span class="nav-number">2.1.</span> <span class="nav-text">现象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原因-1"><span class="nav-number">2.2.</span> <span class="nav-text">原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案-1"><span class="nav-number">2.3.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#申请-SSL-证书"><span class="nav-number">2.3.1.</span> <span class="nav-text">申请 SSL 证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更改-Nginx-配置"><span class="nav-number">2.3.2.</span> <span class="nav-text">更改 Nginx 配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果-1"><span class="nav-number">2.4.</span> <span class="nav-text">效果</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李宗航</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+
+</body>
+</html>
