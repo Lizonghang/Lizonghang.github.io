@@ -66,7 +66,7 @@
 <meta property="og:description" content="CORS跨站资源共享现象很多习惯了自己做网站的后台开发者在初次与前端或移动端合作开发时，常常遇到这么一个问题: 后台所开发出的 API 都是经过 Postman 或其他接口测试工具测试过，确认提供的这些 API 并没有异常后，将这些 API 整理成文档发给前端，但是前端的小伙伴并不能成功访问到这些接口，而是会报错: 
 123XMLHttpRequest cannot load http://www">
 <meta property="og:image" content="http://lizonghang.github.io/images/https.png">
-<meta property="og:updated_time" content="2016-09-27T15:44:17.000Z">
+<meta property="og:updated_time" content="2016-09-27T15:56:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CORS跨站请求与https服务器配置">
 <meta name="twitter:description" content="CORS跨站资源共享现象很多习惯了自己做网站的后台开发者在初次与前端或移动端合作开发时，常常遇到这么一个问题: 后台所开发出的 API 都是经过 Postman 或其他接口测试工具测试过，确认提供的这些 API 并没有异常后，将这些 API 整理成文档发给前端，但是前端的小伙伴并不能成功访问到这些接口，而是会报错: 
@@ -340,7 +340,7 @@
 <ol>
 <li>添加配置</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CORS_ORIGIN_ALLOW_ALL = True</span><br><span class="line">CORS_URLS_REGEX = r&apos;^/api/.*$&apos;</span><br><span class="line">CORS_ALLOW_METHODS = (&apos;GET&apos;, &apos;POST&apos;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CORS_ORIGIN_ALLOW_ALL = True</span><br><span class="line">CORS_URLS_REGEX = r&apos;^/api/.*$&apos;</span><br><span class="line">CORS_ALLOW_METHODS = (&apos;GET&apos;, &apos;POST&apos;, &apos;PUT&apos;, &apos;DELETE&apos;, &apos;HEAD&apos;, &apos;PATCH&apos;, &apos;OPTIONS&apos;)</span><br></pre></td></tr></table></figure>
 <p>生产环境中推荐使用白名单，此处为测试才设为全域。按照需要可以设置其他配置，具体设置见 <a href="https://github.com/ottoyiu/django-cors-headers/#configuration。" target="_blank" rel="external">https://github.com/ottoyiu/django-cors-headers/#configuration。</a></p>
 <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>重新用 JS 或 AJAX 跨站访问，没有出现 No ‘Access-Control-Allow-Origin’ header 报错。</p>
 <h1 id="HTTPS-Nginx服务器部署"><a href="#HTTPS-Nginx服务器部署" class="headerlink" title="HTTPS Nginx服务器部署"></a>HTTPS Nginx服务器部署</h1><h2 id="现象-1"><a href="#现象-1" class="headerlink" title="现象"></a>现象</h2><p>跨站访问的问题解决了，再次测试又出现了新的错误，错误信息如下:</p>

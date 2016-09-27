@@ -37,7 +37,7 @@
 <ol>
 <li>添加配置</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CORS_ORIGIN_ALLOW_ALL = True</span><br><span class="line">CORS_URLS_REGEX = r&apos;^/api/.*$&apos;</span><br><span class="line">CORS_ALLOW_METHODS = (&apos;GET&apos;, &apos;POST&apos;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CORS_ORIGIN_ALLOW_ALL = True</span><br><span class="line">CORS_URLS_REGEX = r&apos;^/api/.*$&apos;</span><br><span class="line">CORS_ALLOW_METHODS = (&apos;GET&apos;, &apos;POST&apos;, &apos;PUT&apos;, &apos;DELETE&apos;, &apos;HEAD&apos;, &apos;PATCH&apos;, &apos;OPTIONS&apos;)</span><br></pre></td></tr></table></figure>
 <p>生产环境中推荐使用白名单，此处为测试才设为全域。按照需要可以设置其他配置，具体设置见 <a href="https://github.com/ottoyiu/django-cors-headers/#configuration。" target="_blank" rel="external">https://github.com/ottoyiu/django-cors-headers/#configuration。</a></p>
 <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>重新用 JS 或 AJAX 跨站访问，没有出现 No ‘Access-Control-Allow-Origin’ header 报错。</p>
 <h1 id="HTTPS-Nginx服务器部署"><a href="#HTTPS-Nginx服务器部署" class="headerlink" title="HTTPS Nginx服务器部署"></a>HTTPS Nginx服务器部署</h1><h2 id="现象-1"><a href="#现象-1" class="headerlink" title="现象"></a>现象</h2><p>跨站访问的问题解决了，再次测试又出现了新的错误，错误信息如下:</p>
