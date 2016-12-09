@@ -57,34 +57,22 @@
 
 
 
-<meta name="description" content="步骤一:
-注册Google账户，登陆后访问Google Analytics，按照提示填写网站信息开通GA服务，获取统计ID。
-步骤二:
-编辑主题配置文件，找到字段google_analytics，删除注释并填写统计ID:
-1google_analytics: your-analytics-id
-步骤三:
-进入GA数据查看页查看会话数、用户数、浏览量、平均会话时长、跳出率等信息">
+<meta name="description" content="Ubuntu支持IPv6阿里云服务器默认是不支持IPv6协议的，需要修改/etc/sysctl.conf文件解除对IPv6的禁止:
+123net.ipv6.conf.all.disable_ipv6 = 0net.ipv6.conf.default.disable_ipv6 = 0net.ipv6.conf.lo.disable_ipv6 = 0
+修改完成后，启用新的配置，为服务器分配公网IPv6">
 <meta property="og:type" content="article">
-<meta property="og:title" content="添加Google统计">
-<meta property="og:url" content="http://lizonghang.github.io/2016/07/03/添加Google统计/index.html">
+<meta property="og:title" content="AliCloud-Ubuntu-Server-With-IPv6">
+<meta property="og:url" content="http://lizonghang.github.io/2016/12/09/AliCloud-Ubuntu-Server-With-IPv6/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="步骤一:
-注册Google账户，登陆后访问Google Analytics，按照提示填写网站信息开通GA服务，获取统计ID。
-步骤二:
-编辑主题配置文件，找到字段google_analytics，删除注释并填写统计ID:
-1google_analytics: your-analytics-id
-步骤三:
-进入GA数据查看页查看会话数、用户数、浏览量、平均会话时长、跳出率等信息">
-<meta property="og:updated_time" content="2016-07-04T03:39:53.000Z">
+<meta property="og:description" content="Ubuntu支持IPv6阿里云服务器默认是不支持IPv6协议的，需要修改/etc/sysctl.conf文件解除对IPv6的禁止:
+123net.ipv6.conf.all.disable_ipv6 = 0net.ipv6.conf.default.disable_ipv6 = 0net.ipv6.conf.lo.disable_ipv6 = 0
+修改完成后，启用新的配置，为服务器分配公网IPv6">
+<meta property="og:updated_time" content="2016-12-09T14:39:31.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="添加Google统计">
-<meta name="twitter:description" content="步骤一:
-注册Google账户，登陆后访问Google Analytics，按照提示填写网站信息开通GA服务，获取统计ID。
-步骤二:
-编辑主题配置文件，找到字段google_analytics，删除注释并填写统计ID:
-1google_analytics: your-analytics-id
-步骤三:
-进入GA数据查看页查看会话数、用户数、浏览量、平均会话时长、跳出率等信息">
+<meta name="twitter:title" content="AliCloud-Ubuntu-Server-With-IPv6">
+<meta name="twitter:description" content="Ubuntu支持IPv6阿里云服务器默认是不支持IPv6协议的，需要修改/etc/sysctl.conf文件解除对IPv6的禁止:
+123net.ipv6.conf.all.disable_ipv6 = 0net.ipv6.conf.default.disable_ipv6 = 0net.ipv6.conf.lo.disable_ipv6 = 0
+修改完成后，启用新的配置，为服务器分配公网IPv6">
 
 
 
@@ -102,7 +90,7 @@
   };
 </script>
 
-  <title> 添加Google统计 | 努力学习天天向上 </title>
+  <title> AliCloud-Ubuntu-Server-With-IPv6 | 努力学习天天向上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -264,7 +252,7 @@
             
             
               
-                添加Google统计
+                AliCloud-Ubuntu-Server-With-IPv6
               
             
           </h1>
@@ -276,8 +264,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-03T23:44:44+08:00" content="2016-07-03">
-              2016-07-03
+            <time itemprop="dateCreated" datetime="2016-12-09T18:26:38+08:00" content="2016-12-09">
+              2016-12-09
             </time>
           </span>
 
@@ -290,8 +278,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">Hexo</span>
+                  <a href="/categories/后台/" itemprop="url" rel="index">
+                    <span itemprop="name">后台</span>
                   </a>
                 </span>
 
@@ -322,13 +310,36 @@
       
 
       
-        <p>步骤一:</p>
-<p>注册Google账户，登陆后访问<a href="https://analytics.google.com" target="_blank" rel="external">Google Analytics</a>，按照提示填写网站信息开通GA服务，获取统计ID。</p>
-<p>步骤二:</p>
-<p>编辑主题配置文件，找到字段google_analytics，删除注释并填写统计ID:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">google_analytics: your-analytics-id</span><br></pre></td></tr></table></figure>
-<p>步骤三:</p>
-<p>进入GA数据查看页查看会话数、用户数、浏览量、平均会话时长、跳出率等信息</p>
+        <h1 id="Ubuntu支持IPv6"><a href="#Ubuntu支持IPv6" class="headerlink" title="Ubuntu支持IPv6"></a>Ubuntu支持IPv6</h1><p>阿里云服务器默认是不支持IPv6协议的，需要修改<code>/etc/sysctl.conf</code>文件解除对IPv6的禁止:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net.ipv6.conf.all.disable_ipv6 = 0</span><br><span class="line">net.ipv6.conf.default.disable_ipv6 = 0</span><br><span class="line">net.ipv6.conf.lo.disable_ipv6 = 0</span><br></pre></td></tr></table></figure>
+<p>修改完成后，启用新的配置，为服务器分配公网IPv6地址：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># sysctl -p</span><br></pre></td></tr></table></figure>
+<p>使用命令<code>ifconfig</code>应该可以在公网IPv4对应的网卡中找到对应的IPv6地址，若没有重启服务器。</p>
+<h1 id="nginx支持并监听IPv6的80端口"><a href="#nginx支持并监听IPv6的80端口" class="headerlink" title="nginx支持并监听IPv6的80端口"></a>nginx支持并监听IPv6的80端口</h1><p>首先查看当前的nginx是否支持IPv6协议，使用命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -V</span><br></pre></td></tr></table></figure>
+<p>若输出的<code>configure arguments</code>中含有<code>—-with-ipv6</code>，则当前nginx支持IPv6协议，否则需要重新编译安装nginx，编译nginx时需要加上<code>—-with-ipv6</code>。</p>
+<p>确认当前nginx支持ipv6后，修改<code>nginx.conf</code>中的server段，除了监听IPv4的80端口外还需要监听IPv6的80端口,若有需要还需要监听HTTPS协议的IPv6的443端口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80; // 监听IPv4的80端口,HTTP协议</span><br><span class="line">    listen [::]:80; // 监听IPv6的80端口,HTTP协议</span><br><span class="line">    ……</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 443; // 监听IPv4的443端口,HTTPS协议</span><br><span class="line">    listen [::]:443; // 监听IPv6的443端口,HTTPS协议</span><br><span class="line">    ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="申请IPv6中转隧道"><a href="#申请IPv6中转隧道" class="headerlink" title="申请IPv6中转隧道"></a>申请IPv6中转隧道</h1><p>由于国内阿里云不提供IPv6服务，实现IPv6需要申请中转服务，可以使用<a href="https://tunnelbroker.net" target="_blank" rel="external">tunnelbroker.net</a>提供的中转服务。</p>
+<ol>
+<li>在tunnelbroker.net注册一个账号</li>
+<li>登录后进入左侧导航栏中的<code>Create Regular Tunnel</code>，在<code>IPv4 Endpoint</code>输入你的服务器的外网IPv4地址，选择<code>Hong Kong,HK</code>隧道服务器，创建一个新的ipv6隧道</li>
+<li>创建好隧道后跳转到了Tunnel Details页，IPv6 Tunnel页是隧道的基本信息，你需要验证的是<code>Client IPv4 Address</code>是否为你的服务器外网IPv4地址，需要记录<code>Client IPv6 Address</code>对应的中转IPv6地址。</li>
+<li>转到Example Configurations页，选择服务器操作系统类型，比如我的服务器使用的是Ubuntu，所以选择<code>Debian/Ubuntu</code>。按要求复制文本框中的内容并粘贴到服务器上对应的文件内。例如：</li>
+</ol>
+<p>Paste the following into /etc/network/interfaces:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">auto he-ipv6</span><br><span class="line">iface he-ipv6 inet6 v4tunnel</span><br><span class="line">        address 2001:470:18:8cb::2</span><br><span class="line">        netmask 64</span><br><span class="line">        endpoint 216.218.221.6</span><br><span class="line">        local 114.215.121.63</span><br><span class="line">        ttl 255</span><br><span class="line">        gateway 2001:470:18:8cb::1</span><br></pre></td></tr></table></figure>
+<p>我们就需要将以上he-ipv6的网卡信息写入网卡配置文件<code>/etc/network/interfaces</code>中，保存后使用以下命令启动网卡:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/networking restart</span><br></pre></td></tr></table></figure>
+<p>重启服务器后使用命令<code>ifconfig</code>应当可以看到新增了的he-ipv6网卡。</p>
+<h1 id="检查防火墙规则"><a href="#检查防火墙规则" class="headerlink" title="检查防火墙规则"></a>检查防火墙规则</h1><p>要确保防火墙没有丢弃IPv6报文的规则，若服务器没有防火墙的相关需求，可简单的通过下述方式检查防火墙规则:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">root@iZ28zgwg61iZ:~# iptables -nL</span><br><span class="line">Chain INPUT (policy ACCEPT)</span><br><span class="line">target     prot opt source               destination</span><br><span class="line"></span><br><span class="line">Chain FORWARD (policy ACCEPT)</span><br><span class="line">target     prot opt source               destination</span><br><span class="line"></span><br><span class="line">Chain OUTPUT (policy ACCEPT)</span><br><span class="line">target     prot opt source               destination</span><br></pre></td></tr></table></figure>
+<p>这是一个没有设置任何规则的防火墙，对于接收、发出、转发的报文的默认策略都是ACCEPT，在这种环境下IPv6报文不受影响。</p>
+<p>若需要设置一些过滤规则最好将INPUT、OUTPUT链的默认策略设置为ACCEPT，保证IPv6报文能正常收发或作一些合理的过滤，参阅相关书籍谨慎设置，不熟悉iptables的话建议先熟悉了再到VPS上设置，或者简单的将所有规则清除并设置默认策略为ACCEPT，否则很可能将自己与服务器之间的连接断开，那就只有联系机房管理员清除了。</p>
+<h1 id="添加AAAA域名解析"><a href="#添加AAAA域名解析" class="headerlink" title="添加AAAA域名解析"></a>添加AAAA域名解析</h1><p>进入阿里云的管理控制台，进入云解析DNS，选择相应的域名，添加一条AAAA解析，记录值填写之前记录的<code>Client IPv6 Address</code>中记录的IPv6地址。保存后等待几分钟，等DNS服务器刷新记录。</p>
+<p>注意：AAAA解析的记录值填用于中转的IPv6地址，即网卡he-ipv6中的<code>Scope:Global</code>对应的IPv6地址，而不是由第一步生成的服务器本身的外网IPv6地址。</p>
+<h1 id="验证IPv6网络是否有效"><a href="#验证IPv6网络是否有效" class="headerlink" title="验证IPv6网络是否有效"></a>验证IPv6网络是否有效</h1><p>在<a href="http://ipv6-test.com/validate.php" target="_blank" rel="external">ipv6-test</a>网站中输入域名验证，若<code>AAAA DNS record</code>和<code>IPv6 web server</code>都验证通过就可以判断IPv6网络是有效的，也可以使用国外的服务器使用命令<code>ping6</code>或命令<code>curl -6</code>查看是否有返回数据。</p>
+<p>注意：不建议使用国内网络测试服务器IPv6环境是否有效，因为国内大多数服务器不支持IPv6，测试者所在的网络也不一定支持IPv6网络，因此建议使用国外服务器进行测试。</p>
 
       
     </div>
@@ -346,17 +357,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/03/设置侧边栏社交链接/" rel="next" title="设置侧边栏社交链接">
-                <i class="fa fa-chevron-left"></i> 设置侧边栏社交链接
+              <a href="/2016/09/27/CORS跨站请求与https服务器配置/" rel="next" title="CORS跨站请求与https服务器配置">
+                <i class="fa fa-chevron-left"></i> CORS跨站请求与https服务器配置
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/05/Python文本解释器/" rel="prev" title="Python文本解释器">
-                Python文本解释器 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -476,7 +483,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Ubuntu支持IPv6"><span class="nav-number">1.</span> <span class="nav-text">Ubuntu支持IPv6</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nginx支持并监听IPv6的80端口"><span class="nav-number">2.</span> <span class="nav-text">nginx支持并监听IPv6的80端口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#申请IPv6中转隧道"><span class="nav-number">3.</span> <span class="nav-text">申请IPv6中转隧道</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#检查防火墙规则"><span class="nav-number">4.</span> <span class="nav-text">检查防火墙规则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加AAAA域名解析"><span class="nav-number">5.</span> <span class="nav-text">添加AAAA域名解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#验证IPv6网络是否有效"><span class="nav-number">6.</span> <span class="nav-text">验证IPv6网络是否有效</span></a></li></ol></div>
             
           </div>
         </section>
