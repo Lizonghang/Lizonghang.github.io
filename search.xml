@@ -4,7 +4,7 @@
   
     
     <entry>
-      <title><![CDATA[CLRS 14.3]]></title>
+      <title><![CDATA[数据结构的扩张-区间树]]></title>
       <url>http://lizonghang.github.io/2017/07/14/Alg14-3/</url>
       <content type="html"><![CDATA[<p>14.3-1 写出作用于区间树的结点且在O(1)时间内更新max属性的过程LEFT-ROTATE的伪代码。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LEFT-ROTATE(T, x)</span><br><span class="line">    y = x.right</span><br><span class="line">    y.max = x.max</span><br><span class="line">    x.max = max(x.int.high, x.left.int.high, x.right.int.high)</span><br></pre></td></tr></table></figure>
