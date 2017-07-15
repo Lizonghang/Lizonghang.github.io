@@ -4,68 +4,6 @@
   
     
     <entry>
-      <title><![CDATA[数据结构的扩张-区间树]]></title>
-      <url>http://lizonghang.github.io/2017/07/14/Alg14-3/</url>
-      <content type="html"><![CDATA[<p>14.3-1 写出作用于区间树的结点且在O(1)时间内更新max属性的过程LEFT-ROTATE的伪代码。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LEFT-ROTATE(T, x)</span><br><span class="line">    y = x.right</span><br><span class="line">    y.max = x.max</span><br><span class="line">    x.max = max(x.int.high, x.left.int.high, x.right.int.high)</span><br></pre></td></tr></table></figure>
-<p>14.3-2 改写INTERVAL-SEARCH的代码，使得当所有区间都是开区间时，它也能正确地工作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">INTERVAL-SEARCH-OPEN(T,i)</span><br><span class="line">    x = T.root</span><br><span class="line">    while x ≠ T.nil and (i.low ≥ x.int.high or i.high ≤ x.int.low)</span><br><span class="line">        if x.left ≠ T.nil and x.left.max &gt; i.low</span><br><span class="line">            x = x.left</span><br><span class="line">        else</span><br><span class="line">            x = x.right</span><br><span class="line">    return x</span><br></pre></td></tr></table></figure>
-<p>14.3-3 请给出一个有效的算法，对一个给定区间i，返回一个与i重叠且具有最小低端点的区间；或者当这样的区间不存在时返回T.nil。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">INTERVAL-SEARCH-LOW-MIN(T,i)</span><br><span class="line">    x = T.root</span><br><span class="line">    ret = T.nil</span><br><span class="line">    while x ≠ T.nil</span><br><span class="line">        if not (i.low ≥ x.int.high or i.high ≤ x.int.low)</span><br><span class="line">            if ret == T.nil or ret.int.low &gt; x.int.low</span><br><span class="line">                ret = x</span><br><span class="line">        if x.left ≠ T.nil and x.left.max ≥ i.low</span><br><span class="line">            x = x.left</span><br><span class="line">        else</span><br><span class="line">            x = x.right</span><br><span class="line">    return ret</span><br></pre></td></tr></table></figure>
-<p>14.3-4 给定一棵区间树T和一个区间i，请描述如何在O(min(n, klgn))时间内列出T中所有与i重叠的区间，其中k为输出的区间数。（提示：一种简单的方法是做若干次查询，并且在这些查询的操作中修改树，另一种复杂点的方法是不对树进行修改）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">INTERVAL-SEARCH-OVERLAP-ALL(T,x,i)</span><br><span class="line">    all_overlap_interval = []</span><br><span class="line">    if not (i.low ≥ x.int.high or i.high ≤ x.int.low)</span><br><span class="line">        all_overlap_interval.append(x)</span><br><span class="line">    if x.left ≠ T.nil and x.left.max ≥ i.low</span><br><span class="line">        all_overlap_interval += INTERVAL-SEARCH-OVERLAP-ALL(T, x.left, i)</span><br><span class="line">    if x.right != T.nil and (x.int.low ≤ i.high and x.right.max ≥ i.low)</span><br><span class="line">        all_overlap_interval += INTERVAL-SEARCH-OVERLAP-ALL(T, x.right, i)</span><br><span class="line">    return all_overlap_interval</span><br></pre></td></tr></table></figure>
-<p>14.3-5 对区间树和一个区间i，请修改有关区间树的过程来支持新的操作INTERVAL-SEARCH-EXACTLY(T,i)，它返回一个指向T中节点x的指针，使得x.int.low=i.low且x.int.high=i.high；或者，如果T不包含这样的区间时返回T.nil。所有的操作（包括INTERVAL-SEARCH-EXACTLY）对于包含n个结点的区间树的运行时间都应该为O(lgn)。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">INTERVAL-SEARCH-EXACTLY(T,i)</span><br><span class="line">    x = T.root</span><br><span class="line">    while x ≠ T.nil</span><br><span class="line">        if x.int.low == i.low and x.int.high == i.high</span><br><span class="line">            return x</span><br><span class="line">        if x.left ≠ T.nil and x.left.max ≥ i.low</span><br><span class="line">            x = x.left</span><br><span class="line">        else</span><br><span class="line">            x = x.right</span><br><span class="line">    return T.nil</span><br></pre></td></tr></table></figure>
-<p>14.3-6 说明如何来维护一个支持操作MIN-GAP的一些数的动态集Q，使得该操作能给出Q中两个最接近的数之间的差值。例如，Q={1,5,9,15,18,22},则MIN-GAP返回18-15=3，因为15和18是Q中两个最接近的数。要使得操作INSERT、DELETE、SEARCH和MIN-GAP尽可能高效，并分析它们的运行时间。</p>
-<p>思路：在每个结点维护附加信息min_gap差值域、successor指针域、predecessor指针域。</p>
-<ul>
-<li>x.min_gap记录了以x为根节点的树的min_gap。</li>
-<li>x.successor记录了x在树中的后继结点。</li>
-<li>x.predecessor记录了x在树中的前驱结点。</li>
-</ul>
-<p>对min_gap的维护满足定理14.1，插入和删除可在O(lgn)完成：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MIN-GAP(T,x)</span><br><span class="line">    if (x.left == T.nil and x.right == T.nil)</span><br><span class="line">        return x.successor.key - x.key</span><br><span class="line">    else if (x.left ≠ T.nil and x.right == T.nil)</span><br><span class="line">        return x.left.min_gap</span><br><span class="line">    else if (x.left == T.nil and x.right ≠ T.nil)</span><br><span class="line">        return min(x.right.min_gap, x.successor.key - x.key)</span><br><span class="line">    else</span><br><span class="line">        return min(x.left.min_gap, x.right.min_gap, x.successor.key - x.key)</span><br></pre></td></tr></table></figure>
-<p>对successor和predecessor指针域的维护：</p>
-<ul>
-<li>插入操作，复杂度O(lgn)：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">TREE-SUCCESSOR-INSERT(T, x)</span><br><span class="line">    predecessor = FIND-PREDECESSOR(T, x)</span><br><span class="line">    successor = FIND-SUCCESSOR(T, x)</span><br><span class="line">    predecessor.successor = x</span><br><span class="line">    x.predecessor = predecessor</span><br><span class="line">    successor.predecessor = predecessor</span><br><span class="line">    x.successor = successor</span><br></pre></td></tr></table></figure>
-<ul>
-<li>删除操作，复杂度O(1)：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">TREE-SUCCESSOR-DELETE(T, x)</span><br><span class="line">    x.predecessor.successor = x.successor</span><br><span class="line">    x.successor.predecessor = x.predecessor</span><br><span class="line">    TREE-DELETE(T, x)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>查询操作，复杂度O(lgn)，即普通搜索树或区间树SEARCH方法。</li>
-<li>MIN-GAP操作（获取最小间隔），复杂度O(1)：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MIN-GAP-GET(T)</span><br><span class="line">    return T.root.min_gap</span><br></pre></td></tr></table></figure>
-<p>总的来说，添加附加信息min_gap差值域、predecessor指针域、successor指针域，并使用上述方法维护，不影响INSERT、DELETE、SEARCH操作的运行时间复杂度，MIN-GAP操作复杂度为O(lgn)，MIN-GAP-GET操作复杂度为O(1)，代价是占用空间较多。</p>
-<p>14.3-7 VLSI数据库通常将一块集成电路表示成一组矩形，假设每个矩形的边都平行于x轴或y轴，这样可以用矩形的最小和最大的x轴与y轴坐标来表示一个矩形。请给出一个O(nlgn)时间的算法，来确定n个这种表示的矩形集合中是否存在两个重叠的矩形。算法不一定要输出所有重叠矩形，但对于一个矩形完全覆盖另一个（即时边界不相交），一定能给出正确的判断。（提示：移动一条“扫描线”，穿过所有的矩形。）</p>
-<p>思路：在由n个区间形成的区间树中寻找满足下面条件的结点：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(x1.interval overlap x2.interval) and (y1.interval overlap y2.interval)</span><br></pre></td></tr></table></figure>
-<p>其中(x1,y1)是矩形A1的分别在x,y轴的映射区间，(x2,y2)是矩形A2分别在x,y轴的映射区间。</p>
-<p>简单的说就是：矩形Ai和Aj在x和y轴上的映射区间都有重叠，即可判断矩形Ai和Aj有重叠。</p>
-<p>算法过程：</p>
-<ol>
-<li>将矩形投影到x轴得到矩形在x轴上的二维区间数组并展开为一维点数组。</li>
-<li>将一维点数组进行升序排序。</li>
-<li>逐个取出x点，判断其为某个区间的低端点或高端点：<ul>
-<li>若为低端点，获取该x区间对应y区间，在区间树中进行搜索查找是否有重叠的区间，若存在，则可退出或记录到列表中。随后将该y区间插入区间树中。</li>
-<li>若为高端点，获取该x区间对应y区间，并将该y区间从区间树中删除。</li>
-</ul>
-</li>
-<li>若退出循环，则返回T.nil或记录列表。</li>
-</ol>
-<p>下面的伪代码只返回一对重叠矩形：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">RECTANGLE-OVERLAP-DETECT(T, x_interval_list)</span><br><span class="line">    x_points = x_interval_list.reshape(1,-1)</span><br><span class="line">    sorted_x_points = x_points.sorted()</span><br><span class="line">    for x in sorted_x_points</span><br><span class="line">        if x is low point of xi_interval</span><br><span class="line">            overlap_interval = INTERVAL-SEARCH(T, xi_interval)</span><br><span class="line">            if overlap_interval ≠ T.nil:</span><br><span class="line">                return [xi_interval, overlap_interval]</span><br><span class="line">            INTERVAL-INSERT(T, xi_interval)</span><br><span class="line">        else</span><br><span class="line">            INTERVAL-DELETE(T, xi_interval)</span><br><span class="line">    return T.nil</span><br></pre></td></tr></table></figure>
-<p>复杂度：</p>
-<ul>
-<li>由于插入、搜索和删除操作都只占用O(lgn)的运行时间，因此遍历完2n个x端点需要O(nlgn)的运行时间。</li>
-</ul>
-]]></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[AliCloud-Ubuntu-Server-With-IPv6]]></title>
       <url>http://lizonghang.github.io/2016/12/09/AliCloud-Ubuntu-Server-With-IPv6/</url>
       <content type="html"><![CDATA[<h1 id="Ubuntu支持IPv6"><a href="#Ubuntu支持IPv6" class="headerlink" title="Ubuntu支持IPv6"></a>Ubuntu支持IPv6</h1><p>阿里云服务器默认是不支持IPv6协议的，需要修改<code>/etc/sysctl.conf</code>文件解除对IPv6的禁止:</p>
