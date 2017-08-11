@@ -8,7 +8,9 @@
       <url>http://lizonghang.github.io/2017/08/11/Support-Vector-Machine/</url>
       <content type="html"><![CDATA[<h2 id="间隔与支持向量"><a href="#间隔与支持向量" class="headerlink" title="间隔与支持向量"></a>间隔与支持向量</h2><p>在样本空间中，划分超平面可通过线性方程描述：</p>
 <p><img src="/images/daum_equation_1502414416723.png"></p>
-]]></content>
+<p>其中 \(<br>\begin{aligned}<br>\dot{x} &amp; = \sigma(y-x) \<br>\dot{y} &amp; = \rho x - y - xz \<br>\dot{z} &amp; = -\beta z + xy<br>\end{aligned}<br>)\</p>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>]]></content>
     </entry>
     
     <entry>
