@@ -311,6 +311,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">student = numpy.dtype(&#123;&apos;names&apos;: [&apos;name&apos;, &apos;age&apos;, &apos;weight&apos;], &apos;formats&apos;: [&apos;S32&apos;, &apos;i&apos;, &apos;f&apos;]&#125;, align=True)</div></pre></td></tr></table></figure>
 <p>这里 <code>student</code> 是自定义结构类型的名称，使用 <code>dtype()</code> 函数创建，在第一个参数中， <code>‘names’</code> 和 <code>‘formats’</code> 不能改变， <code>names</code>中列出的是结构中的字段名称， <code>formats</code> 中列出的是对应字段的数据类型。<code>S32</code>表示 32 字节长度的字符串， <code>i</code> 表示 32 位的整数， <code>f</code> 表示 32 位长度的浮点数。最后一个参数为 <code>True</code> 时，表示要求进行内存对齐。</p>
 <p>字段中使用 NumPy 的字符编码来表示数据类型。更详细的数据类型见下表：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -357,6 +358,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>在定义好结构类型之后，就可以定义以该类型为元素的数组：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">a = numpy.array([(&apos;Zhang&apos;, 32, 65.5), (&apos;Wang&apos;, 24, 55.2)], dtype=student)</div></pre></td></tr></table></figure>
 <p>除了在每个元素中依次列出对应字段的数据外，还需要在 <code>array</code> 函数中指定对应的数据类型。</p>
@@ -487,7 +489,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives/">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">69</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

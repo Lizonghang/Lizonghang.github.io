@@ -345,7 +345,7 @@
 <li>这里直接调用了 OpenCV 的归一化函数，该函数将直方图的范围限定在 0~255×0.9 之间。</li>
 <li><code>hist = numpy.int32(numpy.around(originHist))</code> 先将生成的原始直方图中的每个元素四舍六入五凑偶取整（cv2.calcHist函数得到的是 float32 类型的数组），接着将整数部分转成 <code>numpy.int32</code> 类型。即61.123先转成61.0，再转成61。这里必须使用 <code>numpy.int32()</code> 进行转换，numpy 的转换函数可以对数组中的每个元素都进行转换，而Python的转换函数只能转换一个元素，如果使用 Python 的转换函数，将导致 <code>only length-1 arrays can be converted to Python scalars</code> 错误。</li>
 <li><code>pts = numpy.column_stack((bins,hist))</code> 是将直方图中每个bin的值转成相应的坐标。比如hist[0] =3，…，hist[126] = 178，…，hist[255] = 5；而bins的值为[[0],[1],[2]…,[255]]。使用 <code>np.column_stack</code> 将其组合成[0, 3]、[126, 178]、[255, 5]这样的坐标作为元素组成的数组。</li>
-<li><code>cv2.polylines()</code> 函数根据这些点绘制出折线，False 参数指出这个折线不需要闭合。第四个参数指定了折线的颜色。</li>
+<li><code>cv2.polylines()</code> 函数根据这些点绘制出折线，&lt;/code&gt;False&lt;/code&gt; 参数指出这个折线不需要闭合。第四个参数指定了折线的颜色。</li>
 <li><code>h = numpy.flipud(h)</code> 反转绘制好的直方图。因为绘制时，[0,0]在图像的左上角。</li>
 </ul>
 <h1 id="NumPy的直方图计算"><a href="#NumPy的直方图计算" class="headerlink" title="NumPy的直方图计算"></a>NumPy的直方图计算</h1><p>使用 NumPy 的直方图计算函数 <code>numpy.histogram()</code> 也能实现相同的效果，如下：</p>
@@ -450,7 +450,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives/">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">69</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

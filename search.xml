@@ -4,6 +4,61 @@
   
     
     <entry>
+      <title><![CDATA[支持向量机]]></title>
+      <url>http://lizonghang.github.io/2017/08/11/SVM/</url>
+      <content type="html"><![CDATA[<h1 id="支持向量机"><a href="#支持向量机" class="headerlink" title="支持向量机"></a><center>支持向量机</center></h1><h3 id="间隔与支持向量"><a href="#间隔与支持向量" class="headerlink" title="间隔与支持向量"></a>间隔与支持向量</h3><p>在样本空间中，划分超平面可通过线性方程描述：</p>
+<center>$$ {w}^{T}x + b = 0 $$</center>
+
+<p>其中\(w=(w_1,w_2,…,w_d)\)为法向量，决定超平面的方向。\(b\)为位移量，决定超平面与原点之间的距离。将超平面记为\((w,b)\)。</p>
+<p>样本空间中任意点\(x\)到超平面\((w,b)\)的距离可写为：</p>
+<center>$$ r=\frac{|{w}^{T}x+b|}{||w||} $$</center>
+
+<p>若\({w}^{T}x + b&gt;0, y_i=+1\)；\({w}^{T}x+b&lt;0, y_i=-1\)。令：</p>
+<center>\begin{cases} {w}^{T}x+b\ge +1, y\_i=+1\\\ \\\ {w}^{T}x+b \le-1, y\_i=-1 \end{cases}</center>
+
+<p>如图所示：</p>
+<center><img src="static/D9CAC776-9E6A-4C14-B721-BF1EEFC302FB.png" style="width: 300px"></center>
+
+<center><label style="font-size: 12px">图 支持向量与间隔</label></center>
+
+<p>距离超平面最近的几个训练样本点被称为“支持向量”，两个异类支持向量到超平面的距离之和为间隔：</p>
+<center>$$ \gamma=\frac{2}{||w||} $$</center>
+
+<p>目标：找到\((w, b)\)使间隔\(\gamma\)最大。等价于：</p>
+<center>$$ \underset{w,b}{min} \frac{1}{2}{||w||}^{2} \tag{0}$$</center>
+<center>$$ s.t. ({w}^{T}x+b)y\_i \ge 1, i=1,2,...,m $$</center>
+
+<h3 id="对偶问题"><a href="#对偶问题" class="headerlink" title="对偶问题"></a>对偶问题</h3><p>对上式使用拉格朗日乘子法可得到其对偶问题：</p>
+<center>$$ L(w,b,\alpha)=\frac{1}{2}{||w||}^{2}+\sum\_{i=1}^{m}{\alpha\_i(1-({w}^{T}x+b)y\_i)} \tag{1}$$</center>
+
+<p>令\(L(w,b,\alpha)\)对\(w\)和\(b\)的偏导为零得：</p>
+<center>$$ w=\sum\_{i=1}^{m}{\alpha\_iy\_ix\_i} \tag{2}$$</center>
+
+<center>$$ 0=\sum\_{i=1}^{m}{\alpha\_iy\_i} \tag{3} $$</center>
+
+<p>将(2)代入(1)并考虑(3)的约束，得到(0)的对偶问题：</p>
+<center>$$ \underset{\alpha}{max}\sum\_{i=1}^{m}{\alpha\_i}-\frac{1}{2}\sum\_{i=1}^{m}\sum\_{j=1}^{m}{\alpha\_i\alpha\_jy\_iy\_j{x\_i}^{T}x\_j} \tag{4}$$</center>
+
+<center>$$ s.t. \sum\_{i=1}^{m}{\alpha\_iy\_i}=0 $$</center>
+
+<center>$$ \alpha\_i\ge 0, i=1,2,...,m $$</center>
+
+<p>于是解出\(\alpha\)后，求出\(w\)与\(b\)即可得到划分超平面的模型：</p>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+]]></content>
+      
+        <categories>
+            
+            <category> Hexo </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[AliCloud-Ubuntu-Server-With-IPv6]]></title>
       <url>http://lizonghang.github.io/2016/12/09/AliCloud-Ubuntu-Server-With-IPv6/</url>
       <content type="html"><![CDATA[<h1 id="Ubuntu支持IPv6"><a href="#Ubuntu支持IPv6" class="headerlink" title="Ubuntu支持IPv6"></a>Ubuntu支持IPv6</h1><p>阿里云服务器默认是不支持IPv6协议的，需要修改<code>/etc/sysctl.conf</code>文件解除对IPv6的禁止:</p>
@@ -738,7 +793,7 @@
 <li>args - Optional arguments that get passed to the file detector class during instantiation.</li>
 <li>kwargs - Keyword arguments, passed the same way as args.</li>
 </ul>
-<h2 id="find-element-by-’id’-value-None"><a href="#find-element-by-’id’-value-None" class="headerlink" title="find_element(by=’id’, value=None)"></a>find_element(by=’id’, value=None)</h2><p>‘Private’ method used by the find_element_by_* methods. Use the corresponding find_element_by_* instead of this.</p>
+<h2 id="find-element-by-’id’-value-None"><a href="#find-element-by-’id’-value-None" class="headerlink" title="find_element(by=’id’, value=None)"></a>find_element(by=’id’, value=None)</h2><p>‘Private’ method used by the find<em>element_by\</em>* methods. Use the corresponding find_element_by_* instead of this.</p>
 <h2 id="find-element-by-class-name-name"><a href="#find-element-by-class-name-name" class="headerlink" title="find_element_by_class_name(name)"></a>find_element_by_class_name(name)</h2><p>Finds an element by class name.</p>
 <ul>
 <li>name: The class name of the element to find.</li>
@@ -1019,8 +1074,8 @@
 <h2 id="presence-of-all-elements-located-locator"><a href="#presence-of-all-elements-located-locator" class="headerlink" title="presence_of_all_elements_located(locator)"></a>presence_of_all_elements_located(locator)</h2><p>An expectation for checking that there is at least one element present on a web page. locator is used to find the element returns the list of WebElements once they are located.</p>
 <h2 id="presence-of-element-located-locator"><a href="#presence-of-element-located-locator" class="headerlink" title="presence_of_element_located(locator)"></a>presence_of_element_located(locator)</h2><p>An expectation for checking that an element is present on the DOM of a page. This does not necessarily mean that the element is visible. locator - used to find the element returns the WebElement once it is located.</p>
 <h2 id="staleness-of-element"><a href="#staleness-of-element" class="headerlink" title="staleness_of(element)"></a>staleness_of(element)</h2><p>Wait until an element is no longer attached to the DOM. element is the element to wait for. returns False if the element is still attached to the DOM, true otherwise.</p>
-<h2 id="text-to-be-present-inelement-locator-text"><a href="#text-to-be-present-inelement-locator-text" class="headerlink" title="text_to_be_present_inelement(locator, text)"></a>text_to_be_present_in<em>element(locator, text</em>)</h2><p>An expectation for checking if the given text is present in the specified element. locator, text.</p>
-<h2 id="text-to-be-present-in-elementvalue-locator-text"><a href="#text-to-be-present-in-elementvalue-locator-text" class="headerlink" title="text_to_be_present_in_elementvalue(locator, text)"></a>text_to_be_present_in_element<em>value(locator, text</em>)</h2><p>An expectation for checking if the given text is present in the element’s locator, text.</p>
+<h2 id="textto-be-present-in-element-locator-text"><a href="#textto-be-present-in-element-locator-text" class="headerlink" title="textto_be_present_in_element(locator, text)"></a>text<em>to_be_present_in_element(locator, text</em>)</h2><p>An expectation for checking if the given text is present in the specified element. locator, text.</p>
+<h2 id="textto-be-present-in-element-value-locator-text"><a href="#textto-be-present-in-element-value-locator-text" class="headerlink" title="textto_be_present_in_element_value(locator, text)"></a>text<em>to_be_present_in_element_value(locator, text</em>)</h2><p>An expectation for checking if the given text is present in the element’s locator, text.</p>
 <h2 id="title-contains-title"><a href="#title-contains-title" class="headerlink" title="title_contains(title)"></a>title_contains(title)</h2><p>An expectation for checking that the title contains a case-sensitive substring. title is the fragment of title expected returns True when the title matches, False otherwise.</p>
 <h2 id="title-is-title"><a href="#title-is-title" class="headerlink" title="title_is(title)"></a>title_is(title)</h2><p>An expectation for checking the title of a page. title is the expected title, which must be an exact match returns True if the title matches, false otherwise.</p>
 <h2 id="visibility-of-element"><a href="#visibility-of-element" class="headerlink" title="visibility_of(element)"></a>visibility_of(element)</h2><p>An expectation for checking that an element, known to be present on the DOM of a page, is visible. Visibility means that the element is not only displayed but also has a height and width that is greater than 0. element is the WebElement returns the (same) WebElement once it is visible.</p>
@@ -2217,7 +2272,7 @@
 <li>这里直接调用了 OpenCV 的归一化函数，该函数将直方图的范围限定在 0~255×0.9 之间。</li>
 <li><code>hist = numpy.int32(numpy.around(originHist))</code> 先将生成的原始直方图中的每个元素四舍六入五凑偶取整（cv2.calcHist函数得到的是 float32 类型的数组），接着将整数部分转成 <code>numpy.int32</code> 类型。即61.123先转成61.0，再转成61。这里必须使用 <code>numpy.int32()</code> 进行转换，numpy 的转换函数可以对数组中的每个元素都进行转换，而Python的转换函数只能转换一个元素，如果使用 Python 的转换函数，将导致 <code>only length-1 arrays can be converted to Python scalars</code> 错误。</li>
 <li><code>pts = numpy.column_stack((bins,hist))</code> 是将直方图中每个bin的值转成相应的坐标。比如hist[0] =3，…，hist[126] = 178，…，hist[255] = 5；而bins的值为[[0],[1],[2]…,[255]]。使用 <code>np.column_stack</code> 将其组合成[0, 3]、[126, 178]、[255, 5]这样的坐标作为元素组成的数组。</li>
-<li><code>cv2.polylines()</code> 函数根据这些点绘制出折线，False 参数指出这个折线不需要闭合。第四个参数指定了折线的颜色。</li>
+<li><code>cv2.polylines()</code> 函数根据这些点绘制出折线，&lt;/code&gt;False&lt;/code&gt; 参数指出这个折线不需要闭合。第四个参数指定了折线的颜色。</li>
 <li><code>h = numpy.flipud(h)</code> 反转绘制好的直方图。因为绘制时，[0,0]在图像的左上角。</li>
 </ul>
 <h1 id="NumPy的直方图计算"><a href="#NumPy的直方图计算" class="headerlink" title="NumPy的直方图计算"></a>NumPy的直方图计算</h1><p>使用 NumPy 的直方图计算函数 <code>numpy.histogram()</code> 也能实现相同的效果，如下：</p>
@@ -2290,6 +2345,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">student = numpy.dtype(&#123;&apos;names&apos;: [&apos;name&apos;, &apos;age&apos;, &apos;weight&apos;], &apos;formats&apos;: [&apos;S32&apos;, &apos;i&apos;, &apos;f&apos;]&#125;, align=True)</div></pre></td></tr></table></figure>
 <p>这里 <code>student</code> 是自定义结构类型的名称，使用 <code>dtype()</code> 函数创建，在第一个参数中， <code>‘names’</code> 和 <code>‘formats’</code> 不能改变， <code>names</code>中列出的是结构中的字段名称， <code>formats</code> 中列出的是对应字段的数据类型。<code>S32</code>表示 32 字节长度的字符串， <code>i</code> 表示 32 位的整数， <code>f</code> 表示 32 位长度的浮点数。最后一个参数为 <code>True</code> 时，表示要求进行内存对齐。</p>
 <p>字段中使用 NumPy 的字符编码来表示数据类型。更详细的数据类型见下表：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -2336,6 +2392,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>在定义好结构类型之后，就可以定义以该类型为元素的数组：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">a = numpy.array([(&apos;Zhang&apos;, 32, 65.5), (&apos;Wang&apos;, 24, 55.2)], dtype=student)</div></pre></td></tr></table></figure>
 <p>除了在每个元素中依次列出对应字段的数据外，还需要在 <code>array</code> 函数中指定对应的数据类型。</p>
@@ -2455,7 +2512,8 @@
 <h2 id="numpy-linspace"><a href="#numpy-linspace" class="headerlink" title="numpy.linspace()"></a>numpy.linspace()</h2><p>当 <code>numpy.arange()</code> 使用浮点数参数时，由于浮点数精度有限，通常无法预测获得的元素个数。因此，最好使用函数 <code>numpy.linspace()</code> 去接收我们想要的元素个数来代替用 <code>range</code> 来指定步长：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; numpy.linspace(-1, 0, 5)</div><div class="line">array([-1.  , -0.75, -0.5 , -0.25,  0.  ])</div></pre></td></tr></table></figure>
 <p>数组中的元素是通过下标来访问的，可以以切片的形式访问数组中多个元素。</p>
-<h1 id="NumPy基本数据类型"><a href="#NumPy基本数据类型" class="headerlink" title="NumPy基本数据类型"></a>NumPy基本数据类型</h1><table>
+<h1 id="NumPy基本数据类型"><a href="#NumPy基本数据类型" class="headerlink" title="NumPy基本数据类型"></a>NumPy基本数据类型</h1><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>名称</th>
@@ -2546,6 +2604,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <h2 id="NumPy类型转换"><a href="#NumPy类型转换" class="headerlink" title="NumPy类型转换"></a>NumPy类型转换</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; numpy.float64(42)</div><div class="line">42.0</div><div class="line">&gt;&gt;&gt; numpy.int8(42.0)</div><div class="line">42</div><div class="line">&gt;&gt;&gt; numpy.bool(42)</div><div class="line">True</div><div class="line">&gt;&gt;&gt; numpy.bool(42.0)</div><div class="line">True</div><div class="line">&gt;&gt;&gt; numpy.float(True)</div><div class="line">1.0</div></pre></td></tr></table></figure>
 <p>许多函数的参数中可以指定参数的类型，这个类型参数是可选的，如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; numpy.arange(7, dtype=numpy.uint16)</div><div class="line">array([0, 1, 2, 3, 4, 5, 6], dtype=uint16)</div></pre></td></tr></table></figure>
@@ -3519,6 +3578,7 @@ Contact us
 <h3 id="语言设置"><a href="#语言设置" class="headerlink" title="语言设置"></a>语言设置</h3><p>编辑全局配置文件，将 language 设置成需要的语言。例如选用正体中文，则配置为：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">language: zh-Hans</div></pre></td></tr></table></figure>
 <p>可用的语言如以下表格所示：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -3560,7 +3620,9 @@ Contact us
 </tr>
 </tbody>
 </table>
+</div>
 <h3 id="菜单配置"><a href="#菜单配置" class="headerlink" title="菜单配置"></a>菜单配置</h3><p>菜单配置在主题配置文件的menu。若站点运行在子目录中，请将链接前缀的/去掉。默认支持的菜单项有：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -3602,6 +3664,7 @@ Contact us
 </tr>
 </tbody>
 </table>
+</div>
 <p>菜单配置示例:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">menu:</div><div class="line">  home: /</div><div class="line">  archives: /archives</div><div class="line">  #about: /about</div><div class="line">  #categories: /categories</div><div class="line">  tags: /tags</div><div class="line">  #commonweal: /404.html</div></pre></td></tr></table></figure>
 <h3 id="侧栏设置"><a href="#侧栏设置" class="headerlink" title="侧栏设置"></a>侧栏设置</h3><p>默认情况下，侧栏仅在文章页面（拥有目录列表）时才显示。可以通过修改主题配置文件中的 sidebar 字段来控制侧栏的行为。</p>
