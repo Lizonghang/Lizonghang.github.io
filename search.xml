@@ -4,10 +4,14 @@
   
     
     <entry>
-      <title><![CDATA[Support Vector Machine]]></title>
+      <title><![CDATA[支持向量机]]></title>
       <url>http://lizonghang.github.io/2017/08/11/Support-Vector-Machine/</url>
-      <content type="html"><![CDATA[<p>公式：</p>
-<center><img src="http://chart.googleapis.com/chart?cht=tx&amp;chl=\Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}" alt=""></center>]]></content>
+      <content type="html"><![CDATA[<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h2 id="间隔与支持向量"><a href="#间隔与支持向量" class="headerlink" title="间隔与支持向量"></a>间隔与支持向量</h2><p>在样本空间中，划分超平面可通过线性方程描述：</p>
+<p>$$ \vec { { \omega  }^{ T } } \cdot \vec { x } +b=0 $$</p>
+]]></content>
     </entry>
     
     <entry>
