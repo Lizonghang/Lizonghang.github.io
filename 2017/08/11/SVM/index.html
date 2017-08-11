@@ -57,19 +57,19 @@
 
 
 
-<meta name="description" content="支持向量机间隔与支持向量在样本空间中，划分超平面可通过线性方程描述： $$ {w}^{T}x + b = 0 $$  其中\(w=(w_1,w_2,…,w_d)\)为法向量，决定超平面的方向。\(b\)为位移量，决定超平面与原点之间的距离。将超平面记为\((w,b)\)。 样本空间中任意点\(x\)到超平面\((w,b)\)的距离可写为： $$ r=\frac{|{w}^{T}x+b|}{||w|">
+<meta name="description" content="间隔与支持向量在样本空间中，划分超平面可通过线性方程描述： $$ {w}^{T}x + b = 0 $$  其中\(w=(w_1,w_2,…,w_d)\)为法向量，决定超平面的方向。\(b\)为位移量，决定超平面与原点之间的距离。将超平面记为\((w,b)\)。 样本空间中任意点\(x\)到超平面\((w,b)\)的距离可写为： $$ r=\frac{|{w}^{T}x+b|}{||w||} $$">
 <meta property="og:type" content="article">
 <meta property="og:title" content="支持向量机">
 <meta property="og:url" content="http://lizonghang.github.io/2017/08/11/SVM/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="支持向量机间隔与支持向量在样本空间中，划分超平面可通过线性方程描述： $$ {w}^{T}x + b = 0 $$  其中\(w=(w_1,w_2,…,w_d)\)为法向量，决定超平面的方向。\(b\)为位移量，决定超平面与原点之间的距离。将超平面记为\((w,b)\)。 样本空间中任意点\(x\)到超平面\((w,b)\)的距离可写为： $$ r=\frac{|{w}^{T}x+b|}{||w|">
+<meta property="og:description" content="间隔与支持向量在样本空间中，划分超平面可通过线性方程描述： $$ {w}^{T}x + b = 0 $$  其中\(w=(w_1,w_2,…,w_d)\)为法向量，决定超平面的方向。\(b\)为位移量，决定超平面与原点之间的距离。将超平面记为\((w,b)\)。 样本空间中任意点\(x\)到超平面\((w,b)\)的距离可写为： $$ r=\frac{|{w}^{T}x+b|}{||w||} $$">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://lizonghang.github.io/2017/08/11/SVM/static/D9CAC776-9E6A-4C14-B721-BF1EEFC302FB.png">
-<meta property="og:updated_time" content="2017-08-11T04:47:33.000Z">
+<meta property="og:image" content="http://lizonghang.github.io/static/D9CAC776-9E6A-4C14-B721-BF1EEFC302FB.png">
+<meta property="og:updated_time" content="2017-08-11T04:51:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="支持向量机">
-<meta name="twitter:description" content="支持向量机间隔与支持向量在样本空间中，划分超平面可通过线性方程描述： $$ {w}^{T}x + b = 0 $$  其中\(w=(w_1,w_2,…,w_d)\)为法向量，决定超平面的方向。\(b\)为位移量，决定超平面与原点之间的距离。将超平面记为\((w,b)\)。 样本空间中任意点\(x\)到超平面\((w,b)\)的距离可写为： $$ r=\frac{|{w}^{T}x+b|}{||w|">
-<meta name="twitter:image" content="http://lizonghang.github.io/2017/08/11/SVM/static/D9CAC776-9E6A-4C14-B721-BF1EEFC302FB.png">
+<meta name="twitter:description" content="间隔与支持向量在样本空间中，划分超平面可通过线性方程描述： $$ {w}^{T}x + b = 0 $$  其中\(w=(w_1,w_2,…,w_d)\)为法向量，决定超平面的方向。\(b\)为位移量，决定超平面与原点之间的距离。将超平面记为\((w,b)\)。 样本空间中任意点\(x\)到超平面\((w,b)\)的距离可写为： $$ r=\frac{|{w}^{T}x+b|}{||w||} $$">
+<meta name="twitter:image" content="http://lizonghang.github.io/static/D9CAC776-9E6A-4C14-B721-BF1EEFC302FB.png">
 
 
 
@@ -307,7 +307,7 @@
       
 
       
-        <h1 id="支持向量机"><a href="#支持向量机" class="headerlink" title="支持向量机"></a><center>支持向量机</center></h1><h3 id="间隔与支持向量"><a href="#间隔与支持向量" class="headerlink" title="间隔与支持向量"></a>间隔与支持向量</h3><p>在样本空间中，划分超平面可通过线性方程描述：</p>
+        <h2 id="间隔与支持向量"><a href="#间隔与支持向量" class="headerlink" title="间隔与支持向量"></a>间隔与支持向量</h2><p>在样本空间中，划分超平面可通过线性方程描述：</p>
 <center>$$ {w}^{T}x + b = 0 $$</center>
 
 <p>其中\(w=(w_1,w_2,…,w_d)\)为法向量，决定超平面的方向。\(b\)为位移量，决定超平面与原点之间的距离。将超平面记为\((w,b)\)。</p>
@@ -318,7 +318,7 @@
 <center>\begin{cases} {w}^{T}x+b\ge +1, y\_i=+1\\\ \\\ {w}^{T}x+b \le-1, y\_i=-1 \end{cases}</center>
 
 <p>如图所示：</p>
-<center><img src="static/D9CAC776-9E6A-4C14-B721-BF1EEFC302FB.png" style="width: 300px"></center>
+<center><img src="/static/D9CAC776-9E6A-4C14-B721-BF1EEFC302FB.png" style="width: 300px"></center>
 
 <center><label style="font-size: 12px">图 支持向量与间隔</label></center>
 
@@ -329,7 +329,7 @@
 <center>$$ \underset{w,b}{min} \frac{1}{2}{||w||}^{2} \tag{0}$$</center>
 <center>$$ s.t. ({w}^{T}x+b)y\_i \ge 1, i=1,2,...,m $$</center>
 
-<h3 id="对偶问题"><a href="#对偶问题" class="headerlink" title="对偶问题"></a>对偶问题</h3><p>对上式使用拉格朗日乘子法可得到其对偶问题：</p>
+<h2 id="对偶问题"><a href="#对偶问题" class="headerlink" title="对偶问题"></a>对偶问题</h2><p>对上式使用拉格朗日乘子法可得到其对偶问题：</p>
 <center>$$ L(w,b,\alpha)=\frac{1}{2}{||w||}^{2}+\sum\_{i=1}^{m}{\alpha\_i(1-({w}^{T}x+b)y\_i)} \tag{1}$$</center>
 
 <p>令\(L(w,b,\alpha)\)对\(w\)和\(b\)的偏导为零得：</p>
@@ -491,7 +491,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#支持向量机"><span class="nav-number">1.</span> <span class="nav-text">支持向量机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#间隔与支持向量"><span class="nav-number">1.0.1.</span> <span class="nav-text">间隔与支持向量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对偶问题"><span class="nav-number">1.0.2.</span> <span class="nav-text">对偶问题</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#间隔与支持向量"><span class="nav-number">1.</span> <span class="nav-text">间隔与支持向量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对偶问题"><span class="nav-number">2.</span> <span class="nav-text">对偶问题</span></a></li></ol></div>
             
           </div>
         </section>

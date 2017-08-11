@@ -6,7 +6,7 @@
     <entry>
       <title><![CDATA[支持向量机]]></title>
       <url>http://lizonghang.github.io/2017/08/11/SVM/</url>
-      <content type="html"><![CDATA[<h1 id="支持向量机"><a href="#支持向量机" class="headerlink" title="支持向量机"></a><center>支持向量机</center></h1><h3 id="间隔与支持向量"><a href="#间隔与支持向量" class="headerlink" title="间隔与支持向量"></a>间隔与支持向量</h3><p>在样本空间中，划分超平面可通过线性方程描述：</p>
+      <content type="html"><![CDATA[<h2 id="间隔与支持向量"><a href="#间隔与支持向量" class="headerlink" title="间隔与支持向量"></a>间隔与支持向量</h2><p>在样本空间中，划分超平面可通过线性方程描述：</p>
 <center>$$ {w}^{T}x + b = 0 $$</center>
 
 <p>其中\(w=(w_1,w_2,…,w_d)\)为法向量，决定超平面的方向。\(b\)为位移量，决定超平面与原点之间的距离。将超平面记为\((w,b)\)。</p>
@@ -17,7 +17,7 @@
 <center>\begin{cases} {w}^{T}x+b\ge +1, y\_i=+1\\\ \\\ {w}^{T}x+b \le-1, y\_i=-1 \end{cases}</center>
 
 <p>如图所示：</p>
-<center><img src="static/D9CAC776-9E6A-4C14-B721-BF1EEFC302FB.png" style="width: 300px"></center>
+<center><img src="/static/D9CAC776-9E6A-4C14-B721-BF1EEFC302FB.png" style="width: 300px"></center>
 
 <center><label style="font-size: 12px">图 支持向量与间隔</label></center>
 
@@ -28,7 +28,7 @@
 <center>$$ \underset{w,b}{min} \frac{1}{2}{||w||}^{2} \tag{0}$$</center>
 <center>$$ s.t. ({w}^{T}x+b)y\_i \ge 1, i=1,2,...,m $$</center>
 
-<h3 id="对偶问题"><a href="#对偶问题" class="headerlink" title="对偶问题"></a>对偶问题</h3><p>对上式使用拉格朗日乘子法可得到其对偶问题：</p>
+<h2 id="对偶问题"><a href="#对偶问题" class="headerlink" title="对偶问题"></a>对偶问题</h2><p>对上式使用拉格朗日乘子法可得到其对偶问题：</p>
 <center>$$ L(w,b,\alpha)=\frac{1}{2}{||w||}^{2}+\sum\_{i=1}^{m}{\alpha\_i(1-({w}^{T}x+b)y\_i)} \tag{1}$$</center>
 
 <p>令\(L(w,b,\alpha)\)对\(w\)和\(b\)的偏导为零得：</p>
