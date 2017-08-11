@@ -63,6 +63,7 @@
 <meta property="og:url" content="http://lizonghang.github.io/2016/07/25/轮廓检测/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
 <meta property="og:description" content="轮廓检测12345678910import cv2im = cv2.imread(&amp;apos;star.png&amp;apos;)im = im.copy()gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)contours, hierarchy">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://lizonghang.github.io/images/star.png">
 <meta property="og:image" content="http://lizonghang.github.io/images/star-edge.jpg">
 <meta property="og:updated_time" content="2016-08-13T11:07:50.000Z">
@@ -307,7 +308,7 @@
       
 
       
-        <h1 id="轮廓检测"><a href="#轮廓检测" class="headerlink" title="轮廓检测"></a>轮廓检测</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">im = cv2.imread(&apos;star.png&apos;)</span><br><span class="line">im = im.copy()</span><br><span class="line">gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)</span><br><span class="line">ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)</span><br><span class="line">contours, hierarchy = cv2.findContours(binary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)</span><br><span class="line">cv2.drawContours(im, contours, -1, (0,0,255), 3)</span><br><span class="line">cv2.imshow(&apos;img&apos;, im)</span><br><span class="line">cv2.waitKey(0)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+        <h1 id="轮廓检测"><a href="#轮廓检测" class="headerlink" title="轮廓检测"></a>轮廓检测</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">import cv2</div><div class="line">im = cv2.imread(&apos;star.png&apos;)</div><div class="line">im = im.copy()</div><div class="line">gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)</div><div class="line">ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)</div><div class="line">contours, hierarchy = cv2.findContours(binary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)</div><div class="line">cv2.drawContours(im, contours, -1, (0,0,255), 3)</div><div class="line">cv2.imshow(&apos;img&apos;, im)</div><div class="line">cv2.waitKey(0)</div><div class="line">cv2.destroyAllWindows()</div></pre></td></tr></table></figure>
 <p>需要注意的是 <code>cv2.findContours()</code> 函数接受的参数为二值图，所以读取的图像要先转成灰度图，再转成二值图。</p>
 <p>原图：</p>
 <p><img src="/images/star.png" alt=""></p>
@@ -315,7 +316,7 @@
 <p><img src="/images/star-edge.jpg" alt=""></p>
 <p>注意，<code>cv2.findContours()</code> 函数会修改输入的图像。</p>
 <h1 id="cv2-findContours"><a href="#cv2-findContours" class="headerlink" title="cv2.findContours()"></a>cv2.findContours()</h1><p>函数原型为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">contours, hierarchy = cv2.findContours(image, mode, method[, contours[, hierarchy[, offset]]])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">contours, hierarchy = cv2.findContours(image, mode, method[, contours[, hierarchy[, offset]]])</div></pre></td></tr></table></figure>
 <p>参数说明：</p>
 <ul>
 <li>image - 输入图像</li>
@@ -325,26 +326,26 @@
 <li>hierarchy - 每条轮廓对应的属性</li>
 </ul>
 <h2 id="返回值contour"><a href="#返回值contour" class="headerlink" title="返回值contour"></a>返回值contour</h2><p><code>cv2.findContours()</code> 函数首先返回一个 list，list 中每个元素都是图像中的一个轮廓，用 numpy 中的 ndarray 表示。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print type(contours)</span><br><span class="line">print type(contours[0])</span><br><span class="line">print len(contours)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">print type(contours)</div><div class="line">print type(contours[0])</div><div class="line">print len(contours)</div></pre></td></tr></table></figure>
 <p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;type &apos;list&apos;&gt;</span><br><span class="line">&lt;type &apos;numpy.ndarray&apos;&gt;</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;type &apos;list&apos;&gt;</div><div class="line">&lt;type &apos;numpy.ndarray&apos;&gt;</div><div class="line">2</div></pre></td></tr></table></figure>
 <p>可以验证上述信息。可以看到本例中有两条轮廓，一个是五角星的，一个是矩形的。每个轮廓是一个 ndarray，每个 ndarray 是轮廓上的点的集合。</p>
 <p>由于知道返回的轮廓有两个，因此可以通过：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cv2.drawContours(im, contours, 0, (0,0,255), 3)</span><br><span class="line">cv2.drawContours(im, contours, 1, (0,255,0), 3)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cv2.drawContours(im, contours, 0, (0,0,255), 3)</div><div class="line">cv2.drawContours(im, contours, 1, (0,255,0), 3)</div></pre></td></tr></table></figure>
 <p>分别绘制两个轮廓。同时使用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print len(contours[0])</span><br><span class="line">print len(contours[1])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">print len(contours[0])</div><div class="line">print len(contours[1])</div></pre></td></tr></table></figure>
 <p>输出两个轮廓中存储的点的个数。可见五角星只有 5 个元素，这是因为轮廓中并不是存储轮廓上所有点，而是只存储可以用直线描述轮廓的点的个数，比如一个矩形只需要 4 个顶点就可以描述轮廓。</p>
 <h2 id="返回值hierarchy"><a href="#返回值hierarchy" class="headerlink" title="返回值hierarchy"></a>返回值hierarchy</h2><p>该函数还返回一个可选的 hierarchy 结果，这是一个 ndarray，其中元素个数和轮廓个数相同，每个轮廓 <code>contours[i]</code> 对应 4 个 hierarchy 元素 <code>hierarchy[i][0] ~ hierarchy[i][3]</code>，分别表示后一个轮廓、前一个轮廓、父轮廓、内嵌轮廓的索引编号，如果没有对应项，则该值为负数。通过如下查看各属性：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print type(hierarchy)</span><br><span class="line">print hierarchy.ndim</span><br><span class="line">print hierarchy[0].ndim</span><br><span class="line">print hierarchy.shape</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">print type(hierarchy)</div><div class="line">print hierarchy.ndim</div><div class="line">print hierarchy[0].ndim</div><div class="line">print hierarchy.shape</div></pre></td></tr></table></figure>
 <h1 id="轮廓的绘制"><a href="#轮廓的绘制" class="headerlink" title="轮廓的绘制"></a>轮廓的绘制</h1><p>OpenCV 通过 <code>cv2.drawContours()</code> 在图像上绘制轮廓。函数原型：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cv2.drawContours(image, contours, contourIdx, color[, thickness[, lineType[, hierarchy[, maxLevel[, offset ]]]]])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cv2.drawContours(image, contours, contourIdx, color[, thickness[, lineType[, hierarchy[, maxLevel[, offset ]]]]])</div></pre></td></tr></table></figure>
 <ul>
 <li>image - 在选定的图像上绘制轮廓</li>
 <li>contours - 轮廓本身，是一个 list</li>
 <li>contourIdx - 指定绘制哪条轮廓，如果为 -1 则绘制所有轮廓</li>
 <li>后续参数比较显而易见，其中 thickness 表明轮廓线宽度，如果为 -1 （<code>cv2.FILLED</code>），则为填充模式。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cv2.drawContours(im, contours, -1, (0,0,255), 2)</span><br><span class="line">cv2.imshow(&apos;image&apos;, im)</span><br><span class="line">cv2.waitKey(0)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cv2.drawContours(im, contours, -1, (0,0,255), 2)</div><div class="line">cv2.imshow(&apos;image&apos;, im)</div><div class="line">cv2.waitKey(0)</div><div class="line">cv2.destroyAllWindows()</div></pre></td></tr></table></figure>
       
     </div>
 

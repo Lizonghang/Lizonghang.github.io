@@ -57,22 +57,13 @@
 
 
 
-<meta name="description" content="Sobel 算子是一种过滤器，但它带有方向。在 OpenCV-Python 中，使用 Sobel 算子的函数原型如下：
-1dst = cv2.Sobel(src, ddepth, dx, dy[, dst[, ksize[, scale[, delta[, borderType]]]]])
-必选参数：
-
-src - 需要处理的图像。
-ddepth - 图像深度。-1 表示采用与原图像相同的深度。目">
+<meta name="description" content="Sobel 算子是一种过滤器，但它带有方向。在 OpenCV-Python 中，使用 Sobel 算子的函数原型如下： 1dst = cv2.Sobel(src, ddepth, dx, dy[, dst[, ksize[, scale[, delta[, borderType]]]]]) 必选参数：  src - 需要处理的图像。 ddepth - 图像深度。-1 表示采用与原图像相同的深度。目">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Sobel算子">
 <meta property="og:url" content="http://lizonghang.github.io/2016/07/24/Sobel算子/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="Sobel 算子是一种过滤器，但它带有方向。在 OpenCV-Python 中，使用 Sobel 算子的函数原型如下：
-1dst = cv2.Sobel(src, ddepth, dx, dy[, dst[, ksize[, scale[, delta[, borderType]]]]])
-必选参数：
-
-src - 需要处理的图像。
-ddepth - 图像深度。-1 表示采用与原图像相同的深度。目">
+<meta property="og:description" content="Sobel 算子是一种过滤器，但它带有方向。在 OpenCV-Python 中，使用 Sobel 算子的函数原型如下： 1dst = cv2.Sobel(src, ddepth, dx, dy[, dst[, ksize[, scale[, delta[, borderType]]]]]) 必选参数：  src - 需要处理的图像。 ddepth - 图像深度。-1 表示采用与原图像相同的深度。目">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://lizonghang.github.io/images/lion.jpg">
 <meta property="og:image" content="http://lizonghang.github.io/images/absX.jpg">
 <meta property="og:image" content="http://lizonghang.github.io/images/absY.jpg">
@@ -80,12 +71,7 @@ ddepth - 图像深度。-1 表示采用与原图像相同的深度。目">
 <meta property="og:updated_time" content="2016-07-24T14:26:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sobel算子">
-<meta name="twitter:description" content="Sobel 算子是一种过滤器，但它带有方向。在 OpenCV-Python 中，使用 Sobel 算子的函数原型如下：
-1dst = cv2.Sobel(src, ddepth, dx, dy[, dst[, ksize[, scale[, delta[, borderType]]]]])
-必选参数：
-
-src - 需要处理的图像。
-ddepth - 图像深度。-1 表示采用与原图像相同的深度。目">
+<meta name="twitter:description" content="Sobel 算子是一种过滤器，但它带有方向。在 OpenCV-Python 中，使用 Sobel 算子的函数原型如下： 1dst = cv2.Sobel(src, ddepth, dx, dy[, dst[, ksize[, scale[, delta[, borderType]]]]]) 必选参数：  src - 需要处理的图像。 ddepth - 图像深度。-1 表示采用与原图像相同的深度。目">
 <meta name="twitter:image" content="http://lizonghang.github.io/images/lion.jpg">
 
 
@@ -325,7 +311,7 @@ ddepth - 图像深度。-1 表示采用与原图像相同的深度。目">
 
       
         <p>Sobel 算子是一种过滤器，但它带有方向。在 OpenCV-Python 中，使用 Sobel 算子的函数原型如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dst = cv2.Sobel(src, ddepth, dx, dy[, dst[, ksize[, scale[, delta[, borderType]]]]])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dst = cv2.Sobel(src, ddepth, dx, dy[, dst[, ksize[, scale[, delta[, borderType]]]]])</div></pre></td></tr></table></figure>
 <p>必选参数：</p>
 <ul>
 <li>src - 需要处理的图像。</li>
@@ -340,13 +326,13 @@ ddepth - 图像深度。-1 表示采用与原图像相同的深度。目">
 <li>borderType - 判断图像边界的模式。默认值为 <code>cv2.BORDER_DEFAULT。</code></li>
 </ul>
 <p>Sobel 函数使用如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">im = cv2.imread(&apos;lion.jpg&apos;)</span><br><span class="line">im = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)</span><br><span class="line"></span><br><span class="line">x = cv2.Sobel(im, cv2.CV_16S, 1, 0)</span><br><span class="line">y = cv2.Sobel(im, cv2.CV_16S, 0, 1)</span><br><span class="line"></span><br><span class="line">absX = cv2.convertScaleAbs(x)</span><br><span class="line">absY = cv2.convertScaleAbs(y)</span><br><span class="line"></span><br><span class="line">dst = cv2.addWeighted(absX, 0.5, absY, 0.5, 0)</span><br><span class="line"></span><br><span class="line">cv2.imshow(&apos;origin&apos;, im)</span><br><span class="line">cv2.imshow(&quot;absX&quot;, absX)</span><br><span class="line">cv2.imshow(&quot;absY&quot;, absY)</span><br><span class="line">cv2.imshow(&quot;Result&quot;, dst)</span><br><span class="line">cv2.waitKey(0)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">import cv2</div><div class="line">import numpy as np</div><div class="line"></div><div class="line">im = cv2.imread(&apos;lion.jpg&apos;)</div><div class="line">im = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)</div><div class="line"></div><div class="line">x = cv2.Sobel(im, cv2.CV_16S, 1, 0)</div><div class="line">y = cv2.Sobel(im, cv2.CV_16S, 0, 1)</div><div class="line"></div><div class="line">absX = cv2.convertScaleAbs(x)</div><div class="line">absY = cv2.convertScaleAbs(y)</div><div class="line"></div><div class="line">dst = cv2.addWeighted(absX, 0.5, absY, 0.5, 0)</div><div class="line"></div><div class="line">cv2.imshow(&apos;origin&apos;, im)</div><div class="line">cv2.imshow(&quot;absX&quot;, absX)</div><div class="line">cv2.imshow(&quot;absY&quot;, absY)</div><div class="line">cv2.imshow(&quot;Result&quot;, dst)</div><div class="line">cv2.waitKey(0)</div><div class="line">cv2.destroyAllWindows()</div></pre></td></tr></table></figure>
 <p>由于 Sobel 函数求导数后会有负值，还会有大于 255 的值，而原图像是 uint8 ，所以 Sobel 建立的图像位数不够，会有截断。因此要使用 16 位有符号的数据类型，即 <code>cv2.CV_16S</code>。</p>
 <p>处理后要用 <code>cv2.convertScaleAbs()</code> 将其转回原来的 uint8 形式，否则无法显示图像。 <code>cv2.convertScaleAbs()</code> 的原型为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dst = cv2.convertScaleAbs(src[, dst[, alpha[, beta]]])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dst = cv2.convertScaleAbs(src[, dst[, alpha[, beta]]])</div></pre></td></tr></table></figure>
 <p>其中可选参数 <code>alpha</code> 是伸缩系数， <code>beta</code> 是加到结果上的一个值。结果返回 uint8 类型的图片。</p>
 <p>由于 Sobel 算子是在两个方向计算的，最后要使用 <code>cv2.addWeighted()</code> 函数将其组合起来。函数原型为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dst = cv2.addWeighted(src1, alpha, src2, beta, gamma[, dst[, dtype]])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dst = cv2.addWeighted(src1, alpha, src2, beta, gamma[, dst[, dtype]])</div></pre></td></tr></table></figure>
 <p>其中 <code>alpha</code> 是第一幅图片中元素的权重， <code>beta</code> 是第二个图片中元素的权重， <code>gamma</code> 是加到最后结果上的一个值。</p>
 <p>原图：</p>
 <p><img src="/images/lion.jpg" alt=""></p>

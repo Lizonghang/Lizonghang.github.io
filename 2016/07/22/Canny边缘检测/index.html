@@ -57,40 +57,20 @@
 
 
 
-<meta name="description" content="Canny函数原型OpenCV-Python 中 Canny 函数的原型为：
-1edge = cv2.Canny(image, threshold1, threshold2[, edges[, apertureSize[, L2gradient]]])
-
-第一个参数是需要处理的原图像，该图像必须为单通道的灰度图
-第二个参数是阈值1
-第三个参数是阈值2
-
-其中较大的阈值2用于检测图像中明显的边缘，但">
+<meta name="description" content="Canny函数原型OpenCV-Python 中 Canny 函数的原型为： 1edge = cv2.Canny(image, threshold1, threshold2[, edges[, apertureSize[, L2gradient]]])  第一个参数是需要处理的原图像，该图像必须为单通道的灰度图 第二个参数是阈值1 第三个参数是阈值2  其中较大的阈值2用于检测图像中明显的边缘，但">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Canny边缘检测">
 <meta property="og:url" content="http://lizonghang.github.io/2016/07/22/Canny边缘检测/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="Canny函数原型OpenCV-Python 中 Canny 函数的原型为：
-1edge = cv2.Canny(image, threshold1, threshold2[, edges[, apertureSize[, L2gradient]]])
-
-第一个参数是需要处理的原图像，该图像必须为单通道的灰度图
-第二个参数是阈值1
-第三个参数是阈值2
-
-其中较大的阈值2用于检测图像中明显的边缘，但">
+<meta property="og:description" content="Canny函数原型OpenCV-Python 中 Canny 函数的原型为： 1edge = cv2.Canny(image, threshold1, threshold2[, edges[, apertureSize[, L2gradient]]])  第一个参数是需要处理的原图像，该图像必须为单通道的灰度图 第二个参数是阈值1 第三个参数是阈值2  其中较大的阈值2用于检测图像中明显的边缘，但">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://lizonghang.github.io/images/tower.jpg">
 <meta property="og:image" content="http://lizonghang.github.io/images/canny.jpg">
 <meta property="og:image" content="http://lizonghang.github.io/images/canny_dial.jpg">
 <meta property="og:updated_time" content="2016-07-22T12:44:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Canny边缘检测">
-<meta name="twitter:description" content="Canny函数原型OpenCV-Python 中 Canny 函数的原型为：
-1edge = cv2.Canny(image, threshold1, threshold2[, edges[, apertureSize[, L2gradient]]])
-
-第一个参数是需要处理的原图像，该图像必须为单通道的灰度图
-第二个参数是阈值1
-第三个参数是阈值2
-
-其中较大的阈值2用于检测图像中明显的边缘，但">
+<meta name="twitter:description" content="Canny函数原型OpenCV-Python 中 Canny 函数的原型为： 1edge = cv2.Canny(image, threshold1, threshold2[, edges[, apertureSize[, L2gradient]]])  第一个参数是需要处理的原图像，该图像必须为单通道的灰度图 第二个参数是阈值1 第三个参数是阈值2  其中较大的阈值2用于检测图像中明显的边缘，但">
 <meta name="twitter:image" content="http://lizonghang.github.io/images/tower.jpg">
 
 
@@ -330,7 +310,7 @@
 
       
         <h1 id="Canny函数原型"><a href="#Canny函数原型" class="headerlink" title="Canny函数原型"></a>Canny函数原型</h1><p>OpenCV-Python 中 Canny 函数的原型为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">edge = cv2.Canny(image, threshold1, threshold2[, edges[, apertureSize[, L2gradient]]])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">edge = cv2.Canny(image, threshold1, threshold2[, edges[, apertureSize[, L2gradient]]])</div></pre></td></tr></table></figure>
 <ul>
 <li>第一个参数是需要处理的原图像，该图像必须为单通道的灰度图</li>
 <li>第二个参数是阈值1</li>
@@ -342,12 +322,12 @@
 <h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>Canny 函数使用只需要指定最大和最小阈值即可。以下图为例：</p>
 <p><img src="/images/tower.jpg" alt=""></p>
 <p>使用如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import cv2</span><br><span class="line">im = cv2.imread(&apos;tower.jpg&apos;)</span><br><span class="line">im = cv2.GaussianBlur(im, (3,3), 0)</span><br><span class="line">canny = cv2.Canny(im, 30, 100)</span><br><span class="line">cv2.imwrite(&apos;canny.jpg&apos;, canny)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">import numpy as np</div><div class="line">import cv2</div><div class="line">im = cv2.imread(&apos;tower.jpg&apos;)</div><div class="line">im = cv2.GaussianBlur(im, (3,3), 0)</div><div class="line">canny = cv2.Canny(im, 30, 100)</div><div class="line">cv2.imwrite(&apos;canny.jpg&apos;, canny)</div></pre></td></tr></table></figure>
 <p>效果图如下：</p>
 <p><img src="/images/canny.jpg" alt=""></p>
 <p>可以调整阈值以改变边缘效果。</p>
 <p>由于 Canny 只能处理灰度图，所以需要先将读取的图像转成灰度图。然后使用高斯平滑处理原图像以降噪。最后调用 Canny 函数，指定最大和最小阈值，其中 <code>apertureSize</code> 默认为 3。</p>
-<h1 id="动态调整阈值"><a href="#动态调整阈值" class="headerlink" title="动态调整阈值"></a>动态调整阈值</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">def CannyThreshold(lowThreshold):</span><br><span class="line">    detected_edges = cv2.GaussianBlur(gray, (3,3), 0) # Denoise</span><br><span class="line">    detected_edges = cv2.Canny(detected_edges, lowThreshold, lowThreshold*ratio,apertureSize=kernel_size) # Canny Edge Detect</span><br><span class="line">    dst = cv2.bitwise_and(im, im, mask=detected_edges) # Get Edge Image With Color</span><br><span class="line">    cv2.imshow(&apos;canny&apos;, dst)</span><br><span class="line"></span><br><span class="line"># Settings</span><br><span class="line">lowThreshold = 0 # Track Bar Start from State-0</span><br><span class="line">max_lowThreshold = 100 # Track Bar End with State-100</span><br><span class="line">ratio = 3 # threshold2 = threshold1 * ratio</span><br><span class="line">kernel_size = 3 # Size of Sobel</span><br><span class="line"></span><br><span class="line"># Running</span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    im = cv2.imread(&apos;tower.jpg&apos;) # Read From File</span><br><span class="line">    gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY) # GBR Convert To Gray</span><br><span class="line">    cv2.namedWindow(&apos;canny&apos;) # Create New Window</span><br></pre></td></tr></table></figure>
+<h1 id="动态调整阈值"><a href="#动态调整阈值" class="headerlink" title="动态调整阈值"></a>动态调整阈值</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">import cv2</div><div class="line">import numpy as np</div><div class="line"></div><div class="line">def CannyThreshold(lowThreshold):</div><div class="line">    detected_edges = cv2.GaussianBlur(gray, (3,3), 0) # Denoise</div><div class="line">    detected_edges = cv2.Canny(detected_edges, lowThreshold, lowThreshold*ratio,apertureSize=kernel_size) # Canny Edge Detect</div><div class="line">    dst = cv2.bitwise_and(im, im, mask=detected_edges) # Get Edge Image With Color</div><div class="line">    cv2.imshow(&apos;canny&apos;, dst)</div><div class="line"></div><div class="line"># Settings</div><div class="line">lowThreshold = 0 # Track Bar Start from State-0</div><div class="line">max_lowThreshold = 100 # Track Bar End with State-100</div><div class="line">ratio = 3 # threshold2 = threshold1 * ratio</div><div class="line">kernel_size = 3 # Size of Sobel</div><div class="line"></div><div class="line"># Running</div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    im = cv2.imread(&apos;tower.jpg&apos;) # Read From File</div><div class="line">    gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY) # GBR Convert To Gray</div><div class="line">    cv2.namedWindow(&apos;canny&apos;) # Create New Window</div></pre></td></tr></table></figure>
 <p>得到的局部效果图如下：</p>
 <p><img src="/images/canny_dial.jpg" alt=""></p>
 <p>上图中有一个滑动条，拖动可改变 Canny 边缘检测效果，可以自行尝试一下。</p>

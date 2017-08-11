@@ -57,48 +57,19 @@
 
 
 
-<meta name="description" content="OpenCV的全称是Open Source Computer Vision Library，是一个跨平台的计算机视觉库。OpenCV可用于开发实时的图像处理、计算机视觉以及模式识别程序。OpenCV可用于解决如下领域的问题：
-
-人机交互
-物体识别
-图像分区
-人脸识别
-动作识别
-运动跟踪
-机器人
-
-OpenCV可以在Windows, Android, Maemo, FreeBSD, OpenBSD,">
+<meta name="description" content="OpenCV的全称是Open Source Computer Vision Library，是一个跨平台的计算机视觉库。OpenCV可用于开发实时的图像处理、计算机视觉以及模式识别程序。OpenCV可用于解决如下领域的问题：  人机交互 物体识别 图像分区 人脸识别 动作识别 运动跟踪 机器人  OpenCV可以在Windows, Android, Maemo, FreeBSD, OpenBSD,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图像载入、显示、复制、新建和保存">
 <meta property="og:url" content="http://lizonghang.github.io/2016/07/17/OpenCV-Python入门/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="OpenCV的全称是Open Source Computer Vision Library，是一个跨平台的计算机视觉库。OpenCV可用于开发实时的图像处理、计算机视觉以及模式识别程序。OpenCV可用于解决如下领域的问题：
-
-人机交互
-物体识别
-图像分区
-人脸识别
-动作识别
-运动跟踪
-机器人
-
-OpenCV可以在Windows, Android, Maemo, FreeBSD, OpenBSD,">
+<meta property="og:description" content="OpenCV的全称是Open Source Computer Vision Library，是一个跨平台的计算机视觉库。OpenCV可用于开发实时的图像处理、计算机视觉以及模式识别程序。OpenCV可用于解决如下领域的问题：  人机交互 物体识别 图像分区 人脸识别 动作识别 运动跟踪 机器人  OpenCV可以在Windows, Android, Maemo, FreeBSD, OpenBSD,">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://lizonghang.github.io/images/temp_5.jpg">
 <meta property="og:image" content="http://lizonghang.github.io/images/temp_100.jpg">
 <meta property="og:updated_time" content="2016-07-17T05:28:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图像载入、显示、复制、新建和保存">
-<meta name="twitter:description" content="OpenCV的全称是Open Source Computer Vision Library，是一个跨平台的计算机视觉库。OpenCV可用于开发实时的图像处理、计算机视觉以及模式识别程序。OpenCV可用于解决如下领域的问题：
-
-人机交互
-物体识别
-图像分区
-人脸识别
-动作识别
-运动跟踪
-机器人
-
-OpenCV可以在Windows, Android, Maemo, FreeBSD, OpenBSD,">
+<meta name="twitter:description" content="OpenCV的全称是Open Source Computer Vision Library，是一个跨平台的计算机视觉库。OpenCV可用于开发实时的图像处理、计算机视觉以及模式识别程序。OpenCV可用于解决如下领域的问题：  人机交互 物体识别 图像分区 人脸识别 动作识别 运动跟踪 机器人  OpenCV可以在Windows, Android, Maemo, FreeBSD, OpenBSD,">
 <meta name="twitter:image" content="http://lizonghang.github.io/images/temp_5.jpg">
 
 
@@ -350,17 +321,17 @@ OpenCV可以在Windows, Android, Maemo, FreeBSD, OpenBSD,">
 <p>OpenCV可以在Windows, Android, Maemo, FreeBSD, OpenBSD, iOS, Linux和Mac OS等平台上运行。</p>
 <p>OpenCV1.0时代的基于 C 语言接口而建的图像存储格式IplImage*，如果在退出前忘记release掉的话，就会照成内存泄露。这导致debug时越来越多的纠缠于内存管理，而不是着力解决开发目标。但自从OpenCV踏入2.0时代用Mat类数据结构作为主打之后，OpenCV变得越发像Matlab那样，上手非常快。甚至有些函数名称都和matlab一样，比如大家所熟知的imread，imwrite，imshow等函数。</p>
 <p><code>cv::Mat</code>类是用于保存图像以及其他矩阵数据的数据结构。默认情况下，其尺寸为0，我们也可以指定初始尺寸,比如定义一个Mat类对象，就要写<code>cv::Mat pic(320,640,cv::Scalar(100));</code>。它是对应于OpenCV1.0时代的IplImage的主要用来存放图像的数据结构。</p>
-<h1 id="读取并显示图像"><a href="#读取并显示图像" class="headerlink" title="读取并显示图像"></a>读取并显示图像</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line"></span><br><span class="line">im = cv2.imread(&apos;lena.jpg&apos;) # 读取文件</span><br><span class="line">cv2.namedWindow(&apos;lena&apos;) # 创建窗口</span><br><span class="line">cv2.imshow(&apos;lena&apos;, im) # 在窗口显示图像</span><br><span class="line"># cv2.waitKey(10000) # 等待10s</span><br><span class="line">cv2.waitKey(0) # 保持等待直到按下任意键</span><br><span class="line">cv2.destroyAllWindows() # 释放窗口</span><br></pre></td></tr></table></figure>
+<h1 id="读取并显示图像"><a href="#读取并显示图像" class="headerlink" title="读取并显示图像"></a>读取并显示图像</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">import cv2</div><div class="line"></div><div class="line">im = cv2.imread(&apos;lena.jpg&apos;) # 读取文件</div><div class="line">cv2.namedWindow(&apos;lena&apos;) # 创建窗口</div><div class="line">cv2.imshow(&apos;lena&apos;, im) # 在窗口显示图像</div><div class="line"># cv2.waitKey(10000) # 等待10s</div><div class="line">cv2.waitKey(0) # 保持等待直到按下任意键</div><div class="line">cv2.destroyAllWindows() # 释放窗口</div></pre></td></tr></table></figure>
 <h1 id="创建-复制图像"><a href="#创建-复制图像" class="headerlink" title="创建/复制图像"></a>创建/复制图像</h1><p>新的OpenCV的接口中没有CreateImage接口，如果要创建图像，需要使用numpy的函数，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">emptyImage = numpy.zeros(im.shape, numpy.uint8)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">emptyImage = numpy.zeros(im.shape, numpy.uint8)</div></pre></td></tr></table></figure>
 <p>图像使用NumPy数组的属性来表示图像的尺寸和通道信息。如果输出im.shape，将得到(750, 500, 3)，最后的3表示这是一个RGB图像。</p>
 <p>也可以复制原图像得到新图像：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tempImage = im.copy()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tempImage = im.copy()</div></pre></td></tr></table></figure>
 <p>还可以用cvtColor获得原图像的副本：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tempImage = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)  </span><br><span class="line">tempImage[...] = 0 # 转成空白的黑色图像</span><br></pre></td></tr></table></figure>
-<h1 id="保存图像"><a href="#保存图像" class="headerlink" title="保存图像"></a>保存图像</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cv2.imwrite(&apos;/Users/mac/Desktop/temp.jpg&apos;, tempImage)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tempImage = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)  </div><div class="line">tempImage[...] = 0 # 转成空白的黑色图像</div></pre></td></tr></table></figure>
+<h1 id="保存图像"><a href="#保存图像" class="headerlink" title="保存图像"></a>保存图像</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cv2.imwrite(&apos;/Users/mac/Desktop/temp.jpg&apos;, tempImage)</div></pre></td></tr></table></figure>
 <p>imwrite()有第三个可选参数，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cv2.imwrite(&apos;/Users/mac/Desktop/temp.jpg&apos;, tempImage, [int(cv2.IMWRITE_JPEG_QUALITY), 5])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cv2.imwrite(&apos;/Users/mac/Desktop/temp.jpg&apos;, tempImage, [int(cv2.IMWRITE_JPEG_QUALITY), 5])</div></pre></td></tr></table></figure>
 <p>第三个参数针对特定的格式：</p>
 <ul>
 <li>对于JPEG，第三个参数表示的是图像的质量，用0-100的整数表示，默认为95。<code>cv2.IMWRITE_JPEG_QUALITY</code>类型为Long，必须转换成int。下面是以不同质量存储的两幅图：</li>
@@ -372,7 +343,7 @@ OpenCV可以在Windows, Android, Maemo, FreeBSD, OpenBSD,">
 <ul>
 <li>对于PNG，第三个参数表示的是压缩级别。cv2.IMWRITE_PNG_COMPRESSION，从0到9,压缩级别越高，图像尺寸越小。默认级别为3：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cv2.imwrite(&quot;temp0.png&quot;, tempImage, [int(cv2.IMWRITE_PNG_COMPRESSION), 0])   </span><br><span class="line">cv2.imwrite(&quot;temp9.png&quot;, tempImage, [int(cv2.IMWRITE_PNG_COMPRESSION), 9])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cv2.imwrite(&quot;temp0.png&quot;, tempImage, [int(cv2.IMWRITE_PNG_COMPRESSION), 0])   </div><div class="line">cv2.imwrite(&quot;temp9.png&quot;, tempImage, [int(cv2.IMWRITE_PNG_COMPRESSION), 9])</div></pre></td></tr></table></figure>
 <p>得到的图片存储大小分别为929KB和317KB</p>
 
       

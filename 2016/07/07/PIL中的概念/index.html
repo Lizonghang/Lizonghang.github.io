@@ -57,19 +57,17 @@
 
 
 
-<meta name="description" content="Bands(频段)一张图片可以由一个或多个数据频段组成，PIL库支持在一张图片中存储多个频段，它们具有相同的尺寸和深度。要获取图像中频段的数量和名称，可使用getbands()方法。
-123&amp;gt;&amp;gt;&amp;gt; im = Image.open(&amp;apos;lena.jpg&amp;apos;)&amp;gt;&amp;gt;&amp;gt; im.getbands()(&amp;apos;R&amp;apos;, &amp;apos;G&amp;apos;">
+<meta name="description" content="Bands(频段)一张图片可以由一个或多个数据频段组成，PIL库支持在一张图片中存储多个频段，它们具有相同的尺寸和深度。要获取图像中频段的数量和名称，可使用getbands()方法。 123&amp;gt;&amp;gt;&amp;gt; im = Image.open(&amp;apos;lena.jpg&amp;apos;)&amp;gt;&amp;gt;&amp;gt; im.getbands()(&amp;apos;R&amp;apos;, &amp;apos;G&amp;apos;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PIL中的概念">
 <meta property="og:url" content="http://lizonghang.github.io/2016/07/07/PIL中的概念/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="Bands(频段)一张图片可以由一个或多个数据频段组成，PIL库支持在一张图片中存储多个频段，它们具有相同的尺寸和深度。要获取图像中频段的数量和名称，可使用getbands()方法。
-123&amp;gt;&amp;gt;&amp;gt; im = Image.open(&amp;apos;lena.jpg&amp;apos;)&amp;gt;&amp;gt;&amp;gt; im.getbands()(&amp;apos;R&amp;apos;, &amp;apos;G&amp;apos;">
+<meta property="og:description" content="Bands(频段)一张图片可以由一个或多个数据频段组成，PIL库支持在一张图片中存储多个频段，它们具有相同的尺寸和深度。要获取图像中频段的数量和名称，可使用getbands()方法。 123&amp;gt;&amp;gt;&amp;gt; im = Image.open(&amp;apos;lena.jpg&amp;apos;)&amp;gt;&amp;gt;&amp;gt; im.getbands()(&amp;apos;R&amp;apos;, &amp;apos;G&amp;apos;">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-07-07T08:18:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PIL中的概念">
-<meta name="twitter:description" content="Bands(频段)一张图片可以由一个或多个数据频段组成，PIL库支持在一张图片中存储多个频段，它们具有相同的尺寸和深度。要获取图像中频段的数量和名称，可使用getbands()方法。
-123&amp;gt;&amp;gt;&amp;gt; im = Image.open(&amp;apos;lena.jpg&amp;apos;)&amp;gt;&amp;gt;&amp;gt; im.getbands()(&amp;apos;R&amp;apos;, &amp;apos;G&amp;apos;">
+<meta name="twitter:description" content="Bands(频段)一张图片可以由一个或多个数据频段组成，PIL库支持在一张图片中存储多个频段，它们具有相同的尺寸和深度。要获取图像中频段的数量和名称，可使用getbands()方法。 123&amp;gt;&amp;gt;&amp;gt; im = Image.open(&amp;apos;lena.jpg&amp;apos;)&amp;gt;&amp;gt;&amp;gt; im.getbands()(&amp;apos;R&amp;apos;, &amp;apos;G&amp;apos;">
 
 
 
@@ -308,7 +306,7 @@
 
       
         <h1 id="Bands-频段"><a href="#Bands-频段" class="headerlink" title="Bands(频段)"></a>Bands(频段)</h1><p>一张图片可以由一个或多个数据频段组成，PIL库支持在一张图片中存储多个频段，它们具有相同的尺寸和深度。要获取图像中频段的数量和名称，可使用<code>getbands()</code>方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; im = Image.open(&apos;lena.jpg&apos;)</span><br><span class="line">&gt;&gt;&gt; im.getbands()</span><br><span class="line">(&apos;R&apos;, &apos;G&apos;, &apos;B&apos;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; im = Image.open(&apos;lena.jpg&apos;)</div><div class="line">&gt;&gt;&gt; im.getbands()</div><div class="line">(&apos;R&apos;, &apos;G&apos;, &apos;B&apos;)</div></pre></td></tr></table></figure>
 <h1 id="Mode-模式"><a href="#Mode-模式" class="headerlink" title="Mode(模式)"></a>Mode(模式)</h1><p>图像的模式定义了图片中像素的类型和深度。最新发行版支持下列标准模式：</p>
 <ul>
 <li>1        - 1bit像素，黑白，每个字节存储一个像素</li>

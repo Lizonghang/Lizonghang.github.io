@@ -57,25 +57,17 @@
 
 
 
-<meta name="description" content="间隔与支持向量在样本空间中，划分超平面可通过线性方程描述：
-$${\bm{\omega}^{T}} \cdot \bm{x} +b=0$$
-
-MathJax.Hub.Config({tex2jax: {inlineMath: [[&apos;$&apos;,&apos;$&apos;], [&apos;\\(&apos;,&apos;\\)&apos;]]}});">
+<meta name="description" content="间隔与支持向量12345678910111213141516171819在样本空间中，划分超平面可通过线性方程描述：&amp;lt;center&amp;gt;$$ &amp;#123;&amp;#123;\omega&amp;#125;^&amp;#123;T&amp;#125;&amp;#125; \cdot x + b = 0 $$&amp;lt;/center&amp;gt;其中\\(w=(w\_1,w\_2,...,w\_d)\\)为法向量，决定超平面的方向。\\(">
 <meta property="og:type" content="article">
 <meta property="og:title" content="支持向量机">
 <meta property="og:url" content="http://lizonghang.github.io/2017/08/11/Support-Vector-Machine/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="间隔与支持向量在样本空间中，划分超平面可通过线性方程描述：
-$${\bm{\omega}^{T}} \cdot \bm{x} +b=0$$
-
-MathJax.Hub.Config({tex2jax: {inlineMath: [[&apos;$&apos;,&apos;$&apos;], [&apos;\\(&apos;,&apos;\\)&apos;]]}});">
-<meta property="og:updated_time" content="2017-08-11T01:52:20.000Z">
+<meta property="og:description" content="间隔与支持向量12345678910111213141516171819在样本空间中，划分超平面可通过线性方程描述：&amp;lt;center&amp;gt;$$ &amp;#123;&amp;#123;\omega&amp;#125;^&amp;#123;T&amp;#125;&amp;#125; \cdot x + b = 0 $$&amp;lt;/center&amp;gt;其中\\(w=(w\_1,w\_2,...,w\_d)\\)为法向量，决定超平面的方向。\\(">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-11T02:45:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="支持向量机">
-<meta name="twitter:description" content="间隔与支持向量在样本空间中，划分超平面可通过线性方程描述：
-$${\bm{\omega}^{T}} \cdot \bm{x} +b=0$$
-
-MathJax.Hub.Config({tex2jax: {inlineMath: [[&apos;$&apos;,&apos;$&apos;], [&apos;\\(&apos;,&apos;\\)&apos;]]}});">
+<meta name="twitter:description" content="间隔与支持向量12345678910111213141516171819在样本空间中，划分超平面可通过线性方程描述：&amp;lt;center&amp;gt;$$ &amp;#123;&amp;#123;\omega&amp;#125;^&amp;#123;T&amp;#125;&amp;#125; \cdot x + b = 0 $$&amp;lt;/center&amp;gt;其中\\(w=(w\_1,w\_2,...,w\_d)\\)为法向量，决定超平面的方向。\\(">
 
 
 
@@ -313,12 +305,7 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [[&apos;$&apos;,&apos;$&apos;], [&apos
       
 
       
-        <h2 id="间隔与支持向量"><a href="#间隔与支持向量" class="headerlink" title="间隔与支持向量"></a>间隔与支持向量</h2><p>在样本空间中，划分超平面可通过线性方程描述：</p>
-<center>$${\bm{\omega}^{T}} \cdot \bm{x} +b=0$$</center>
-
-<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
-
-<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <h2 id="间隔与支持向量"><a href="#间隔与支持向量" class="headerlink" title="间隔与支持向量"></a>间隔与支持向量</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">在样本空间中，划分超平面可通过线性方程描述：</div><div class="line"></div><div class="line">&lt;center&gt;$$ &#123;&#123;\omega&#125;^&#123;T&#125;&#125; \cdot x + b = 0 $$&lt;/center&gt;</div><div class="line"></div><div class="line">其中\\(w=(w\_1,w\_2,...,w\_d)\\)为法向量，决定超平面的方向。\\(b\\)为位移量，决定超平面与原点之间的距离。将超平面记为\\((w,b)\\)。</div><div class="line"></div><div class="line">样本空间中任意点\\(x\\)到超平面\\((w,b)\\)的距离可写为：</div><div class="line"></div><div class="line">&lt;center&gt;$$ r=\frac&#123;|&#123;w&#125;^&#123;T&#125; \cdot x+b|&#125;&#123;||w||&#125; $$&lt;/center&gt;</div><div class="line"></div><div class="line">若\\(&#123;&#123;\omega&#125;^&#123;T&#125;&#125; \cdot x + b&gt;0, y\_i=+1\\)；\\(&#123;&#123;\omega&#125;^&#123;T&#125;&#125; \cdot x + b&lt;0, y\_i=-1\\)。令：</div><div class="line"></div><div class="line">&lt;center&gt;\begin&#123;cases&#125; &#123;w&#125;^&#123;T&#125; \cdot x+b\ge +1, y\_i=+1\\\ \\\ &#123;w&#125;^&#123;T&#125; \cdot x+b \le-1, y\_i=-1 \end&#123;cases&#125;&lt;/center&gt;</div><div class="line"></div><div class="line">&lt;center&gt;![](/images/D9CAC776-9E6A-4C14-B721-BF1EEFC302FB.png)&lt;/center&gt;</div><div class="line"></div><div class="line">&lt;script type=&quot;text/x-mathjax-config&quot;&gt;MathJax.Hub.Config(&#123;tex2jax: &#123;inlineMath: [[&apos;$&apos;,&apos;$&apos;], [&apos;\\(&apos;,&apos;\\)&apos;]]&#125;&#125;);&lt;/script&gt;</div><div class="line"></div><div class="line">&lt;script type=&quot;text/javascript&quot; async src=&quot;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML&quot;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure>
       
     </div>
 
