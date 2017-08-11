@@ -4,6 +4,13 @@
   
     
     <entry>
+      <title><![CDATA[Support Vector Machine]]></title>
+      <url>http://lizonghang.github.io/2017/08/11/Support-Vector-Machine/</url>
+      <content type="html"><![CDATA[<p>公式：</p>
+<center><img src="http://chart.googleapis.com/chart?cht=tx&amp;chl=\Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}" alt=""></center>]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[AliCloud-Ubuntu-Server-With-IPv6]]></title>
       <url>http://lizonghang.github.io/2016/12/09/AliCloud-Ubuntu-Server-With-IPv6/</url>
       <content type="html"><![CDATA[<h1 id="Ubuntu支持IPv6"><a href="#Ubuntu支持IPv6" class="headerlink" title="Ubuntu支持IPv6"></a>Ubuntu支持IPv6</h1><p>阿里云服务器默认是不支持IPv6协议的，需要修改<code>/etc/sysctl.conf</code>文件解除对IPv6的禁止:</p>
