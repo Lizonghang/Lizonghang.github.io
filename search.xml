@@ -7,10 +7,11 @@
       <title><![CDATA[支持向量机]]></title>
       <url>http://lizonghang.github.io/2017/08/11/Support-Vector-Machine/</url>
       <content type="html"><![CDATA[<h2 id="间隔与支持向量"><a href="#间隔与支持向量" class="headerlink" title="间隔与支持向量"></a>间隔与支持向量</h2><p>在样本空间中，划分超平面可通过线性方程描述：</p>
-<p><img src="/images/daum_equation_1502414416723.png"></p>
-<p>其中 \(\vec { { \omega  } } )\</p>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>]]></content>
+<center>$$\vec { { \omega  } } \cdot \vec { x } +b=0$$</center>
+
+<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>]]></content>
     </entry>
     
     <entry>
