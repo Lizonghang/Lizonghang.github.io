@@ -4,38 +4,6 @@
   
     
     <entry>
-      <title><![CDATA[贝叶斯分类器]]></title>
-      <url>http://lizonghang.github.io/2017/08/14/Bayesian-Classifier/</url>
-      <content type="html"><![CDATA[<h1 id="贝叶斯决策论"><a href="#贝叶斯决策论" class="headerlink" title="贝叶斯决策论"></a>贝叶斯决策论</h1><p>对于分类任务，在所有相关概率都已知的理想情形下，贝叶斯决策论考虑如何基于这些概率和误判损失来选择最优的类别标记。</p>
-<p>假设有N种可能的类别标记\(y=(c_1,c_2,…,c_N)\)，\({\lambda}_{ij}\)是将标记为\(c_j\)的样本误分类为\(c_i\)所产生的损失。基于后验概率\(P(c_i|x)\)可获得将样本\(x\)分类为\(c_i\)所产生的期望损失，即在样本\(x\)上的“条件风险”：</p>
-<center>$$ R(c\_i|x)=\sum\_{j=1}^{N}{\lambda}\_{ij}P(c\_j|x) \tag{1}$$</center>
-
-<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js"],
-    jax: ["input/TeX", "output/HTML-CSS"],
-    tex2jax: {
-      <!--$表示行内元素，$$表示块状元素 -->
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-      processEscapes: true
-    },
-    "HTML-CSS": { availableFonts: ["TeX"] }
-  });
-</script>]]></content>
-      
-        <categories>
-            
-            <category> 机器学习 </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[AliCloud-Ubuntu-Server-With-IPv6]]></title>
       <url>http://lizonghang.github.io/2016/12/09/AliCloud-Ubuntu-Server-With-IPv6/</url>
       <content type="html"><![CDATA[<h1 id="Ubuntu支持IPv6"><a href="#Ubuntu支持IPv6" class="headerlink" title="Ubuntu支持IPv6"></a>Ubuntu支持IPv6</h1><p>阿里云服务器默认是不支持IPv6协议的，需要修改<code>/etc/sysctl.conf</code>文件解除对IPv6的禁止:</p>
