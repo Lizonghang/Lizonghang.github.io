@@ -4,6 +4,21 @@
   
     
     <entry>
+      <title><![CDATA[Bayesian Classifier]]></title>
+      <url>http://lizonghang.github.io/2017/08/14/Bayesian-Classifier/</url>
+      <content type="html"><![CDATA[<script type="math/tex; mode=display">f(x)</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>]]></content>
+      
+        <categories>
+            
+            <category> 机器学习 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[AliCloud-Ubuntu-Server-With-IPv6]]></title>
       <url>http://lizonghang.github.io/2016/12/09/AliCloud-Ubuntu-Server-With-IPv6/</url>
       <content type="html"><![CDATA[<h1 id="Ubuntu支持IPv6"><a href="#Ubuntu支持IPv6" class="headerlink" title="Ubuntu支持IPv6"></a>Ubuntu支持IPv6</h1><p>阿里云服务器默认是不支持IPv6协议的，需要修改<code>/etc/sysctl.conf</code>文件解除对IPv6的禁止:</p>
