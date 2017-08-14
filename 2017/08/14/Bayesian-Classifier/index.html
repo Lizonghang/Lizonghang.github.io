@@ -64,7 +64,7 @@
 <meta property="og:site_name" content="努力学习天天向上">
 <meta property="og:description" content="贝叶斯决策论对于分类任务，在所有相关概率都已知的理想情形下，贝叶斯决策论考虑如何基于这些概率和误判损失来选择最优的类别标记。 假设有N种可能的类别标记\(y=(c_1,c_2,…,c_N)\)，\({\lambda}_{ij}\)是将标记为\(c_j\)的样本误分类为\(c_i\)所产生的损失。基于后验概率\(P(c_i|x)\)可获得将样本\(x\)分类为\(c_i\)所产生的期望损失，即在样本">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-14T02:05:34.000Z">
+<meta property="og:updated_time" content="2017-08-14T02:10:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bayesian Classifier">
 <meta name="twitter:description" content="贝叶斯决策论对于分类任务，在所有相关概率都已知的理想情形下，贝叶斯决策论考虑如何基于这些概率和误判损失来选择最优的类别标记。 假设有N种可能的类别标记\(y=(c_1,c_2,…,c_N)\)，\({\lambda}_{ij}\)是将标记为\(c_j\)的样本误分类为\(c_i\)所产生的损失。基于后验概率\(P(c_i|x)\)可获得将样本\(x\)分类为\(c_i\)所产生的期望损失，即在样本">
@@ -307,6 +307,8 @@
       
         <h1 id="贝叶斯决策论"><a href="#贝叶斯决策论" class="headerlink" title="贝叶斯决策论"></a>贝叶斯决策论</h1><p>对于分类任务，在所有相关概率都已知的理想情形下，贝叶斯决策论考虑如何基于这些概率和误判损失来选择最优的类别标记。</p>
 <p>假设有N种可能的类别标记\(y=(c_1,c_2,…,c_N)\)，\({\lambda}_{ij}\)是将标记为\(c_j\)的样本误分类为\(c_i\)所产生的损失。基于后验概率\(P(c_i|x)\)可获得将样本\(x\)分类为\(c_i\)所产生的期望损失，即在样本\(x\)上的“条件风险”：</p>
+<center>$$ R(c\_i|x)=\sum\_{j=1}^{N}{\lambda}_{ij}P(c\_j|x) \tag{1}$$</center>
+
 <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 <script type="text/x-mathjax-config">
