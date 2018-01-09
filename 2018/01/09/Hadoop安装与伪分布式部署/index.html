@@ -1,0 +1,814 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="注意: 本文中~建议换成完整路径。 注意: 由于对内存要求较高，建议直接在本机，而不是在虚拟机进行实验。 Java环境要求12345678➜ java -versionjava version &amp;quot;1.8.0_91&amp;quot;Java(TM) SE Runtime Environment (build 1.8.0_91-b14)Java HotSpot(TM) 64-Bit Server">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop安装与伪分布式部署">
+<meta property="og:url" content="http://lizonghang.github.io/2018/01/09/Hadoop安装与伪分布式部署/index.html">
+<meta property="og:site_name" content="努力学习天天向上">
+<meta property="og:description" content="注意: 本文中~建议换成完整路径。 注意: 由于对内存要求较高，建议直接在本机，而不是在虚拟机进行实验。 Java环境要求12345678➜ java -versionjava version &amp;quot;1.8.0_91&amp;quot;Java(TM) SE Runtime Environment (build 1.8.0_91-b14)Java HotSpot(TM) 64-Bit Server">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">
+<meta property="og:image" content="https://www.apache.org/dyn/closer.cgi/zookeeper/">
+<meta property="og:image" content="http://hadoop.apache.org/releases.html">
+<meta property="og:image" content="https://lizonghang.github.io/2018/01/09/Ubuntu设置静态IP与主机名/">
+<meta property="og:image" content="http://hadoop.apache.org/docs/r3.0.0/hadoop-project-dist/hadoop-common/FileSystemShell.html">
+<meta property="og:updated_time" content="2018-01-09T12:15:49.098Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hadoop安装与伪分布式部署">
+<meta name="twitter:description" content="注意: 本文中~建议换成完整路径。 注意: 由于对内存要求较高，建议直接在本机，而不是在虚拟机进行实验。 Java环境要求12345678➜ java -versionjava version &amp;quot;1.8.0_91&amp;quot;Java(TM) SE Runtime Environment (build 1.8.0_91-b14)Java HotSpot(TM) 64-Bit Server">
+<meta name="twitter:image" content="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Hadoop安装与伪分布式部署 | 努力学习天天向上 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80234286-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">努力学习天天向上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">学习日志</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Hadoop安装与伪分布式部署
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-01-09T15:32:28+08:00" content="2018-01-09">
+              2018-01-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Hadoop-Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop/Spark</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>注意: 本文中<code>~</code>建议换成完整路径。</p>
+<p>注意: 由于对内存要求较高，建议直接在本机，而不是在虚拟机进行实验。</p>
+<h1 id="Java环境要求"><a href="#Java环境要求" class="headerlink" title="Java环境要求"></a>Java环境要求</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">➜ java -version</div><div class="line">java version &quot;1.8.0_91&quot;</div><div class="line">Java(TM) SE Runtime Environment (build 1.8.0_91-b14)</div><div class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.91-b14, mixed mode)</div><div class="line">➜ javac -version</div><div class="line">javac 1.8.0_111</div><div class="line">➜ jps</div><div class="line">28460 Jps</div></pre></td></tr></table></figure>
+<p>若Java版本较低，建议升级到Java1.8，在官网下载对应系统的<img src="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" alt="jdk-8u151或jdk-8u152">覆盖当前版本。</p>
+<h1 id="ZooKeeper安装与配置"><a href="#ZooKeeper安装与配置" class="headerlink" title="ZooKeeper安装与配置"></a>ZooKeeper安装与配置</h1><h2 id="ZooKeeper安装"><a href="#ZooKeeper安装" class="headerlink" title="ZooKeeper安装"></a>ZooKeeper安装</h2><p>在<img src="https://www.apache.org/dyn/closer.cgi/zookeeper/" alt="ZooKeeper">官网下载较新版本的ZooKeeper。作者使用的ZooKeeper 3.4.11。假设解压到目录<code>~/zookeeper/zookeeper-3.4.11-0</code>。</p>
+<h2 id="ZooKeeper配置"><a href="#ZooKeeper配置" class="headerlink" title="ZooKeeper配置"></a>ZooKeeper配置</h2><p>进入ZooKeeper根目录，添加配置文件<code>zoo.cfg</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜ cp conf/zoo_sample.cfg conf/zoo.cfg</div><div class="line">➜ vim conf/zoo.cfg</div></pre></td></tr></table></figure>
+<p><code>zoo.cfg</code>配置:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">tickTime=2000</div><div class="line">initLimit=10</div><div class="line">syncLimit=5</div><div class="line">dataDir=~/zookeeper/zookeeper-3.4.11-0/data</div><div class="line">clientPort=2181</div><div class="line"></div><div class="line">server.0=127.0.0.1:8880:7770</div><div class="line">server.1=127.0.0.1:8881:7771</div><div class="line">server.2=127.0.0.1:8882:7772</div></pre></td></tr></table></figure>
+<p>在ZooKeeper根目录下新建<code>./data/myid</code>，其记录值为<code>server.X</code>的<code>X</code>值:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜ mkdir data</div><div class="line">➜ echo 0 &gt; data/myid</div></pre></td></tr></table></figure>
+<p>复制ZooKeeper两次，得到三个ZooKeeper文件夹:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">➜ cd ~/zookeeper</div><div class="line">➜ cp zookeeper-3.4.11-0 zookeeper-3.4.11-1</div><div class="line">➜ cp zookeeper-3.4.11-0 zookeeper-3.4.11-2</div></pre></td></tr></table></figure>
+<p>分别修改<code>zookeeper-3.4.11-1/conf/zoo.cfg</code>和<code>zookeeper-3.4.11-2/conf/zoo.cfg</code>，将<code>dataDir</code>中的路径修改为对应文件夹名称的路径，并修改对应的<code>data/myid</code>记录值。</p>
+<h2 id="ZooKeeper启动、停止与状态查询"><a href="#ZooKeeper启动、停止与状态查询" class="headerlink" title="ZooKeeper启动、停止与状态查询"></a>ZooKeeper启动、停止与状态查询</h2><h3 id="ZooKeeper启动"><a href="#ZooKeeper启动" class="headerlink" title="ZooKeeper启动"></a>ZooKeeper启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd ~/zookeeper/zookeeper-3.4.11-0</div><div class="line">bin/zkServer.sh start conf/zoo.cfg</div></pre></td></tr></table></figure>
+<h3 id="ZooKeeper停止"><a href="#ZooKeeper停止" class="headerlink" title="ZooKeeper停止"></a>ZooKeeper停止</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bin/zkServer.sh stop</div></pre></td></tr></table></figure>
+<h3 id="ZooKeeper状态查询"><a href="#ZooKeeper状态查询" class="headerlink" title="ZooKeeper状态查询"></a>ZooKeeper状态查询</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bin/zkServer.sh status</div></pre></td></tr></table></figure>
+<h2 id="ZooKeeper批量操作脚本"><a href="#ZooKeeper批量操作脚本" class="headerlink" title="ZooKeeper批量操作脚本"></a>ZooKeeper批量操作脚本</h2><p>在<code>~/zookeeper</code>新建一个文件夹<code>scripts</code>以存放脚本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜ ls</div><div class="line">zoo-start-all.sh  zoo-status-all.sh  zoo-stop-all.sh</div></pre></td></tr></table></figure>
+<p><code>zoo-start-all.sh</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line"></div><div class="line">ZK_HOME_0=/home/lizh/zookeeper/zookeeper-3.4.11-0</div><div class="line">ZK_HOME_1=/home/lizh/zookeeper/zookeeper-3.4.11-1</div><div class="line">ZK_HOME_2=/home/lizh/zookeeper/zookeeper-3.4.11-2</div><div class="line"></div><div class="line">$ZK_HOME_0/bin/zkServer.sh start $ZK_HOME_0/conf/zoo.cfg</div><div class="line">$ZK_HOME_1/bin/zkServer.sh start $ZK_HOME_1/conf/zoo.cfg</div><div class="line">$ZK_HOME_2/bin/zkServer.sh start $ZK_HOME_2/conf/zoo.cfg</div><div class="line"></div><div class="line">jps</div></pre></td></tr></table></figure>
+<p><code>zoo-stop-all.sh</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line"></div><div class="line">ZK_HOME_0=/home/lizh/zookeeper/zookeeper-3.4.11-0</div><div class="line">ZK_HOME_1=/home/lizh/zookeeper/zookeeper-3.4.11-1</div><div class="line">ZK_HOME_2=/home/lizh/zookeeper/zookeeper-3.4.11-2</div><div class="line"></div><div class="line">$ZK_HOME_0/bin/zkServer.sh stop</div><div class="line">$ZK_HOME_1/bin/zkServer.sh stop</div><div class="line">$ZK_HOME_2/bin/zkServer.sh stop</div><div class="line"></div><div class="line">jps</div></pre></td></tr></table></figure></p>
+<p><code>zoo-status-all.sh</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line"></div><div class="line">ZK_HOME_0=/home/lizh/zookeeper/zookeeper-3.4.11-0</div><div class="line">ZK_HOME_1=/home/lizh/zookeeper/zookeeper-3.4.11-1</div><div class="line">ZK_HOME_2=/home/lizh/zookeeper/zookeeper-3.4.11-2</div><div class="line"></div><div class="line">$ZK_HOME_0/bin/zkServer.sh status</div><div class="line">$ZK_HOME_1/bin/zkServer.sh status</div><div class="line">$ZK_HOME_2/bin/zkServer.sh status</div><div class="line"></div><div class="line">jps</div></pre></td></tr></table></figure></p>
+<p>并将路径<code>~/zookeeper/scripts</code>添加到<code>PATH</code>中，便可方便地批量启动、停止、查看ZooKeeper的状态。</p>
+<h2 id="ZooKeeper启动与状态"><a href="#ZooKeeper启动与状态" class="headerlink" title="ZooKeeper启动与状态"></a>ZooKeeper启动与状态</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">➜ zoo-start-all.sh</div><div class="line">ZooKeeper JMX enabled by default</div><div class="line">Using config: /home/lizh/zookeeper/zookeeper-3.4.11-0/conf/zoo.cfg</div><div class="line">Starting zookeeper ... STARTED</div><div class="line">ZooKeeper JMX enabled by default</div><div class="line">Using config: /home/lizh/zookeeper/zookeeper-3.4.11-1/conf/zoo.cfg</div><div class="line">Starting zookeeper ... STARTED</div><div class="line">ZooKeeper JMX enabled by default</div><div class="line">Using config: /home/lizh/zookeeper/zookeeper-3.4.11-2/conf/zoo.cfg</div><div class="line">Starting zookeeper ... STARTED</div><div class="line">27895 QuorumPeerMain</div><div class="line">27752 QuorumPeerMain</div><div class="line">27821 QuorumPeerMain</div></pre></td></tr></table></figure>
+<p>可以看到ZooKeeper启动了三个<code>QuorumPeerMain</code>进程。因为ZooKeeper采用投票机制选举Leader，因此至少需要启动三个进程。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">➜ zoo-status-all.sh</div><div class="line">ZooKeeper JMX enabled by default</div><div class="line">Using config: /home/lizh/zookeeper/zookeeper-3.4.11-0/bin/../conf/zoo.cfg</div><div class="line">Mode: follower</div><div class="line">ZooKeeper JMX enabled by default</div><div class="line">Using config: /home/lizh/zookeeper/zookeeper-3.4.11-1/bin/../conf/zoo.cfg</div><div class="line">Mode: leader</div><div class="line">ZooKeeper JMX enabled by default</div><div class="line">Using config: /home/lizh/zookeeper/zookeeper-3.4.11-2/bin/../conf/zoo.cfg</div><div class="line">Mode: follower</div><div class="line">27895 QuorumPeerMain</div><div class="line">27752 QuorumPeerMain</div><div class="line">27821 QuorumPeerMain</div></pre></td></tr></table></figure>
+<p>一个ZooKeeper集群中有且仅能有一个投票选出的Leader，其它都是Learner(包括ObServer和Follower)。此时Client可以通过端口2181~2183连接任意一个ZooKeeper:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">➜ ~/zookeeper/zookeeper-3.4.11-0/bin/zkCli.sh -server 127.0.0.1:2181</div><div class="line">...</div><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 0] help</div><div class="line">ZooKeeper -server host:port cmd args</div><div class="line">        stat path [watch]</div><div class="line">        set path data [version]</div><div class="line">        ls path [watch]</div><div class="line">        delquota [-n|-b] path</div><div class="line">        ls2 path [watch]</div><div class="line">        setAcl path acl</div><div class="line">        setquota -n|-b val path</div><div class="line">        history</div><div class="line">        redo cmdno</div><div class="line">        printwatches on|off</div><div class="line">        delete path [version]</div><div class="line">        sync path</div><div class="line">        listquota path</div><div class="line">        rmr path</div><div class="line">        get path [watch]</div><div class="line">        create [-s] [-e] path data acl</div><div class="line">        addauth scheme auth</div><div class="line">        quit</div><div class="line">        getAcl path</div><div class="line">        close</div><div class="line">        connect host:port</div><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 1]</div></pre></td></tr></table></figure>
+<h1 id="安装Hadoop"><a href="#安装Hadoop" class="headerlink" title="安装Hadoop"></a>安装Hadoop</h1><p>在<img src="http://hadoop.apache.org/releases.html" alt="Hadoop官网">下载较新版本的Hadoop binary版本。作者使用的Hadoop 3.0.0。假设解压到用户目录<code>~/hadoop-3.0.0</code>。</p>
+<p>进入Hadoop根目录后，首先需要配置JAVA_HOME:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">➜ vim etc/hadoop/hadoop-env.sh</div><div class="line">...</div><div class="line">export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_111</div><div class="line">...</div></pre></td></tr></table></figure></p>
+<p>查看Hadoop是否能正常运行:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">➜ hadoop version</div><div class="line">Hadoop 3.0.0</div><div class="line">Source code repository https://git-wip-us.apache.org/repos/asf/hadoop.git -r c25427ceca461ee979d30edd7a4b0f50718e6533</div><div class="line">Compiled by andrew on 2017-12-08T19:16Z</div><div class="line">Compiled with protoc 2.5.0</div><div class="line">From source with checksum 397832cb5529187dc8cd74ad54ff22</div><div class="line">This command was run using /home/lizh/hadoop-3.0.0/share/hadoop/common/hadoop-common-3.0.0.jar</div></pre></td></tr></table></figure></p>
+<h2 id="添加Hadoop可执行文件路径到PATH"><a href="#添加Hadoop可执行文件路径到PATH" class="headerlink" title="添加Hadoop可执行文件路径到PATH"></a>添加Hadoop可执行文件路径到PATH</h2><p>在<code>~/.bashrc</code>中添加:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># Hadoop</div><div class="line">export HADOOP_HOME=~/hadoop-3.0.0</div><div class="line">export HADOOP_MAPRED_HOME=$HADOOP_HOME</div><div class="line">export PATH=$PATH:$HADOOP_HOME/bin</div><div class="line">export PATH=$PATH:$HADOOP_HOME/sbin</div></pre></td></tr></table></figure></p>
+<p>以便快捷使用Hadoop可执行程序<code>bin/*</code>与脚本<code>sbin/*</code>。</p>
+<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><h3 id="log4j-properties"><a href="#log4j-properties" class="headerlink" title="log4j.properties"></a>log4j.properties</h3><p>修改<code>etc/hadoop/log4j.properties</code>文件中的<code>hadoop.root.logger</code>可控制输出日志级别。</p>
+<h3 id="core-site-xml"><a href="#core-site-xml" class="headerlink" title="core-site.xml"></a>core-site.xml</h3><p><code>etc/hadoop/core-site.xml</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;fs.defaultFS&lt;/name&gt;</div><div class="line">&lt;value&gt;hdfs://localhost:9000&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;ha.zookeeper.quorum&lt;/name&gt;</div><div class="line">&lt;value&gt;localhost:2181,localhost:2182,localhost:2183&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure></p>
+<p><code>etc/hadoop/mapred-site.xml</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;mapreduce.framework.name&lt;/name&gt;</div><div class="line">&lt;value&gt;yarn&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;yarn.app.mapreduce.am.env&lt;/name&gt;</div><div class="line">&lt;value&gt;HADOOP_MAPRED_HOME=$HADOOP_MAPRED_HOME&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;mapreduce.map.env&lt;/name&gt;</div><div class="line">&lt;value&gt;HADOOP_MAPRED_HOME=$HADOOP_MAPRED_HOME&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;mapreduce.reduce.env&lt;/name&gt;</div><div class="line">&lt;value&gt;HADOOP_MAPRED_HOME=$HADOOP_MAPRED_HOME&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure></p>
+<p><code>etc/hadoop/hdfs-site.xml</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;dfs.replication&lt;/name&gt;</div><div class="line">&lt;value&gt;1&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;dfs.http.address&lt;/name&gt;</div><div class="line">&lt;value&gt;localhost:50070&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;dfs.namenode.datanode.registration.ip-hostname-check&lt;/name&gt;</div><div class="line">&lt;value&gt;true&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure></p>
+<p><code>etc/hadoop/yarn-site.xml</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;yarn.resourcemanager.zk-address&lt;/name&gt;</div><div class="line">&lt;value&gt;master:2181,slave1:2181,slave2:2181&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</div><div class="line">&lt;value&gt;mapreduce_shuffle&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure></p>
+<p><code>etc/hadoop/workers</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">localhost</div></pre></td></tr></table></figure></p>
+<p>注意: 若workers中直接指定服务器IP，则需要将<code>hdfs-site.xml</code>中的<code>dfs.namenode.datanode.registration.ip-hostname-check</code>指定为<code>false</code>。</p>
+<p>注意: 在全分布模式下，若需要在workers中使用主机名，参考之前的文章<img src="https://lizonghang.github.io/2018/01/09/Ubuntu设置静态IP与主机名/" alt="Ubuntu设置静态IP与主机名">。</p>
+<h2 id="开启SSH免密登录"><a href="#开启SSH免密登录" class="headerlink" title="开启SSH免密登录"></a>开启SSH免密登录</h2><p>注意: 若为全分布模式，每两对主机之间都需要配置SSH免密；若为伪分布模式，能够<code>ssh localhost</code>即可。</p>
+<h3 id="OSX系统"><a href="#OSX系统" class="headerlink" title="OSX系统"></a>OSX系统</h3><p>默认安装有sshd，需要在”系统偏好设置—&gt;共享”中打开远程登录，并将本机<code>~/.ssh/id_rsa.pub</code>添加到<code>~/.ssh/authorized_keys</code>，确认<code>ssh localhost</code>能够免密登录。</p>
+<h3 id="Linux系统"><a href="#Linux系统" class="headerlink" title="Linux系统"></a>Linux系统</h3><p>确认系统是否按照有sshd服务，若没有，需要安装openssh-server，开启sshd服务，并将本机<code>~/.ssh/id_rsa.pub</code>添加到<code>~/.ssh/authorized_keys</code>，确认<code>ssh localhost</code>能够免密登录。</p>
+<h2 id="启动Hadoop伪分布集群"><a href="#启动Hadoop伪分布集群" class="headerlink" title="启动Hadoop伪分布集群"></a>启动Hadoop伪分布集群</h2><h3 id="格式化NameNode"><a href="#格式化NameNode" class="headerlink" title="格式化NameNode"></a>格式化NameNode</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ hdfs namenode -format</div></pre></td></tr></table></figure>
+<p>注意: 若曾多次格式化，可能出现版本冲突导致DataNode无法启动(版本遗留问题)，删除<code>/tmp/hadoop-lizh/dfs/name/current</code>后重新格式化并启动即可。</p>
+<h3 id="启动DFS与YARN"><a href="#启动DFS与YARN" class="headerlink" title="启动DFS与YARN"></a>启动DFS与YARN</h3><h4 id="一次性启动"><a href="#一次性启动" class="headerlink" title="一次性启动"></a>一次性启动</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">➜ start-all.sh</div><div class="line">WARNING: Attempting to start all Apache Hadoop daemons as lizh in 10 seconds.</div><div class="line">WARNING: This is not a recommended production deployment configuration.</div><div class="line">WARNING: Use CTRL-C to abort.</div><div class="line">Starting namenodes on [localhost]</div><div class="line">Starting datanodes</div><div class="line">Starting secondary namenodes [Slave8]</div><div class="line">Starting resourcemanager</div><div class="line">Starting nodemanagers</div><div class="line">➜ jps</div><div class="line">30450 NameNode</div><div class="line">31381 ResourceManager</div><div class="line">27895 QuorumPeerMain</div><div class="line">31000 SecondaryNameNode</div><div class="line">27752 QuorumPeerMain</div><div class="line">30649 DataNode</div><div class="line">31757 NodeManager</div><div class="line">27821 QuorumPeerMain</div><div class="line">32109 Jps</div></pre></td></tr></table></figure>
+<h4 id="分别启动"><a href="#分别启动" class="headerlink" title="分别启动"></a>分别启动</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">➜ start-dfs.sh</div><div class="line">Starting namenodes on [localhost]</div><div class="line">Starting datanodes</div><div class="line">Starting secondary namenodes [Slave8]</div><div class="line">➜ jps</div><div class="line">33760 DataNode</div><div class="line">34353 Jps</div><div class="line">27895 QuorumPeerMain</div><div class="line">33559 NameNode</div><div class="line">27752 QuorumPeerMain</div><div class="line">27821 QuorumPeerMain</div><div class="line">34109 SecondaryNameNode</div><div class="line">➜ start-yarn.sh</div><div class="line">Starting resourcemanager</div><div class="line">Starting nodemanagers</div><div class="line">➜ jps</div><div class="line">33760 DataNode</div><div class="line">35268 Jps</div><div class="line">27895 QuorumPeerMain</div><div class="line">33559 NameNode</div><div class="line">27752 QuorumPeerMain</div><div class="line">34552 ResourceManager</div><div class="line">27821 QuorumPeerMain</div><div class="line">34109 SecondaryNameNode</div><div class="line">34926 NodeManager</div></pre></td></tr></table></figure>
+<h3 id="查看Hadoop集群是否正常启动"><a href="#查看Hadoop集群是否正常启动" class="headerlink" title="查看Hadoop集群是否正常启动"></a>查看Hadoop集群是否正常启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">➜ hdfs dfsadmin -report</div><div class="line">Configured Capacity: 226804576256 (211.23 GB)</div><div class="line">Present Capacity: 168025718784 (156.49 GB)</div><div class="line">DFS Remaining: 168025432064 (156.49 GB)</div><div class="line">DFS Used: 286720 (280 KB)</div><div class="line">DFS Used%: 0.00%</div><div class="line">Replicated Blocks:</div><div class="line">Under replicated blocks: 0</div><div class="line">Blocks with corrupt replicas: 0</div><div class="line">Missing blocks: 0</div><div class="line">Missing blocks (with replication factor 1): 0</div><div class="line">Pending deletion blocks: 0</div><div class="line">Erasure Coded Block Groups:</div><div class="line">Low redundancy block groups: 0</div><div class="line">Block groups with corrupt internal blocks: 0</div><div class="line">Missing block groups: 0</div><div class="line">Pending deletion blocks: 0</div><div class="line"></div><div class="line">-------------------------------------------------</div><div class="line">Live datanodes (1):</div><div class="line"></div><div class="line">Name: 127.0.0.1:9866 (localhost)</div><div class="line">Hostname: Slave8</div><div class="line">Decommission Status : Normal</div><div class="line">Configured Capacity: 226804576256 (211.23 GB)</div><div class="line">DFS Used: 286720 (280 KB)</div><div class="line">Non DFS Used: 47234248704 (43.99 GB)</div><div class="line">DFS Remaining: 168025432064 (156.49 GB)</div><div class="line">DFS Used%: 0.00%</div><div class="line">DFS Remaining%: 74.08%</div><div class="line">Configured Cache Capacity: 0 (0 B)</div><div class="line">Cache Used: 0 (0 B)</div><div class="line">Cache Remaining: 0 (0 B)</div><div class="line">Cache Used%: 100.00%</div><div class="line">Cache Remaining%: 0.00%</div><div class="line">Xceivers: 1</div><div class="line">Last contact: Tue Jan 09 19:36:16 CST 2018</div><div class="line">Last Block Report: Tue Jan 09 19:31:49 CST 2018</div></pre></td></tr></table></figure>
+<h3 id="查看Web端口是否开启服务"><a href="#查看Web端口是否开启服务" class="headerlink" title="查看Web端口是否开启服务"></a>查看Web端口是否开启服务</h3><ul>
+<li>50070端口查看HDFS信息。</li>
+<li>8088端口查看ResourceManager信息。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">➜ netstat -tpnl | grep 50070</div><div class="line">(Not all processes could be identified, non-owned process info</div><div class="line">will not be shown, you would have to be root to see it all.)</div><div class="line">tcp        0      0 127.0.0.1:50070         0.0.0.0:*               LISTEN      33559/java</div><div class="line">➜ netstat -tpnl | grep 8088</div><div class="line">(Not all processes could be identified, non-owned process info</div><div class="line">will not be shown, you would have to be root to see it all.)</div><div class="line">tcp        0      0 0.0.0.0:8088            0.0.0.0:*               LISTEN      34552/java</div></pre></td></tr></table></figure>
+<p>浏览器访问<code><a href="http://localhost:50070" target="_blank" rel="external">http://localhost:50070</a></code>和<code><a href="http://localhost:8088" target="_blank" rel="external">http://localhost:8088</a></code>可进入Web页面。</p>
+<p>注意: 全分布模式下50070端口需要由<code><a href="http://master:50070" target="_blank" rel="external">http://master:50070</a></code>访问，8088端口需要在开启了ResourceManager的主机(即DataNode)<code><a href="http://slave:8088" target="_blank" rel="external">http://slave:8088</a></code>访问。</p>
+<p>注意: 若使用YARN作为资源管理器，但没有开启ZooKeeper，可能会导致8088端口无法访问。</p>
+<h2 id="关闭Hadoop集群"><a href="#关闭Hadoop集群" class="headerlink" title="关闭Hadoop集群"></a>关闭Hadoop集群</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">➜ stop-all.sh</div><div class="line">WARNING: Stopping all Apache Hadoop daemons as lizh in 10 seconds.</div><div class="line">WARNING: Use CTRL-C to abort.</div><div class="line">Stopping namenodes on [localhost]</div><div class="line">Stopping datanodes</div><div class="line">Stopping secondary namenodes [Slave8]</div><div class="line">Stopping nodemanagers</div><div class="line">Stopping resourcemanager</div><div class="line">➜ jps</div><div class="line">27895 QuorumPeerMain</div><div class="line">27752 QuorumPeerMain</div><div class="line">36745 Jps</div><div class="line">27821 QuorumPeerMain</div></pre></td></tr></table></figure>
+<h1 id="HDFS文件操作指令与MapReduce测试"><a href="#HDFS文件操作指令与MapReduce测试" class="headerlink" title="HDFS文件操作指令与MapReduce测试"></a>HDFS文件操作指令与MapReduce测试</h1><h2 id="HDFS文件操作指令"><a href="#HDFS文件操作指令" class="headerlink" title="HDFS文件操作指令"></a>HDFS文件操作指令</h2><p>文件指令格式:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hadoop fs &lt;args&gt;</div></pre></td></tr></table></figure></p>
+<p>详细指令可参考<img src="http://hadoop.apache.org/docs/r3.0.0/hadoop-project-dist/hadoop-common/FileSystemShell.html" alt="Hadoop 3.0.0官方文档"></p>
+<p>可通过<code>hadoop fs -help ls</code>查看指令描述:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">➜ hadoop fs -help ls</div><div class="line">-ls [-C] [-d] [-h] [-q] [-R] [-t] [-S] [-r] [-u] [-e] [&lt;path&gt; ...] :</div><div class="line">List the contents that match the specified file pattern. If path is not</div><div class="line">specified, the contents of /user/&lt;currentUser&gt; will be listed. For a directory a</div><div class="line">list of its direct children is returned (unless -d option is specified).</div><div class="line"></div><div class="line">Directory entries are of the form:</div><div class="line">permissions - userId groupId sizeOfDirectory(in bytes)</div><div class="line">modificationDate(yyyy-MM-dd HH:mm) directoryName</div><div class="line"></div><div class="line">and file entries are of the form:</div><div class="line">permissions numberOfReplicas userId groupId sizeOfFile(in bytes)</div><div class="line">modificationDate(yyyy-MM-dd HH:mm) fileName</div><div class="line"></div><div class="line">-C  Display the paths of files and directories only.</div><div class="line">-d  Directories are listed as plain files.</div><div class="line">-h  Formats the sizes of files in a human-readable fashion</div><div class="line">rather than a number of bytes.</div><div class="line">-q  Print ? instead of non-printable characters.</div><div class="line">-R  Recursively list the contents of directories.</div><div class="line">-t  Sort files by modification time (most recent first).</div><div class="line">-S  Sort files by size.</div><div class="line">-r  Reverse the order of the sort.</div><div class="line">-u  Use time of last access instead of modification for</div><div class="line">display and sorting.</div><div class="line">-e  Display the erasure coding policy of files and directories.</div></pre></td></tr></table></figure></p>
+<p>例如使用<code>hadoop fs -ls -R /</code>可递归显示根目录下所有文件。</p>
+<h2 id="MapReduce测试"><a href="#MapReduce测试" class="headerlink" title="MapReduce测试"></a>MapReduce测试</h2><ol>
+<li><p>在Hadoop文件系统中创建用户文件夹，注意user为当前登录用户名，此处作者的用户名为lizh。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">➜ hadoop fs -ls /</div><div class="line">➜ hadoop fs -mkdir -p /user/lizh</div><div class="line">➜ hadoop fs -ls -R /</div><div class="line">drwxr-xr-x   - lizh supergroup          0 2018-01-09 20:02 /user</div><div class="line">drwxr-xr-x   - lizh supergroup          0 2018-01-09 20:02 /user/lizh</div></pre></td></tr></table></figure>
+</li>
+<li><p>上传本地文本文件到HDFS(可以将hadoop-3.0.0/NOTICE.txt作为测试文本)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">➜ hadoop fs -put hadoop-3.0.0/NOTICE.txt .</div><div class="line">➜ hadoop fs -ls</div><div class="line">Found 1 items</div><div class="line">-rw-r--r--   1 lizh supergroup      20891 2018-01-09 20:05 NOTICE.txt</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><code>-put hadoop-3.0.0/NOTICE.txt .</code>表示将本地NOTICE.txt文件上传到HDFS的用户主目录<code>/user/lizh</code>下，以<code>.</code>表示。当<code>-ls</code>不带路径时，默认为用户主目录。这就是必须创建路径<code>/user/username</code>而不是随意新建的原因。</p>
+<ol>
+<li>使用Hadoop自带测试程序wordcount来测试集群是否能够正常工作。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">➜ hadoop jar hadoop-3.0.0/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.0.0.jar wordcount ./NOTICE.txt ./out/</div><div class="line">...</div><div class="line">➜ hadoop fs -ls</div><div class="line">Found 2 items</div><div class="line">-rw-r--r--   1 lizh supergroup      20891 2018-01-09 20:05 NOTICE.txt</div><div class="line">drwxr-xr-x   - lizh supergroup          0 2018-01-09 20:09 out</div><div class="line">➜ hadoop fs -ls out</div><div class="line">Found 2 items</div><div class="line">-rw-r--r--   1 lizh supergroup          0 2018-01-09 20:09 out/_SUCCESS</div><div class="line">-rw-r--r--   1 lizh supergroup      11905 2018-01-09 20:09 out/part-r-00000</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>程序将输出结果输出到了<code>/user/lizh/out<code>文件夹，也表明集群是正常工作的。可通过<code>hadoop fs -cat ./out/part-r-00000</code>查看输出结果:</code></code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">➜  ~ hadoop fs -cat ./out/part-r-00000</div><div class="line">&quot;AS    1</div><div class="line">&quot;GCC    1</div><div class="line">&quot;Java    1</div><div class="line">&quot;License&quot;);    1</div><div class="line">#    6</div><div class="line">&amp;    1</div><div class="line">&apos;Aalto    1</div><div class="line">&apos;Apache    4</div><div class="line">&apos;ArrayDeque&apos;,    1</div><div class="line">&apos;Bouncy    1</div><div class="line">...</div></pre></td></tr></table></figure>
+<p>注意: 该步骤对于DataNode内存要求较高，虚拟机难以满足其内存需求，因此建议在单机上运行伪分布模式来测试。</p>
+<p>至此，一个简易的Hadoop伪分布集群(1个NameNode，1个DataNode)就部署完成了。通过伪分布式仅是用于调试与测试，后续文章中将会讲到全分布模式的部署以及在全分布模式下如何动态增加DataNode到集群等。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/09/保持SSH长期连接/" rel="next" title="保持SSH长期连接">
+                <i class="fa fa-chevron-left"></i> 保持SSH长期连接
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="李宗航" />
+          <p class="site-author-name" itemprop="name">李宗航</p>
+          <p class="site-description motion-element" itemprop="description">学习日志</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives/">
+              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizonghang/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java环境要求"><span class="nav-number">1.</span> <span class="nav-text">Java环境要求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ZooKeeper安装与配置"><span class="nav-number">2.</span> <span class="nav-text">ZooKeeper安装与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ZooKeeper安装"><span class="nav-number">2.1.</span> <span class="nav-text">ZooKeeper安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZooKeeper配置"><span class="nav-number">2.2.</span> <span class="nav-text">ZooKeeper配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZooKeeper启动、停止与状态查询"><span class="nav-number">2.3.</span> <span class="nav-text">ZooKeeper启动、停止与状态查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ZooKeeper启动"><span class="nav-number">2.3.1.</span> <span class="nav-text">ZooKeeper启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZooKeeper停止"><span class="nav-number">2.3.2.</span> <span class="nav-text">ZooKeeper停止</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZooKeeper状态查询"><span class="nav-number">2.3.3.</span> <span class="nav-text">ZooKeeper状态查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZooKeeper批量操作脚本"><span class="nav-number">2.4.</span> <span class="nav-text">ZooKeeper批量操作脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZooKeeper启动与状态"><span class="nav-number">2.5.</span> <span class="nav-text">ZooKeeper启动与状态</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Hadoop"><span class="nav-number">3.</span> <span class="nav-text">安装Hadoop</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加Hadoop可执行文件路径到PATH"><span class="nav-number">3.1.</span> <span class="nav-text">添加Hadoop可执行文件路径到PATH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改配置文件"><span class="nav-number">3.2.</span> <span class="nav-text">修改配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#log4j-properties"><span class="nav-number">3.2.1.</span> <span class="nav-text">log4j.properties</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#core-site-xml"><span class="nav-number">3.2.2.</span> <span class="nav-text">core-site.xml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开启SSH免密登录"><span class="nav-number">3.3.</span> <span class="nav-text">开启SSH免密登录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OSX系统"><span class="nav-number">3.3.1.</span> <span class="nav-text">OSX系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux系统"><span class="nav-number">3.3.2.</span> <span class="nav-text">Linux系统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动Hadoop伪分布集群"><span class="nav-number">3.4.</span> <span class="nav-text">启动Hadoop伪分布集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#格式化NameNode"><span class="nav-number">3.4.1.</span> <span class="nav-text">格式化NameNode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动DFS与YARN"><span class="nav-number">3.4.2.</span> <span class="nav-text">启动DFS与YARN</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一次性启动"><span class="nav-number">3.4.2.1.</span> <span class="nav-text">一次性启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分别启动"><span class="nav-number">3.4.2.2.</span> <span class="nav-text">分别启动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看Hadoop集群是否正常启动"><span class="nav-number">3.4.3.</span> <span class="nav-text">查看Hadoop集群是否正常启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看Web端口是否开启服务"><span class="nav-number">3.4.4.</span> <span class="nav-text">查看Web端口是否开启服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭Hadoop集群"><span class="nav-number">3.5.</span> <span class="nav-text">关闭Hadoop集群</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HDFS文件操作指令与MapReduce测试"><span class="nav-number">4.</span> <span class="nav-text">HDFS文件操作指令与MapReduce测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HDFS文件操作指令"><span class="nav-number">4.1.</span> <span class="nav-text">HDFS文件操作指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MapReduce测试"><span class="nav-number">4.2.</span> <span class="nav-text">MapReduce测试</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李宗航</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+  
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/MathJax.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/config/TeX-AMS-MML_HTMLorMML.js"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
