@@ -249,8 +249,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/29/ImageGrab模块/" itemprop="url">
-                  ImageGrab模块
+                <a class="post-title-link" href="/2016/07/21/OpenCV像素与通道/" itemprop="url">
+                  OpenCV像素与通道
                 </a>
               
             
@@ -263,8 +263,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-29T21:44:52+08:00" content="2016-07-29">
-              2016-07-29
+            <time itemprop="dateCreated" datetime="2016-07-21T15:39:44+08:00" content="2016-07-21">
+              2016-07-21
             </time>
           </span>
 
@@ -277,8 +277,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/PIL/" itemprop="url" rel="index">
-                    <span itemprop="name">PIL</span>
+                  <a href="/categories/Python-OpenCV/" itemprop="url" rel="index">
+                    <span itemprop="name">Python-OpenCV</span>
                   </a>
                 </span>
 
@@ -311,11 +311,15 @@
       
         
           
-          &emsp;&emsp;The ImageGrab module can be used to copy the contents of the screen or the clipboard to a PIL image memory.&emsp;&emsp;Note：The current ve
+          访问像素像素的访问和访问 numpy 中 ndarray 的方法完全一样，灰度图为：
+1img[j,i] = 255
+其中 j，i 分别表示图像的行和列。对于RGB图像第三个数表示通道，为：
+123img[j,i,0] = 255img[j,i,1] = 255img[j,i,2] = 255
+下面
           ...
 
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/29/ImageGrab模块/#more" rel="contents">
+            <a class="btn" href="/2016/07/21/OpenCV像素与通道/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -362,8 +366,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/29/ImageOps模块/" itemprop="url">
-                  ImageOps模块
+                <a class="post-title-link" href="/2016/07/20/numpy深入探讨/" itemprop="url">
+                  numpy深入探讨
                 </a>
               
             
@@ -376,8 +380,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-29T20:51:42+08:00" content="2016-07-29">
-              2016-07-29
+            <time itemprop="dateCreated" datetime="2016-07-20T20:43:50+08:00" content="2016-07-20">
+              2016-07-20
             </time>
           </span>
 
@@ -390,8 +394,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/PIL/" itemprop="url" rel="index">
-                    <span itemprop="name">PIL</span>
+                  <a href="/categories/Python-OpenCV/" itemprop="url" rel="index">
+                    <span itemprop="name">Python-OpenCV</span>
                   </a>
                 </span>
 
@@ -424,11 +428,13 @@
       
         
           
-          &emsp;&emsp;(New in 1.1.3) The ImageOps module contains a number of ‘ready-made’ image processing operations. This module is somewhat experimental, an
+          前两篇文章对NumPy数组做了基本的介绍，本篇文章对NumPy数组进行较深入的探讨。首先介绍自定义类型的数组，接着数组的组合，最后介绍数组复制方面的问题。
+自定义结构数组通过 NumPy 也可以定义像 C 语言那样的结构类型。在 NumPy中定义结构的方法如下：
+定义结构类型名称；定义字段名称；标明
           ...
 
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/29/ImageOps模块/#more" rel="contents">
+            <a class="btn" href="/2016/07/20/numpy深入探讨/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -475,8 +481,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/29/ImageMath模块/" itemprop="url">
-                  ImageMath模块
+                <a class="post-title-link" href="/2016/07/20/numpy数组操作/" itemprop="url">
+                  numpy数组操作
                 </a>
               
             
@@ -489,8 +495,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-29T10:54:43+08:00" content="2016-07-29">
-              2016-07-29
+            <time itemprop="dateCreated" datetime="2016-07-20T18:27:11+08:00" content="2016-07-20">
+              2016-07-20
             </time>
           </span>
 
@@ -503,8 +509,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/PIL/" itemprop="url" rel="index">
-                    <span itemprop="name">PIL</span>
+                  <a href="/categories/Python-OpenCV/" itemprop="url" rel="index">
+                    <span itemprop="name">Python-OpenCV</span>
                   </a>
                 </span>
 
@@ -537,11 +543,11 @@
       
         
           
-          &emsp;&emsp;(New in 1.1.6) The ImageMath module can be used to evaluate “image expressions”. The module provides a single eval function, which takes a
+          基本运算12345678910111213&gt;&gt;&gt; a = numpy.array([20,30,40,50])&gt;&gt;&gt; b = numpy.arange(4)&gt;&gt;&gt; c = a - b&gt;&gt;&gt; carray([20, 29, 38,
           ...
 
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/29/ImageMath模块/#more" rel="contents">
+            <a class="btn" href="/2016/07/20/numpy数组操作/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -588,8 +594,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/29/ImagePath模块/" itemprop="url">
-                  ImagePath模块
+                <a class="post-title-link" href="/2016/07/20/numpy数组初探/" itemprop="url">
+                  numpy数组初探
                 </a>
               
             
@@ -602,8 +608,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-29T10:39:04+08:00" content="2016-07-29">
-              2016-07-29
+            <time itemprop="dateCreated" datetime="2016-07-20T15:59:04+08:00" content="2016-07-20">
+              2016-07-20
             </time>
           </span>
 
@@ -616,8 +622,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/PIL/" itemprop="url" rel="index">
-                    <span itemprop="name">PIL</span>
+                  <a href="/categories/Python-OpenCV/" itemprop="url" rel="index">
+                    <span itemprop="name">Python-OpenCV</span>
                   </a>
                 </span>
 
@@ -650,11 +656,13 @@
       
         
           
-          &emsp;&emsp;The ImagePath module is used to store and manipulate 2-dimensional vector data. Path objects can be passed to the methods in the ImageDraw
+          NumPy数组Numpy 数组是一个多维数组对象，称为 ndarray，由实际的数据和描述这些数据的元数据组成。大部分操作仅针对元数据，而不改变底层实际的数据。
+关于 NumPy 数组需要知道：NumPy 数组的下标从 0 开始；同一个 NumPy 数组中的所有元素的类型必须是相同的。
+NumPy 
           ...
 
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/29/ImagePath模块/#more" rel="contents">
+            <a class="btn" href="/2016/07/20/numpy数组初探/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -701,8 +709,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/29/ImageChops模块/" itemprop="url">
-                  ImageChops模块
+                <a class="post-title-link" href="/2016/07/18/socket网络通信——TCP-IP客户和服务器/" itemprop="url">
+                  socket网络通信——TCP/IP客户和服务器
                 </a>
               
             
@@ -715,8 +723,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-29T10:13:34+08:00" content="2016-07-29">
-              2016-07-29
+            <time itemprop="dateCreated" datetime="2016-07-18T21:05:32+08:00" content="2016-07-18">
+              2016-07-18
             </time>
           </span>
 
@@ -729,8 +737,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/PIL/" itemprop="url" rel="index">
-                    <span itemprop="name">PIL</span>
+                  <a href="/categories/网络通信/" itemprop="url" rel="index">
+                    <span itemprop="name">网络通信</span>
                   </a>
                 </span>
 
@@ -763,11 +771,13 @@
       
         
           
-          &emsp;&emsp;The ImageChops module contains a number of arithmetical image operations, called channel operations (“chops”). These can be used for vario
+          TCP/IP客户和服务器套接字可以配置为一个服务器，监听到来的消息，或者也可以配置为客户，连接到其他应用。TCP/IP 套接字的两端连接后，可以完成双向通信。
+回应服务器下面的例子接收到来的消息，再回复给发送者。首先创建一个 TCP/IP 套接字。
+12import socketsock = soc
           ...
 
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/29/ImageChops模块/#more" rel="contents">
+            <a class="btn" href="/2016/07/18/socket网络通信——TCP-IP客户和服务器/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -814,8 +824,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/29/ImageEnhance模块/" itemprop="url">
-                  ImageEnhance模块
+                <a class="post-title-link" href="/2016/07/17/OpenCV-Python入门/" itemprop="url">
+                  图像载入、显示、复制、新建和保存
                 </a>
               
             
@@ -828,8 +838,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-29T09:58:56+08:00" content="2016-07-29">
-              2016-07-29
+            <time itemprop="dateCreated" datetime="2016-07-17T11:38:11+08:00" content="2016-07-17">
+              2016-07-17
             </time>
           </span>
 
@@ -842,8 +852,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/PIL/" itemprop="url" rel="index">
-                    <span itemprop="name">PIL</span>
+                  <a href="/categories/Python-OpenCV/" itemprop="url" rel="index">
+                    <span itemprop="name">Python-OpenCV</span>
                   </a>
                 </span>
 
@@ -876,12 +886,21 @@
       
         
           
-          The ImageEnhance module contains a number of classes that can be used for image enhancement.
-Example1234from PIL import Image, ImageEnhanceim = Image.
+          OpenCV的全称是Open Source Computer Vision Library，是一个跨平台的计算机视觉库。OpenCV可用于开发实时的图像处理、计算机视觉以及模式识别程序。OpenCV可用于解决如下领域的问题：
+
+人机交互
+物体识别
+图像分区
+人脸识别
+动作识别
+运动跟踪
+机器人
+
+O
           ...
 
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/29/ImageEnhance模块/#more" rel="contents">
+            <a class="btn" href="/2016/07/17/OpenCV-Python入门/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -928,8 +947,8 @@ Example1234from PIL import Image, ImageEnhanceim = Image.
             
               
                 
-                <a class="post-title-link" href="/2016/07/29/ImageFilter模块/" itemprop="url">
-                  ImageFilter模块
+                <a class="post-title-link" href="/2016/07/16/Mac上安装python-opencv/" itemprop="url">
+                  Mac上安装python-opencv
                 </a>
               
             
@@ -942,8 +961,8 @@ Example1234from PIL import Image, ImageEnhanceim = Image.
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-29T09:43:23+08:00" content="2016-07-29">
-              2016-07-29
+            <time itemprop="dateCreated" datetime="2016-07-16T12:56:53+08:00" content="2016-07-16">
+              2016-07-16
             </time>
           </span>
 
@@ -956,8 +975,8 @@ Example1234from PIL import Image, ImageEnhanceim = Image.
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/PIL/" itemprop="url" rel="index">
-                    <span itemprop="name">PIL</span>
+                  <a href="/categories/Python-OpenCV/" itemprop="url" rel="index">
+                    <span itemprop="name">Python-OpenCV</span>
                   </a>
                 </span>
 
@@ -990,11 +1009,13 @@ Example1234from PIL import Image, ImageEnhanceim = Image.
       
         
           
-          &emsp;&emsp;The ImageFilter module contains definitions for a pre-defined set of filters, which can be be used with the filter method of the Image cla
+          如何正确安装OpenCV历来是一个堪称玄学的问题，在成功安装OpenCV的道路上经历了种种艰辛，这真的是我最恶心的一次安装经历。下载源码并编译的方法就不说了，下面介绍较简易的使用Homebrew安装的方法。
+第一步：安装OpenCV
+直接使用命令brew install opencv是不行的，因为h
           ...
 
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/29/ImageFilter模块/#more" rel="contents">
+            <a class="btn" href="/2016/07/16/Mac上安装python-opencv/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1041,8 +1062,8 @@ Example1234from PIL import Image, ImageEnhanceim = Image.
             
               
                 
-                <a class="post-title-link" href="/2016/07/28/ImageFont模块/" itemprop="url">
-                  ImageFont模块
+                <a class="post-title-link" href="/2016/07/15/儿童锁屏幕监测报警/" itemprop="url">
+                  儿童锁屏幕监测报警
                 </a>
               
             
@@ -1055,8 +1076,8 @@ Example1234from PIL import Image, ImageEnhanceim = Image.
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-28T20:20:33+08:00" content="2016-07-28">
-              2016-07-28
+            <time itemprop="dateCreated" datetime="2016-07-15T19:26:32+08:00" content="2016-07-15">
+              2016-07-15
             </time>
           </span>
 
@@ -1069,8 +1090,8 @@ Example1234from PIL import Image, ImageEnhanceim = Image.
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/PIL/" itemprop="url" rel="index">
-                    <span itemprop="name">PIL</span>
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
                   </a>
                 </span>
 
@@ -1103,11 +1124,13 @@ Example1234from PIL import Image, ImageEnhanceim = Image.
       
         
           
-          &emsp;&emsp;The ImageFont module defines a class with the same name. Instances of this class store bitmap fonts, and are used with the text method of 
+          这是一个丧尽天良的程序，用于家长对孩子使用电脑时的监控，当程序发现屏幕上出现了疑似色情的图片/视频时，将屏幕进行截图保存并邮件通知家长，也能判断出程序是否正常退出。可以设置采样间隔与监控时间，可以设置截图保存路径与图片尺寸。
+假设文件名为ScreenScrape.py
+123456789101112
           ...
 
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/28/ImageFont模块/#more" rel="contents">
+            <a class="btn" href="/2016/07/15/儿童锁屏幕监测报警/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1154,8 +1177,8 @@ Example1234from PIL import Image, ImageEnhanceim = Image.
             
               
                 
-                <a class="post-title-link" href="/2016/07/28/ImageDraw模块/" itemprop="url">
-                  ImageDraw模块
+                <a class="post-title-link" href="/2016/07/14/多张图片合成GIF图/" itemprop="url">
+                  多张图片合成GIF图
                 </a>
               
             
@@ -1168,8 +1191,8 @@ Example1234from PIL import Image, ImageEnhanceim = Image.
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-28T09:12:29+08:00" content="2016-07-28">
-              2016-07-28
+            <time itemprop="dateCreated" datetime="2016-07-14T22:30:02+08:00" content="2016-07-14">
+              2016-07-14
             </time>
           </span>
 
@@ -1182,8 +1205,8 @@ Example1234from PIL import Image, ImageEnhanceim = Image.
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/PIL/" itemprop="url" rel="index">
-                    <span itemprop="name">PIL</span>
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
                   </a>
                 </span>
 
@@ -1216,11 +1239,15 @@ Example1234from PIL import Image, ImageEnhanceim = Image.
       
         
           
-          &emsp;&emsp;The ImageDraw module provide simple 2D graphics for Image objects. You can use this module to create new images, annotate or retouch exist
+          需要的库PIL1$ sudo pip install Pillow
+images2gif1$ sudo pip install images2gif
+图片素材将以下gif图分割为多张静态PNG格式图，并以这些PNG图为例：
+
+帧分割由于需要将图片按顺序进行合成，需要将图片在文件夹中顺序排列。假设文件
           ...
 
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/28/ImageDraw模块/#more" rel="contents">
+            <a class="btn" href="/2016/07/14/多张图片合成GIF图/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1267,8 +1294,8 @@ Example1234from PIL import Image, ImageEnhanceim = Image.
             
               
                 
-                <a class="post-title-link" href="/2016/07/28/ImageColor模块/" itemprop="url">
-                  ImageColor模块
+                <a class="post-title-link" href="/2016/07/14/socket网络通信——寻址、协议簇和套接字类型/" itemprop="url">
+                  socket网络通信——寻址、协议簇和套接字类型
                 </a>
               
             
@@ -1281,8 +1308,8 @@ Example1234from PIL import Image, ImageEnhanceim = Image.
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-28T09:04:04+08:00" content="2016-07-28">
-              2016-07-28
+            <time itemprop="dateCreated" datetime="2016-07-14T16:34:43+08:00" content="2016-07-14">
+              2016-07-14
             </time>
           </span>
 
@@ -1295,8 +1322,8 @@ Example1234from PIL import Image, ImageEnhanceim = Image.
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/PIL/" itemprop="url" rel="index">
-                    <span itemprop="name">PIL</span>
+                  <a href="/categories/网络通信/" itemprop="url" rel="index">
+                    <span itemprop="name">网络通信</span>
                   </a>
                 </span>
 
@@ -1329,11 +1356,12 @@ Example1234from PIL import Image, ImageEnhanceim = Image.
       
         
           
-          &emsp;&emsp;The ImageColor module contains colour tables and converters from CSS3-style colour specifiers to RGB tuples. This module is used by Image.
+          &emsp;&emsp;socket模块提供了一个底层C API，可以使用BSD套接字接口实现网络通信。它包括socket类，用于处理具体的数据通道，还包括用于完成网络相关任务的函数，如将一个服务器名称转换为一个地址，以及格式化数据以便在网络上发送。
+寻址、协议簇和套接字类型&emsp;&emsp;
           ...
 
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/28/ImageColor模块/#more" rel="contents">
+            <a class="btn" href="/2016/07/14/socket网络通信——寻址、协议簇和套接字类型/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1363,7 +1391,7 @@ Example1234from PIL import Image, ImageEnhanceim = Image.
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1404,7 +1432,7 @@ Example1234from PIL import Image, ImageEnhanceim = Image.
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives/">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

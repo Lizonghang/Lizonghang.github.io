@@ -249,8 +249,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/22/Canny边缘检测/" itemprop="url">
-                  Canny边缘检测
+                <a class="post-title-link" href="/2016/07/03/设置侧边栏社交链接/" itemprop="url">
+                  设置侧边栏社交链接
                 </a>
               
             
@@ -263,8 +263,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-22T16:40:13+08:00" content="2016-07-22">
-              2016-07-22
+            <time itemprop="dateCreated" datetime="2016-07-03T23:20:15+08:00" content="2016-07-03">
+              2016-07-03
             </time>
           </span>
 
@@ -277,8 +277,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python-OpenCV/" itemprop="url" rel="index">
-                    <span itemprop="name">Python-OpenCV</span>
+                  <a href="/categories/Hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo</span>
                   </a>
                 </span>
 
@@ -311,14 +311,12 @@
       
         
           
-          Canny函数原型OpenCV-Python 中 Canny 函数的原型为：
-1edge = cv2.Canny(image, threshold1, threshold2[, edges[, apertureSize[, L2gradient]]])
-
-第一个参数是需要处理的原图像，该图像必须为单
+          编辑主题配置文件_config.yml，找到字段social，删除注释并添加社交站点名称与地址，如下:
+1234567# Social linkssocial:  github: https://github.com/your-user-name  twitter: https://twitter.
           ...
 
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/22/Canny边缘检测/#more" rel="contents">
+            <a class="btn" href="/2016/07/03/设置侧边栏社交链接/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -365,8 +363,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/22/直方图的计算与显示/" itemprop="url">
-                  直方图的计算与显示
+                <a class="post-title-link" href="/2016/07/03/创建about页面/" itemprop="url">
+                  创建about页面
                 </a>
               
             
@@ -379,8 +377,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-22T14:41:37+08:00" content="2016-07-22">
-              2016-07-22
+            <time itemprop="dateCreated" datetime="2016-07-03T23:09:13+08:00" content="2016-07-03">
+              2016-07-03
             </time>
           </span>
 
@@ -393,8 +391,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python-OpenCV/" itemprop="url" rel="index">
-                    <span itemprop="name">Python-OpenCV</span>
+                  <a href="/categories/Hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo</span>
                   </a>
                 </span>
 
@@ -427,13 +425,15 @@
       
         
           
-          与 C++ 中一样，在 Python 中调用的 OpenCV 直方图计算函数为 cv2.calcHist()。
-cv2.calcHist() 的原型为：
-1cv2.calcHist(images, channels, mask, histSize, ranges[, hist[, accumlate
+          创建“关于我”页面
+新建一个about页面:
+1$ hexo new page &apos;about&apos;
+修改主题配置文件，将menu下的about:/about/注释取消即可:
+12345menu:  home: /  archives: /archives  tags: /tags  
           ...
 
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/22/直方图的计算与显示/#more" rel="contents">
+            <a class="btn" href="/2016/07/03/创建about页面/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -480,8 +480,8 @@ cv2.calcHist() 的原型为：
             
               
                 
-                <a class="post-title-link" href="/2016/07/21/OpenCV像素与通道/" itemprop="url">
-                  OpenCV像素与通道
+                <a class="post-title-link" href="/2016/07/03/创建分类页面/" itemprop="url">
+                  创建分类页面
                 </a>
               
             
@@ -494,8 +494,8 @@ cv2.calcHist() 的原型为：
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-21T15:39:44+08:00" content="2016-07-21">
-              2016-07-21
+            <time itemprop="dateCreated" datetime="2016-07-03T18:52:43+08:00" content="2016-07-03">
+              2016-07-03
             </time>
           </span>
 
@@ -508,8 +508,8 @@ cv2.calcHist() 的原型为：
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python-OpenCV/" itemprop="url" rel="index">
-                    <span itemprop="name">Python-OpenCV</span>
+                  <a href="/categories/Hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo</span>
                   </a>
                 </span>
 
@@ -542,15 +542,15 @@ cv2.calcHist() 的原型为：
       
         
           
-          访问像素像素的访问和访问 numpy 中 ndarray 的方法完全一样，灰度图为：
-1img[j,i] = 255
-其中 j，i 分别表示图像的行和列。对于RGB图像第三个数表示通道，为：
-123img[j,i,0] = 255img[j,i,1] = 255img[j,i,2] = 255
-下面
+          为Hexo添加分类页面的index.html，并在其菜单中显示各分类的链接
+第一步:新建一个页面，命名为categories:
+1$ hexo new page categories
+第二步:编辑新建的md文件，将页面类型设置为”categories”，主题将自动为这个页面显示所有的分类:
+1234
           ...
 
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/21/OpenCV像素与通道/#more" rel="contents">
+            <a class="btn" href="/2016/07/03/创建分类页面/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -597,8 +597,8 @@ cv2.calcHist() 的原型为：
             
               
                 
-                <a class="post-title-link" href="/2016/07/20/numpy深入探讨/" itemprop="url">
-                  numpy深入探讨
+                <a class="post-title-link" href="/2016/06/30/使用Hexo搭建Github-Page/" itemprop="url">
+                  使用Hexo搭建Github Page
                 </a>
               
             
@@ -611,8 +611,8 @@ cv2.calcHist() 的原型为：
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-20T20:43:50+08:00" content="2016-07-20">
-              2016-07-20
+            <time itemprop="dateCreated" datetime="2016-06-30T09:18:58+08:00" content="2016-06-30">
+              2016-06-30
             </time>
           </span>
 
@@ -625,8 +625,8 @@ cv2.calcHist() 的原型为：
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python-OpenCV/" itemprop="url" rel="index">
-                    <span itemprop="name">Python-OpenCV</span>
+                  <a href="/categories/Hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo</span>
                   </a>
                 </span>
 
@@ -659,709 +659,12 @@ cv2.calcHist() 的原型为：
       
         
           
-          前两篇文章对NumPy数组做了基本的介绍，本篇文章对NumPy数组进行较深入的探讨。首先介绍自定义类型的数组，接着数组的组合，最后介绍数组复制方面的问题。
-自定义结构数组通过 NumPy 也可以定义像 C 语言那样的结构类型。在 NumPy中定义结构的方法如下：
-定义结构类型名称；定义字段名称；标明
+          创建Github.io本文默认的前提为你会使用Git，如不会使用Git或没有Github账号，请参考廖雪峰的Git教程
+要在github上搭建github pages，需要在你的github下新建一个名为[username].github.io的仓库，其中username是你的用户名(或组织名称)。
           ...
 
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/20/numpy深入探讨/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/20/numpy数组操作/" itemprop="url">
-                  numpy数组操作
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-20T18:27:11+08:00" content="2016-07-20">
-              2016-07-20
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python-OpenCV/" itemprop="url" rel="index">
-                    <span itemprop="name">Python-OpenCV</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          基本运算12345678910111213&gt;&gt;&gt; a = numpy.array([20,30,40,50])&gt;&gt;&gt; b = numpy.arange(4)&gt;&gt;&gt; c = a - b&gt;&gt;&gt; carray([20, 29, 38,
-          ...
-
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/20/numpy数组操作/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/20/numpy数组初探/" itemprop="url">
-                  numpy数组初探
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-20T15:59:04+08:00" content="2016-07-20">
-              2016-07-20
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python-OpenCV/" itemprop="url" rel="index">
-                    <span itemprop="name">Python-OpenCV</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          NumPy数组Numpy 数组是一个多维数组对象，称为 ndarray，由实际的数据和描述这些数据的元数据组成。大部分操作仅针对元数据，而不改变底层实际的数据。
-关于 NumPy 数组需要知道：NumPy 数组的下标从 0 开始；同一个 NumPy 数组中的所有元素的类型必须是相同的。
-NumPy 
-          ...
-
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/20/numpy数组初探/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/18/socket网络通信——TCP-IP客户和服务器/" itemprop="url">
-                  socket网络通信——TCP/IP客户和服务器
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-18T21:05:32+08:00" content="2016-07-18">
-              2016-07-18
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/网络通信/" itemprop="url" rel="index">
-                    <span itemprop="name">网络通信</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          TCP/IP客户和服务器套接字可以配置为一个服务器，监听到来的消息，或者也可以配置为客户，连接到其他应用。TCP/IP 套接字的两端连接后，可以完成双向通信。
-回应服务器下面的例子接收到来的消息，再回复给发送者。首先创建一个 TCP/IP 套接字。
-12import socketsock = soc
-          ...
-
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/18/socket网络通信——TCP-IP客户和服务器/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/17/OpenCV-Python入门/" itemprop="url">
-                  图像载入、显示、复制、新建和保存
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-17T11:38:11+08:00" content="2016-07-17">
-              2016-07-17
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python-OpenCV/" itemprop="url" rel="index">
-                    <span itemprop="name">Python-OpenCV</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          OpenCV的全称是Open Source Computer Vision Library，是一个跨平台的计算机视觉库。OpenCV可用于开发实时的图像处理、计算机视觉以及模式识别程序。OpenCV可用于解决如下领域的问题：
-
-人机交互
-物体识别
-图像分区
-人脸识别
-动作识别
-运动跟踪
-机器人
-
-O
-          ...
-
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/17/OpenCV-Python入门/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/16/Mac上安装python-opencv/" itemprop="url">
-                  Mac上安装python-opencv
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-16T12:56:53+08:00" content="2016-07-16">
-              2016-07-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python-OpenCV/" itemprop="url" rel="index">
-                    <span itemprop="name">Python-OpenCV</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          如何正确安装OpenCV历来是一个堪称玄学的问题，在成功安装OpenCV的道路上经历了种种艰辛，这真的是我最恶心的一次安装经历。下载源码并编译的方法就不说了，下面介绍较简易的使用Homebrew安装的方法。
-第一步：安装OpenCV
-直接使用命令brew install opencv是不行的，因为h
-          ...
-
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/16/Mac上安装python-opencv/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/15/儿童锁屏幕监测报警/" itemprop="url">
-                  儿童锁屏幕监测报警
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-15T19:26:32+08:00" content="2016-07-15">
-              2016-07-15
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          这是一个丧尽天良的程序，用于家长对孩子使用电脑时的监控，当程序发现屏幕上出现了疑似色情的图片/视频时，将屏幕进行截图保存并邮件通知家长，也能判断出程序是否正常退出。可以设置采样间隔与监控时间，可以设置截图保存路径与图片尺寸。
-假设文件名为ScreenScrape.py
-123456789101112
-          ...
-
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/15/儿童锁屏幕监测报警/#more" rel="contents">
+            <a class="btn" href="/2016/06/30/使用Hexo搭建Github-Page/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1391,7 +694,7 @@ O
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
   </nav>
 
 
@@ -1432,7 +735,7 @@ O
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives/">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
