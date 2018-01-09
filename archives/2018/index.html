@@ -57,17 +57,16 @@
 
 
 
-<meta name="description" content="参考Selenium官方文档 http://selenium-python.readthedocs.io/getting-started.html 第三方库selenium1$ sudo pip install selenium 如果下载时抛出了如下错误，可不予理会： 1OSError: [Errno 1] Operation not permitted: &amp;apos;/System/Librar">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Selenium自动化测试">
-<meta property="og:url" content="http://lizonghang.github.io/2016/07/31/Selenium自动化测试/index.html">
+<meta name="description" content="学习日志">
+<meta property="og:type" content="website">
+<meta property="og:title" content="努力学习天天向上">
+<meta property="og:url" content="http://lizonghang.github.io/archives/2018/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="参考Selenium官方文档 http://selenium-python.readthedocs.io/getting-started.html 第三方库selenium1$ sudo pip install selenium 如果下载时抛出了如下错误，可不予理会： 1OSError: [Errno 1] Operation not permitted: &amp;apos;/System/Librar">
+<meta property="og:description" content="学习日志">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2016-07-31T12:36:33.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Selenium自动化测试">
-<meta name="twitter:description" content="参考Selenium官方文档 http://selenium-python.readthedocs.io/getting-started.html 第三方库selenium1$ sudo pip install selenium 如果下载时抛出了如下错误，可不予理会： 1OSError: [Errno 1] Operation not permitted: &amp;apos;/System/Librar">
+<meta name="twitter:title" content="努力学习天天向上">
+<meta name="twitter:description" content="学习日志">
 
 
 
@@ -85,7 +84,7 @@
   };
 </script>
 
-  <title> Selenium自动化测试 | 努力学习天天向上 </title>
+  <title> 归档 | 努力学习天天向上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -115,7 +114,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-right page-post-detail ">
+  <div class="container one-collumn sidebar-position-right  page-archive  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -226,147 +225,65 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-collapse">
+    <span class="archive-move-on"></span>
+
+    <span class="archive-page-counter">
+      
+      
+       
+      
+      OK! 目前共计 45 篇日志。 继续努力。
+    </span>
+
     
 
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                Selenium自动化测试
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-31T15:03:45+08:00" content="2016-07-31">
-              2016-07-31
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/软件测试/" itemprop="url" rel="index">
-                    <span itemprop="name">软件测试</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
-      
-        <p>参考Selenium官方文档 <a href="http://selenium-python.readthedocs.io/getting-started.html" target="_blank" rel="external">http://selenium-python.readthedocs.io/getting-started.html</a></p>
-<h1 id="第三方库"><a href="#第三方库" class="headerlink" title="第三方库"></a>第三方库</h1><h2 id="selenium"><a href="#selenium" class="headerlink" title="selenium"></a>selenium</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo pip install selenium</div></pre></td></tr></table></figure>
-<p>如果下载时抛出了如下错误，可不予理会：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">OSError: [Errno 1] Operation not permitted: &apos;/System/Library/Frameworks/Python.framework/Versions/2.7/selenium&apos;</div></pre></td></tr></table></figure>
-<p>进入 python 交互环境，尝试导入 selenium 模块即可</p>
-<h2 id="chromedriver"><a href="#chromedriver" class="headerlink" title="chromedriver"></a>chromedriver</h2><p>如果要选择 Chrome 作为测试浏览器，需要先安装 chromedriver，否则在实例化时会抛出以下错误：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; brower = webdriver.chrome()</div><div class="line">...</div><div class="line">selenium.common.exceptions.WebDriverException: Message: &apos;chromedriver&apos; executable needs to be in PATH. Please see https://sites.google.com/a/chromium.org/chromedriver/home</div></pre></td></tr></table></figure>
-<p>Mac 用户可使用 Homebrew 直接下载：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install chromedriver</div></pre></td></tr></table></figure>
-<p>下载完成后可能会出现以下错误：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Error: parent directory is world writable but not sticky</div><div class="line">Please report this bug:</div><div class="line">    https://git.io/brew-troubleshooting</div><div class="line">/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/2.0.0/tmpdir.rb:92:in `mktmpdir&apos;</div><div class="line">...</div></pre></td></tr></table></figure>
-<p>解决方法为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo chmod +t /private/tmp/</div></pre></td></tr></table></figure>
-<p>随后再尝试下载 chromedriver，进入 python 交互环境尝试实例化即可。</p>
-<h1 id="简单用例"><a href="#简单用例" class="headerlink" title="简单用例"></a>简单用例</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">from selenium import webdriver</div><div class="line">from selenium.webdriver.common.keys import Keys</div><div class="line">import time</div><div class="line"># The instance of Chrome WebDriver is created.</div><div class="line">driver = webdriver.Chrome()</div><div class="line"># The driver.get() method will navigate to a page given by the URL. WebDriver will wait until the page has fully loaded (that is, the “onload” event has fired) before returning control to your test or script. It’s worth noting that if your page uses a lot of AJAX on load then WebDriver may not know when it has completely loaded.</div><div class="line">driver.get(&apos;http://www.python.org&apos;)</div><div class="line">print driver.title</div><div class="line"># WebDriver offers a number of ways to find elements using one of the find_element_by_* methods. For example, the input text element can be located by its name attribute using find_element_by_name method. Detailed explanation of finding elements is available in the Locating Elements chapter</div><div class="line">elem = driver.find_element_by_name(&apos;q&apos;)</div><div class="line"># Next we are sending keys, this is similar to entering keys using your keyboard. Special keys can be send using Keys class imported from selenium.webdriver.common.keys. To be safe, we’ll first clear any prepopulated text in the input field (e.g. “Search”) so it doesn’t affect our search results</div><div class="line">elem.clear()</div><div class="line">elem.send_keys(&apos;pycon&apos;)</div><div class="line">elem.send_keys(Keys.RETURN)</div><div class="line">print driver.page_source</div><div class="line">time.sleep(5)</div><div class="line"># Finally, the browser window is closed. You can also call quit method instead of close. The quit will exit entire browser whereas close` will close one tab, but if just one tab was open, by default most browser will exit entirely.</div><div class="line">driver.close()</div></pre></td></tr></table></figure>
-<p>这段程序会打开浏览器，访问 <a href="http://www.python.org" target="_blank" rel="external">http://www.python.org</a> 并搜索 pycon，等待 5s 后关闭浏览器。</p>
-<h1 id="用Selenium写测试单元"><a href="#用Selenium写测试单元" class="headerlink" title="用Selenium写测试单元"></a>用Selenium写测试单元</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">import unittest</div><div class="line">from selenium import webdriver</div><div class="line">from selenium.webdriver.common.keys import Keys</div><div class="line">import time</div><div class="line"></div><div class="line">class PythonOrgSearch(unittest.TestCase):</div><div class="line">    def setUp(self):</div><div class="line">        self.driver = webdriver.Chrome()</div><div class="line"></div><div class="line">    def test_search_in_python_org(self):</div><div class="line">        driver = self.driver</div><div class="line">        driver.get(&apos;http://www.python.org&apos;)</div><div class="line">        self.assertIn(&apos;Python&apos;, driver.title)</div><div class="line">        elem = driver.find_element_by_name(&apos;q&apos;)</div><div class="line">        elem.send_keys(&apos;pycon&apos;)</div><div class="line">        elem.send_keys(Keys.RETURN)</div><div class="line">        assert &apos;No results found.&apos; not in driver.page_source</div><div class="line">        time.sleep(5)</div><div class="line"></div><div class="line">    def tearDown(self):</div><div class="line">        self.driver.quit()</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    unittest.main()</div></pre></td></tr></table></figure>
-<p>以上仅为关于 selenium 的一些简要功能介绍，详细用法参考后续文档</p>
-
-      
-    </div>
-
-    <div>
       
         
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/07/31/软件测试分类/" rel="next" title="软件测试分类">
-                <i class="fa fa-chevron-left"></i> 软件测试分类
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/03/Selenium模拟操作实例/" rel="prev" title="Selenium模拟操作实例">
-                Selenium模拟操作实例 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
+        <div class="collection-title">
+          <h2 class="archive-year motion-element" id="archive-year-2018">2018</h2>
         </div>
       
+      
 
       
-      
-    </footer>
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
+        
+            <a class="post-title-link" href="/2018/01/09/Ubuntu设置静态IP与主机名/" itemprop="url">
+              
+                <span itemprop="name">Ubuntu设置静态IP与主机名</span>
+              
+            </a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2018-01-09T10:59:32+08:00"
+              content="2018-01-09" >
+          01-09
+        </time>
+      </div>
+
+    </header>
   </article>
 
 
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+    
+
+  </section>
+
+  
+
 
 
           </div>
@@ -374,10 +291,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -397,17 +310,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -463,17 +367,6 @@
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第三方库"><span class="nav-number">1.</span> <span class="nav-text">第三方库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#selenium"><span class="nav-number">1.1.</span> <span class="nav-text">selenium</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chromedriver"><span class="nav-number">1.2.</span> <span class="nav-text">chromedriver</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#简单用例"><span class="nav-number">2.</span> <span class="nav-text">简单用例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用Selenium写测试单元"><span class="nav-number">3.</span> <span class="nav-text">用Selenium写测试单元</span></a></li></ol></div>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -565,9 +458,11 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
-
+  
+    <script type="text/javascript" id="motion.page.archive">
+      $('.archive-year').velocity('transition.slideLeftIn');
+    </script>
+  
 
 
   
