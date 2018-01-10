@@ -4,6 +4,42 @@
   
     
     <entry>
+      <title><![CDATA[HBase安装与伪分布式部署]]></title>
+      <url>http://lizonghang.github.io/2018/01/10/HBase%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2/</url>
+      <content type="html"><![CDATA[<p>注意: 使用HBase需要确保已启动HDFS和ZooKeeper。</p>
+<p>下载<a href="https://mirrors.cnnic.cn/apache/hbase/" target="_blank" rel="external">HBase安装包</a>，作者使用的是hbase-1.2.6。假设解压到~/hbase-1.2.6。</p>
+<p>将Hadoop下的hdfs-site.xml和core-site.xml复制到HBase的conf目录下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜ cp ~/hadoop-3.0.0/etc/hadoop/hdfs-site.xml ~/hbase-1.2.6/conf/</div><div class="line">➜ cp ~/hadoop-3.0.0/etc/hadoop/core-site.xml ~/hbase-1.2.6/conf/</div></pre></td></tr></table></figure>
+<p>将路径~/hbase-1.2.6/bin添加到<code>PATH</code>中:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># HBase</div><div class="line">export HBASE_HOME=~/hbase-1.2.6</div><div class="line">export PATH=$PATH:$HBASE_HOME/bin</div></pre></td></tr></table></figure>
+<p>设置hbase-env.sh中的<code>JAVA_HOME</code>，并告诉HBase使用外部ZK:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">➜ vim hbase-1.2.6/conf/hbase-env.sh</div><div class="line"></div><div class="line"># The java implementation to use.  Java 1.7+ required.</div><div class="line">export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_111</div><div class="line"></div><div class="line"># Tell HBase whether it should manage it&apos;s own instance of Zookeeper or not.</div><div class="line">export HBASE_MANAGES_ZK=false</div></pre></td></tr></table></figure>
+<p>配置hbase-site.xml:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">➜ vim hbase-1.2.6/conf/hbase-site.xml</div><div class="line"></div><div class="line">&lt;configuration&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;hbase.rootdir&lt;/name&gt;</div><div class="line">&lt;value&gt;hdfs://localhost:9000/hbase&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;hbase.cluster.distributed&lt;/name&gt;</div><div class="line">&lt;value&gt;true&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;hbase.master.info.port&lt;/name&gt;</div><div class="line">&lt;value&gt;60010&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;hbase.zookeeper.quorum&lt;/name&gt;</div><div class="line">&lt;value&gt;localhost:2181,localhost:2182,localhost:2183&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+<p>设置slave的集群:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">➜ vim hbase-1.2.6/conf/regionservers</div><div class="line"></div><div class="line">localhost</div></pre></td></tr></table></figure>
+<p>注意: 若为全分布式部署，需要修改<code>hbase.rootdir</code>与<code>hbase.zookeeper.quorum</code>，并在regionservers中添加DataNode主机名。将hbase-1.2.6文件夹复制到其它节点，并启动所有节点的HBase。</p>
+<p>注意: 需要提前启动ZooKeeper和HDFS。</p>
+<p>启动HBase:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">➜ start-hbase.sh</div><div class="line">➜ jps</div><div class="line">45043 HMaster</div><div class="line">45283 HRegionServer</div><div class="line">...</div></pre></td></tr></table></figure>
+<p>查看HBase Web是否可访问，<a href="http://127.0.0.1:60010" target="_blank" rel="external">http://127.0.0.1:60010</a>，可以使用命令<code>netstat -tpnl | grep 60010</code>查看60010端口是否开启。</p>
+<p>注意: 全分布模式下，为保证集群的可靠性，要启动多个HMaster:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ hbase-daemon.sh start master</div></pre></td></tr></table></figure>
+<p>使用Shell操作HBase:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ hbase shell</div></pre></td></tr></table></figure>
+<p>官方文档: <a href="http://hbase.apache.org/book.html" target="_blank" rel="external">Apache HBase ™ Reference Guide</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Hadoop/Spark </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Hadoop安装与伪分布式部署]]></title>
       <url>http://lizonghang.github.io/2018/01/09/Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2/</url>
       <content type="html"><![CDATA[<p>注意: 本文中<code>~</code>建议换成完整路径。</p>

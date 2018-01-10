@@ -57,24 +57,17 @@
 
 
 
-<meta name="description" content="与 C++ 中一样，在 Python 中调用的 OpenCV 直方图计算函数为 cv2.calcHist()。 cv2.calcHist() 的原型为： 1cv2.calcHist(images, channels, mask, histSize, ranges[, hist[, accumlate ]]) 下面为一个简单例子： 12345678910import cv2im = cv2.imre">
+<meta name="description" content="注意: 使用HBase需要确保已启动HDFS和ZooKeeper。 下载HBase安装包，作者使用的是hbase-1.2.6。假设解压到~/hbase-1.2.6。 将Hadoop下的hdfs-site.xml和core-site.xml复制到HBase的conf目录下: 12➜ cp ~/hadoop-3.0.0/etc/hadoop/hdfs-site.xml ~/hbase-1.2.6/co">
 <meta property="og:type" content="article">
-<meta property="og:title" content="直方图的计算与显示">
-<meta property="og:url" content="http://lizonghang.github.io/2016/07/22/直方图的计算与显示/index.html">
+<meta property="og:title" content="HBase安装与伪分布式部署">
+<meta property="og:url" content="http://lizonghang.github.io/2018/01/10/HBase安装与伪分布式部署/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="与 C++ 中一样，在 Python 中调用的 OpenCV 直方图计算函数为 cv2.calcHist()。 cv2.calcHist() 的原型为： 1cv2.calcHist(images, channels, mask, histSize, ranges[, hist[, accumlate ]]) 下面为一个简单例子： 12345678910import cv2im = cv2.imre">
+<meta property="og:description" content="注意: 使用HBase需要确保已启动HDFS和ZooKeeper。 下载HBase安装包，作者使用的是hbase-1.2.6。假设解压到~/hbase-1.2.6。 将Hadoop下的hdfs-site.xml和core-site.xml复制到HBase的conf目录下: 12➜ cp ~/hadoop-3.0.0/etc/hadoop/hdfs-site.xml ~/hbase-1.2.6/co">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://lizonghang.github.io/images/lena.jpg">
-<meta property="og:image" content="http://lizonghang.github.io/images/histImgR.jpg">
-<meta property="og:image" content="http://lizonghang.github.io/images/histImgG.jpg">
-<meta property="og:image" content="http://lizonghang.github.io/images/histImgB.jpg">
-<meta property="og:image" content="http://lizonghang.github.io/images/colorhist.jpg">
-<meta property="og:image" content="http://lizonghang.github.io/images/plt.jpg">
-<meta property="og:updated_time" content="2016-07-22T08:06:53.000Z">
+<meta property="og:updated_time" content="2018-01-10T08:36:07.087Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="直方图的计算与显示">
-<meta name="twitter:description" content="与 C++ 中一样，在 Python 中调用的 OpenCV 直方图计算函数为 cv2.calcHist()。 cv2.calcHist() 的原型为： 1cv2.calcHist(images, channels, mask, histSize, ranges[, hist[, accumlate ]]) 下面为一个简单例子： 12345678910import cv2im = cv2.imre">
-<meta name="twitter:image" content="http://lizonghang.github.io/images/lena.jpg">
+<meta name="twitter:title" content="HBase安装与伪分布式部署">
+<meta name="twitter:description" content="注意: 使用HBase需要确保已启动HDFS和ZooKeeper。 下载HBase安装包，作者使用的是hbase-1.2.6。假设解压到~/hbase-1.2.6。 将Hadoop下的hdfs-site.xml和core-site.xml复制到HBase的conf目录下: 12➜ cp ~/hadoop-3.0.0/etc/hadoop/hdfs-site.xml ~/hbase-1.2.6/co">
 
 
 
@@ -92,7 +85,7 @@
   };
 </script>
 
-  <title> 直方图的计算与显示 | 努力学习天天向上 </title>
+  <title> HBase安装与伪分布式部署 | 努力学习天天向上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -254,7 +247,7 @@
             
             
               
-                直方图的计算与显示
+                HBase安装与伪分布式部署
               
             
           </h1>
@@ -266,8 +259,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-22T14:41:37+08:00" content="2016-07-22">
-              2016-07-22
+            <time itemprop="dateCreated" datetime="2018-01-10T16:02:35+08:00" content="2018-01-10">
+              2018-01-10
             </time>
           </span>
 
@@ -280,8 +273,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python-OpenCV/" itemprop="url" rel="index">
-                    <span itemprop="name">Python-OpenCV</span>
+                  <a href="/categories/Hadoop-Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop/Spark</span>
                   </a>
                 </span>
 
@@ -312,49 +305,28 @@
       
 
       
-        <p>与 C++ 中一样，在 Python 中调用的 OpenCV 直方图计算函数为 <code>cv2.calcHist()</code>。</p>
-<p><code>cv2.calcHist()</code> 的原型为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cv2.calcHist(images, channels, mask, histSize, ranges[, hist[, accumlate ]])</div></pre></td></tr></table></figure>
-<p>下面为一个简单例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">import cv2</div><div class="line"></div><div class="line">im = cv2.imread(&apos;lena.jpg&apos;)</div><div class="line">hist = cv2.calcHist(</div><div class="line">    [im],</div><div class="line">    [0], #使用的通道</div><div class="line">    None, #没有使用mask</div><div class="line">    [256], #HistSize</div><div class="line">    [0.0, 255.0] #直方图柱的范围</div><div class="line">)</div></pre></td></tr></table></figure>
-<ul>
-<li>其中第一个参数 <code>images</code> 必须用方括号括起</li>
-<li>第二个参数 <code>channels</code> 是用于计算直方图的通道，这里使用灰度图计算直方图，所以就直接使用第一个通道</li>
-<li>第三个参数 <code>mask</code> 没有使用，用 <code>None</code></li>
-<li>第四个参数 <code>histSize</code> 表示这个直方图分成多少份（即多少个直方柱）</li>
-<li>第五个参数 <code>ranges</code> 表示直方图中各个像素的值， <code>[0.0, 255.0]</code> 表示直方图能表示像素值从 0.0 到 255.0 的像素</li>
-<li>由于直方图作为函数结果返回了，所以 <code>hist</code> 没有意义</li>
-<li><code>accumulate</code> 是一个布尔值，用来表示直方图是否叠加</li>
-</ul>
-<h1 id="彩色图像不同通道的直方图"><a href="#彩色图像不同通道的直方图" class="headerlink" title="彩色图像不同通道的直方图"></a>彩色图像不同通道的直方图</h1><p>以下图为例：</p>
-<p><img src="/images/lena.jpg" alt=""></p>
-<p>首先读取并分离各通道：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">import cv2</div><div class="line"></div><div class="line">im = cv2.imread(&apos;lena.jpg&apos;)</div><div class="line">r,g,b = cv2.split(im)</div></pre></td></tr></table></figure>
-<p>接着计算每个通道的直方图，这里将其封装成一个函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">def calcAndDrawHist(image, color):</div><div class="line">    hist = cv2.calcHist([image], [0], None, [256], [0.0, 255.0])</div><div class="line">    minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(hist)</div><div class="line">    histImg = numpy.zeros([256,256,3], numpy.uint8)</div><div class="line">    hpt = int(0.9*256)</div><div class="line">    for h in range(256):</div><div class="line">        intensity = int(hist[h] * hpt / maxVal)</div><div class="line">        cv2.line(histImg, (h,256), (h,256-intensity), color)</div><div class="line">    return histImg</div></pre></td></tr></table></figure>
-<p>在主函数中调用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    im = cv2.imread(&apos;lena.jpg&apos;)</div><div class="line">    r, g, b = cv2.split(im)</div><div class="line">    histImgR = calcAndDrawHist(r, [255, 0, 0])</div><div class="line">    histImgG = calcAndDrawHist(g, [0, 255, 0])</div><div class="line">    histImgB = calcAndDrawHist(b, [0, 0, 255])</div><div class="line">    cv2.imwrite(&apos;/Users/mac/Desktop/histImgR.jpg&apos;, histImgR)</div><div class="line">    cv2.imwrite(&apos;/Users/mac/Desktop/histImgG.jpg&apos;, histImgG)</div><div class="line">    cv2.imwrite(&apos;/Users/mac/Desktop/histImgB.jpg&apos;, histImgB)</div></pre></td></tr></table></figure>
-<p>得到的三个通道的直方图如下：</p>
-<p><img src="/images/histImgR.jpg" alt=""><br><img src="/images/histImgG.jpg" alt=""><br><img src="/images/histImgB.jpg" alt=""></p>
-<p>也可不分离通道，用折线来描绘直方图的边界，可在一个图中同时绘出三个通道的直方图：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">import cv2</div><div class="line">import numpy</div><div class="line"></div><div class="line">im = cv2.imread(&apos;lena.jpg&apos;)</div><div class="line">h = numpy.zeros((256,256,3))</div><div class="line">bins = numpy.arange(256).reshape(256,1)</div><div class="line">color = [(255,0,0),(0,255,0),(0,0,255)]</div><div class="line">for ch,color in enumerate(color):</div><div class="line">    originHist = cv2.calcHist([im], [ch], None, [256], [0,256])</div><div class="line">    cv2.normalize(originHist, originHist, 0, 255*0.9, cv2.NORM_MINMAX)</div><div class="line">    hist = numpy.int32(numpy.around(originHist))</div><div class="line">    pts = numpy.column_stack((bins, hist))</div><div class="line">    cv2.polylines(h, [pts], False, color)</div><div class="line">h = numpy.flipud(h)</div><div class="line">cv2.imwrite(&apos;colorhist.jpg&apos;, h)</div></pre></td></tr></table></figure>
-<p>结果如下图所示：</p>
-<p><img src="/images/colorhist.jpg" alt=""></p>
-<ul>
-<li>for 循环是对三个通道遍历一次，每次绘制相应通道的直方图的折线。for 循环的第一行是计算对应通道的直方图。</li>
-<li>这里直接调用了 OpenCV 的归一化函数，该函数将直方图的范围限定在 0~255×0.9 之间。</li>
-<li><code>hist = numpy.int32(numpy.around(originHist))</code> 先将生成的原始直方图中的每个元素四舍六入五凑偶取整（cv2.calcHist函数得到的是 float32 类型的数组），接着将整数部分转成 <code>numpy.int32</code> 类型。即61.123先转成61.0，再转成61。这里必须使用 <code>numpy.int32()</code> 进行转换，numpy 的转换函数可以对数组中的每个元素都进行转换，而Python的转换函数只能转换一个元素，如果使用 Python 的转换函数，将导致 <code>only length-1 arrays can be converted to Python scalars</code> 错误。</li>
-<li><code>pts = numpy.column_stack((bins,hist))</code> 是将直方图中每个bin的值转成相应的坐标。比如hist[0] =3，…，hist[126] = 178，…，hist[255] = 5；而bins的值为[[0],[1],[2]…,[255]]。使用 <code>np.column_stack</code> 将其组合成[0, 3]、[126, 178]、[255, 5]这样的坐标作为元素组成的数组。</li>
-<li><code>cv2.polylines()</code> 函数根据这些点绘制出折线，&lt;/code&gt;False&lt;/code&gt; 参数指出这个折线不需要闭合。第四个参数指定了折线的颜色。</li>
-<li><code>h = numpy.flipud(h)</code> 反转绘制好的直方图。因为绘制时，[0,0]在图像的左上角。</li>
-</ul>
-<h1 id="NumPy的直方图计算"><a href="#NumPy的直方图计算" class="headerlink" title="NumPy的直方图计算"></a>NumPy的直方图计算</h1><p>使用 NumPy 的直方图计算函数 <code>numpy.histogram()</code> 也能实现相同的效果，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">➜  Desktop vim cv.py</div><div class="line">➜  Desktop ls</div><div class="line">import numpy</div><div class="line">import cv2</div><div class="line"></div><div class="line">im = cv2.imread(&apos;lena.jpg&apos;)</div><div class="line">h = numpy.zeros((300,256,3))</div><div class="line">bins = numpy.arange(257)</div><div class="line">bin = bins[0:-1]</div><div class="line">color = [(255,0,0),(0,255,0),(0,0,255)]</div><div class="line"></div><div class="line">for ch,color in enumerate(color):</div><div class="line">    item = im[:,:,ch]</div><div class="line">    N,bins = numpy.histogram(item, bins)</div><div class="line">    v = N.max()</div><div class="line">    N = numpy.int32(numpy.around((N*255)/v))</div><div class="line">    N = N.reshape(256,1)</div><div class="line">    pts = numpy.column_stack((bin,N))</div><div class="line">    cv2.polylines(h, [pts], False, color)</div><div class="line">h = numpy.flipud(h)</div><div class="line">cv2.imwrite(&apos;colorhist_np.jpg&apos;, h)</div></pre></td></tr></table></figure>
-<p>效果图和上图相同。</p>
-<p>通过 NumPy 和 matplotlib 可以更方便的绘制出直方图，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">import numpy</div><div class="line">import cv2</div><div class="line">import matplotlib.pyplot as plt</div><div class="line"></div><div class="line">im = cv2.imread(&apos;lena.jpg&apos;)</div><div class="line">bins = numpy.arange(257)</div><div class="line">item = im[:,:,1] # G通道直方图</div><div class="line">hist, bins = numpy.histogram(item, bins)</div><div class="line">width = 0.7*(bins[1]-bins[0])</div><div class="line">center = (bins[:-1]+bins[1:])/2</div><div class="line">plt.bar(center, hist, align=&apos;center&apos;, width=width)</div><div class="line">plt.show()</div></pre></td></tr></table></figure>
-<p>效果图如下：</p>
-<p><img src="/images/plt.jpg" alt=""></p>
+        <p>注意: 使用HBase需要确保已启动HDFS和ZooKeeper。</p>
+<p>下载<a href="https://mirrors.cnnic.cn/apache/hbase/" target="_blank" rel="external">HBase安装包</a>，作者使用的是hbase-1.2.6。假设解压到~/hbase-1.2.6。</p>
+<p>将Hadoop下的hdfs-site.xml和core-site.xml复制到HBase的conf目录下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜ cp ~/hadoop-3.0.0/etc/hadoop/hdfs-site.xml ~/hbase-1.2.6/conf/</div><div class="line">➜ cp ~/hadoop-3.0.0/etc/hadoop/core-site.xml ~/hbase-1.2.6/conf/</div></pre></td></tr></table></figure>
+<p>将路径~/hbase-1.2.6/bin添加到<code>PATH</code>中:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># HBase</div><div class="line">export HBASE_HOME=~/hbase-1.2.6</div><div class="line">export PATH=$PATH:$HBASE_HOME/bin</div></pre></td></tr></table></figure>
+<p>设置hbase-env.sh中的<code>JAVA_HOME</code>，并告诉HBase使用外部ZK:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">➜ vim hbase-1.2.6/conf/hbase-env.sh</div><div class="line"></div><div class="line"># The java implementation to use.  Java 1.7+ required.</div><div class="line">export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_111</div><div class="line"></div><div class="line"># Tell HBase whether it should manage it&apos;s own instance of Zookeeper or not.</div><div class="line">export HBASE_MANAGES_ZK=false</div></pre></td></tr></table></figure>
+<p>配置hbase-site.xml:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">➜ vim hbase-1.2.6/conf/hbase-site.xml</div><div class="line"></div><div class="line">&lt;configuration&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;hbase.rootdir&lt;/name&gt;</div><div class="line">&lt;value&gt;hdfs://localhost:9000/hbase&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;hbase.cluster.distributed&lt;/name&gt;</div><div class="line">&lt;value&gt;true&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;hbase.master.info.port&lt;/name&gt;</div><div class="line">&lt;value&gt;60010&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;hbase.zookeeper.quorum&lt;/name&gt;</div><div class="line">&lt;value&gt;localhost:2181,localhost:2182,localhost:2183&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+<p>设置slave的集群:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">➜ vim hbase-1.2.6/conf/regionservers</div><div class="line"></div><div class="line">localhost</div></pre></td></tr></table></figure>
+<p>注意: 若为全分布式部署，需要修改<code>hbase.rootdir</code>与<code>hbase.zookeeper.quorum</code>，并在regionservers中添加DataNode主机名。将hbase-1.2.6文件夹复制到其它节点，并启动所有节点的HBase。</p>
+<p>注意: 需要提前启动ZooKeeper和HDFS。</p>
+<p>启动HBase:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">➜ start-hbase.sh</div><div class="line">➜ jps</div><div class="line">45043 HMaster</div><div class="line">45283 HRegionServer</div><div class="line">...</div></pre></td></tr></table></figure>
+<p>查看HBase Web是否可访问，<a href="http://127.0.0.1:60010" target="_blank" rel="external">http://127.0.0.1:60010</a>，可以使用命令<code>netstat -tpnl | grep 60010</code>查看60010端口是否开启。</p>
+<p>注意: 全分布模式下，为保证集群的可靠性，要启动多个HMaster:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ hbase-daemon.sh start master</div></pre></td></tr></table></figure>
+<p>使用Shell操作HBase:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ hbase shell</div></pre></td></tr></table></figure>
+<p>官方文档: <a href="http://hbase.apache.org/book.html" target="_blank" rel="external">Apache HBase ™ Reference Guide</a></p>
 
       
     </div>
@@ -372,17 +344,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/21/OpenCV像素与通道/" rel="next" title="OpenCV像素与通道">
-                <i class="fa fa-chevron-left"></i> OpenCV像素与通道
+              <a href="/2018/01/09/Hadoop安装与伪分布式部署/" rel="next" title="Hadoop安装与伪分布式部署">
+                <i class="fa fa-chevron-left"></i> Hadoop安装与伪分布式部署
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/22/Canny边缘检测/" rel="prev" title="Canny边缘检测">
-                Canny边缘检测 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -502,7 +470,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#彩色图像不同通道的直方图"><span class="nav-number">1.</span> <span class="nav-text">彩色图像不同通道的直方图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NumPy的直方图计算"><span class="nav-number">2.</span> <span class="nav-text">NumPy的直方图计算</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
