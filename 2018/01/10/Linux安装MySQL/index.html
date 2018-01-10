@@ -57,17 +57,17 @@
 
 
 
-<meta name="description" content="先检查一下系统上是否已经装了MySQL:  1➜ netstat -tap | grep mysql 如果没有，直接跳到第2步；如果已经装好了，但是不知道root密码，且没有办法获取到root密码，需要完全卸载MySQL并重装。 1234➜ sudo rm -R /var/lib/mysql/➜ sudo rm -R /etc/mysql/➜ sudo apt-get autoremove my">
+<meta name="description" content="1.先检查一下系统上是否已经装了MySQL: 1➜ netstat -tap | grep mysql 如果没有，直接跳到第2步；如果已经装好了，但是不知道root密码，且没有办法获取到root密码，需要完全卸载MySQL并重装。 1234➜ sudo rm -R /var/lib/mysql/➜ sudo rm -R /etc/mysql/➜ sudo apt-get autoremove my">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux安装MySQL">
 <meta property="og:url" content="http://lizonghang.github.io/2018/01/10/Linux安装MySQL/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="先检查一下系统上是否已经装了MySQL:  1➜ netstat -tap | grep mysql 如果没有，直接跳到第2步；如果已经装好了，但是不知道root密码，且没有办法获取到root密码，需要完全卸载MySQL并重装。 1234➜ sudo rm -R /var/lib/mysql/➜ sudo rm -R /etc/mysql/➜ sudo apt-get autoremove my">
+<meta property="og:description" content="1.先检查一下系统上是否已经装了MySQL: 1➜ netstat -tap | grep mysql 如果没有，直接跳到第2步；如果已经装好了，但是不知道root密码，且没有办法获取到root密码，需要完全卸载MySQL并重装。 1234➜ sudo rm -R /var/lib/mysql/➜ sudo rm -R /etc/mysql/➜ sudo apt-get autoremove my">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-10T10:44:03.440Z">
+<meta property="og:updated_time" content="2018-01-10T10:46:11.534Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux安装MySQL">
-<meta name="twitter:description" content="先检查一下系统上是否已经装了MySQL:  1➜ netstat -tap | grep mysql 如果没有，直接跳到第2步；如果已经装好了，但是不知道root密码，且没有办法获取到root密码，需要完全卸载MySQL并重装。 1234➜ sudo rm -R /var/lib/mysql/➜ sudo rm -R /etc/mysql/➜ sudo apt-get autoremove my">
+<meta name="twitter:description" content="1.先检查一下系统上是否已经装了MySQL: 1➜ netstat -tap | grep mysql 如果没有，直接跳到第2步；如果已经装好了，但是不知道root密码，且没有办法获取到root密码，需要完全卸载MySQL并重装。 1234➜ sudo rm -R /var/lib/mysql/➜ sudo rm -R /etc/mysql/➜ sudo apt-get autoremove my">
 
 
 
@@ -305,22 +305,16 @@
       
 
       
-        <ol>
-<li>先检查一下系统上是否已经装了MySQL:</li>
-</ol>
+        <p>1.先检查一下系统上是否已经装了MySQL:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ netstat -tap | grep mysql</div></pre></td></tr></table></figure>
 <p>如果没有，直接跳到第2步；如果已经装好了，但是不知道root密码，且没有办法获取到root密码，需要完全卸载MySQL并重装。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">➜ sudo rm -R /var/lib/mysql/</div><div class="line">➜ sudo rm -R /etc/mysql/</div><div class="line">➜ sudo apt-get autoremove mysql* --purge</div><div class="line">➜ sudo apt-get remove apparmor</div></pre></td></tr></table></figure>
 <p>注意: 如果使用的shell是zsh，autoremove可能会出现no matches found: mysql<em>。zsh默认对mysql</em>进行解释，而不是传递给autoremove，因此需要在~/.zshrc中加入:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">setopt no_nomatch</div></pre></td></tr></table></figure>
-<ol>
-<li>使用apt安装MySQL</li>
-</ol>
+<p>2.使用apt安装MySQL</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ sudo apt-get install mysql-server mysql-common</div></pre></td></tr></table></figure>
 <p>安装过程中会提示输入root密码。</p>
-<ol>
-<li>登录测试</li>
-</ol>
+<p>3.登录测试</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ mysql -u root -p</div></pre></td></tr></table></figure>
 
       
