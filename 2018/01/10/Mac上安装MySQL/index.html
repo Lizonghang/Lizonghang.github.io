@@ -57,19 +57,17 @@
 
 
 
-<meta name="description" content="Tesseract是一款开源 OCR（Optical Character Recognition，光学字符识别）软件。所谓OCR是图像识别领域中一个子领域，该领域专注于对图片中的文字信息进行识别并转换成能被常规文本编辑器编辑的文本。 Tesseract 已经有30年历史，开始它是惠普实验室的一款专利软件，然后在 2005 年开源，自 2006 年后由 Google 赞助进行后续的开发和维护。在 1">
+<meta name="description" content="1.更新 Homebrew 后安装MySQL 12➜ brew update➜ brew install mysql  启动MySQL服务  1➜ mysql.server start  设置登录密码  12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用pytesser破解简单验证码">
-<meta property="og:url" content="http://lizonghang.github.io/2016/07/10/使用pytesser破解简单验证码/index.html">
+<meta property="og:title" content="Mac上安装MySQL">
+<meta property="og:url" content="http://lizonghang.github.io/2018/01/10/Mac上安装MySQL/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="Tesseract是一款开源 OCR（Optical Character Recognition，光学字符识别）软件。所谓OCR是图像识别领域中一个子领域，该领域专注于对图片中的文字信息进行识别并转换成能被常规文本编辑器编辑的文本。 Tesseract 已经有30年历史，开始它是惠普实验室的一款专利软件，然后在 2005 年开源，自 2006 年后由 Google 赞助进行后续的开发和维护。在 1">
+<meta property="og:description" content="1.更新 Homebrew 后安装MySQL 12➜ brew update➜ brew install mysql  启动MySQL服务  1➜ mysql.server start  设置登录密码  12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://lizonghang.github.io/images/20140811163359656.png">
-<meta property="og:updated_time" content="2016-07-10T13:34:45.000Z">
+<meta property="og:updated_time" content="2018-01-10T10:29:55.822Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用pytesser破解简单验证码">
-<meta name="twitter:description" content="Tesseract是一款开源 OCR（Optical Character Recognition，光学字符识别）软件。所谓OCR是图像识别领域中一个子领域，该领域专注于对图片中的文字信息进行识别并转换成能被常规文本编辑器编辑的文本。 Tesseract 已经有30年历史，开始它是惠普实验室的一款专利软件，然后在 2005 年开源，自 2006 年后由 Google 赞助进行后续的开发和维护。在 1">
-<meta name="twitter:image" content="http://lizonghang.github.io/images/20140811163359656.png">
+<meta name="twitter:title" content="Mac上安装MySQL">
+<meta name="twitter:description" content="1.更新 Homebrew 后安装MySQL 12➜ brew update➜ brew install mysql  启动MySQL服务  1➜ mysql.server start  设置登录密码  12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535">
 
 
 
@@ -87,7 +85,7 @@
   };
 </script>
 
-  <title> 使用pytesser破解简单验证码 | 努力学习天天向上 </title>
+  <title> Mac上安装MySQL | 努力学习天天向上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -249,7 +247,7 @@
             
             
               
-                使用pytesser破解简单验证码
+                Mac上安装MySQL
               
             
           </h1>
@@ -261,8 +259,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-10T20:42:35+08:00" content="2016-07-10">
-              2016-07-10
+            <time itemprop="dateCreated" datetime="2018-01-10T18:21:03+08:00" content="2018-01-10">
+              2018-01-10
             </time>
           </span>
 
@@ -275,8 +273,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
+                  <a href="/categories/Hadoop-Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop/Spark</span>
                   </a>
                 </span>
 
@@ -307,40 +305,20 @@
       
 
       
-        <p>Tesseract是一款开源 OCR（Optical Character Recognition，光学字符识别）软件。所谓OCR是图像识别领域中一个子领域，该领域专注于对图片中的文字信息进行识别并转换成能被常规文本编辑器编辑的文本。</p>
-<p>Tesseract 已经有30年历史，开始它是惠普实验室的一款专利软件，然后在 2005 年开源，自 2006 年后由 Google 赞助进行后续的开发和维护。在 1995 年 Tesseract 曾是世界前三的 OCR 引擎，而且在现在的免费 OCR 引擎中，其识别精度也仍然是出类拔萃的。因为其免费与较好的效果，许多的个人开发者以及一些较小的团队在使用着 Tesseract ，诸如验证码识别、车牌号识别等应用中，不难见到 Tesseract 的身影。</p>
-<p>测试图片如下，文件名为test.png :<br><img src="/images/20140811163359656.png" alt=""></p>
-<h1 id="安装与错误信息"><a href="#安装与错误信息" class="headerlink" title="安装与错误信息"></a>安装与错误信息</h1><h2 id="安装PIL"><a href="#安装PIL" class="headerlink" title="安装PIL"></a>安装PIL</h2><p>详见<a href="/2016/07/05/快速入门PIL/">快速入门PIL</a></p>
-<h2 id="安装pytesseract"><a href="#安装pytesseract" class="headerlink" title="安装pytesseract"></a>安装pytesseract</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pip install pytesseract</div></pre></td></tr></table></figure>
-<p>此时直接使用会出现错误，如下所示:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; from PIL import Image</div><div class="line">&gt;&gt;&gt; import pytesseract</div><div class="line">&gt;&gt;&gt; im = Image.open(&apos;test.png&apos;)</div><div class="line">&gt;&gt;&gt; print pytesseract.image_to_string(im)</div><div class="line">Traceback (most recent call last):</div><div class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</div><div class="line">  File &quot;/usr/lib/python2.7/dist-packages/spyderlib/widgets/externalshell/sitecustomize.py&quot;, line 540, in runfile</div><div class="line">    execfile(filename, namespace)</div><div class="line">  File &quot;/home/chaitanya/pythonapp/localcopy.py&quot;, line 4, in &lt;module&gt;</div><div class="line">    print pytesseract.image_to_string(im)</div><div class="line">  File &quot;/usr/local/lib/python2.7/dist-packages/pytesseract/pytesseract.py&quot;, line 142, in image_to_string</div><div class="line">    config=config)</div><div class="line">  File &quot;/usr/local/lib/python2.7/dist-packages/pytesseract/pytesseract.py&quot;, line 75, in run_tesseract</div><div class="line">    stderr=subprocess.PIPE)</div><div class="line">  File &quot;/usr/lib/python2.7/subprocess.py&quot;, line 710, in __init__</div><div class="line">    errread, errwrite)</div><div class="line">  File &quot;/usr/lib/python2.7/subprocess.py&quot;, line 1327, in _execute_child</div><div class="line">    raise child_exception</div><div class="line">OSError: [Errno 2] No such file or directory</div></pre></td></tr></table></figure>
-<p>原因是还没有安装tesseract-ocr</p>
-<h2 id="安装tesseract-ocr"><a href="#安装tesseract-ocr" class="headerlink" title="安装tesseract-ocr"></a>安装tesseract-ocr</h2><p>Linux可使用<code>apt-get</code>直接安装:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install tesseract-ocr</div></pre></td></tr></table></figure>
-<p>如果想用 Tesseract 对图像进行识别，还需要对应的语言文件。所谓的语言文件是 Tesseract 识别某种语言的文字图像时需要的一些资源，这些东西也可以通过包管理器获取。比如我们需要识别英语和简体中文，那么使用命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install tesseract-ocr-eng tesseract-ocr-chi-sim</div></pre></td></tr></table></figure>
-<p>如果没有<code>apt-get</code>，需要的话可以使用编译安装的方式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">wget https://tesseract-ocr.googlecode.com/files/tesseract-ocr-3.02.02.tar.gz</div><div class="line">tar -xzvf tesseract-ocr-3.02.02.tar.gz</div></pre></td></tr></table></figure>
-<p>编译需要<code>automake</code>、<code>autoconf</code>、<code>libtool</code>支持，如果有的话可以跳过该步骤，命令如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install autoconf automake libtool</div></pre></td></tr></table></figure>
-<p>然后进入文件夹 tesseract-ocr-3.02.02 编译安装：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">./configure</div><div class="line">make</div><div class="line">sudo make install</div></pre></td></tr></table></figure>
-<p>Tesseract还依赖一些图像库，你可以选择性安装，也可不安装：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install ligjpeg62-dev libtiff4-dev libpng12-dev libleptonica-dev</div></pre></td></tr></table></figure>
-<p>再运行测试：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; from PIL import Image</div><div class="line">&gt;&gt;&gt; import pytesseract</div><div class="line">&gt;&gt;&gt; im = Image.open(&apos;test.png&apos;)</div><div class="line">&gt;&gt;&gt; print pytesseract.image_to_string(im)</div></pre></td></tr></table></figure>
-<p>可能会出现’Leptonica not found’错误。如果出现该错误，下载安装Leptonica包即可：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget https://leptonica.googlecode.com/files/leptonica-1.69.tar.bz2</div></pre></td></tr></table></figure>
-<h2 id="安装语言训练集"><a href="#安装语言训练集" class="headerlink" title="安装语言训练集"></a>安装语言训练集</h2><p>解压后进入目录执行命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">./configure</div><div class="line">make</div><div class="line">sudo make install</div></pre></td></tr></table></figure>
-<p>如果没有出现上述错误，应该会出现<code>TesseractError</code>，如下所示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; print pytesseract.image_to_string(im)</div><div class="line">Traceback (most recent call last):</div><div class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</div><div class="line">  File &quot;/Library/Python/2.7/site-packages/pytesseract/pytesseract.py&quot;, line 164, in image_to_string</div><div class="line">    raise TesseractError(status, errors)</div><div class="line">pytesseract.pytesseract.TesseractError: (1, &apos;Error opening data file /usr/local/share/tessdata/eng.traineddata&apos;)</div></pre></td></tr></table></figure>
-<p>这是由于没有下载语音训练集造成，你可以使用命令查看目前的语言训练集：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tesseract --list-langs</div></pre></td></tr></table></figure>
-<p>训练集放置于/usr/local/share/目录中的tessdata文件夹中，你需要手动下载训练集并添加到这个文件夹，添加后可以使用上述命令查看。你可以从<a href="https://github.com/tesseract-ocr/tessdata" target="_blank" rel="external">Github</a>获取到训练集。</p>
-<p>再次尝试运行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; from PIL import Image</div><div class="line">&gt;&gt;&gt; import pytesseract</div><div class="line">&gt;&gt;&gt; im = Image.open(&apos;test.png&apos;)</div><div class="line">&gt;&gt;&gt; print pytesseract.image_to_string(im)</div><div class="line">hoke</div></pre></td></tr></table></figure>
-<h1 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h1><p>经测试，pytesser适用于比较规范的英文/数字，对于中文的识别能力较差，对于有干扰素的验证码图片性能较差，可以用来提取简单的英文/数字。</p>
+        <p>1.更新 Homebrew 后安装MySQL</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜ brew update</div><div class="line">➜ brew install mysql</div></pre></td></tr></table></figure>
+<ol>
+<li>启动MySQL服务</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ mysql.server start</div></pre></td></tr></table></figure>
+<ol>
+<li>设置登录密码</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line">➜ mysql_secure_installation</div><div class="line"></div><div class="line">Securing the MySQL server deployment.</div><div class="line"></div><div class="line">Connecting to MySQL using a blank password.</div><div class="line"></div><div class="line">VALIDATE PASSWORD PLUGIN can be used to test passwords</div><div class="line">and improve security. It checks the strength of password</div><div class="line">and allows the users to set only those passwords which are</div><div class="line">secure enough. Would you like to setup VALIDATE PASSWORD plugin?</div><div class="line"></div><div class="line">Press y|Y for Yes, any other key for No: y</div><div class="line"></div><div class="line">There are three levels of password validation policy:</div><div class="line"></div><div class="line">LOW    Length &gt;= 8</div><div class="line">MEDIUM Length &gt;= 8, numeric, mixed case, and special characters</div><div class="line">STRONG Length &gt;= 8, numeric, mixed case, special characters and dictionary file</div><div class="line"></div><div class="line">Please enter 0 = LOW, 1 = MEDIUM and 2 = STRONG: 0</div><div class="line">Please set the password for root here.</div><div class="line"></div><div class="line">New password: PASSWORD_HERE</div><div class="line"></div><div class="line">Re-enter new password: PASSWORD_HERE</div><div class="line"></div><div class="line">Do you wish to continue with the password provided?(Press y|Y for Yes, any other key for No) : y</div><div class="line"></div><div class="line">By default, a MySQL installation has an anonymous user,</div><div class="line">allowing anyone to log into MySQL without having to have</div><div class="line">a user account created for them. This is intended only for</div><div class="line">testing, and to make the installation go a bit smoother.</div><div class="line">You should remove them before moving into a production</div><div class="line">environment.</div><div class="line"></div><div class="line">Remove anonymous users? (Press y|Y for Yes, any other key for No) : y</div><div class="line">Success.</div><div class="line"></div><div class="line">Normally, root should only be allowed to connect from</div><div class="line">&apos;localhost&apos;. This ensures that someone cannot guess at</div><div class="line">the root password from the network.</div><div class="line"></div><div class="line">Disallow root login remotely? (Press y|Y for Yes, any other key for No) : n</div><div class="line"></div><div class="line">... skipping.</div><div class="line">By default, MySQL comes with a database named &apos;test&apos; that</div><div class="line">anyone can access. This is also intended only for testing,</div><div class="line">and should be removed before moving into a production</div><div class="line">environment.</div><div class="line"></div><div class="line">Remove test database and access to it? (Press y|Y for Yes, any other key for No) : y</div><div class="line">- Dropping test database...</div><div class="line">Success.</div><div class="line"></div><div class="line">- Removing privileges on test database...</div><div class="line">Success.</div><div class="line"></div><div class="line">Reloading the privilege tables will ensure that all changes</div><div class="line">made so far will take effect immediately.</div><div class="line"></div><div class="line">Reload privilege tables now? (Press y|Y for Yes, any other key for No) : y</div><div class="line">Success.</div><div class="line"></div><div class="line">All done!</div></pre></td></tr></table></figure>
+<ol>
+<li>使用步骤3设置的密码测试登录</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ mysql -u root -p</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -358,17 +336,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/10/随机数字图片验证码的原理、生成和破解/" rel="next" title="随机数字图片验证码的原理、生成和破解">
-                <i class="fa fa-chevron-left"></i> 随机数字图片验证码的原理、生成和破解
+              <a href="/2018/01/10/HBase安装与伪分布式部署/" rel="next" title="HBase安装与伪分布式部署">
+                <i class="fa fa-chevron-left"></i> HBase安装与伪分布式部署
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/10/Python中执行JS命令/" rel="prev" title="Python中执行JS命令">
-                Python中执行JS命令 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -488,7 +462,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装与错误信息"><span class="nav-number">1.</span> <span class="nav-text">安装与错误信息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装PIL"><span class="nav-number">1.1.</span> <span class="nav-text">安装PIL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装pytesseract"><span class="nav-number">1.2.</span> <span class="nav-text">安装pytesseract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装tesseract-ocr"><span class="nav-number">1.3.</span> <span class="nav-text">安装tesseract-ocr</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装语言训练集"><span class="nav-number">1.4.</span> <span class="nav-text">安装语言训练集</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能"><span class="nav-number">2.</span> <span class="nav-text">性能</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
