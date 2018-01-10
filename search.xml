@@ -4,8 +4,39 @@
   
     
     <entry>
-      <title><![CDATA[Mac上安装MySQL]]></title>
-      <url>http://lizonghang.github.io/2018/01/10/Mac%E4%B8%8A%E5%AE%89%E8%A3%85MySQL/</url>
+      <title><![CDATA[Linux安装MySQL]]></title>
+      <url>http://lizonghang.github.io/2018/01/10/Linux%E5%AE%89%E8%A3%85MySQL/</url>
+      <content type="html"><![CDATA[<ol>
+<li>先检查一下系统上是否已经装了MySQL:</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ netstat -tap | grep mysql</div></pre></td></tr></table></figure>
+<p>如果没有，直接跳到第2步；如果已经装好了，但是不知道root密码，且没有办法获取到root密码，需要完全卸载MySQL并重装。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">➜ sudo rm -R /var/lib/mysql/</div><div class="line">➜ sudo rm -R /etc/mysql/</div><div class="line">➜ sudo apt-get autoremove mysql* --purge</div><div class="line">➜ sudo apt-get remove apparmor</div></pre></td></tr></table></figure>
+<p>注意: 如果使用的shell是zsh，autoremove可能会出现no matches found: mysql<em>。zsh默认对mysql</em>进行解释，而不是传递给autoremove，因此需要在~/.zshrc中加入:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">setopt no_nomatch</div></pre></td></tr></table></figure>
+<ol>
+<li>使用apt安装MySQL</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ sudo apt-get install mysql-server mysql-common</div></pre></td></tr></table></figure>
+<p>安装过程中会提示输入root密码。</p>
+<ol>
+<li>登录测试</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ mysql -u root -p</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> Hadoop/Spark </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Mac安装MySQL]]></title>
+      <url>http://lizonghang.github.io/2018/01/10/Mac%E5%AE%89%E8%A3%85MySQL/</url>
       <content type="html"><![CDATA[<p>1.更新 Homebrew 后安装MySQL</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜ brew update</div><div class="line">➜ brew install mysql</div></pre></td></tr></table></figure>
 <ol>
