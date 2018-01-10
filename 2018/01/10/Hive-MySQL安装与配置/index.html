@@ -57,17 +57,17 @@
 
 
 
-<meta name="description" content="Capture Video from CameraTo capture a video, you need to create a VideoCapture object. Its argument can be either the device index or the name of a video file. Device index is just the number to speci">
+<meta name="description" content="下载Hive作者使用的是hive-2.3.2，解压到~/hive-2.3.2。 Hive配置12345➜ cd cd hive-2.3.2/conf➜ cp hive-log4j2.properties.template hive-log4j2.properties➜ cp hive-default.xml.template hive-site.xml➜ cp hive-env.sh.templa">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Getting Started With Videos">
-<meta property="og:url" content="http://lizonghang.github.io/2016/08/16/Getting-Started-With-Videos/index.html">
+<meta property="og:title" content="Hive+MySQL安装与伪分布式配置">
+<meta property="og:url" content="http://lizonghang.github.io/2018/01/10/Hive-MySQL安装与配置/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="Capture Video from CameraTo capture a video, you need to create a VideoCapture object. Its argument can be either the device index or the name of a video file. Device index is just the number to speci">
+<meta property="og:description" content="下载Hive作者使用的是hive-2.3.2，解压到~/hive-2.3.2。 Hive配置12345➜ cd cd hive-2.3.2/conf➜ cp hive-log4j2.properties.template hive-log4j2.properties➜ cp hive-default.xml.template hive-site.xml➜ cp hive-env.sh.templa">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2016-08-17T13:54:07.000Z">
+<meta property="og:updated_time" content="2018-01-10T13:23:51.538Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Getting Started With Videos">
-<meta name="twitter:description" content="Capture Video from CameraTo capture a video, you need to create a VideoCapture object. Its argument can be either the device index or the name of a video file. Device index is just the number to speci">
+<meta name="twitter:title" content="Hive+MySQL安装与伪分布式配置">
+<meta name="twitter:description" content="下载Hive作者使用的是hive-2.3.2，解压到~/hive-2.3.2。 Hive配置12345➜ cd cd hive-2.3.2/conf➜ cp hive-log4j2.properties.template hive-log4j2.properties➜ cp hive-default.xml.template hive-site.xml➜ cp hive-env.sh.templa">
 
 
 
@@ -85,7 +85,7 @@
   };
 </script>
 
-  <title> Getting Started With Videos | 努力学习天天向上 </title>
+  <title> Hive+MySQL安装与伪分布式配置 | 努力学习天天向上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -247,7 +247,7 @@
             
             
               
-                Getting Started With Videos
+                Hive+MySQL安装与伪分布式配置
               
             
           </h1>
@@ -259,8 +259,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-16T21:10:44+08:00" content="2016-08-16">
-              2016-08-16
+            <time itemprop="dateCreated" datetime="2018-01-10T20:41:19+08:00" content="2018-01-10">
+              2018-01-10
             </time>
           </span>
 
@@ -273,8 +273,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python-OpenCV/" itemprop="url" rel="index">
-                    <span itemprop="name">Python-OpenCV</span>
+                  <a href="/categories/Hadoop-Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop/Spark</span>
                   </a>
                 </span>
 
@@ -305,23 +305,22 @@
       
 
       
-        <h1 id="Capture-Video-from-Camera"><a href="#Capture-Video-from-Camera" class="headerlink" title="Capture Video from Camera"></a>Capture Video from Camera</h1><p>To capture a video, you need to create a VideoCapture object. Its argument can be either the device index or the name of a video file. Device index is just the number to specify which camera. Normally one camera will be connected (as in my case). So I simply pass 0 (or -1). You can select the second camera by passing 1 and so on. After that, you can capture frame-by-frame. But at the end, don’t forget to release the capture. You can press ESC to quit.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">import cv2</div><div class="line"></div><div class="line">cap = cv2.VideoCapture(0)</div><div class="line">while True:</div><div class="line">    ret, frame = cap.read()</div><div class="line">    cv2.imshow(&apos;recording&apos;, frame)</div><div class="line">    if cv2.waitKey(25) == 27:</div><div class="line">        break</div><div class="line">cap.release()</div><div class="line">cv2.destroyAllWindows()</div></pre></td></tr></table></figure>
-<p><code>cap.read()</code> returns a bool (True/False). If frame is read correctly, it will be True. So you can check end of the video by checking this return value.</p>
-<p>Sometimes, <code>cap</code> may not have initialized the capture. In that case, this code shows error. You can check whether it is initialized or not by the method <code>cap.isOpened()</code>. Otherwise open it using <code>cap.open()</code>.</p>
-<p>You can also access some of the features of this video using <code>cap.get(propId)</code> method where propId is a number from 0 to 18. Each number denotes a property of the video (if it is applicable to that video) and full details can be seen in  <a href="http://docs.opencv.org/2.4/modules/highgui/doc/reading_and_writing_images_and_video.html#videocapture-get" target="_blank" rel="external">Property Identifier</a>. Some of these values can be modified using <code>cap.set(propId, value)</code>. Value is the new value you want.</p>
-<p>For example, I can check the frame width and height by <code>cap.get(3)</code> and <code>cap.get(4)</code>. It gives me 640x480 by default. But I want to modify it to 320x240. Just use <code>ret = cap.set(3,320)</code> and <code>ret = cap.set(4,240)</code>.</p>
-<p><strong>Note</strong>：If you are getting error, make sure camera is working fine using any other camera application (like Cheese in Linux).</p>
-<h1 id="Playing-Video-from-file"><a href="#Playing-Video-from-file" class="headerlink" title="Playing Video from file"></a>Playing Video from file</h1><p>It is same as capturing from Camera, just change camera index with video file name. Also while displaying the frame, use appropriate time for cv2.waitKey(). If it is too less, video will be very fast and if it is too high, video will be slow (Well, that is how you can display videos in slow motion). 25 milliseconds will be OK in normal cases.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">import cv2</div><div class="line"></div><div class="line">cap = cv2.VideoCapture(&apos;video.mp4&apos;)</div><div class="line">while cap.isOpened():</div><div class="line">    ret, frame = cap.read()</div><div class="line">    cv2.imshow(&apos;playing&apos;, frame)</div><div class="line">    if cv2.waitKey(25) == 27:</div><div class="line">        break</div><div class="line">cap.release()</div><div class="line">cv2.destroyAllWindows()</div></pre></td></tr></table></figure>
-<p><strong>Note</strong>：Make sure proper versions of ffmpeg or gstreamer is installed. Sometimes, it is a headache to work with Video Capture mostly due to wrong installation of ffmpeg/gstreamer.</p>
-<p><strong>Note</strong>：On Mac, you may get trouble while reading frame from a video file or writing frame to file, With no exception occurred but no data read out or write in. I have installed ffmpeg by homebrew, however not work for me. The OpenCV version on my Mac is 2.4.13. I have no idea about it. However, I tried it on Linux and it works without ffmpeg. The OpenCV version on Linux is 2.4.8. If you get the same trouble, maybe you can try uninstall OpenCV and install OpenCV3.x or OpenCV 2.4.8, it may works.</p>
-<h1 id="Saving-a-Video"><a href="#Saving-a-Video" class="headerlink" title="Saving a Video"></a>Saving a Video</h1><p>Create a <code>VideoWriter</code> object and specify the output filename. Then specify the FourCC code. Then number of frames per second (fps) and frame size should be passed. And last one is isColor flag. If it is True, encoder expect color frame, otherwise it works with grayscale frame.</p>
-<p>FourCC is a 4-byte code used to specify the video codec. The list of available codes can be found in <a href="http://www.fourcc.org/codecs.php" target="_blank" rel="external">fourcc.org</a>. It is platform dependent. </p>
-<p>FourCC code is passed as below：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># for OpenCV 2.4.x version</div><div class="line">cv2.cv.CV_FOURCC(&apos;M&apos;,&apos;J&apos;,&apos;P&apos;,&apos;G&apos;)</div><div class="line">cv2.cv.CV_FOURCC(*&apos;M‌​JPG&apos;)</div><div class="line"># for OpenCV 3.0 version</div><div class="line">cv2.VideoWriter_fourcc(&apos;M&apos;,&apos;J&apos;,&apos;P&apos;,&apos;G&apos;)</div><div class="line">cv2.VideoWriter_fourcc(*&apos;MJPG&apos;)</div></pre></td></tr></table></figure>
-<p>Below code capture from video file and saves part of it.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">import cv2</div><div class="line">import sys</div><div class="line"></div><div class="line">cap = cv2.VideoCapture(&apos;video.avi&apos;)</div><div class="line">fourcc = cv2.cv.CV_FOURCC(*&apos;XVID&apos;)</div><div class="line">fps = 25</div><div class="line">ret, frame = cap.read()</div><div class="line">height, width = frame.shape[:2]</div><div class="line">out = cv2.VideoWriter(&apos;output.avi&apos;, fourcc, fps, (width, height))</div><div class="line"></div><div class="line">startTime = 60 # start at 60s</div><div class="line">endTime = 70 # end at 70s</div><div class="line"></div><div class="line">totalTime = cap.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT) / fps</div><div class="line">if startTime &gt;= totalTime or endTime &gt; totalTime or startTime &gt; endTime:</div><div class="line">    print &apos;Invalid time settings&apos;</div><div class="line">    sys.exit(0)</div><div class="line"></div><div class="line">startFrame = startTime * fps</div><div class="line">stopFrame = endTime * fps</div><div class="line">cap.set(cv2.cv.CV_CAP_PROP_POS_FRAMES, startFrame) # read from startFrame</div><div class="line">duration = stopFrame - startFrame</div><div class="line"></div><div class="line">while duration and cap.isOpened():</div><div class="line">    ret, frame = cap.read()</div><div class="line">    cv2.imshow(&apos;preview&apos;, frame)</div><div class="line">    out.write(frame)</div><div class="line">    if cv2.waitKey(1000/fps) == 27:</div><div class="line">        break</div><div class="line">    duration -= 1</div><div class="line"></div><div class="line">cap.release()</div><div class="line">out.release()</div><div class="line">cv2.destroyAllWindows()</div></pre></td></tr></table></figure>
+        <h1 id="下载Hive"><a href="#下载Hive" class="headerlink" title="下载Hive"></a>下载<a href="http://mirror.bit.edu.cn/apache/hive/" target="_blank" rel="external">Hive</a></h1><p>作者使用的是hive-2.3.2，解压到~/hive-2.3.2。</p>
+<h1 id="Hive配置"><a href="#Hive配置" class="headerlink" title="Hive配置"></a>Hive配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">➜ cd cd hive-2.3.2/conf</div><div class="line">➜ cp hive-log4j2.properties.template hive-log4j2.properties</div><div class="line">➜ cp hive-default.xml.template hive-site.xml</div><div class="line">➜ cp hive-env.sh.template hive-env.sh</div><div class="line">➜ cp hive-exec-log4j2.properties.template hive-exec-log4j2.properties</div></pre></td></tr></table></figure>
+<h2 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">➜ vim ~/.zshrc</div><div class="line"># Hive</div><div class="line">export HIVE_HOME=~/hive-2.3.2</div><div class="line">export PATH=$PATH:$HIVE_HOME/bin</div><div class="line">➜ source ~/.zshrc</div></pre></td></tr></table></figure>
+<h2 id="修改hive-site-xml"><a href="#修改hive-site-xml" class="headerlink" title="修改hive-site.xml:"></a>修改hive-site.xml:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;</div><div class="line">&lt;value&gt;jdbc:mysql://localhost:3306/hive?createDatabaseIfNotExist=true&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;</div><div class="line">&lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;</div><div class="line">&lt;value&gt;USER&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;</div><div class="line">&lt;value&gt;PASSWORD&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+<p>注意: 其中<code>USER</code>和<code>PASSWORD</code>是MySQL中的用户名和密码，在之后设置好MySQL账户密码后修改此处。</p>
+<h1 id="MySQL配置"><a href="#MySQL配置" class="headerlink" title="MySQL配置"></a>MySQL配置</h1><p>使用root账户以及密码登录MySQL:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ mysql -u root -p</div></pre></td></tr></table></figure></p>
+<p>新建hive数据库，用来保存hive的元数据:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt; create database hive;</div></pre></td></tr></table></figure></p>
+<p>将hive数据库下的所有表的所有权限赋给hadoop用户(自定义，对应hive-site.xml中的<code>USER</code>)，并将mysql作为登录密码(自定义，对应hive-site.xml中的<code>PASSWORD</code>)，然后刷新系统权限关系表:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysql&gt; CREATE USER  &apos;hadoop&apos;@&apos;%&apos;  IDENTIFIED BY &apos;mysql&apos;;</div><div class="line">mysql&gt; GRANT ALL PRIVILEGES ON  *.* TO &apos;hadoop&apos;@&apos;%&apos; WITH GRANT OPTION;</div><div class="line">mysql&gt; flush privileges;</div></pre></td></tr></table></figure></p>
+<p>注意: 在ubuntu系统里，默认情况下MySQL只允许本地登录，所以需要修改配置文件将地址绑定注释。在/etc/mysql/my.cnf中找到<code>bind-address</code>并注释该行。</p>
+<p>将MySQL驱动包<a href="https://dev.mysql.com/downloads/connector/j/" target="_blank" rel="external">mysql-connector-java-5.1.45-bin.jar</a>复制到~/hive-2.3.2/lib。</p>
+<h1 id="运行Hive"><a href="#运行Hive" class="headerlink" title="运行Hive"></a>运行Hive</h1><p>先初始化Hive元数据库:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ schematool -initSchema -dbType mysql</div></pre></td></tr></table></figure></p>
+<p>看一下初始化后的信息:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">➜ schematool -dbType mysql -info</div><div class="line">...</div><div class="line">Metastore connection URL:     jdbc:mysql://localhost:3306/hive?createDatabaseIfNotExist=true</div><div class="line">Metastore Connection Driver :     com.mysql.jdbc.Driver</div><div class="line">Metastore connection User:     lizh</div><div class="line">Hive distribution version:     2.3.0</div><div class="line">Metastore schema version:     2.3.0</div><div class="line">schemaTool completed</div></pre></td></tr></table></figure></p>
+<p>运行Hive:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">➜  ~ hive</div><div class="line">...</div><div class="line">hive&gt; create table test(id int,name string);</div><div class="line">OK</div><div class="line">Time taken: 0.011 seconds</div><div class="line">hive&gt; show tables;</div><div class="line">OK</div><div class="line">test</div><div class="line">Time taken: 0.022 seconds, Fetched: 1 row(s)</div></pre></td></tr></table></figure></p>
+<p>看看Hive在HDFS创建的目录:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">➜ hadoop fs -ls /user</div><div class="line">Found 2 items</div><div class="line">drwxr-xr-x   - lizh supergroup          0 2018-01-10 20:33 /user/hive</div><div class="line">drwxr-xr-x   - lizh supergroup          0 2018-01-09 20:09 /user/lizh</div><div class="line">➜ hadoop fs -ls -R /user/hive</div><div class="line">drwxr-xr-x   - lizh supergroup          0 2018-01-10 20:33 /user/hive/warehouse</div><div class="line">drwxr-xr-x   - lizh supergroup          0 2018-01-10 20:33 /user/hive/warehouse/test</div></pre></td></tr></table></figure></p>
+<p>看看Hive在MySQL中创建的新表:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">mysql&gt; use hive;</div><div class="line">mysql&gt; select * from TBLS;</div><div class="line">+--------+-------------+-------+------------------+-------+-----------+-------+----------+---------------+--------------------+--------------------+--------------------+</div><div class="line">| TBL_ID | CREATE_TIME | DB_ID | LAST_ACCESS_TIME | OWNER | RETENTION | SD_ID | TBL_NAME | TBL_TYPE      | VIEW_EXPANDED_TEXT | VIEW_ORIGINAL_TEXT | IS_REWRITE_ENABLED |</div><div class="line">+--------+-------------+-------+------------------+-------+-----------+-------+----------+---------------+--------------------+--------------------+--------------------+</div><div class="line">|      1 |  1515587593 |     1 |                0 | lizh  |         0 |     1 | test     | MANAGED_TABLE | NULL               | NULL               |                    |</div><div class="line">+--------+-------------+-------+------------------+-------+-----------+-------+----------+---------------+--------------------+--------------------+--------------------+</div><div class="line">1 row in set (0.00 sec)</div></pre></td></tr></table></figure></p>
+
       
     </div>
 
@@ -338,17 +337,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/06/BadApple视频转字符动画/" rel="next" title="BadApple视频转字符动画">
-                <i class="fa fa-chevron-left"></i> BadApple视频转字符动画
+              <a href="/2018/01/10/Linux安装MySQL/" rel="next" title="Linux安装MySQL">
+                <i class="fa fa-chevron-left"></i> Linux安装MySQL
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/09/27/CORS跨站请求与https服务器配置/" rel="prev" title="CORS跨站请求与https服务器配置">
-                CORS跨站请求与https服务器配置 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -468,7 +463,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Capture-Video-from-Camera"><span class="nav-number">1.</span> <span class="nav-text">Capture Video from Camera</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Playing-Video-from-file"><span class="nav-number">2.</span> <span class="nav-text">Playing Video from file</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Saving-a-Video"><span class="nav-number">3.</span> <span class="nav-text">Saving a Video</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#下载Hive"><span class="nav-number">1.</span> <span class="nav-text">下载Hive</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive配置"><span class="nav-number">2.</span> <span class="nav-text">Hive配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置环境变量"><span class="nav-number">2.1.</span> <span class="nav-text">配置环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改hive-site-xml"><span class="nav-number">2.2.</span> <span class="nav-text">修改hive-site.xml:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL配置"><span class="nav-number">3.</span> <span class="nav-text">MySQL配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行Hive"><span class="nav-number">4.</span> <span class="nav-text">运行Hive</span></a></li></ol></div>
             
           </div>
         </section>
