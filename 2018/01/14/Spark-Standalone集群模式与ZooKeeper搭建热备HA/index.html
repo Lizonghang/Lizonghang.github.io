@@ -1,0 +1,761 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="集群环境说明: 开启三台Linux虚拟机，一台作为Master，两台作为Slave，NAT模式或桥接模式均可，信息如下:1234567891011121314151617Master    IP: 10.211.55.3    Hostname: master    Cores: 2    Memory: 2G    Slave1    IP: 10.211.55.4    Hostname: s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark_Standalone集群模式与ZooKeeper搭建热备HA">
+<meta property="og:url" content="http://lizonghang.github.io/2018/01/14/Spark-Standalone集群模式与ZooKeeper搭建热备HA/index.html">
+<meta property="og:site_name" content="努力学习天天向上">
+<meta property="og:description" content="集群环境说明: 开启三台Linux虚拟机，一台作为Master，两台作为Slave，NAT模式或桥接模式均可，信息如下:1234567891011121314151617Master    IP: 10.211.55.3    Hostname: master    Cores: 2    Memory: 2G    Slave1    IP: 10.211.55.4    Hostname: s">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-14T07:22:36.779Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spark_Standalone集群模式与ZooKeeper搭建热备HA">
+<meta name="twitter:description" content="集群环境说明: 开启三台Linux虚拟机，一台作为Master，两台作为Slave，NAT模式或桥接模式均可，信息如下:1234567891011121314151617Master    IP: 10.211.55.3    Hostname: master    Cores: 2    Memory: 2G    Slave1    IP: 10.211.55.4    Hostname: s">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Spark_Standalone集群模式与ZooKeeper搭建热备HA | 努力学习天天向上 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80234286-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">努力学习天天向上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">学习日志</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Spark_Standalone集群模式与ZooKeeper搭建热备HA
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-01-14T13:39:38+08:00" content="2018-01-14">
+              2018-01-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Hadoop-Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop/Spark</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>集群环境说明: 开启三台Linux虚拟机，一台作为Master，两台作为Slave，NAT模式或桥接模式均可，信息如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Master</div><div class="line">    IP: 10.211.55.3</div><div class="line">    Hostname: master</div><div class="line">    Cores: 2</div><div class="line">    Memory: 2G</div><div class="line">    </div><div class="line">Slave1</div><div class="line">    IP: 10.211.55.4</div><div class="line">    Hostname: slave1</div><div class="line">    Cores: 2</div><div class="line">    Memory: 2G</div><div class="line"></div><div class="line">Slave2</div><div class="line">    IP: 10.211.55.5</div><div class="line">    Hostname: slave2</div><div class="line">    Cores: 2</div><div class="line">    Memory: 2G</div></pre></td></tr></table></figure></p>
+<h1 id="Spark下载与配置"><a href="#Spark下载与配置" class="headerlink" title="Spark下载与配置"></a>Spark下载与配置</h1><h2 id="Spark下载"><a href="#Spark下载" class="headerlink" title="Spark下载"></a>Spark下载</h2><p>从官网下载适合适合本机Hadoop版本的<a href="http://spark.apache.org/downloads.html" target="_blank" rel="external">spark</a>，作者使用<a href="https://www.apache.org/dyn/closer.lua/spark/spark-2.2.1/spark-2.2.1-bin-hadoop2.7.tgz" target="_blank" rel="external">spark-2.2.1-bin-hadoop2.7.tgz</a>。假设解压到~/spark-2.2.1。</p>
+<h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><p>添加环境变量：将spark-2.2.1/bin添加到$PATH$中。</p>
+<p>注意: spark-2.2.1/sbin中含有与hadoop-3.0.0/sbin中相同文件名的脚本，因此不要将spark-2.2.1/sbin添加到$PATH$。</p>
+<h2 id="Spark-Standalone集群模式配置"><a href="#Spark-Standalone集群模式配置" class="headerlink" title="Spark Standalone集群模式配置"></a>Spark Standalone集群模式配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">➜ cd spark-2.2.1/conf</div><div class="line">➜ cp slaves.template slaves</div><div class="line">➜ cp spark-env.sh.template spark-env.sh</div><div class="line">➜ vim spark-env.sh</div><div class="line">export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_111</div><div class="line">export SPARK_MASTER_IP=master</div><div class="line">export SPARK_MASTER_PORT=7077</div><div class="line">export SPARK_WORKER_CORES=1</div><div class="line">export SPARK_WORKER_INSTANCES=1</div><div class="line">export SPARK_WORKER_MEMORY=1g</div><div class="line">➜ vim slaves</div><div class="line">slave1</div><div class="line">slave2</div></pre></td></tr></table></figure>
+<p>编辑好后，将spark-env.sh和slaves文件复制到slave1和slave2主机的spark-2.2.1/conf目录中。</p>
+<h2 id="Spark运行与测试"><a href="#Spark运行与测试" class="headerlink" title="Spark运行与测试"></a>Spark运行与测试</h2><h3 id="启动Spark"><a href="#启动Spark" class="headerlink" title="启动Spark"></a>启动Spark</h3><p>使用spark-2.2.1/sbin/start-all.sh脚本启动Spark。</p>
+<p>注意: 不是直接使用start-all.sh，因为PATH中start-all.sh对应的可能是hadoop-3.0.0/sbin/start-all.sh。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">➜ cd spark-2.2.1</div><div class="line">➜ spark-2.2.1/sbin/start-all.sh</div><div class="line">starting org.apache.spark.deploy.master.Master, logging to /home/parallels/Desktop/spark-2.2.1/logs/spark-parallels-org.apache.spark.deploy.master.Master-1-master.out</div><div class="line">slave2: starting org.apache.spark.deploy.worker.Worker, logging to /home/parallels/Desktop/spark-2.2.1/logs/spark-parallels-org.apache.spark.deploy.worker.Worker-1-slave2.out</div><div class="line">slave1: starting org.apache.spark.deploy.worker.Worker, logging to /home/parallels/Desktop/spark-2.2.1/logs/spark-parallels-org.apache.spark.deploy.worker.Worker-1-slave1.out</div></pre></td></tr></table></figure>
+<p>查看master-Master、slave1-Worker、slave2-Woker进程是否启动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">➜ ssh parallels@master jps</div><div class="line">16433 Jps</div><div class="line">16205 Master</div><div class="line">➜ ssh parallels@slave1 jps</div><div class="line">12880 Jps</div><div class="line">12465 Worker</div><div class="line">➜ ssh parallels@slave2 jps</div><div class="line">10468 Worker</div><div class="line">10890 Jps</div></pre></td></tr></table></figure>
+<p>Spark可视化页面8080端口: <a href="http://master:8080。" target="_blank" rel="external">http://master:8080。</a></p>
+<h3 id="Client与Cluster模式集群测试"><a href="#Client与Cluster模式集群测试" class="headerlink" title="Client与Cluster模式集群测试"></a>Client与Cluster模式集群测试</h3><h4 id="Client模式集群测试"><a href="#Client模式集群测试" class="headerlink" title="Client模式集群测试"></a>Client模式集群测试</h4><p>Client模式下Driver与Client位于同一主机master，输出直接打印到Client。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">➜ spark-submit --class org.apache.spark.examples.SparkPi --master spark://master:7077 --executor-memory 1G --total-executor-cores 2 spark-2.2.1/examples/jars/spark-examples_2.11-2.2.1.jar 1000</div><div class="line">...</div><div class="line">Pi is roughly 3.141622391416224</div></pre></td></tr></table></figure>
+<h4 id="Cluster模式集群测试"><a href="#Cluster模式集群测试" class="headerlink" title="Cluster模式集群测试"></a>Cluster模式集群测试</h4><p>Cluster模式下Driver位于Worker的某个节点中，Client与Worker分离，输出不打印到Client，可在8080端口对应页面中Application的stdout中查看打印结果。该模式可用于长时间运行的程序。</p>
+<p>注意: <code>—deploy-mode</code>默认为<code>client</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ spark-submit --class org.apache.spark.examples.SparkPi --master spark://master:7077 --deploy-mode cluster --supervise --executor-memory 1G --total-executor-cores 2 spark-2.2.1/examples/jars/spark-examples_2.11-2.2.1.jar 1000</div></pre></td></tr></table></figure>
+<p>运行时可在8080端口对应页面中看到某个Worker节点上启动了Driver。</p>
+<h1 id="ZooKeeper搭建热备HA"><a href="#ZooKeeper搭建热备HA" class="headerlink" title="ZooKeeper搭建热备HA"></a>ZooKeeper搭建热备HA</h1><p>官方说明: <a href="http://spark.apache.org/docs/latest/spark-standalone.html#high-availability" target="_blank" rel="external">Standby Masters with ZooKeeper</a>。</p>
+<h2 id="ZooKeeper下载与配置"><a href="#ZooKeeper下载与配置" class="headerlink" title="ZooKeeper下载与配置"></a>ZooKeeper下载与配置</h2><p>参考前文<a href="https://lizonghang.github.io/2018/01/09/Hadoop安装与伪分布式部署/">Hadoop安装与伪分布式部署</a>中的”ZooKeeper安装与配置”一节。假设<code>clientPort=2181</code>。</p>
+<p>启动ZooKeeper:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">➜ ssh parallels@master $ZK_HOME/bin/zkServer.sh start</div><div class="line">ZooKeeper JMX enabled by default</div><div class="line">Using config: /home/parallels/Desktop/zookeeper-3.4.11/bin/../conf/zoo.cfg</div><div class="line">Starting zookeeper ... STARTED</div><div class="line">➜ ssh parallels@slave1 $ZK_HOME/bin/zkServer.sh start</div><div class="line">ZooKeeper JMX enabled by default</div><div class="line">Using config: /home/parallels/Desktop/zookeeper-3.4.11/bin/../conf/zoo.cfg</div><div class="line">Starting zookeeper ... STARTED</div><div class="line">➜ ssh parallels@slave2 $ZK_HOME/bin/zkServer.sh start</div><div class="line">ZooKeeper JMX enabled by default</div><div class="line">Using config: /home/parallels/Desktop/zookeeper-3.4.11/bin/../conf/zoo.cfg</div><div class="line">Starting zookeeper ... STARTED</div><div class="line">➜ ssh parallels@master $ZK_HOME/bin/zkServer.sh status</div><div class="line">ZooKeeper JMX enabled by default</div><div class="line">Using config: /home/parallels/Desktop/zookeeper-3.4.11/bin/../conf/zoo.cfg</div><div class="line">Mode: follower</div><div class="line">➜ ssh parallels@slave1 $ZK_HOME/bin/zkServer.sh status</div><div class="line">ZooKeeper JMX enabled by default</div><div class="line">Using config: /home/parallels/Desktop/zookeeper-3.4.11/bin/../conf/zoo.cfg</div><div class="line">Mode: leader</div><div class="line">➜ ssh parallels@slave2 $ZK_HOME/bin/zkServer.sh status</div><div class="line">ZooKeeper JMX enabled by default</div><div class="line">Using config: /home/parallels/Desktop/zookeeper-3.4.11/bin/../conf/zoo.cfg</div><div class="line">Mode: follower</div></pre></td></tr></table></figure></p>
+<p>此时三台主机中应各有一个QuorumPeerMain进程。</p>
+<h3 id="Spark-HA配置"><a href="#Spark-HA配置" class="headerlink" title="Spark HA配置"></a>Spark HA配置</h3><p>在spark-2.2.1/conf/spark-env.sh中添加:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export SPARK_DAEMON_JAVA_OPTS=&quot;-Dspark.deploy.recoveryMode=ZOOKEEPER -Dspark.deploy.zookeeper.url=master:2181,slave1:2181,slave2:2181&quot;</div></pre></td></tr></table></figure></p>
+<p>并将该文件复制到slave1和slave2中，重启Spark:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜ spark-2.2.1/sbin/stop-all.sh</div><div class="line">➜ spark-2.2.1/sbin/start-all.sh</div></pre></td></tr></table></figure>
+<p>此时三台主机中仍然只有master一台有Master进程，slave1和slave2只有Worker进程。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">➜ ssh parallels@master jps</div><div class="line">21894 Master</div><div class="line">21146 QuorumPeerMain</div><div class="line">22458 Jps</div><div class="line">➜ ssh parallels@slave1 jps</div><div class="line">17475 QuorumPeerMain</div><div class="line">18234 Worker</div><div class="line">18746 Jps</div><div class="line">➜ ssh parallels@slave2 jps</div><div class="line">15315 QuorumPeerMain</div><div class="line">16056 Worker</div><div class="line">16575 Jps</div></pre></td></tr></table></figure>
+<p>假设启用slave1作为备用Master（Standby），编辑slave1中的spark-2.2.1/conf/spark-env.sh文件，将<code>SPARK_MASTER_IP</code>改为其自己。随后使用spark-2.2.1/sbin/start-master.sh&lt;/code&gt;启动slave1的Master进程:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># slave1</div><div class="line">➜ spark-2.2.1/sbin/start-master.sh</div><div class="line">➜ jps</div><div class="line">17475 QuorumPeerMain</div><div class="line">19623 Jps</div><div class="line">18234 Worker</div><div class="line">19454 Master</div></pre></td></tr></table></figure>
+<p>此时slave1上同时运行了Master进程和Worker进程，通过<a href="http://master:8080和http://slave1:8080可以看出master上的Master进程处于ALIVE状态，slave1上的Master进程处于STANDBY状态。" target="_blank" rel="external">http://master:8080和http://slave1:8080可以看出master上的Master进程处于ALIVE状态，slave1上的Master进程处于STANDBY状态。</a></p>
+<p>手动杀死master上的Master进程，隔一段时间（1-2min）可以看到slave1上的Master进程切换为ALIVE状态，并且原master上的Application信息转移到slave1。</p>
+<h1 id="Spark使用Standalone集群模式运行"><a href="#Spark使用Standalone集群模式运行" class="headerlink" title="Spark使用Standalone集群模式运行"></a>Spark使用Standalone集群模式运行</h1><p>交互式环境:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ pyspark --master spark://master:7077</div></pre></td></tr></table></figure></p>
+<p>脚本文件:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">from pyspark import SparkConf, SparkContext</div><div class="line">conf = SparkConf().setMaster(&quot;spark://master:7077&quot;)</div><div class="line">sc = SparkContext(conf=conf)</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/10/Hive-MySQL安装与配置/" rel="next" title="Hive+MySQL安装与伪分布式配置">
+                <i class="fa fa-chevron-left"></i> Hive+MySQL安装与伪分布式配置
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="李宗航" />
+          <p class="site-author-name" itemprop="name">李宗航</p>
+          <p class="site-description motion-element" itemprop="description">学习日志</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives/">
+              <span class="site-state-item-count">52</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizonghang/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spark下载与配置"><span class="nav-number">1.</span> <span class="nav-text">Spark下载与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spark下载"><span class="nav-number">1.1.</span> <span class="nav-text">Spark下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境变量"><span class="nav-number">1.2.</span> <span class="nav-text">环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spark-Standalone集群模式配置"><span class="nav-number">1.3.</span> <span class="nav-text">Spark Standalone集群模式配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spark运行与测试"><span class="nav-number">1.4.</span> <span class="nav-text">Spark运行与测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动Spark"><span class="nav-number">1.4.1.</span> <span class="nav-text">启动Spark</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Client与Cluster模式集群测试"><span class="nav-number">1.4.2.</span> <span class="nav-text">Client与Cluster模式集群测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Client模式集群测试"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">Client模式集群测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cluster模式集群测试"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">Cluster模式集群测试</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ZooKeeper搭建热备HA"><span class="nav-number">2.</span> <span class="nav-text">ZooKeeper搭建热备HA</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ZooKeeper下载与配置"><span class="nav-number">2.1.</span> <span class="nav-text">ZooKeeper下载与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spark-HA配置"><span class="nav-number">2.1.1.</span> <span class="nav-text">Spark HA配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spark使用Standalone集群模式运行"><span class="nav-number">3.</span> <span class="nav-text">Spark使用Standalone集群模式运行</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李宗航</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+  
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/MathJax.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/config/TeX-AMS-MML_HTMLorMML.js"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
