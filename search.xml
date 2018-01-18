@@ -4,6 +4,46 @@
   
     
     <entry>
+      <title><![CDATA[Spark Yarn集群模式]]></title>
+      <url>http://lizonghang.github.io/2018/01/14/Spark-Yarn%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/</url>
+      <content type="html"><![CDATA[<p>前置条件:</p>
+<ul>
+<li><a href="https://lizonghang.github.io/2018/01/09/Hadoop安装与伪分布式部署/#more">Hadoop+ZooKeeper</a></li>
+<li><a href="https://lizonghang.github.io/2018/01/14/Spark-Standalone集群模式与ZooKeeper搭建热备HA/">Spark</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">➜ ssh parallels@master jps</div><div class="line">5763 NameNode</div><div class="line">6728 Jps</div><div class="line">6056 SecondaryNameNode</div><div class="line">3806 QuorumPeerMain</div><div class="line">➜ ssh parallels@slave1 jps</div><div class="line">3728 QuorumPeerMain</div><div class="line">4577 DataNode</div><div class="line">4789 ResourceManager</div><div class="line">5419 Jps</div><div class="line">4910 NodeManager</div><div class="line">➜ ssh parallels@slave2 jps</div><div class="line">4807 NodeManager</div><div class="line">5145 Jps</div><div class="line">3577 QuorumPeerMain</div><div class="line">4474 DataNode</div><div class="line">4686 ResourceManager</div></pre></td></tr></table></figure>
+<p>修改spark-2.2.1/conf/spark-env.sh:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">➜ vim spark-env.sh</div><div class="line">...</div><div class="line">export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop</div><div class="line">export YARN_CONF_DIR=$HADOOP_HOME/etc/hadoop</div><div class="line"># If echo $JAVA_HOME is blank</div><div class="line">export JAVA_HOME=/usr/lib/jvm/java-8-oracle</div><div class="line">export PATH=$PATH:$JAVA_HOME/bin</div></pre></td></tr></table></figure>
+<p>将spark-2.2.1/jars/*上传到HDFS文件系统中:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜ hadoop fs -mkdir /spark_jars</div><div class="line">➜ hadoop fs -put spark-2.2.1/jars/* /spark_jars</div></pre></td></tr></table></figure>
+<p>编辑spark-default.conf:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">➜ cp spark-defaults.conf.template spark-defaults.conf</div><div class="line">➜ vim spark-defaults.conf</div><div class="line">...</div><div class="line">spark.yarn.jars=hdfs://master:9000/spark_jars/*</div></pre></td></tr></table></figure>
+<p>Cluster集群模式测试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">➜ spark-submit --class org.apache.spark.examples.SparkPi \</div><div class="line">    --master yarn \</div><div class="line">    --deploy-mode cluster \</div><div class="line">    --driver-memory 1g \</div><div class="line">    --executor-memory 1g \</div><div class="line">    --executor-cores 1 \</div><div class="line">    examples/jars/spark-examples_2.11-2.2.1.jar \</div><div class="line">    10</div></pre></td></tr></table></figure>
+<p>查看<a href="http://slave1:8088" target="_blank" rel="external">http://slave1:8088</a>该Application的状态，若State为FINISHED，FinalStatus为SUCCEEDED，则YARN集群正常工作。</p>
+<p>Client集群模式测试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ pyspark --master yarn --deploy-mode client</div></pre></td></tr></table></figure>
+<p>Client模式运行过程中可能会报java.nio.channels.ClosedChannelException、java.io.IOException: Failed to send RPC等一堆错，查看NodeManager的日志:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Container is running beyond virtual memory limits. Current usage: 192.9 MB of 1 GB physical memory used; 2.1 GB of 2.1 GB virtual memory used. Killing container.</div></pre></td></tr></table></figure>
+<p>可以判断出是虚拟内存不足导致Container关闭。</p>
+<p>网上的解决办法：</p>
+<p>一、根据主机内存分配设置hadoop-3.0.0/etc/hadoop/yarn-site.xml改变内存限制（无作用）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;yarn.scheduler.maximum-allocation-mb&lt;/name&gt;</div><div class="line">&lt;value&gt;8192&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;yarn.scheduler.minimum-allocation-mb&lt;/name&gt;</div><div class="line">&lt;value&gt;1024&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;yarn.nodemanager.vmem-pmem-ratio&lt;/name&gt;</div><div class="line">&lt;value&gt;2.1&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure>
+<p>二、直接关闭虚拟内存检测（无作用）:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;yarn.nodemanager.pmem-check-enabled&lt;/name&gt;</div><div class="line">&lt;value&gt;false&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;yarn.nodemanager.vmem-check-enabled&lt;/name&gt;</div><div class="line">&lt;value&gt;false&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure>
+<p>三、给虚拟机多分配些内存</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Hadoop/Spark </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Spark Standalone集群模式与ZooKeeper搭建热备HA]]></title>
       <url>http://lizonghang.github.io/2018/01/14/Spark-Standalone%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%E4%B8%8EZooKeeper%E6%90%AD%E5%BB%BA%E7%83%AD%E5%A4%87HA/</url>
       <content type="html"><![CDATA[<p>集群环境说明: 开启三台Linux虚拟机，一台作为Master，两台作为Slave，NAT模式或桥接模式均可，信息如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Master</div><div class="line">    IP: 10.211.55.3</div><div class="line">    Hostname: master</div><div class="line">    Cores: 2</div><div class="line">    Memory: 2G</div><div class="line">    </div><div class="line">Slave1</div><div class="line">    IP: 10.211.55.4</div><div class="line">    Hostname: slave1</div><div class="line">    Cores: 2</div><div class="line">    Memory: 2G</div><div class="line"></div><div class="line">Slave2</div><div class="line">    IP: 10.211.55.5</div><div class="line">    Hostname: slave2</div><div class="line">    Cores: 2</div><div class="line">    Memory: 2G</div></pre></td></tr></table></figure></p>
