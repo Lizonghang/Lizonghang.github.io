@@ -57,17 +57,17 @@
 
 
 
-<meta name="description" content="检查系统上是否已经装了MySQL1➜ netstat -tap | grep mysql 如果没有，直接用apt安装；如果已经装好了，但是不知道root密码，且没有办法获取到root密码，需要完全卸载MySQL并重装。 1234➜ sudo rm -R /var/lib/mysql/➜ sudo rm -R /etc/mysql/➜ sudo apt-get autoremove mysql* -">
+<meta name="description" content="使用Python处理某些特殊字符或中文字符时，经常出现UnicodeEncodeError: ‘ascii’ codec can’t encode characters in position xxx。 打开一个Python解释器，看一下当前默认的编码，为ASCII码，ASCII码最多只能表示256个字符，因此对于中文字符或特殊字符就无能为力了: 123&amp;gt;&amp;gt;&amp;gt; import sy">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux安装MySQL">
-<meta property="og:url" content="http://lizonghang.github.io/2018/01/10/Linux安装MySQL/index.html">
+<meta property="og:title" content="系统编码问题">
+<meta property="og:url" content="http://lizonghang.github.io/2018/01/25/系统编码问题/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="检查系统上是否已经装了MySQL1➜ netstat -tap | grep mysql 如果没有，直接用apt安装；如果已经装好了，但是不知道root密码，且没有办法获取到root密码，需要完全卸载MySQL并重装。 1234➜ sudo rm -R /var/lib/mysql/➜ sudo rm -R /etc/mysql/➜ sudo apt-get autoremove mysql* -">
+<meta property="og:description" content="使用Python处理某些特殊字符或中文字符时，经常出现UnicodeEncodeError: ‘ascii’ codec can’t encode characters in position xxx。 打开一个Python解释器，看一下当前默认的编码，为ASCII码，ASCII码最多只能表示256个字符，因此对于中文字符或特殊字符就无能为力了: 123&amp;gt;&amp;gt;&amp;gt; import sy">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-10T10:53:20.446Z">
+<meta property="og:updated_time" content="2018-01-25T03:48:20.013Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux安装MySQL">
-<meta name="twitter:description" content="检查系统上是否已经装了MySQL1➜ netstat -tap | grep mysql 如果没有，直接用apt安装；如果已经装好了，但是不知道root密码，且没有办法获取到root密码，需要完全卸载MySQL并重装。 1234➜ sudo rm -R /var/lib/mysql/➜ sudo rm -R /etc/mysql/➜ sudo apt-get autoremove mysql* -">
+<meta name="twitter:title" content="系统编码问题">
+<meta name="twitter:description" content="使用Python处理某些特殊字符或中文字符时，经常出现UnicodeEncodeError: ‘ascii’ codec can’t encode characters in position xxx。 打开一个Python解释器，看一下当前默认的编码，为ASCII码，ASCII码最多只能表示256个字符，因此对于中文字符或特殊字符就无能为力了: 123&amp;gt;&amp;gt;&amp;gt; import sy">
 
 
 
@@ -85,7 +85,7 @@
   };
 </script>
 
-  <title> Linux安装MySQL | 努力学习天天向上 </title>
+  <title> 系统编码问题 | 努力学习天天向上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -247,7 +247,7 @@
             
             
               
-                Linux安装MySQL
+                系统编码问题
               
             
           </h1>
@@ -259,8 +259,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-01-10T18:32:35+08:00" content="2018-01-10">
-              2018-01-10
+            <time itemprop="dateCreated" datetime="2018-01-25T11:28:24+08:00" content="2018-01-25">
+              2018-01-25
             </time>
           </span>
 
@@ -273,8 +273,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Hadoop-Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Hadoop/Spark</span>
+                  <a href="/categories/服务器-后台/" itemprop="url" rel="index">
+                    <span itemprop="name">服务器/后台</span>
                   </a>
                 </span>
 
@@ -305,14 +305,17 @@
       
 
       
-        <h3 id="检查系统上是否已经装了MySQL"><a href="#检查系统上是否已经装了MySQL" class="headerlink" title="检查系统上是否已经装了MySQL"></a>检查系统上是否已经装了MySQL</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ netstat -tap | grep mysql</div></pre></td></tr></table></figure>
-<p>如果没有，直接用apt安装；如果已经装好了，但是不知道root密码，且没有办法获取到root密码，需要完全卸载MySQL并重装。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">➜ sudo rm -R /var/lib/mysql/</div><div class="line">➜ sudo rm -R /etc/mysql/</div><div class="line">➜ sudo apt-get autoremove mysql* --purge</div><div class="line">➜ sudo apt-get remove apparmor</div></pre></td></tr></table></figure>
-<p>注意: 如果使用的shell是zsh，autoremove可能会出现no matches found: mysql<em>。zsh默认对mysql</em>进行解释，而不是传递给autoremove，因此需要在~/.zshrc中加入:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">setopt no_nomatch</div></pre></td></tr></table></figure>
-<h3 id="apt安装MySQL"><a href="#apt安装MySQL" class="headerlink" title="apt安装MySQL"></a>apt安装MySQL</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ sudo apt-get install mysql-server mysql-common</div></pre></td></tr></table></figure>
-<p>安装过程中会提示输入root密码。</p>
-<h3 id="登录测试"><a href="#登录测试" class="headerlink" title="登录测试"></a>登录测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ mysql -u root -p</div></pre></td></tr></table></figure>
+        <p>使用Python处理某些特殊字符或中文字符时，经常出现<code>UnicodeEncodeError: ‘ascii’ codec can’t encode characters in position xxx</code>。</p>
+<p>打开一个Python解释器，看一下当前默认的编码，为ASCII码，ASCII码最多只能表示256个字符，因此对于中文字符或特殊字符就无能为力了:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; import sys</div><div class="line">&gt;&gt;&gt; sys.getdefaultencoding()</div><div class="line">&apos;ascii&apos;</div></pre></td></tr></table></figure>
+<p>通常网上的办法为，但这不是一个好方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import sys</div><div class="line">reload(sys)</div><div class="line">sys.setdefaultencoding(&apos;utf8&apos;)</div></pre></td></tr></table></figure>
+<p> 在Django Model中上传带有中文名的文件或图片时，也出现了编码错误的问题，建议不要在脚本内更改默认编码，而是将系统locale语言设置为zh_CN.UTF-8。查看系统默认语言：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜ cat /etc/default/locale</div><div class="line">LANG=en_CN.UTF-8</div></pre></td></tr></table></figure>
+<p>需要下载zh_CN.UTF-8并设置为默认语言:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># 安装中文支持</div><div class="line">➜ sudo apt-get install language-pack-zh-hans</div><div class="line"># 更新locale文件并设置为默认语言。注意：此过程会在Shell中显示UI界面，先选中下载zh_CN.UTF-8 UTF-8语言集，回车确认，再选择设置zh_CN.UTF-8为系统默认语言。</div><div class="line">➜ dpkg-reconfigure locales</div><div class="line"># 查看当前系统语言</div><div class="line">➜ cat /etc/default/locale</div><div class="line">LANG=zh_CN.UTF-8</div></pre></td></tr></table></figure>
+<p>将<code>export LC_ALL=zh_CN.UTF-8</code>添加到.bashrc并重载配置文件。</p>
+<p>至此Django Model上传文件为中文文件名的UnicodeEncodeError就解决了。</p>
 
       
     </div>
@@ -330,17 +333,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/10/Mac安装MySQL/" rel="next" title="Mac安装MySQL">
-                <i class="fa fa-chevron-left"></i> Mac安装MySQL
+              <a href="/2018/01/14/Spark-Yarn集群模式/" rel="next" title="Spark Yarn集群模式">
+                <i class="fa fa-chevron-left"></i> Spark Yarn集群模式
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/01/10/Hive-MySQL安装与配置/" rel="prev" title="Hive+MySQL安装与伪分布式配置">
-                Hive+MySQL安装与伪分布式配置 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -460,7 +459,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#检查系统上是否已经装了MySQL"><span class="nav-number">1.</span> <span class="nav-text">检查系统上是否已经装了MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#apt安装MySQL"><span class="nav-number">2.</span> <span class="nav-text">apt安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#登录测试"><span class="nav-number">3.</span> <span class="nav-text">登录测试</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
