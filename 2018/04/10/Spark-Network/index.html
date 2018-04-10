@@ -64,14 +64,14 @@
 <meta property="og:site_name" content="努力学习天天向上">
 <meta property="og:description" content="文章来源：https://blog.csdn.net/struggle3014/article/details/79794031 引言网络是分布式系统中最基本的一环，其设计的好坏直接影响到整个分布式系统的稳定性及可用性，为此，Spark专门独立出基础网络模块spark-network，为上层RPC、Shuffle数据传输、RDD Block同步以及资源文件传输等提供可靠的网络服务。从Spark-2">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://lizonghang.github.io/2018/04/10/Spark-Network/spark-network-basic.png">
-<meta property="og:image" content="http://lizonghang.github.io/2018/04/10/Spark-Network/spark-network-messagewithheader.png">
-<meta property="og:image" content="http://lizonghang.github.io/2018/04/10/Spark-Network/spark-network-handler.png">
-<meta property="og:updated_time" content="2018-04-10T08:01:20.092Z">
+<meta property="og:image" content="http://lizonghang.github.io/images/spark-network-basic.png">
+<meta property="og:image" content="http://lizonghang.github.io/images/spark-network-messagewithheader.png">
+<meta property="og:image" content="http://lizonghang.github.io/images/spark-network-handler.png">
+<meta property="og:updated_time" content="2018-04-10T08:04:48.309Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark Network">
 <meta name="twitter:description" content="文章来源：https://blog.csdn.net/struggle3014/article/details/79794031 引言网络是分布式系统中最基本的一环，其设计的好坏直接影响到整个分布式系统的稳定性及可用性，为此，Spark专门独立出基础网络模块spark-network，为上层RPC、Shuffle数据传输、RDD Block同步以及资源文件传输等提供可靠的网络服务。从Spark-2">
-<meta name="twitter:image" content="http://lizonghang.github.io/2018/04/10/Spark-Network/spark-network-basic.png">
+<meta name="twitter:image" content="http://lizonghang.github.io/images/spark-network-basic.png">
 
 
 
@@ -330,7 +330,7 @@
 </ul>
 <h2 id="网络抽象"><a href="#网络抽象" class="headerlink" title="网络抽象"></a>网络抽象</h2><p>无论是服务器还是客户端都会关联一个channel(socket)，channel上会绑定一个pipeline，pipeline绑定若干个handler，用来专门用来处理和业务有关的东西，handler有DownHandler和UpHandler两种，DownHandler用来处理发包，UpHandler用来处理收包。</p>
 <p>Spark底层网络实现总体流程如下图所示：</p>
-<p><img src="spark-network-basic.png" alt=""></p>
+<p><img src="/images/spark-network-basic.png" alt=""></p>
 <p>客户端发送请求消息，经过Encoder(一种DownHandler)编码，加上包头信息，再通过网络发给服务端，服务端收到消息后，首先经过TransportFrameDecoder(一种UpHandler)处理粘包拆包，得到消息类型和消息体，然后经过Decoder解析消息类型，得到一个个具体的请求消息，最后由TransportChannelHandler处理具体的请求消息，并根据具体的消息类型判断是否返回一个响应。类似地，响应消息传给客户端也是先经过Encoder编码，客户端先通过TransportFrameDecoder、Decoder解包消息，再通过TransportChannelHandler处理具体的响应消息。</p>
 <h2 id="Handler定义"><a href="#Handler定义" class="headerlink" title="Handler定义"></a>Handler定义</h2><p>一个message从被发送到被接收需要经过”MessageEncoder→TransportLayer→TransportFrameDecoder→MessageDecoder→TransportChannelHandler”，下面按照这一过程详细阐述各handler的作用。</p>
 <p>一个message进入网络前，需要经过MessageEncoder编码，加上包头信息，以便后续收包时正确粘包拆包。头信息主要是包括三部分：</p>
@@ -339,12 +339,12 @@
 <li>消息类型</li>
 <li>除消息体外的消息元数据，例如RpcRequest消息的元数据信息包括requestId和消息长度body size。</li>
 </ul>
-<p><img src="spark-network-messagewithheader.png" alt=""></p>
+<p><img src="/images/spark-network-messagewithheader.png" alt=""></p>
 <p>经过上述编码后，一个个Message被编码成一个个MessageWithHeader发送到网络中，接收端收到数据后，首先通过TransportFrameDecoder和MessageDecoder来解码出一个个具体的Message，这里就涉及到粘包拆包问题，这也是为什么在编码阶段在头部加上frame length的原因。</p>
 <p>TransportFrameDecoder在解码过程中，首先读取8字节的frame length(Long型)，用frame length减去8就是除frame length外其他部分的长度，即为message type、message meta、message body三部分的长度，循环读取直到这个长度，把读到的Bytebuf交给MessagerDecoder。</p>
 <p>MessagerDecoder首先解析出message type，根据message type去反序列化(实例化)出具体的Message，例如message type如果是RpcRequest，那么则继续解析requestId和body size，根据body size解析后续字节得到body，并构造出RpcRequest对象。反序列化得到的message对象会交给TransportChannelHandler。</p>
 <p>TransportChannelHandler里封装了TransportRequestHandler和TransportResponseHandler，分别处理RequestMessage和ResponseMessage，在服务端，TransportChannelHandler一般处理RequestMessage，在客户端，TransportChannelHandler一般处理ResponseMessage。</p>
-<p><img src="spark-network-handler.png" alt=""></p>
+<p><img src="/images/spark-network-handler.png" alt=""></p>
 <h2 id="消息处理"><a href="#消息处理" class="headerlink" title="消息处理"></a>消息处理</h2><h3 id="RPC消息处理"><a href="#RPC消息处理" class="headerlink" title="RPC消息处理"></a>RPC消息处理</h3><p>客户端发送一个RPC请求消息(RpcRequest或OneWayMessage)，经过编码到网络，解码到服务端的TransportChannelHandler，RPC请求会被交给TransportRequestHandler处理，而TransportRequestHandler中包括了一个RpcHandler专门用来处理RPC请求消息，RpcHandler中有两个关键receive接口，带callback和不带callback参数分别处理RpcRequest和OneWayMessage。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public abstract class RpcHandler &#123;</div><div class="line"></div><div class="line">    public abstract void receive(</div><div class="line">        TransportClient client,</div><div class="line">        ByteBuffer message,</div><div class="line">        RpcResponseCallback callback</div><div class="line">    );</div><div class="line"></div><div class="line">    public void receive(TransportClient client, ByteBuffer message) &#123;</div><div class="line">        receive(client, message, ONE_WAY_CALLBACK);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>当收到RpcRequest时，处理后会在callback中发送响应消息，成功则发送RpcResponse，失败则发送RpcFailure。当收到OneWayMessage时，处理后不发送反馈。</p>
