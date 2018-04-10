@@ -29,7 +29,7 @@
 <p>Spark底层网络实现总体流程如下图所示：</p>
 <p><img src="/images/spark-network-basic.png" alt=""></p>
 <p>客户端发送请求消息，经过Encoder(一种DownHandler)编码，加上包头信息，再通过网络发给服务端，服务端收到消息后，首先经过TransportFrameDecoder(一种UpHandler)处理粘包拆包，得到消息类型和消息体，然后经过Decoder解析消息类型，得到一个个具体的请求消息，最后由TransportChannelHandler处理具体的请求消息，并根据具体的消息类型判断是否返回一个响应。类似地，响应消息传给客户端也是先经过Encoder编码，客户端先通过TransportFrameDecoder、Decoder解包消息，再通过TransportChannelHandler处理具体的响应消息。</p>
-<h2 id="Handler定义"><a href="#Handler定义" class="headerlink" title="Handler定义"></a>Handler定义</h2><p>一个message从被发送到被接收需要经过”MessageEncoder→TransportLayer→TransportFrameDecoder→MessageDecoder→TransportChannelHandler”，下面按照这一过程详细阐述各handler的作用。</p>
+<h2 id="Handler定义"><a href="#Handler定义" class="headerlink" title="Handler定义"></a>Handler定义</h2><p>一个message从被发送到被接收需要经过”MessageEncoder → TransportLayer → TransportFrameDecoder → MessageDecoder → TransportChannelHandler”，下面按照这一过程详细阐述各handler的作用。</p>
 <p>一个message进入网络前，需要经过MessageEncoder编码，加上包头信息，以便后续收包时正确粘包拆包。头信息主要是包括三部分：</p>
 <ul>
 <li>帧长度</li>
