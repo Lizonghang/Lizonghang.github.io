@@ -2752,44 +2752,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[PIL中的概念]]></title>
-      <url>http://lizonghang.github.io/2016/07/07/PIL%E4%B8%AD%E7%9A%84%E6%A6%82%E5%BF%B5/</url>
-      <content type="html"><![CDATA[<h1 id="Bands-频段"><a href="#Bands-频段" class="headerlink" title="Bands(频段)"></a>Bands(频段)</h1><p>一张图片可以由一个或多个数据频段组成，PIL库支持在一张图片中存储多个频段，它们具有相同的尺寸和深度。要获取图像中频段的数量和名称，可使用<code>getbands()</code>方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; im = Image.open(&apos;lena.jpg&apos;)</div><div class="line">&gt;&gt;&gt; im.getbands()</div><div class="line">(&apos;R&apos;, &apos;G&apos;, &apos;B&apos;)</div></pre></td></tr></table></figure>
-<h1 id="Mode-模式"><a href="#Mode-模式" class="headerlink" title="Mode(模式)"></a>Mode(模式)</h1><p>图像的模式定义了图片中像素的类型和深度。最新发行版支持下列标准模式：</p>
-<ul>
-<li>1        - 1bit像素，黑白，每个字节存储一个像素</li>
-<li>L        - 8bit像素，灰度</li>
-<li>P        - 8bit像素，用调色盘索引到其他模式</li>
-<li>RGB    - 3x8bit像素，真彩</li>
-<li>RGBA    - 4x8bit像素，真彩，带透明遮罩</li>
-<li>CMYK    - 4x8bit像素，分色</li>
-<li>YCbCr    - 3x8bit像素，彩色视频格式</li>
-<li>I        - 32bit有符号整数像素</li>
-<li>F        - 32bit浮点像素</li>
-</ul>
-<p>PIL同时对一些特殊的模式提供有限的支持，包括LA，RGBX，RGBa，但PIL不支持用户自定义的模式。如果要处理其他模式，可使用图像对象序列。</p>
-<h1 id="Size-大小"><a href="#Size-大小" class="headerlink" title="Size(大小)"></a>Size(大小)</h1><p>可以通过<code>size</code>属性获取图像大小。这是一个二元元组，含有水平像素尺寸和竖直像素尺寸。</p>
-<h1 id="Coordinate-System-坐标系统"><a href="#Coordinate-System-坐标系统" class="headerlink" title="Coordinate System(坐标系统)"></a>Coordinate System(坐标系统)</h1><p>PIL使用了笛卡尔的像素坐标系统，左上角为坐标原点。坐标通常以二元元组的形式传递给库使用。矩形需要表示为四元元组，左上角的坐标优先给出。比如，一个包含有800x600像素的图片可写作(0,0,800,600)。</p>
-<h1 id="Palette-调色盘"><a href="#Palette-调色盘" class="headerlink" title="Palette(调色盘)"></a>Palette(调色盘)</h1><p>调色盘模式P使用调色盘来定义每个像素实际的颜色。</p>
-<h1 id="Info-信息"><a href="#Info-信息" class="headerlink" title="Info(信息)"></a>Info(信息)</h1><p>你可以使用<code>info</code>属性给图片添加辅助信息。这是一个字典对象。当加载或保存图像文件时能够处理多少信息决定于文件格式处理器。大多数处理器加载图像时给<code>info</code>添加属性，但在存储图片时会忽略掉。</p>
-<h1 id="Filters-过滤器"><a href="#Filters-过滤器" class="headerlink" title="Filters(过滤器)"></a>Filters(过滤器)</h1><p>对于输入多个像素输出单个像素的几何操作，PIL库提供了四种不同的重取样过滤器。</p>
-<p><code>NEAREST</code> - 取出与输入图像最相近的像素，忽略其他输入像素</p>
-<p><code>BILINEAR</code> - 在输入图像中2x2环境下使用线性内插。在当前PIL版本，过滤器采样时使用一个固定的输入环境</p>
-<p><code>BICUBIC</code> - 在输入图像中的4x4环境使用三次内插。在当前PIL版本，过滤器采样时使用一个固定的输入环境</p>
-<p><code>ANTIALIAS</code> - 使用一个高质量的重采样过滤器计算所有可能对输出有影响的像素来得到输出像素。在当前PIL版本，过滤器只能被用在<code>resize()</code>和<code>thumbnail()</code>方法。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> PIL </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[快速入门PIL]]></title>
       <url>http://lizonghang.github.io/2016/07/05/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8PIL/</url>
       <content type="html"><![CDATA[<h1 id="使用Image类"><a href="#使用Image类" class="headerlink" title="使用Image类"></a>使用Image类</h1><p>PIL中最重要的类是<code>Image</code>类，可以通过多种方法创建这个类的实例。可以从文件加载图像，或者处理其他图像，或者从scratch创建。</p>
@@ -2884,7 +2846,7 @@
       
         <categories>
             
-            <category> PIL </category>
+            <category> Python </category>
             
         </categories>
         
