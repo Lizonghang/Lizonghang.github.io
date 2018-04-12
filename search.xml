@@ -12,61 +12,7 @@
 <p><img src="/img/dp-coin.jpg" alt=""></p>
 <p>Implementation by Python:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">VALUES = [1, 10, 21, 34, 70, 100, 350, 1225, 1500]</div><div class="line">n = len(VALUES)</div><div class="line">x = 140</div><div class="line"></div><div class="line">F = [0]*(x+1)</div><div class="line">record = [0]*(x+1)</div><div class="line"></div><div class="line">for i in range(1, x+1):</div><div class="line">    max_VALUES = i</div><div class="line">    value = 0</div><div class="line">    for j in range(n):</div><div class="line">        if i &gt;= VALUES[j]:</div><div class="line">            if F[i-VALUES[j]]+1 &lt;= max_VALUES and (i==VALUES[j] or record[i-VALUES[j]]!=0):</div><div class="line">                max_VALUES = F[i-VALUES[j]]+1</div><div class="line">                value = VALUES[j]</div><div class="line">    F[i] = max_VALUES</div><div class="line">    record[i] = value</div><div class="line"></div><div class="line">while x:</div><div class="line">    print record[x]</div><div class="line">    x -= record[x]</div></pre></td></tr></table></figure>
-<script>
-(function () {
-  var newMathJax = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js';
-  var oldMathJax = 'cdn.mathjax.org/mathjax/latest/MathJax.js';
-
-  var replaceScript = function (script, src) {
-    //
-    //  Make redirected script
-    //
-    var newScript = document.createElement('script');
-    newScript.src = newMathJax + src.replace(/.*?(\?|$)/, '$1');
-    //
-    //  Move onload and onerror handlers to new script
-    //
-    newScript.onload = script.onload; 
-    newScript.onerror = script.onerror;
-    script.onload = script.onerror = null;
-    //
-    //  Move any content (old-style configuration scripts)
-    //
-    while (script.firstChild) newScript.appendChild(script.firstChild);
-    //
-    //  Copy script id
-    //
-    if (script.id != null) newScript.id = script.id;
-    //
-    //  Replace original script with new one
-    //
-    script.parentNode.replaceChild(newScript, script);
-    //
-    //  Issue a console warning
-    //
-    console.warn('WARNING: cdn.mathjax.org has been retired. Check https://www.mathjax.org/cdn-shutting-down/ for migration tips.')
-  }
-
-  if (document.currentScript) {
-    var script = document.currentScript;
-    replaceScript(script, script.src);
-  } else {
-    //
-    // Look for current script by searching for one with the right source
-    //
-    var n = oldMathJax.length;
-    var scripts = document.getElementsByTagName('script');
-    for (var i = 0; i < scripts.length; i++) {
-      var script = scripts[i];
-      var src = (script.src || '').replace(/.*?:\/\//,'');
-      if (src.substr(0, n) === oldMathJax) {
-        replaceScript(script, src);
-        break;
-      }
-    }
-  }
-})();
-</script>]]></content>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js" type="text/javascript"></script>]]></content>
       
         <categories>
             
