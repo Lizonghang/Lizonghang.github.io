@@ -7,20 +7,54 @@
       <title><![CDATA[DP-Knapsack]]></title>
       <url>http://lizonghang.github.io/2018/04/12/DP-knapsack/</url>
       <content type="html"><![CDATA[<p><strong>We are given 7 items and a knapsack. Each item i has weight of w<sub>i</sub> &gt; 0 kilograms and value of v<sub>i</sub> &gt; 0 dollars (given in table). The capacity of the knapsack is 14 kilograms. Then how to fill the knapsack to maximize the total value?</strong></p>
-<center>
-
-|Items|Weight|Value|
-|:-:|:-:|:-:|
-|1|3|2|
-|2|4|3|
-|3|2|3|
-|4|2|1|
-|5|7|6|
-|6|5|3|
-|7|6|5|
-
-</center>
-
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Items</th>
+<th style="text-align:center">Weight</th>
+<th style="text-align:center">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">6</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">5</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>transition function:</p>
 <div align="center"><img src="/img/305FAC24-C7EA-491F-9F4A-5B67D72E596A.png" width="300px" height="200px"></div>
 
@@ -29,20 +63,177 @@
 <p>Implementation by Python:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">import numpy as np</div><div class="line"></div><div class="line">N = 7</div><div class="line">C = 14</div><div class="line">W = [3, 4, 2, 2, 7, 5, 6]</div><div class="line">V = [2, 3, 3, 1, 6, 3, 5]</div><div class="line"></div><div class="line">assert N == len(W)</div><div class="line">assert N == len(V)</div><div class="line"></div><div class="line">M = np.zeros((N+1, C+1), dtype=int)</div><div class="line"></div><div class="line">for i in range(1, N+1):</div><div class="line">    for w in range(1, C+1):</div><div class="line">        if W[i-1] &gt; w:</div><div class="line">            M[i, w] = M[i-1, w]</div><div class="line">        else:</div><div class="line">            M[i, w] = max(M[i-1, w], V[i-1]+M[i-1, w-W[i-1]])</div><div class="line"></div><div class="line">print &apos;Maximum total value:&apos;, M[N][C]</div><div class="line"></div><div class="line">print &apos;Choose:&apos;,</div><div class="line">i = N</div><div class="line">j = C</div><div class="line">while i &gt; 0 and j &gt; 0:</div><div class="line">    if M[i-1, j] != M[i, j]:</div><div class="line">        print i,</div><div class="line">        j -= W[i-1]</div><div class="line">        i -= 1</div><div class="line">    else:</div><div class="line">        i -= 1</div></pre></td></tr></table></figure>
 <p>State Transition Table:</p>
-<center>
-
-|Weight|0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-|Item|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|
-|1|0|0|0|2|2|2|2|2|2|2|2|2|2|2|2|
-|<label style="color: red">2</label>|0|0|0|2|3|<label style="color: red">3</label>|3|5|5|5|5|5|5|5|5|
-|<label style="color: red">3</label>|0|0|3|3|3|5|6|<label style="color: red">6</label>|6|8|8|8|8|8|8|
-|4|0|0|3|3|4|5|6|<label style="color: red">6</label>|7|8|8|9|9|9|9|
-|<label style="color: red">5</label>|0|0|3|3|4|5|6|6|7|9|9|10|11|12|<label style="color: red">12</label>|
-|6|0|0|3|3|4|5|6|6|7|9|9|10|11|12|<label style="color: red">12</label>|
-|7|0|0|3|3|4|5|6|6|7|9|9|10|11|12|<label style="color: red">12</label>|
-
-</center>]]></content>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Weight</th>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+<th style="text-align:center">11</th>
+<th style="text-align:center">12</th>
+<th style="text-align:center">13</th>
+<th style="text-align:center">14</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Item</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center"><label style="color: red">2</label></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center"><label style="color: red">3</label></td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td style="text-align:center"><label style="color: red">3</label></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center"><label style="color: red">6</label></td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">8</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center"><label style="color: red">6</label></td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">9</td>
+</tr>
+<tr>
+<td style="text-align:center"><label style="color: red">5</label></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center"><label style="color: red">12</label></td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center"><label style="color: red">12</label></td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center"><label style="color: red">12</label></td>
+</tr>
+</tbody>
+</table>
+</div>
+]]></content>
       
         <categories>
             
