@@ -4,6 +4,26 @@
   
     
     <entry>
+      <title><![CDATA[DP-Fewest Coin]]></title>
+      <url>http://lizonghang.github.io/2018/04/12/DP-%E6%89%BE%E9%9B%B6%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<p><strong>Given currency denominations VALUE={1, 10, 21, 34, 70, 100, 350, 1225, 1500}, devise a method to pay amount x to customer using fewest number of coins.</strong></p>
+<p>transition function:</p>
+<script type="math/tex; mode=display">F(i) = min(F(i-VALUE(j))+1)</script><script type="math/tex; mode=display">i\ge VALUE(j)</script><p>Algorithm:</p>
+<p><img src="/images/4FE36F2243BDE0C6093E03C6C81C1E8A.jpg" alt=""></p>
+<p>Implementation by Python:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">VALUES = [1, 10, 21, 34, 70, 100, 350, 1225, 1500]</div><div class="line">n = len(VALUES)</div><div class="line">x = 140</div><div class="line"></div><div class="line">F = [0]*(x+1)</div><div class="line">record = [0]*(x+1)</div><div class="line"></div><div class="line">for i in range(1, x+1):</div><div class="line">    max_VALUES = i</div><div class="line">    value = 0</div><div class="line">    for j in range(n):</div><div class="line">        if i &gt;= VALUES[j]:</div><div class="line">            if F[i-VALUES[j]]+1 &lt;= max_VALUES and (i==VALUES[j] or record[i-VALUES[j]]!=0):</div><div class="line">                max_VALUES = F[i-VALUES[j]]+1</div><div class="line">                value = VALUES[j]</div><div class="line">    F[i] = max_VALUES</div><div class="line">    record[i] = value</div><div class="line"></div><div class="line">while x:</div><div class="line">    print record[x]</div><div class="line">    x -= record[x]</div></pre></td></tr></table></figure>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>]]></content>
+      
+        
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Spark Network]]></title>
       <url>http://lizonghang.github.io/2018/04/10/Spark-Network/</url>
       <content type="html"><![CDATA[<p>文章来源：<a href="https://blog.csdn.net/struggle3014/article/details/79794031" target="_blank" rel="external">https://blog.csdn.net/struggle3014/article/details/79794031</a></p>

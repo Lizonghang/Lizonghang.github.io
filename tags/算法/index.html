@@ -57,21 +57,16 @@
 
 
 
-<meta name="description" content="滤波简介过滤是信号和图像处理中基本的任务，目的是根据应用环境的不同，选择性的提取图像中某些认为重要的信号。过滤可以移除图像中的噪音、提取感兴趣的可视特征、允许图像重采样等等。 当观察一张图片时，我们观察的是图像中有多少灰度级（或颜色）及其分布。根据灰度分布的不同来区分不同的图像。也有其他方面可以对图像进行分析，例如观察图像中灰度的变化。某些图像中包含大量强度不变的区域（如蓝天），而在其他图像中的灰">
-<meta property="og:type" content="article">
-<meta property="og:title" content="滤波">
-<meta property="og:url" content="http://lizonghang.github.io/2016/07/24/滤波/index.html">
+<meta name="description" content="学习日志">
+<meta property="og:type" content="website">
+<meta property="og:title" content="努力学习天天向上">
+<meta property="og:url" content="http://lizonghang.github.io/tags/算法/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="滤波简介过滤是信号和图像处理中基本的任务，目的是根据应用环境的不同，选择性的提取图像中某些认为重要的信号。过滤可以移除图像中的噪音、提取感兴趣的可视特征、允许图像重采样等等。 当观察一张图片时，我们观察的是图像中有多少灰度级（或颜色）及其分布。根据灰度分布的不同来区分不同的图像。也有其他方面可以对图像进行分析，例如观察图像中灰度的变化。某些图像中包含大量强度不变的区域（如蓝天），而在其他图像中的灰">
+<meta property="og:description" content="学习日志">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://lizonghang.github.io/images/lena.jpg">
-<meta property="og:image" content="http://lizonghang.github.io/images/blur.png">
-<meta property="og:image" content="http://lizonghang.github.io/images/median.png">
-<meta property="og:updated_time" content="2016-07-24T11:00:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="滤波">
-<meta name="twitter:description" content="滤波简介过滤是信号和图像处理中基本的任务，目的是根据应用环境的不同，选择性的提取图像中某些认为重要的信号。过滤可以移除图像中的噪音、提取感兴趣的可视特征、允许图像重采样等等。 当观察一张图片时，我们观察的是图像中有多少灰度级（或颜色）及其分布。根据灰度分布的不同来区分不同的图像。也有其他方面可以对图像进行分析，例如观察图像中灰度的变化。某些图像中包含大量强度不变的区域（如蓝天），而在其他图像中的灰">
-<meta name="twitter:image" content="http://lizonghang.github.io/images/lena.jpg">
+<meta name="twitter:title" content="努力学习天天向上">
+<meta name="twitter:description" content="学习日志">
 
 
 
@@ -89,7 +84,7 @@
   };
 </script>
 
-  <title> 滤波 | 努力学习天天向上 </title>
+  <title> 标签: 算法 | 努力学习天天向上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -119,7 +114,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-right page-post-detail ">
+  <div class="container one-collumn sidebar-position-right  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -230,157 +225,46 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                滤波
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-24T17:22:27+08:00" content="2016-07-24">
-              2016-07-24
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python-OpenCV/" itemprop="url" rel="index">
-                    <span itemprop="name">Python-OpenCV</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h1 id="滤波简介"><a href="#滤波简介" class="headerlink" title="滤波简介"></a>滤波简介</h1><p>过滤是信号和图像处理中基本的任务，目的是根据应用环境的不同，选择性的提取图像中某些认为重要的信号。过滤可以移除图像中的噪音、提取感兴趣的可视特征、允许图像重采样等等。</p>
-<p>当观察一张图片时，我们观察的是图像中有多少灰度级（或颜色）及其分布。根据灰度分布的不同来区分不同的图像。也有其他方面可以对图像进行分析，例如观察图像中灰度的变化。某些图像中包含大量强度不变的区域（如蓝天），而在其他图像中的灰度变化可能会非常快（如包含许多小物体的拥挤的图像）。因此，观察图像中这些变化的频率就构成了另一条分类图像的方法，这个观点称为频域。而通过观察图像灰度分布来分类图像称为空间域。</p>
-<p>频域分析将图像分成从低频到高频的不同部分。低频对应图像强度变化小的区域，而高频是图像强度变化非常大的区域。目前存在若干种转换方法，如傅里叶变换或余弦变换，可以用来清晰地显示图像的频率。由于图像是一个二维实体，所以其频率由水平频率和竖直频率共同组成。</p>
-<p>在频率分析领域的框架中，滤波器是一个用来增强图像中某个波段或频率并阻塞（或降低）其他频率波段的操作。低通滤波器是消除图像中的高频部分，保留低频部分。高通滤波器消除低频部分，保留高频部分。</p>
-<p>这里只介绍在 OpenCV-Python 中实现的初级滤波操作，之后介绍更复杂的滤波原理及实现。</p>
-<p>以下图为例：</p>
-<p><img src="/images/lena.jpg" alt=""></p>
-<h1 id="低通滤波平滑图像"><a href="#低通滤波平滑图像" class="headerlink" title="低通滤波平滑图像"></a>低通滤波平滑图像</h1><h2 id="初级低通滤波"><a href="#初级低通滤波" class="headerlink" title="初级低通滤波"></a>初级低通滤波</h2><p>低通滤波器的目标是降低图像的变化率。如将每个像素替换为该像素周围像素的均值，这样就可以平滑并替代那些强度变化明显的区域。在 OpenCV 中可以通过 <code>cv2.blur()</code> 来实现：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dst = cv2.blur(im, (5,5))</div></pre></td></tr></table></figure>
-<p>其中 <code>dst</code> 是函数处理后返回的图像，第一个参数是待处理图像，第二个参数是低通滤波器的大小。其后含有几个可选参数用来设置滤波器的细节。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">import cv2</div><div class="line"></div><div class="line">im = cv2.imread(&apos;lena.jpg&apos;)</div><div class="line">blured = cv2.blur(im, (5,5))</div><div class="line"></div><div class="line">cv2.namedWindow(&apos;Origin&apos;, cv2.WINDOW_NORMAL)</div><div class="line">cv2.namedWindow(&apos;Blur&apos;, cv2.WINDOW_NORMAL)</div><div class="line">cv2.imshow(&apos;Origin&apos;, im)</div><div class="line">cv2.imshow(&apos;Blur&apos;, blured)</div><div class="line">if cv2.waitKey(0) == 27:</div><div class="line">    cv2.destroyAllWindows()</div></pre></td></tr></table></figure>
-<p>效果图如下：</p>
-<p><img src="/images/blur.png" alt=""></p>
-<p>这种滤波器又称为 boxfilter，所以也可使用 <code>cv2.boxFilter()</code> 完成相同的工作。如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dst = cv2.boxFilter(im, -1, (5,5))</div></pre></td></tr></table></figure>
-<p>该函数与 <code>cv2.blur()</code> 效果完全相同，第二个参数 -1 表示输出图像使用的深度与输入图像相同。</p>
-<h2 id="高斯模糊"><a href="#高斯模糊" class="headerlink" title="高斯模糊"></a>高斯模糊</h2><p>在某些情况下需要对一个像素的周围像素给予更多的重视。因此可用分配权重来重新计算这些周围点的值，可以通过高斯函数的权重方案来解决。<code>cv2.GaussianBlur()</code> 可作为滤波器，用以下方式调用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dst = cv2.GaussianBlur(im, (5,5), 1.5)</div></pre></td></tr></table></figure>
-<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p>低通滤波与高斯滤波不同之处在于：低通滤波中，滤波器中每个像素的权重是相同的，即滤波器是线性的。而高斯滤波器中像素的权重与其距中心像素的距离成比例。</p>
-<h1 id="中值滤波消除噪点"><a href="#中值滤波消除噪点" class="headerlink" title="中值滤波消除噪点"></a>中值滤波消除噪点</h1><p>中值滤波器对于消除椒盐现象很有用。调用方法与调用其他滤波器类似，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dst = cv2.medianBlur(im, 5)</div></pre></td></tr></table></figure>
-<p>函数返回处理结果，第一个参数是待处理图像，第二个参数是孔径尺寸，是一个大于 1 的奇数。比如上面就会使用 5x5 领域组成一个数值集，对其进行处理，当前像素被均值替换。</p>
-<p>若在某个像素周围有白色或黑色的像素，这些白色或黑色的像素不会选择作为中值（最大或最小值排除），而是被替换为领域值。代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">import cv2</div><div class="line"></div><div class="line">im = cv2.imread(&apos;saltImg.jpg&apos;)</div><div class="line">median = cv2.medianBlur(im, 5)</div><div class="line"></div><div class="line">cv2.namedWindow(&apos;Salt&apos;, cv2.WINDOW_NORMAL)</div><div class="line">cv2.namedWindow(&apos;Median&apos;, cv2.WINDOW_NORMAL)</div><div class="line">cv2.imshow(&apos;Salt&apos;, im)</div><div class="line">cv2.imshow(&apos;Median&apos;, median)</div><div class="line">if cv2.waitKey(0) == 27:</div><div class="line">    cv2.destroyAllWindow()</div></pre></td></tr></table></figure>
-<p>处理结果如下：</p>
-<p><img src="/images/median.png" alt=""></p>
-<p>由于中值滤波不会处理最大和最小值，所以不会受噪声影响。相反，如果直接采用 <code>cv2.blur()</code> 进行均值滤波，则不会区分这些噪声点，滤波后的图像会受到噪声的影响。</p>
-<p>中值滤波器在处理边缘也有优势，但中值滤波器会清除掉某些区域的纹理，如头发纹理。</p>
-
-      
+  <div id="posts" class="posts-collapse">
+    <div class="collection-title">
+      <h2 >
+        算法
+        <small>标签</small>
+      </h2>
     </div>
 
-    <div>
+    
       
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
         
-      
-    </div>
+            <a class="post-title-link" href="/2018/04/12/DP-找零问题/" itemprop="url">
+              
+                <span itemprop="name">DP-Fewest Coin</span>
+              
+            </a>
+        
+      </h1>
 
-    <footer class="post-footer">
-      
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2018-04-12T10:27:59+08:00"
+              content="2018-04-12" >
+          04-12
+        </time>
+      </div>
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/07/23/形态学处理/" rel="next" title="形态学处理">
-                <i class="fa fa-chevron-left"></i> 形态学处理
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/24/Sobel算子/" rel="prev" title="Sobel算子">
-                Sobel算子 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
-      
-    </div>
+    
   </div>
+
+  
 
 
           </div>
@@ -388,10 +272,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -411,17 +291,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -484,17 +355,6 @@
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#滤波简介"><span class="nav-number">1.</span> <span class="nav-text">滤波简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#低通滤波平滑图像"><span class="nav-number">2.</span> <span class="nav-text">低通滤波平滑图像</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#初级低通滤波"><span class="nav-number">2.1.</span> <span class="nav-text">初级低通滤波</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高斯模糊"><span class="nav-number">2.2.</span> <span class="nav-text">高斯模糊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区别"><span class="nav-number">2.3.</span> <span class="nav-text">区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#中值滤波消除噪点"><span class="nav-number">3.</span> <span class="nav-text">中值滤波消除噪点</span></a></li></ol></div>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -586,10 +446,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
-
-
 
   
 
