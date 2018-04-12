@@ -6,27 +6,13 @@
     <entry>
       <title><![CDATA[DP-Fewest Coin]]></title>
       <url>http://lizonghang.github.io/2018/04/12/DP-%E6%89%BE%E9%9B%B6%E9%97%AE%E9%A2%98/</url>
-      <content type="html"><![CDATA[<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    jax: ["input/TeX", "output/HTML-CSS"],
-    tex2jax: {
-        inlineMath: [ ['$', '$'] ],
-        displayMath: [ ['$$', '$$']],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    messageStyle: "none",
-    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
-});
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-<p><strong>Given currency denominations VALUE={1, 10, 21, 34, 70, 100, 350, 1225, 1500}, devise a method to pay amount x to customer using fewest number of coins.</strong></p>
+      <content type="html"><![CDATA[<p><strong>Given currency denominations VALUE={1, 10, 21, 34, 70, 100, 350, 1225, 1500}, devise a method to pay amount x to customer using fewest number of coins.</strong></p>
 <p>transition function:</p>
 <script type="math/tex; mode=display">F(i) = min(F(i-VALUE(j))+1)</script><script type="math/tex; mode=display">i\ge VALUE(j)</script><p>Algorithm:</p>
 <p><img src="/img/dp-coin.jpg" alt=""></p>
 <p>Implementation by Python:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">VALUES = [1, 10, 21, 34, 70, 100, 350, 1225, 1500]</div><div class="line">n = len(VALUES)</div><div class="line">x = 140</div><div class="line"></div><div class="line">F = [0]*(x+1)</div><div class="line">record = [0]*(x+1)</div><div class="line"></div><div class="line">for i in range(1, x+1):</div><div class="line">    max_VALUES = i</div><div class="line">    value = 0</div><div class="line">    for j in range(n):</div><div class="line">        if i &gt;= VALUES[j]:</div><div class="line">            if F[i-VALUES[j]]+1 &lt;= max_VALUES and (i==VALUES[j] or record[i-VALUES[j]]!=0):</div><div class="line">                max_VALUES = F[i-VALUES[j]]+1</div><div class="line">                value = VALUES[j]</div><div class="line">    F[i] = max_VALUES</div><div class="line">    record[i] = value</div><div class="line"></div><div class="line">while x:</div><div class="line">    print record[x]</div><div class="line">    x -= record[x]</div></pre></td></tr></table></figure>]]></content>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">VALUES = [1, 10, 21, 34, 70, 100, 350, 1225, 1500]</div><div class="line">n = len(VALUES)</div><div class="line">x = 140</div><div class="line"></div><div class="line">F = [0]*(x+1)</div><div class="line">record = [0]*(x+1)</div><div class="line"></div><div class="line">for i in range(1, x+1):</div><div class="line">    max_VALUES = i</div><div class="line">    value = 0</div><div class="line">    for j in range(n):</div><div class="line">        if i &gt;= VALUES[j]:</div><div class="line">            if F[i-VALUES[j]]+1 &lt;= max_VALUES and (i==VALUES[j] or record[i-VALUES[j]]!=0):</div><div class="line">                max_VALUES = F[i-VALUES[j]]+1</div><div class="line">                value = VALUES[j]</div><div class="line">    F[i] = max_VALUES</div><div class="line">    record[i] = value</div><div class="line"></div><div class="line">while x:</div><div class="line">    print record[x]</div><div class="line">    x -= record[x]</div></pre></td></tr></table></figure>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>]]></content>
       
         <categories>
             
