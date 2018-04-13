@@ -1,0 +1,783 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="FaceNet: https://arxiv.org/pdf/1503.03832.pdf FaceNet流程总览 FaceNet的总体流程为：输入图像通过由Inception-ResNet v2作为Feature Encoder的模型产生128-d的输出向量，通过L2 regularization后得到128-d Face Embedding vectors，选择有效的Anchor-Positi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="facenet">
+<meta property="og:url" content="http://lizonghang.github.io/2018/04/13/facenet/index.html">
+<meta property="og:site_name" content="努力学习天天向上">
+<meta property="og:description" content="FaceNet: https://arxiv.org/pdf/1503.03832.pdf FaceNet流程总览 FaceNet的总体流程为：输入图像通过由Inception-ResNet v2作为Feature Encoder的模型产生128-d的输出向量，通过L2 regularization后得到128-d Face Embedding vectors，选择有效的Anchor-Positi">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://lizonghang.github.io/img/A55C2C378E4BB29A9B613C70587620F1.jpg">
+<meta property="og:image" content="http://lizonghang.github.io/img/BD4972A9-6A71-4091-8BA1-2049AB5C668B.jpeg">
+<meta property="og:image" content="http://lizonghang.github.io/img/999C9296-694D-4D5E-9DBD-7B908AE829BF.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/079E5673-CF5E-473D-B542-FA3723B8948B.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/0F40CF02-B9DA-4449-A76E-09BDFE4C7970.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/403034BB-7187-4F57-AF10-9EE91AAB503E.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/2DEB07B0-CB77-4B6F-B00F-96B1E327155F.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/BF8B5B2F-885B-4626-AC74-51AA0CB74A77.png">
+<meta property="og:updated_time" content="2018-04-13T01:58:21.446Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="facenet">
+<meta name="twitter:description" content="FaceNet: https://arxiv.org/pdf/1503.03832.pdf FaceNet流程总览 FaceNet的总体流程为：输入图像通过由Inception-ResNet v2作为Feature Encoder的模型产生128-d的输出向量，通过L2 regularization后得到128-d Face Embedding vectors，选择有效的Anchor-Positi">
+<meta name="twitter:image" content="http://lizonghang.github.io/img/A55C2C378E4BB29A9B613C70587620F1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> facenet | 努力学习天天向上 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80234286-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">努力学习天天向上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">学习日志</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                facenet
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-04-13T08:30:48+08:00" content="2018-04-13">
+              2018-04-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML-DL/" itemprop="url" rel="index">
+                    <span itemprop="name">ML/DL</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>FaceNet: <a href="https://arxiv.org/pdf/1503.03832.pdf" target="_blank" rel="external">https://arxiv.org/pdf/1503.03832.pdf</a></p>
+<h1 id="FaceNet流程总览"><a href="#FaceNet流程总览" class="headerlink" title="FaceNet流程总览"></a>FaceNet流程总览</h1><p><img src="/img/A55C2C378E4BB29A9B613C70587620F1.jpg" alt=""></p>
+<p>FaceNet的总体流程为：输入图像通过由Inception-ResNet v2作为Feature Encoder的模型产生128-d的输出向量，通过L2 regularization后得到128-d Face Embedding vectors，选择有效的Anchor-Positive Pairs和Anchor-Negative Pairs计算得到Triplet Loss，并利用SGD对Feature Encoder的网络参数进行更新，最终训练得到的是输入人脸图像到人脸的128-d编码的脸部特征向量的脸部特征编码器(而不是人脸分类器)，MAP(X<sub>im</sub>)→128-d embedding，最终利用NN(最近邻)计算128-d embedding相似度(文中采用欧式距离作为相似度)得到人脸的身份信息，若相似度超过某个阈值，则认为是未知用户。</p>
+<p>FaceNet的Feature Encoder采用了VGG-like model和Inception-ResNet v2 model，Inception-ResNet v2相比VGG-like model主要有两点好处：</p>
+<ul>
+<li>20x fewer parameters(140M→7M) and fewer FLOPS(1.6B→0.5B~1.6B);</li>
+<li>State-of-the-art performance on validation rate (87.9%±1.9→89.4%±1.6).</li>
+</ul>
+<h1 id="Triplet-Loss"><a href="#Triplet-Loss" class="headerlink" title="Triplet Loss"></a>Triplet Loss</h1><p><img src="/img/BD4972A9-6A71-4091-8BA1-2049AB5C668B.jpeg" alt=""></p>
+<p>假设给定人脸A的两张图片Anchor、Positive，人脸B的一张图片Negative，令d表示相似度计算函数(值越小表示相似度越高，为方便说明，后续采用欧式距离描述相似度)。训练目标为，令Anchor和Positive的距离小于Anchor和Negative的距离，即：</p>
+<p><img src="/img/999C9296-694D-4D5E-9DBD-7B908AE829BF.png" alt=""></p>
+<p>然而，考虑一个无效的Feature Encoder，它将所有图像都映射到某个向量在极小区域范围内的embedding(不同但基本相同)，就能够较好的满足上述条件，且得到的损失几乎为零。为了避免这种情况，额外加入margin α拉大AP(Anchor-Positive Pair)和AN(Anchor-Negative Pair)之间的差距，即：</p>
+<p><img src="/img/079E5673-CF5E-473D-B542-FA3723B8948B.png" alt=""></p>
+<p>取batch size = N的批量图像，对上述式子变形，得到三元组损失函数(Triplet Loss)：</p>
+<p><img src="/img/0F40CF02-B9DA-4449-A76E-09BDFE4C7970.png" alt=""></p>
+<p>其中x<sub>i</sub>表示输入图像，f(·)表示Feature Encoder的映射函数，+表示L=max(L, 0)。</p>
+<p>将Triplet Loss作为损失函数反向传播并梯度下降更新，最终训练得到好的Feature Encoder。</p>
+<h1 id="如何选择AP-amp-AN-pairs"><a href="#如何选择AP-amp-AN-pairs" class="headerlink" title="如何选择AP&amp;AN pairs"></a>如何选择AP&amp;AN pairs</h1><p>问题：随机采样AP&amp;AN pairs时，训练一段时间后容易产生L≈0的epoch，这些APN对对于模型训练是无贡献的，直接导致了训练的低效。</p>
+<p>解决思路：选择“难训练”的AP&amp;AN pairs，应用SGD进行更新。“难训练”是指，AP pair的距离大，而AN pair的距离小，从而产生较大的L。</p>
+<p>解决方法：</p>
+<ul>
+<li>Generate triplets offline. Every n steps, using the most recent network checkpoint and computing the argmin(d(A,N)) and argmax(d(A,P)) on a subset of the data.</li>
+<li>Generate triplets online. Select the hard AP&amp;AN pairs from within a mini-batch.</li>
+</ul>
+<h1 id="最近邻识别-NN"><a href="#最近邻识别-NN" class="headerlink" title="最近邻识别(NN)"></a>最近邻识别(NN)</h1><p>人脸数据集是自己收集的证件照图像库吗？不。在Face Recognition中有两个模型，一个是Feature Encoder的Inception-ResNet v2模型，另一个是真正用于分类的NN模型。</p>
+<p>用于训练Inception-ResNet v2的数据集是LFW等公开的人脸识别数据集，训练好Face Encoder后，将证件照图像库中每张图片进行face embedding后存于数据库中，用于分类任务。</p>
+<p><strong>NOTE</strong>：FaceNet对输入图像使用<a href="https://kpzhang93.github.io/MTCNN_face_detection_alignment/paper/spl.pdf" target="_blank" rel="external">MTCNN</a>进行人脸检测与截取，保证了输入到Face Encoder的人脸图像都是较为统一的。但没有对人脸角度或光照等问题进行处理。</p>
+<p><img src="/img/403034BB-7187-4F57-AF10-9EE91AAB503E.png" alt=""></p>
+<p><strong>NOTE</strong>：请忽视图中红色点与蓝色点的颜色，每个点代表一个人的一张证件照，每个人也只需录入一张证件照(当然若有多张证件照有利于分类精度的提高)，此类任务也称one-shot学习。</p>
+<p>当获取到需要识别的人脸图像X时，将X进行face embedding后计算其与数据库中的所有编码的距离，将距离最小的作为识别结果。定义一个超参数τ，若最小距离d<sub>min</sub> &gt; τ，则认为X是未知人员，实验中需根据具体情况调整τ的值。</p>
+<h1 id="类似的应用"><a href="#类似的应用" class="headerlink" title="类似的应用"></a>类似的应用</h1><p>除Face Recognition外，Face Validation和Face Cluster也使用了类似的方法，区别仅在于：</p>
+<ul>
+<li>Face Validation将NN替换为简单的计算当前人脸与要求验证的目标身份存于数据库中的人脸的相似度，若小于某个阈值，则验证通过；</li>
+<li>Face Cluster将NN替换为KMeans等聚类算法。</li>
+</ul>
+<h1 id="DeepFace简介"><a href="#DeepFace简介" class="headerlink" title="DeepFace简介"></a>DeepFace简介</h1><p>DeepFace: <a href="https://www.cs.toronto.edu/~ranzato/publications/taigman_cvpr14.pdf" target="_blank" rel="external">https://www.cs.toronto.edu/~ranzato/publications/taigman_cvpr14.pdf</a></p>
+<p>DeepFace在FaceNet的基础上对输入人脸图像进行了3D建模与角度调整，但DeepFace发布于FaceNet之前。其大致流程为：</p>
+<p><img src="/img/2DEB07B0-CB77-4B6F-B00F-96B1E327155F.png" alt=""></p>
+<ul>
+<li>Detect and Crop (a→b);</li>
+<li>Align to 3D model (b→d) and adjust the orientation (d→g);</li>
+<li>Represent (Face Embedding)</li>
+<li>Classify (NN)</li>
+</ul>
+<p>例：先对人脸进行3D建模与角度调整，再进行Face Embedding与Classify：</p>
+<p><img src="/img/BF8B5B2F-885B-4626-AC74-51AA0CB74A77.png" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/12/DP-knapsack/" rel="next" title="DP-Knapsack">
+                <i class="fa fa-chevron-left"></i> DP-Knapsack
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="李宗航" />
+          <p class="site-author-name" itemprop="name">李宗航</p>
+          <p class="site-description motion-element" itemprop="description">学习日志</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives/">
+              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizonghang/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FaceNet流程总览"><span class="nav-number">1.</span> <span class="nav-text">FaceNet流程总览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Triplet-Loss"><span class="nav-number">2.</span> <span class="nav-text">Triplet Loss</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何选择AP-amp-AN-pairs"><span class="nav-number">3.</span> <span class="nav-text">如何选择AP&AN pairs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最近邻识别-NN"><span class="nav-number">4.</span> <span class="nav-text">最近邻识别(NN)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类似的应用"><span class="nav-number">5.</span> <span class="nav-text">类似的应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DeepFace简介"><span class="nav-number">6.</span> <span class="nav-text">DeepFace简介</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李宗航</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+  
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/MathJax.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/config/TeX-AMS-MML_HTMLorMML.js"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
