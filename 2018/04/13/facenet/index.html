@@ -72,7 +72,7 @@
 <meta property="og:image" content="http://lizonghang.github.io/img/403034BB-7187-4F57-AF10-9EE91AAB503E.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/2DEB07B0-CB77-4B6F-B00F-96B1E327155F.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/BF8B5B2F-885B-4626-AC74-51AA0CB74A77.png">
-<meta property="og:updated_time" content="2018-04-13T02:02:30.202Z">
+<meta property="og:updated_time" content="2018-04-13T02:05:29.604Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="facenet">
 <meta name="twitter:description" content="FaceNet: https://arxiv.org/pdf/1503.03832.pdf FaceNet流程总览 FaceNet的总体流程为：输入图像通过由Inception-ResNet v2作为Feature Encoder的模型产生128-d的输出向量，通过L2 regularization后得到128-d Face Embedding vectors，选择有效的Anchor-Positi">
@@ -326,10 +326,10 @@
 <p>假设给定人脸A的两张图片Anchor、Positive，人脸B的一张图片Negative，令d表示相似度计算函数(值越小表示相似度越高，为方便说明，后续采用欧式距离描述相似度)。训练目标为，令Anchor和Positive的距离小于Anchor和Negative的距离，即：</p>
 <p><img src="/img/999C9296-694D-4D5E-9DBD-7B908AE829BF.png" alt=""></p>
 <p>然而，考虑一个无效的Feature Encoder，它将所有图像都映射到某个向量在极小区域范围内的embedding(不同但基本相同)，就能够较好的满足上述条件，且得到的损失几乎为零。为了避免这种情况，额外加入margin α拉大AP(Anchor-Positive Pair)和AN(Anchor-Negative Pair)之间的差距，即：</p>
-<div align="center"><img src="/img/079E5673-CF5E-473D-B542-FA3723B8948B.png" width="250px"></div>
+<div align="center"><img src="/img/079E5673-CF5E-473D-B542-FA3723B8948B.png" width="300px"></div>
 
 <p>取batch size = N的批量图像，对上述式子变形，得到三元组损失函数(Triplet Loss)：</p>
-<div align="center"><img src="/img/0F40CF02-B9DA-4449-A76E-09BDFE4C7970.png" width="500px"></div>
+<div align="center"><img src="/img/0F40CF02-B9DA-4449-A76E-09BDFE4C7970.png" width="400px"></div>
 
 <p>其中x<sub>i</sub>表示输入图像，f(·)表示Feature Encoder的映射函数，+表示L=max(L, 0)。</p>
 <p>将Triplet Loss作为损失函数反向传播并梯度下降更新，最终训练得到好的Feature Encoder。</p>
