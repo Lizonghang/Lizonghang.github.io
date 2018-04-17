@@ -57,17 +57,19 @@
 
 
 
-<meta name="description" content="快速幂是求底数的n次幂的快速算法，其时间复杂度为O(log2n)，相比简单的n次累积的时间复杂度O(n)更低。 快速幂求an 以an为例，假设n=11： n可表示为二进制形式，即：1011(2) a11 = a8 × a2 × a1 = a23&amp;lt;/sup&amp;gt; × 1 × a21&amp;lt;/sup&amp;gt; × a20&amp;lt;/sup&amp;gt; 由上式可见，只需要len(1011(2)) = ⌈">
+<meta name="description" content="快速幂是求底数的n次幂的快速算法，其时间复杂度为O(log2n)，相比简单的n次累积的时间复杂度O(n)更低。 快速幂求an 以an为例，假设n=11： n可表示为二进制形式，即：1011(2)   由上式可见，只需要len(1011(2)) = ⌈log211⌉ = 4个乘项即可求得a11，则计算an的时间复杂度为O(log2n)。 123456789long pow(int a, int n)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="快速幂">
 <meta property="og:url" content="http://lizonghang.github.io/2018/04/17/快速幂/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="快速幂是求底数的n次幂的快速算法，其时间复杂度为O(log2n)，相比简单的n次累积的时间复杂度O(n)更低。 快速幂求an 以an为例，假设n=11： n可表示为二进制形式，即：1011(2) a11 = a8 × a2 × a1 = a23&amp;lt;/sup&amp;gt; × 1 × a21&amp;lt;/sup&amp;gt; × a20&amp;lt;/sup&amp;gt; 由上式可见，只需要len(1011(2)) = ⌈">
+<meta property="og:description" content="快速幂是求底数的n次幂的快速算法，其时间复杂度为O(log2n)，相比简单的n次累积的时间复杂度O(n)更低。 快速幂求an 以an为例，假设n=11： n可表示为二进制形式，即：1011(2)   由上式可见，只需要len(1011(2)) = ⌈log211⌉ = 4个乘项即可求得a11，则计算an的时间复杂度为O(log2n)。 123456789long pow(int a, int n)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-17T14:04:52.274Z">
+<meta property="og:image" content="http://lizonghang.github.io/img/42AC57F4-5D28-4384-908E-87F9973BF2AB.png">
+<meta property="og:updated_time" content="2018-04-17T14:13:45.570Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="快速幂">
-<meta name="twitter:description" content="快速幂是求底数的n次幂的快速算法，其时间复杂度为O(log2n)，相比简单的n次累积的时间复杂度O(n)更低。 快速幂求an 以an为例，假设n=11： n可表示为二进制形式，即：1011(2) a11 = a8 × a2 × a1 = a23&amp;lt;/sup&amp;gt; × 1 × a21&amp;lt;/sup&amp;gt; × a20&amp;lt;/sup&amp;gt; 由上式可见，只需要len(1011(2)) = ⌈">
+<meta name="twitter:description" content="快速幂是求底数的n次幂的快速算法，其时间复杂度为O(log2n)，相比简单的n次累积的时间复杂度O(n)更低。 快速幂求an 以an为例，假设n=11： n可表示为二进制形式，即：1011(2)   由上式可见，只需要len(1011(2)) = ⌈log211⌉ = 4个乘项即可求得a11，则计算an的时间复杂度为O(log2n)。 123456789long pow(int a, int n)">
+<meta name="twitter:image" content="http://lizonghang.github.io/img/42AC57F4-5D28-4384-908E-87F9973BF2AB.png">
 
 
 
@@ -309,7 +311,8 @@
 <p><strong>快速幂求a<sup>n</sup></strong></p>
 <p>以a<sup>n</sup>为例，假设n=11：</p>
 <p>n可表示为二进制形式，即：1011<sub>(2)</sub></p>
-<p>a<sup>11</sup> = a<sup>8</sup> × a<sup>2</sup> × a<sup>1</sup> = a<sup>2<sup>3</sup>&lt;/sup&gt; × 1 × a<sup>2<sup>1</sup>&lt;/sup&gt; × a<sup>2<sup>0</sup>&lt;/sup&gt;</sup></sup></sup></p>
+<div align="center"><img src="/img/42AC57F4-5D28-4384-908E-87F9973BF2AB.png" width="250px"></div>
+
 <p>由上式可见，只需要len(1011<sub>(2)</sub>) = ⌈log<sub>2</sub>11⌉ = 4个乘项即可求得a<sup>11</sup>，则计算a<sup>n</sup>的时间复杂度为O(log<sub>2</sub>n)。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">long pow(int a, int n)&#123;</div><div class="line">    long r=1;</div><div class="line">    while (n) &#123;</div><div class="line">        if (n &amp; 1) r *= a;</div><div class="line">        a *= a;</div><div class="line">        n &gt;&gt;= 1;</div><div class="line">    &#125;</div><div class="line">    return r;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>注意：不合理的输入可能会导致溢出。</p>
