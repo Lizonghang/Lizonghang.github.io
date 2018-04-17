@@ -57,20 +57,17 @@
 
 
 
-<meta name="description" content="轮廓检测12345678910import cv2im = cv2.imread(&amp;apos;star.png&amp;apos;)im = im.copy()gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)contours, hierarchy">
+<meta name="description" content="快速幂是求底数的n次幂的快速算法，其时间复杂度为O(log2n)，相比简单的n次累积的时间复杂度O(n)更低。 快速幂求an 以an为例，假设n=11： n可表示为二进制形式，即：1011(2) a11 = a8 × a2 × a1 = a23&amp;lt;/sup&amp;gt; × 1 × a21&amp;lt;/sup&amp;gt; × a20&amp;lt;/sup&amp;gt; 由上式可见，只需要len(1011(2)) = ⌈">
 <meta property="og:type" content="article">
-<meta property="og:title" content="轮廓检测">
-<meta property="og:url" content="http://lizonghang.github.io/2016/07/25/轮廓检测/index.html">
+<meta property="og:title" content="快速幂">
+<meta property="og:url" content="http://lizonghang.github.io/2018/04/17/快速幂/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="轮廓检测12345678910import cv2im = cv2.imread(&amp;apos;star.png&amp;apos;)im = im.copy()gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)contours, hierarchy">
+<meta property="og:description" content="快速幂是求底数的n次幂的快速算法，其时间复杂度为O(log2n)，相比简单的n次累积的时间复杂度O(n)更低。 快速幂求an 以an为例，假设n=11： n可表示为二进制形式，即：1011(2) a11 = a8 × a2 × a1 = a23&amp;lt;/sup&amp;gt; × 1 × a21&amp;lt;/sup&amp;gt; × a20&amp;lt;/sup&amp;gt; 由上式可见，只需要len(1011(2)) = ⌈">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://lizonghang.github.io/images/star.png">
-<meta property="og:image" content="http://lizonghang.github.io/images/star-edge.jpg">
-<meta property="og:updated_time" content="2016-08-13T11:07:50.000Z">
+<meta property="og:updated_time" content="2018-04-17T14:04:52.274Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="轮廓检测">
-<meta name="twitter:description" content="轮廓检测12345678910import cv2im = cv2.imread(&amp;apos;star.png&amp;apos;)im = im.copy()gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)contours, hierarchy">
-<meta name="twitter:image" content="http://lizonghang.github.io/images/star.png">
+<meta name="twitter:title" content="快速幂">
+<meta name="twitter:description" content="快速幂是求底数的n次幂的快速算法，其时间复杂度为O(log2n)，相比简单的n次累积的时间复杂度O(n)更低。 快速幂求an 以an为例，假设n=11： n可表示为二进制形式，即：1011(2) a11 = a8 × a2 × a1 = a23&amp;lt;/sup&amp;gt; × 1 × a21&amp;lt;/sup&amp;gt; × a20&amp;lt;/sup&amp;gt; 由上式可见，只需要len(1011(2)) = ⌈">
 
 
 
@@ -88,7 +85,7 @@
   };
 </script>
 
-  <title> 轮廓检测 | 努力学习天天向上 </title>
+  <title> 快速幂 | 努力学习天天向上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -250,7 +247,7 @@
             
             
               
-                轮廓检测
+                快速幂
               
             
           </h1>
@@ -262,8 +259,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-25T17:16:08+08:00" content="2016-07-25">
-              2016-07-25
+            <time itemprop="dateCreated" datetime="2018-04-17T21:36:58+08:00" content="2018-04-17">
+              2018-04-17
             </time>
           </span>
 
@@ -276,8 +273,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python-OpenCV/" itemprop="url" rel="index">
-                    <span itemprop="name">Python-OpenCV</span>
+                  <a href="/categories/算法-理论/" itemprop="url" rel="index">
+                    <span itemprop="name">算法/理论</span>
                   </a>
                 </span>
 
@@ -308,44 +305,19 @@
       
 
       
-        <h1 id="轮廓检测"><a href="#轮廓检测" class="headerlink" title="轮廓检测"></a>轮廓检测</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">import cv2</div><div class="line">im = cv2.imread(&apos;star.png&apos;)</div><div class="line">im = im.copy()</div><div class="line">gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)</div><div class="line">ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)</div><div class="line">contours, hierarchy = cv2.findContours(binary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)</div><div class="line">cv2.drawContours(im, contours, -1, (0,0,255), 3)</div><div class="line">cv2.imshow(&apos;img&apos;, im)</div><div class="line">cv2.waitKey(0)</div><div class="line">cv2.destroyAllWindows()</div></pre></td></tr></table></figure>
-<p>需要注意的是 <code>cv2.findContours()</code> 函数接受的参数为二值图，所以读取的图像要先转成灰度图，再转成二值图。</p>
-<p>原图：</p>
-<p><img src="/images/star.png" alt=""></p>
-<p>检测结果：</p>
-<p><img src="/images/star-edge.jpg" alt=""></p>
-<p>注意，<code>cv2.findContours()</code> 函数会修改输入的图像。</p>
-<h1 id="cv2-findContours"><a href="#cv2-findContours" class="headerlink" title="cv2.findContours()"></a>cv2.findContours()</h1><p>函数原型为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">contours, hierarchy = cv2.findContours(image, mode, method[, contours[, hierarchy[, offset]]])</div></pre></td></tr></table></figure>
-<p>参数说明：</p>
-<ul>
-<li>image - 输入图像</li>
-<li>mode - 轮廓的检索模式。<code>cv2.RETR_EXTERNAL</code> 只检测外轮廓；<code>RETR_LIST</code> 检测的轮廓不建立等级关系；<code>RETR_CCOMP</code> 建立两个等级的轮廓，上一层为外边界，内层为内孔的边界。如果内孔内还有连通物体，则这个物体的边界也在顶层；<code>RETR_TREE</code> 建立一个等级树结构的轮廓。</li>
-<li>method - 轮廓的近似办法。<code>cv2.CHAIN_APPROX_NONE</code> 存储所有的轮廓点，相邻的两个点的像素位置差不超过 1 ，即 max(abs(x1-x2), abs(y1-y2)) == 1；<code>cv2.CHAIN_APPROX_SIMP</code> 压缩水平方向、垂直方向、对角线方向的元素，只保留该方向的终点坐标。例如一个矩形轮廓只需要 4 个点来保存轮廓信息；<code> cv2.CHAIN_APPROX_TC89_L1</code>，CV_CHAIN_APPROX_TC89_KCOS 使用 teh-Chinl chain 近似算法。</li>
-<li>contours - 返回的轮廓</li>
-<li>hierarchy - 每条轮廓对应的属性</li>
-</ul>
-<h2 id="返回值contour"><a href="#返回值contour" class="headerlink" title="返回值contour"></a>返回值contour</h2><p><code>cv2.findContours()</code> 函数首先返回一个 list，list 中每个元素都是图像中的一个轮廓，用 numpy 中的 ndarray 表示。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">print type(contours)</div><div class="line">print type(contours[0])</div><div class="line">print len(contours)</div></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;type &apos;list&apos;&gt;</div><div class="line">&lt;type &apos;numpy.ndarray&apos;&gt;</div><div class="line">2</div></pre></td></tr></table></figure>
-<p>可以验证上述信息。可以看到本例中有两条轮廓，一个是五角星的，一个是矩形的。每个轮廓是一个 ndarray，每个 ndarray 是轮廓上的点的集合。</p>
-<p>由于知道返回的轮廓有两个，因此可以通过：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cv2.drawContours(im, contours, 0, (0,0,255), 3)</div><div class="line">cv2.drawContours(im, contours, 1, (0,255,0), 3)</div></pre></td></tr></table></figure>
-<p>分别绘制两个轮廓。同时使用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">print len(contours[0])</div><div class="line">print len(contours[1])</div></pre></td></tr></table></figure>
-<p>输出两个轮廓中存储的点的个数。可见五角星只有 5 个元素，这是因为轮廓中并不是存储轮廓上所有点，而是只存储可以用直线描述轮廓的点的个数，比如一个矩形只需要 4 个顶点就可以描述轮廓。</p>
-<h2 id="返回值hierarchy"><a href="#返回值hierarchy" class="headerlink" title="返回值hierarchy"></a>返回值hierarchy</h2><p>该函数还返回一个可选的 hierarchy 结果，这是一个 ndarray，其中元素个数和轮廓个数相同，每个轮廓 <code>contours[i]</code> 对应 4 个 hierarchy 元素 <code>hierarchy[i][0] ~ hierarchy[i][3]</code>，分别表示后一个轮廓、前一个轮廓、父轮廓、内嵌轮廓的索引编号，如果没有对应项，则该值为负数。通过如下查看各属性：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">print type(hierarchy)</div><div class="line">print hierarchy.ndim</div><div class="line">print hierarchy[0].ndim</div><div class="line">print hierarchy.shape</div></pre></td></tr></table></figure>
-<h1 id="轮廓的绘制"><a href="#轮廓的绘制" class="headerlink" title="轮廓的绘制"></a>轮廓的绘制</h1><p>OpenCV 通过 <code>cv2.drawContours()</code> 在图像上绘制轮廓。函数原型：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cv2.drawContours(image, contours, contourIdx, color[, thickness[, lineType[, hierarchy[, maxLevel[, offset ]]]]])</div></pre></td></tr></table></figure>
-<ul>
-<li>image - 在选定的图像上绘制轮廓</li>
-<li>contours - 轮廓本身，是一个 list</li>
-<li>contourIdx - 指定绘制哪条轮廓，如果为 -1 则绘制所有轮廓</li>
-<li>后续参数比较显而易见，其中 thickness 表明轮廓线宽度，如果为 -1 （<code>cv2.FILLED</code>），则为填充模式。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cv2.drawContours(im, contours, -1, (0,0,255), 2)</div><div class="line">cv2.imshow(&apos;image&apos;, im)</div><div class="line">cv2.waitKey(0)</div><div class="line">cv2.destroyAllWindows()</div></pre></td></tr></table></figure>
+        <p>快速幂是求底数的n次幂的快速算法，其<strong>时间复杂度为O(log<sub>2</sub>n)</strong>，相比简单的n次累积的时间复杂度O(n)更低。</p>
+<p><strong>快速幂求a<sup>n</sup></strong></p>
+<p>以a<sup>n</sup>为例，假设n=11：</p>
+<p>n可表示为二进制形式，即：1011<sub>(2)</sub></p>
+<p>a<sup>11</sup> = a<sup>8</sup> × a<sup>2</sup> × a<sup>1</sup> = a<sup>2<sup>3</sup>&lt;/sup&gt; × 1 × a<sup>2<sup>1</sup>&lt;/sup&gt; × a<sup>2<sup>0</sup>&lt;/sup&gt;</sup></sup></sup></p>
+<p>由上式可见，只需要len(1011<sub>(2)</sub>) = ⌈log<sub>2</sub>11⌉ = 4个乘项即可求得a<sup>11</sup>，则计算a<sup>n</sup>的时间复杂度为O(log<sub>2</sub>n)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">long pow(int a, int n)&#123;</div><div class="line">    long r=1;</div><div class="line">    while (n) &#123;</div><div class="line">        if (n &amp; 1) r *= a;</div><div class="line">        a *= a;</div><div class="line">        n &gt;&gt;= 1;</div><div class="line">    &#125;</div><div class="line">    return r;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意：不合理的输入可能会导致溢出。</p>
+<p><strong>快速幂求a<sup>b</sup> % n</strong></p>
+<p>若先求出c = a<sup>b</sup>，再求 c % n，可能会在求解过程中溢出。</p>
+<p>给出公式：(a × b) % m = [(a % m) × (b % m)] % m</p>
+<p>结合快速幂算法，在每次做乘法操作时取模，可有效降低时间复杂度以及避免数值溢出。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">int pow_mod(int a, int b, int n)&#123;</div><div class="line">    int r = 1;</div><div class="line">    while (b) &#123;</div><div class="line">        if (b &amp; 1) &#123;</div><div class="line">            r %= n;</div><div class="line">            a %= n;</div><div class="line">            r *= a;</div><div class="line">        &#125;</div><div class="line">        a %= n;</div><div class="line">        a *= a;</div><div class="line">        b &gt;&gt;= 1;</div><div class="line">    &#125;</div><div class="line">    r %= n;</div><div class="line">    return r;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -362,17 +334,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/25/霍夫变换检测直线/" rel="next" title="霍夫变换检测直线">
-                <i class="fa fa-chevron-left"></i> 霍夫变换检测直线
+              <a href="/2018/04/13/facenet/" rel="next" title="facenet">
+                <i class="fa fa-chevron-left"></i> facenet
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/26/socket网络通信——UDP客户和服务器/" rel="prev" title="socket网络通信——UDP客户和服务器">
-                socket网络通信——UDP客户和服务器 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -492,7 +460,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#轮廓检测"><span class="nav-number">1.</span> <span class="nav-text">轮廓检测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cv2-findContours"><span class="nav-number">2.</span> <span class="nav-text">cv2.findContours()</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#返回值contour"><span class="nav-number">2.1.</span> <span class="nav-text">返回值contour</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回值hierarchy"><span class="nav-number">2.2.</span> <span class="nav-text">返回值hierarchy</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#轮廓的绘制"><span class="nav-number">3.</span> <span class="nav-text">轮廓的绘制</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
