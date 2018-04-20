@@ -19,7 +19,7 @@
 <center><img src="/img/25EE11AA3B111F2A2CCA8FBADE4C6B99.jpg" style="height: 200px"></center>
 
 <h2 id="Lipschitz条件"><a href="#Lipschitz条件" class="headerlink" title="Lipschitz条件"></a>Lipschitz条件</h2><p>为了保证状态空间方程式有且仅有一个解，必须施加Lipschitz条件限制。令x和u作为赋范向量空间上某一开集M上的一个向量对，根据Lipschitz条件，存在一个常量K使得下式对M中所有的x和u都成立：</p>
-<center><img src="/img/52593B658C7BF65684B7D163F34F2CB6.jpg" style="height: 40px"></center>
+<center><img src="/img/52593B658C7BF65684B7D163F34F2CB6.jpg" style="height: 30px"></center>
 
 <p>满足上式的向量值函数F(x)被称为满足Lipschitz条件，K是F(x)的Lipschitz常数，也意味着F(x)关于x是连续的。特别地，<strong>如果所有偏导数∂F<sub>i</sub>/∂x<sub>j</sub>处处有限，则函数F(x)满足Lipschitz条件</strong>。</p>
 ]]></content>
