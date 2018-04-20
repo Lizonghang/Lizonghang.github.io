@@ -30,6 +30,11 @@
 <li>若平衡状态是稳定的，并且所有的系统轨线在时间t接近无穷的时候都收敛于x<sub>m</sub>，则称平衡状态x<sub>m</sub>是全局渐近稳定的。</li>
 </ul>
 <p>如果初始状态x(0)很接近x<sub>m</sub>，则系统的一条轨线可能会停留在平衡状态x<sub>m</sub>很小的一个邻域内，否则系统将不平衡。如果一条轨线的初始状态x(0)足够接近于平衡状态x<sub>m</sub>，则在时间t接近无穷的时候，由状态向量x(t)所描述的轨线将收敛于x<sub>m</sub>。全局渐近稳定性意味着对任意初始条件系统最终都将稳定在一个稳态上。</p>
+<h2 id="Lyapunov定理"><a href="#Lyapunov定理" class="headerlink" title="Lyapunov定理"></a>Lyapunov定理</h2><ul>
+<li>如果在x<sub>m</sub>的小邻域内存在一个正定函数V(x)，其对时间的导数在该区域内是半负定的，则平衡状态x<sub>m</sub>是稳定的。</li>
+<li>如果在x<sub>m</sub>的小邻域内存在一个正定函数V(x)，其对时间的导数在该区域内是负定的，则平衡状态x<sub>m</sub>是渐近稳定的。</li>
+</ul>
+<p>满足以上要求的标量函数V(x)叫做平衡状态x<sub>m</sub>的Lyapunov函数。定理没有给出如何寻找Lyapunov函数的提示，无法找到满足要求的Lyapunov函数不能证明系统的不稳定性</p>
 ]]></content>
       
         <categories>
