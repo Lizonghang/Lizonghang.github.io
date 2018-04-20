@@ -46,7 +46,18 @@
 <li><strong>噪声</strong>。噪声是神经动态系统的内在特征，在实际神经元中，膜噪声在突触连接处产生。</li>
 </ul>
 <p>噪声的存在需要对神经元行为利用概率论处理，涉及随机神经动力学，假设忽略噪声影响。</p>
-<h2 id="加性模型"><a href="#加性模型" class="headerlink" title="加性模型"></a>加性模型</h2><center><img src="/img/B37990A4ED43427E510DB2304B111BF1.jpg" width="500px"></center>]]></content>
+<h2 id="加性模型"><a href="#加性模型" class="headerlink" title="加性模型"></a>加性模型</h2><center><img src="/img/B37990A4ED43427E510DB2304B111BF1.jpg" width="500px"></center>
+
+<p>考虑上图所示神经元无噪声动态模型，输入电压x<sub>1</sub>(t),x<sub>2</sub>(t),···,x<sub>N</sub>(t)被用于有如下特点的电流求和连接上：</p>
+<ul>
+<li>低输入阻抗</li>
+<li>单位电流增益</li>
+<li>高输出阻抗</li>
+</ul>
+<p>突触权值w<sub>j1</sub>,w<sub>j2</sub>,···,w<sub>jN</sub>表示传导系数(电阻值的倒数)，w<sub>ji</sub>x<sub>i</sub>(t)=I<sub>i</sub>，即第i个支路的电流，直流电路干线电流是各支路电流的和：</p>
+<center><img src="/img/99216FE2BDDB7FE247B4A0712FFCA68E.jpg" style="height: 40px"></center>
+
+]]></content>
       
         <categories>
             
