@@ -22,6 +22,7 @@
 <center><img src="/img/52593B658C7BF65684B7D163F34F2CB6.jpg" style="height: 30px"></center>
 
 <p>满足上式的向量值函数F(x)被称为满足Lipschitz条件，K是F(x)的Lipschitz常数，也意味着F(x)关于x是连续的。特别地，<strong>如果所有偏导数∂F<sub>i</sub>/∂x<sub>j</sub>处处有限，则函数F(x)满足Lipschitz条件</strong>。</p>
+<h1 id="平衡状态的稳定性"><a href="#平衡状态的稳定性" class="headerlink" title="平衡状态的稳定性"></a>平衡状态的稳定性</h1><p>考虑一个自治动态系统，如果满足F(x<sub>m</sub>)=0，常向量x<sub>m</sub>∈μ称为系统的平衡(稳定)状态。速度向量dx/dt在平衡状态x<sub>m</sub>处消失，且由于解的唯一性，没有其他的解曲线能够穿过平衡状态x<sub>m</sub>。平衡状态也称为<strong>奇异点</strong>，表示在平衡点情况下轨线会退化到这个点本身。</p>
 ]]></content>
       
         <categories>
