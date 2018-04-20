@@ -8,7 +8,7 @@
       <url>http://lizonghang.github.io/2018/04/20/%E7%A5%9E%E7%BB%8F%E5%8A%A8%E5%8A%9B%E5%AD%A6/</url>
       <content type="html"><![CDATA[<p>神经网络视为非线性动力系统，并特别强调其稳定性问题，称为<strong>神经动力学(neurodynamics)</strong>。在非线性动态系统背景下，稳定性通常意味着Lyapunov稳定性，而非BIBO稳定性，因为神经元结构之中的饱和非线性激活单元使得这样的非线性系统都是BIBO稳定的。</p>
 <h1 id="动态系统"><a href="#动态系统" class="headerlink" title="动态系统"></a>动态系统</h1><p>令系统状态向量x(t)=[x<sub>1</sub>(t),x<sub>2</sub>(t),···,x<sub>N</sub>(t)]，其中连续时间t是独立变量，N为系统的阶，那么非线性动态系统的一大类动力学特征就可以用一阶微分方程组的形式给出</p>
-<center><img src="/img/1FD606074979A9C419117A7637D68FC1.jpg" height="50px"></center>]]></content>
+<center><img src="/img/1FD606074979A9C419117A7637D68FC1.jpg" height="10px"></center>]]></content>
       
         <categories>
             
