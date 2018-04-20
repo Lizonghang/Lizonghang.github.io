@@ -23,6 +23,13 @@
 
 <p>满足上式的向量值函数F(x)被称为满足Lipschitz条件，K是F(x)的Lipschitz常数，也意味着F(x)关于x是连续的。特别地，<strong>如果所有偏导数∂F<sub>i</sub>/∂x<sub>j</sub>处处有限，则函数F(x)满足Lipschitz条件</strong>。</p>
 <h1 id="平衡状态的稳定性"><a href="#平衡状态的稳定性" class="headerlink" title="平衡状态的稳定性"></a>平衡状态的稳定性</h1><p>考虑一个自治动态系统，如果满足F(x<sub>m</sub>)=0，常向量x<sub>m</sub>∈μ称为系统的平衡(稳定)状态。速度向量dx/dt在平衡状态x<sub>m</sub>处消失，且由于解的唯一性，没有其他的解曲线能够穿过平衡状态x<sub>m</sub>。平衡状态也称为<strong>奇异点</strong>，表示在平衡点情况下轨线会退化到这个点本身。</p>
+<h2 id="稳定性定义"><a href="#稳定性定义" class="headerlink" title="稳定性定义"></a>稳定性定义</h2><p><strong>定义1</strong>  若对任意给定的正数ε，存在正数δ=δ(ε)，使得当满足条件||x(0)-x<sub>m</sub>||&lt;δ时，对于所有t&gt;0恒有||x(t)-x<sub>m</sub>||&lt;ε，则称平衡状态x<sub>m</sub>为一致稳定的。</p>
+<p>定义表明：如果初始状态x(0)很接近x<sub>m</sub>，则系统的一条轨线可能会停留在平衡状态x<sub>m</sub>很小的一个邻域内，否则系统将不平衡。</p>
+<p><strong>定义2</strong>  如果存在一个正数δ，使得当||x(0)-x<sub>m</sub>||&lt;δ时，若x(t)→x<sub>m</sub>，t→∞，则称平衡状态x<sub>m</sub>为收敛的。</p>
+<p>定义表明：如果一条轨线的初始状态x(0)足够接近于平衡状态x<sub>m</sub>，则在时间t接近无穷的时候，由状态向量x(t)所描述的轨线将收敛于x<sub>m</sub>。</p>
+<p><strong>定义3</strong>  若平衡状态是稳定的、收敛的，则称平衡状态x<sub>m</sub>为渐进稳定的。</p>
+<p><strong>定义4</strong>  若平衡状态是稳定的，并且所有的系统轨线在时间t接近无穷的时候都收敛于x<sub>m</sub>，则称平衡状态x<sub>m</sub>是全局渐近稳定的。</p>
+<p>定义表明：全局渐近稳定意味着，对任意初始条件，系统最终都将稳定在一个稳态上。</p>
 ]]></content>
       
         <categories>
