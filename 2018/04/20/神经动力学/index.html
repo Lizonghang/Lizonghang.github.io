@@ -57,17 +57,17 @@
 
 
 
-<meta name="description" content="检查系统上是否已经装了MySQL1➜ netstat -tap | grep mysql 如果没有，直接用apt安装；如果已经装好了，但是不知道root密码，且没有办法获取到root密码，需要完全卸载MySQL并重装。 1234➜ sudo rm -R /var/lib/mysql/➜ sudo rm -R /etc/mysql/➜ sudo apt-get autoremove mysql* -">
+<meta name="description" content="神经网络视为非线性动力系统，并特别强调其稳定性问题，称为神经动力学(neurodynamics)。在非线性动态系统背景下，稳定性通常意味着Lyapunov稳定性，而非BIBO稳定性，因为神经元结构之中的饱和非线性激活单元使得这样的非线性系统都是BIBO稳定的。 动态系统令系统状态向量x(t)=[x1(t),x2(t),···,xN(t)]，其中连续时间t是独立变量，N为系统的阶，那么非线性动态系统">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux安装MySQL">
-<meta property="og:url" content="http://lizonghang.github.io/2018/01/10/Linux安装MySQL/index.html">
+<meta property="og:title" content="神经动力学">
+<meta property="og:url" content="http://lizonghang.github.io/2018/04/20/神经动力学/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="检查系统上是否已经装了MySQL1➜ netstat -tap | grep mysql 如果没有，直接用apt安装；如果已经装好了，但是不知道root密码，且没有办法获取到root密码，需要完全卸载MySQL并重装。 1234➜ sudo rm -R /var/lib/mysql/➜ sudo rm -R /etc/mysql/➜ sudo apt-get autoremove mysql* -">
+<meta property="og:description" content="神经网络视为非线性动力系统，并特别强调其稳定性问题，称为神经动力学(neurodynamics)。在非线性动态系统背景下，稳定性通常意味着Lyapunov稳定性，而非BIBO稳定性，因为神经元结构之中的饱和非线性激活单元使得这样的非线性系统都是BIBO稳定的。 动态系统令系统状态向量x(t)=[x1(t),x2(t),···,xN(t)]，其中连续时间t是独立变量，N为系统的阶，那么非线性动态系统">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-10T10:53:20.446Z">
+<meta property="og:updated_time" content="2018-04-20T08:09:24.784Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux安装MySQL">
-<meta name="twitter:description" content="检查系统上是否已经装了MySQL1➜ netstat -tap | grep mysql 如果没有，直接用apt安装；如果已经装好了，但是不知道root密码，且没有办法获取到root密码，需要完全卸载MySQL并重装。 1234➜ sudo rm -R /var/lib/mysql/➜ sudo rm -R /etc/mysql/➜ sudo apt-get autoremove mysql* -">
+<meta name="twitter:title" content="神经动力学">
+<meta name="twitter:description" content="神经网络视为非线性动力系统，并特别强调其稳定性问题，称为神经动力学(neurodynamics)。在非线性动态系统背景下，稳定性通常意味着Lyapunov稳定性，而非BIBO稳定性，因为神经元结构之中的饱和非线性激活单元使得这样的非线性系统都是BIBO稳定的。 动态系统令系统状态向量x(t)=[x1(t),x2(t),···,xN(t)]，其中连续时间t是独立变量，N为系统的阶，那么非线性动态系统">
 
 
 
@@ -85,7 +85,7 @@
   };
 </script>
 
-  <title> Linux安装MySQL | 努力学习天天向上 </title>
+  <title> 神经动力学 | 努力学习天天向上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -247,7 +247,7 @@
             
             
               
-                Linux安装MySQL
+                神经动力学
               
             
           </h1>
@@ -259,8 +259,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-01-10T18:32:35+08:00" content="2018-01-10">
-              2018-01-10
+            <time itemprop="dateCreated" datetime="2018-04-20T15:32:11+08:00" content="2018-04-20">
+              2018-04-20
             </time>
           </span>
 
@@ -273,8 +273,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Hadoop-Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Hadoop/Spark</span>
+                  <a href="/categories/ML-DL/" itemprop="url" rel="index">
+                    <span itemprop="name">ML/DL</span>
                   </a>
                 </span>
 
@@ -305,15 +305,22 @@
       
 
       
-        <h3 id="检查系统上是否已经装了MySQL"><a href="#检查系统上是否已经装了MySQL" class="headerlink" title="检查系统上是否已经装了MySQL"></a>检查系统上是否已经装了MySQL</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ netstat -tap | grep mysql</div></pre></td></tr></table></figure>
-<p>如果没有，直接用apt安装；如果已经装好了，但是不知道root密码，且没有办法获取到root密码，需要完全卸载MySQL并重装。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">➜ sudo rm -R /var/lib/mysql/</div><div class="line">➜ sudo rm -R /etc/mysql/</div><div class="line">➜ sudo apt-get autoremove mysql* --purge</div><div class="line">➜ sudo apt-get remove apparmor</div></pre></td></tr></table></figure>
-<p>注意: 如果使用的shell是zsh，autoremove可能会出现no matches found: mysql<em>。zsh默认对mysql</em>进行解释，而不是传递给autoremove，因此需要在~/.zshrc中加入:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">setopt no_nomatch</div></pre></td></tr></table></figure>
-<h3 id="apt安装MySQL"><a href="#apt安装MySQL" class="headerlink" title="apt安装MySQL"></a>apt安装MySQL</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ sudo apt-get install mysql-server mysql-common</div></pre></td></tr></table></figure>
-<p>安装过程中会提示输入root密码。</p>
-<h3 id="登录测试"><a href="#登录测试" class="headerlink" title="登录测试"></a>登录测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜ mysql -u root -p</div></pre></td></tr></table></figure>
-
+        <p>神经网络视为非线性动力系统，并特别强调其稳定性问题，称为<strong>神经动力学(neurodynamics)</strong>。在非线性动态系统背景下，稳定性通常意味着Lyapunov稳定性，而非BIBO稳定性，因为神经元结构之中的饱和非线性激活单元使得这样的非线性系统都是BIBO稳定的。</p>
+<h1 id="动态系统"><a href="#动态系统" class="headerlink" title="动态系统"></a>动态系统</h1><p>令系统状态向量x(t)=[x<sub>1</sub>(t),x<sub>2</sub>(t),···,x<sub>N</sub>(t)]，其中连续时间t是独立变量，N为系统的阶，那么非线性动态系统的一大类动力学特征就可以用一阶微分方程组的形式给出</p>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    messageStyle: "none",
+    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       
     </div>
 
@@ -330,17 +337,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/10/Mac安装MySQL/" rel="next" title="Mac安装MySQL">
-                <i class="fa fa-chevron-left"></i> Mac安装MySQL
+              <a href="/2018/04/20/GD-Momentum-Adagrad-RMSprop-Adam/" rel="next" title="GD/Momentum/Adagrad/RMSprop/Adam">
+                <i class="fa fa-chevron-left"></i> GD/Momentum/Adagrad/RMSprop/Adam
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/01/10/Hive-MySQL安装与配置/" rel="prev" title="Hive+MySQL安装与伪分布式配置">
-                Hive+MySQL安装与伪分布式配置 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -460,7 +463,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#检查系统上是否已经装了MySQL"><span class="nav-number">1.</span> <span class="nav-text">检查系统上是否已经装了MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#apt安装MySQL"><span class="nav-number">2.</span> <span class="nav-text">apt安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#登录测试"><span class="nav-number">3.</span> <span class="nav-text">登录测试</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#动态系统"><span class="nav-number">1.</span> <span class="nav-text">动态系统</span></a></li></ol></div>
             
           </div>
         </section>

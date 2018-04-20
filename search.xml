@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title><![CDATA[神经动力学]]></title>
+      <url>http://lizonghang.github.io/2018/04/20/%E7%A5%9E%E7%BB%8F%E5%8A%A8%E5%8A%9B%E5%AD%A6/</url>
+      <content type="html"><![CDATA[<p>神经网络视为非线性动力系统，并特别强调其稳定性问题，称为<strong>神经动力学(neurodynamics)</strong>。在非线性动态系统背景下，稳定性通常意味着Lyapunov稳定性，而非BIBO稳定性，因为神经元结构之中的饱和非线性激活单元使得这样的非线性系统都是BIBO稳定的。</p>
+<h1 id="动态系统"><a href="#动态系统" class="headerlink" title="动态系统"></a>动态系统</h1><p>令系统状态向量x(t)=[x<sub>1</sub>(t),x<sub>2</sub>(t),···,x<sub>N</sub>(t)]，其中连续时间t是独立变量，N为系统的阶，那么非线性动态系统的一大类动力学特征就可以用一阶微分方程组的形式给出</p>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    messageStyle: "none",
+    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>]]></content>
+      
+        <categories>
+            
+            <category> ML/DL </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[GD/Momentum/Adagrad/RMSprop/Adam]]></title>
       <url>http://lizonghang.github.io/2018/04/20/GD-Momentum-Adagrad-RMSprop-Adam/</url>
       <content type="html"><![CDATA[<h1 id="带动量的GD算法"><a href="#带动量的GD算法" class="headerlink" title="带动量的GD算法"></a>带动量的GD算法</h1><h2 id="Momentum"><a href="#Momentum" class="headerlink" title="Momentum"></a>Momentum</h2><p>经典GD算法的缺点是其更新方向完全依赖于batch计算的loss，因而十分不稳定。Momentum算法借用物理中动量的概念，模拟物体运动时的惯性，即更新时在一定程度上保持之前的更新方向，同时利用batch的梯度调整更新方向。从而能在一定程度上增加训练稳定性，使学习更快，并且具备一定摆脱局部最优的能力。</p>
