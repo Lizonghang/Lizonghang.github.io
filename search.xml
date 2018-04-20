@@ -60,8 +60,9 @@
 <p>其中I<sub>j</sub>是由电流源提供的额外的偏置。令诱导局部域v<sub>j</sub>(t)等于上式，根据Kirchoff电流定律，在非线性激活单元的输入端有：</p>
 <center><img src="/img/79B9087E630CCA4849C46A325D0775FA.jpg" style="height: 50px"></center>
 
-<p>其中左边第一项是由漏泄电容C<sub>j</sub>产生，第二项是由漏泄阻抗R<sub>j</sub>产生，由上式描述的RC模型通常称为加性模型。电容项C<sub>j</sub>dv<sub>j</sub>(t)/dt是在神经元模型上添加动力学(记忆)最简单的途径。</p>
-<p>给定诱导局部域v<sub>j</sub>(t)，使用非线性激活单元φ(·)确定神经元j的输出y<sub>j</sub>(t)。</p>
+<p>其中左边第一项是由漏泄电容C<sub>j</sub>产生，第二项是由漏泄阻抗R<sub>j</sub>产生，由上式描述的RC模型通常称为加性模型。电容项C<sub>j</sub>dv<sub>j</sub>(t)/dt是在神经元模型上添加动力学(记忆)最简单的途径。最后使用非线性激活单元φ(·)确定神经元j的输出y<sub>j</sub>(t)，普遍使用的激活函数是sigmoid函数：</p>
+<center><img src="/img/E25E89AA0E24849E29ED0CBABC772909.jpg" style="height: 50px"></center>
+
 ]]></content>
       
         <categories>
