@@ -68,7 +68,7 @@
 <meta property="og:image" content="http://lizonghang.github.io/img/8AA715BCD0669CE76EA09BE3EB735EBA.jpg">
 <meta property="og:image" content="http://lizonghang.github.io/img/790C70C2B929C9F27C71CA768DADF994.jpg">
 <meta property="og:image" content="http://lizonghang.github.io/img/F7F9DBC256D77D2DEF3F8553FB6B6F80.jpg">
-<meta property="og:updated_time" content="2018-04-20T01:32:17.412Z">
+<meta property="og:updated_time" content="2018-04-20T01:35:55.581Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GD&#x2F;Momentum&#x2F;Adagrad&#x2F;RMSprop&#x2F;Adam">
 <meta name="twitter:description" content="带动量的GD算法Momentum经典GD算法的缺点是其更新方向完全依赖于batch计算的loss，因而十分不稳定。Momentum算法借用物理中动量的概念，模拟物体运动时的惯性，即更新时在一定程度上保持之前的更新方向，同时利用batch的梯度调整更新方向。从而能在一定程度上增加训练稳定性，使学习更快，并且具备一定摆脱局部最优的能力。   其中vt是当前梯度，vt-1是历史梯度，γ是衰减率，α是学习">
@@ -311,21 +311,21 @@
 
       
         <h1 id="带动量的GD算法"><a href="#带动量的GD算法" class="headerlink" title="带动量的GD算法"></a>带动量的GD算法</h1><h2 id="Momentum"><a href="#Momentum" class="headerlink" title="Momentum"></a>Momentum</h2><p>经典GD算法的缺点是其更新方向完全依赖于batch计算的loss，因而十分不稳定。Momentum算法借用物理中动量的概念，模拟物体运动时的惯性，即更新时在一定程度上保持之前的更新方向，同时利用batch的梯度调整更新方向。从而能在一定程度上增加训练稳定性，使学习更快，并且具备一定摆脱局部最优的能力。</p>
-<center><img src="/img/1FBD345FD7B079F41CE0A5A7472E31A4.jpg" width="300px"></center>
+<center><img src="/img/1FBD345FD7B079F41CE0A5A7472E31A4.jpg" width="150px"></center>
 
 <p>其中v<sub>t</sub>是当前梯度，v<sub>t-1</sub>是历史梯度，γ是衰减率，α是学习率，J(θ)是损失函数。</p>
 <p>类似的改进还有Nesterov Momentum。</p>
 <h1 id="自适应学习率的GD算法"><a href="#自适应学习率的GD算法" class="headerlink" title="自适应学习率的GD算法"></a>自适应学习率的GD算法</h1><h2 id="Adagrad"><a href="#Adagrad" class="headerlink" title="Adagrad"></a>Adagrad</h2><p>上述算法中，对每一个参数θ<sub>i</sub>的训练都使用了相同的学习率α。在Adagrad中设置全局学习率α后，每次通过全局学习率逐参数除以历史梯度的平方和的平方根，使得每个参数的学习率不同。</p>
 <p>在参数空间中较平缓的方向累和平方根小，因而获得较大的学习率；相反，若在参数空间中较陡峭的方向，则获得较小的学习率。</p>
-<center><img src="/img/8AA715BCD0669CE76EA09BE3EB735EBA.jpg" width="500px"></center>
+<center><img src="/img/8AA715BCD0669CE76EA09BE3EB735EBA.jpg" width="200px"></center>
 
 <p>其中δ是一个极小的常数，大约设为10<sup>-8</sup>~10<sup>-7</sup>。</p>
 <h2 id="RMSprop"><a href="#RMSprop" class="headerlink" title="RMSprop"></a>RMSprop</h2><p>RMSprop是Hinton提出的一种自适应学习率的算法。相比Adagrad，RMSprop不累加梯度的平方，而是估计梯度二阶矩的期望E[g<sub>t</sub><sup>2</sup>]，可缓解Adagrad中学习率下降快的问题。</p>
-<center><img src="/img/790C70C2B929C9F27C71CA768DADF994.jpg" width="500px"></center>
+<center><img src="/img/790C70C2B929C9F27C71CA768DADF994.jpg" width="200px"></center>
 
 <h2 id="Adam"><a href="#Adam" class="headerlink" title="Adam"></a>Adam</h2><p>Adam (Adaptive Moment Estimation)也是一种自适应学习率的方法，它利用梯度的一阶矩估计和二阶矩估计动态调整每个参数的学习率。</p>
 <p>Adam的主要优点在于：经过偏置校正后，每一次迭代学习率都有一个确定范围，是的参数比较平稳。</p>
-<center><img src="/img/F7F9DBC256D77D2DEF3F8553FB6B6F80.jpg" width="500px"></center>
+<center><img src="/img/F7F9DBC256D77D2DEF3F8553FB6B6F80.jpg" width="200px"></center>
 
 <p>m<sub>t</sub>和v<sub>t</sub>是对梯度的一阶矩估计和二阶矩估计，可看作对E[g<sub>t</sub>]和E[g<sub>t</sub><sup>2</sup>]的近似；m<sub>t</sub><sup>hat</sup>和v<sub>t</sub><sup>hat</sup>是对m<sub>t</sub>和v<sub>t</sub>的校正，可近似为对期望的无偏估计。推荐参数β<sub>1</sub>=0.9，β<sub>2</sub>=0.999，δ=10<sup>-8</sup>。</p>
 
