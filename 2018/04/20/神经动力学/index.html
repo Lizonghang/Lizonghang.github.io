@@ -65,7 +65,8 @@
 <meta property="og:description" content="神经网络视为非线性动力系统，并特别强调其稳定性问题，称为神经动力学(neurodynamics)。在非线性动态系统背景下，稳定性通常意味着Lyapunov稳定性，而非BIBO稳定性，因为神经元结构之中的饱和非线性激活单元使得这样的非线性系统都是BIBO稳定的。 动态系统令系统状态向量x(t)=[x1(t),x2(t),···,xN(t)]T，其中连续时间t是独立变量，N为系统的阶，那么非线性动态系">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://lizonghang.github.io/img/1FD606074979A9C419117A7637D68FC1.jpg">
-<meta property="og:updated_time" content="2018-04-20T08:54:15.896Z">
+<meta property="og:image" content="http://lizonghang.github.io/img/93D20195A3906111FEC39AC91075E71A.jpg">
+<meta property="og:updated_time" content="2018-04-20T09:20:09.078Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="神经动力学">
 <meta name="twitter:description" content="神经网络视为非线性动力系统，并特别强调其稳定性问题，称为神经动力学(neurodynamics)。在非线性动态系统背景下，稳定性通常意味着Lyapunov稳定性，而非BIBO稳定性，因为神经元结构之中的饱和非线性激活单元使得这样的非线性系统都是BIBO稳定的。 动态系统令系统状态向量x(t)=[x1(t),x2(t),···,xN(t)]T，其中连续时间t是独立变量，N为系统的阶，那么非线性动态系">
@@ -313,7 +314,8 @@
 
 <p>其中F是非线性的向量值函数，它的每一个元素作用于x(t)中的对应元素。若向量函数F(·)不显式地依赖于时间t，则这样的非线性动态系统被称为自治的(autonomous)，否则称为非自治的(nonautonomous)。</p>
 <p>不管非线性函数F(·)是否显式依赖于时间t，状态向量x(t)必须随时间改变，否则系统将不再是动态系统。于是可定义<strong>动态系统</strong>是状态随时间变化的系统。我们可将dx/dt看作“速度”，将向量函数F(x)称为速度向量场或者简单地称为向量场(vector field)。</p>
-
+<h1 id="状态空间"><a href="#状态空间" class="headerlink" title="状态空间"></a>状态空间</h1><p>在某一特定时刻t，用N维欧几里得状态空间中的一个点表示系统被观察状态(状态向量x(t))，用状态空间中的一条曲线表示系统状态随时间t的变化，曲线上的每一点都显式或隐式地带有记录观察时间的标记，这条曲线叫做系统的轨线或轨道。轨线的瞬时速度(即d(x)/dt)用切向量表示，可以得到轨线上每一点的速度向量。由不同初始条件产生的不同轨线的集合称为系统的状态相图(state portrait)。对于自治系统来说，每种初始状态只有一条轨线穿过。</p>
+<center><img src="/img/93D20195A3906111FEC39AC91075E71A.jpg" style="width: 500px"></center>
       
     </div>
 
@@ -456,7 +458,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#动态系统"><span class="nav-number">1.</span> <span class="nav-text">动态系统</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#动态系统"><span class="nav-number">1.</span> <span class="nav-text">动态系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#状态空间"><span class="nav-number">2.</span> <span class="nav-text">状态空间</span></a></li></ol></div>
             
           </div>
         </section>
