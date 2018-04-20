@@ -7,9 +7,11 @@
       <title><![CDATA[神经动力学]]></title>
       <url>http://lizonghang.github.io/2018/04/20/%E7%A5%9E%E7%BB%8F%E5%8A%A8%E5%8A%9B%E5%AD%A6/</url>
       <content type="html"><![CDATA[<p>神经网络视为非线性动力系统，并特别强调其稳定性问题，称为<strong>神经动力学(neurodynamics)</strong>。在非线性动态系统背景下，稳定性通常意味着Lyapunov稳定性，而非BIBO稳定性，因为神经元结构之中的饱和非线性激活单元使得这样的非线性系统都是BIBO稳定的。</p>
-<h1 id="动态系统"><a href="#动态系统" class="headerlink" title="动态系统"></a>动态系统</h1><p>令系统状态向量x(t)=[x<sub>1</sub>(t),x<sub>2</sub>(t),···,x<sub>N</sub>(t)]，其中连续时间t是独立变量，N为系统的阶，那么非线性动态系统的一大类动力学特征就可以用一阶微分方程组的形式给出</p>
+<h1 id="动态系统"><a href="#动态系统" class="headerlink" title="动态系统"></a>动态系统</h1><p>令系统状态向量x(t)=[x<sub>1</sub>(t),x<sub>2</sub>(t),···,x<sub>N</sub>(t)]<sup>T</sup>，其中连续时间t是独立变量，N为系统的阶，那么非线性动态系统的一大类动力学特征就可以用一阶微分方程组的形式给出</p>
 <center><img src="/img/1FD606074979A9C419117A7637D68FC1.jpg" style="height: 40px"></center>
 
+<p>其中F是非线性的向量值函数，它的每一个元素作用于x(t)中的对应元素。若向量函数F(·)不显式地依赖于时间t，则这样的非线性动态系统被称为自治的(autonomous)，否则称为非自治的(nonautonomous)。</p>
+<p>不管非线性函数F(·)是否显式依赖于时间t，状态向量x(t)必须随时间改变，否则系统将不再是动态系统。于是可定义<strong>动态系统</strong>是状态随时间变化的系统。我们可将dx/dt看作“速度”，将向量函数F(x)称为速度向量场或者简单地称为向量场(vector field)。</p>
 ]]></content>
       
         <categories>
