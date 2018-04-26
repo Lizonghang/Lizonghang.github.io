@@ -154,8 +154,8 @@
       <url>http://lizonghang.github.io/2018/04/13/facenet/</url>
       <content type="html"><![CDATA[<p>FaceNet: <a href="https://arxiv.org/pdf/1503.03832.pdf" target="_blank" rel="external">https://arxiv.org/pdf/1503.03832.pdf</a></p>
 <h1 id="FaceNet流程总览"><a href="#FaceNet流程总览" class="headerlink" title="FaceNet流程总览"></a>FaceNet流程总览</h1><p><img src="/img/A55C2C378E4BB29A9B613C70587620F1.jpg" alt=""></p>
-<p>FaceNet的总体流程为：输入图像通过由Inception-ResNet v2作为Feature Encoder的模型产生128-d的输出向量，通过L2 regularization后得到128-d Face Embedding vectors，选择有效的Anchor-Positive Pairs和Anchor-Negative Pairs计算得到Triplet Loss，并利用SGD对Feature Encoder的网络参数进行更新，最终训练得到的是输入人脸图像到人脸的128-d编码的脸部特征向量的脸部特征编码器(而不是人脸分类器)，MAP(X<sub>im</sub>)→128-d embedding，最终利用NN(最近邻)计算128-d embedding相似度(文中采用欧式距离作为相似度)得到人脸的身份信息，若相似度超过某个阈值，则认为是未知用户。</p>
-<p>FaceNet的Feature Encoder采用了VGG-like model和Inception-ResNet v2 model，Inception-ResNet v2相比VGG-like model主要有两点好处：</p>
+<p>FaceNet的总体流程为：输入图像通过由Inception-ResNet v1作为Feature Encoder的模型产生128-d的输出向量，通过L2 regularization后得到128-d Face Embedding vectors，选择有效的Anchor-Positive Pairs和Anchor-Negative Pairs计算得到Triplet Loss，并利用SGD对Feature Encoder的网络参数进行更新，最终训练得到的是输入人脸图像到人脸的128-d编码的脸部特征向量的脸部特征编码器(而不是人脸分类器)，MAP(X<sub>im</sub>)→128-d embedding，最终利用NN(最近邻)计算128-d embedding相似度(文中采用欧式距离作为相似度)得到人脸的身份信息，若相似度超过某个阈值，则认为是未知用户。</p>
+<p>FaceNet的Feature Encoder采用了VGG-like model和Inception-ResNet v1 model，Inception-ResNet v1相比VGG-like model主要有两点好处：</p>
 <ul>
 <li>20x fewer parameters(140M→7M) and fewer FLOPS(1.6B→0.5B~1.6B);</li>
 <li>State-of-the-art performance on validation rate (87.9%±1.9→89.4%±1.6).</li>
@@ -178,8 +178,8 @@
 <li>Generate triplets offline. Every n steps, using the most recent network checkpoint and computing the argmin(d(A,N)) and argmax(d(A,P)) on a subset of the data.</li>
 <li>Generate triplets online. Select the hard AP&amp;AN pairs from within a mini-batch.</li>
 </ul>
-<h1 id="最近邻识别-NN"><a href="#最近邻识别-NN" class="headerlink" title="最近邻识别(NN)"></a>最近邻识别(NN)</h1><p>人脸数据集是自己收集的证件照图像库吗？不。在Face Recognition中有两个模型，一个是Feature Encoder的Inception-ResNet v2模型，另一个是真正用于分类的NN模型。</p>
-<p>用于训练Inception-ResNet v2的数据集是LFW等公开的人脸识别数据集，训练好Face Encoder后，将证件照图像库中每张图片进行face embedding后存于数据库中，用于分类任务。</p>
+<h1 id="最近邻识别-NN"><a href="#最近邻识别-NN" class="headerlink" title="最近邻识别(NN)"></a>最近邻识别(NN)</h1><p>人脸数据集是自己收集的证件照图像库吗？不。在Face Recognition中有两个模型，一个是Feature Encoder的Inception-ResNet v1模型，另一个是真正用于分类的NN模型。</p>
+<p>用于训练Inception-ResNet v1的数据集是LFW等公开的人脸识别数据集，训练好Face Encoder后，将证件照图像库中每张图片进行face embedding后存于数据库中，用于分类任务。</p>
 <p><strong>NOTE</strong>：FaceNet对输入图像使用<a href="https://kpzhang93.github.io/MTCNN_face_detection_alignment/paper/spl.pdf" target="_blank" rel="external">MTCNN</a>进行人脸检测与截取，保证了输入到Face Encoder的人脸图像都是较为统一的。但没有对人脸角度或光照等问题进行处理。</p>
 <p><img src="/img/403034BB-7187-4F57-AF10-9EE91AAB503E.png" alt=""></p>
 <p><strong>NOTE</strong>：请忽视图中红色点与蓝色点的颜色，每个点代表一个人的一张证件照，每个人也只需录入一张证件照(当然若有多张证件照有利于分类精度的提高)，此类任务也称one-shot学习。</p>
