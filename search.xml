@@ -14,10 +14,11 @@
 <p>Inception-v4使用了<a href="https://arxiv.org/pdf/1312.4400.pdf" target="_blank" rel="external">Network in Network</a>中的average-pooling方法避免full-connect产生大量的网络参数，使网络参数量减少了8x8x1536x1536=144M。最后一层使用softmax得到各个类别的类后验概率，并加入Dropout正则化防止过拟合。</p>
 <p><strong>疑问：</strong>没有想明白为什么不调整Reduction module使得avarage-pooling的输出为1000，然后进行softmax，这样可以减少约1.5M参数，并且使得Inception-v4 net输出的可解释性更强，猜想可能是网络最后加一层full-connect会使表现更好，并且1.5M参数也不算太多。</p>
 <h1 id="Stem"><a href="#Stem" class="headerlink" title="Stem"></a>Stem</h1><p><br></p>
-<p><center><img src="/img/inception-v4-stem.png" style="width: 250px"></center><br><br><br>假设网络输入图像尺寸是299x299x3，经过Stem后输出为35x35x384。为了便于理解feature map的维度变化，给出size的计算式：o=⌈(i-k+2p)/2 + 1⌉，其中o为输出size，i为输入size，k为kernel size，p为padding。图中含有”V”的操作表示padding=VALID，否则padding=SAME。</p>
-<p><strong>注意：</strong>71x71x192的filter concat后接的3x3 Conv应该是(192 stride=2 V)。</p>
-<h1 id="Inception-A"><a href="#Inception-A" class="headerlink" title="Inception-A"></a>Inception-A</h1><p><br></p>
-<p><center><img src="/img/inception-v4-A.png" style="width: 400px"></center><br><br></p>
+<p><center><img src="/img/inception-v4-stem.png" style="width: 250px"></center><br><br><br><strong>注意：</strong>71x71x192的filter concat后接的3x3 Conv应该是(192 stride=2 V)。</p>
+<p>假设网络输入图像尺寸是299x299x3，经过Stem后输出为35x35x384。为了便于理解feature map的维度变化，给出size的计算式：o=⌈(i-k+2p)/2 + 1⌉，其中o为输出size，i为输入size，k为kernel size，p为padding。图中含有”V”的操作表示padding=VALID，否则padding=SAME。</p>
+<h1 id="Inception-A-35x35"><a href="#Inception-A-35x35" class="headerlink" title="Inception-A (35x35)"></a>Inception-A (35x35)</h1><p><br></p>
+<p><center><img src="/img/inception-v4-A.png" style="width: 500px"></center><br><br><br><strong>注意：</strong>Avg Pooling和3x3 Conv应该都是stride=1, padding=SAME的操作。</p>
+<p>Inception-A module输入尺寸和输出尺寸都为35x35x384。第一条通路输出尺寸为35x35x96，第二条通路输出尺寸为35x35x96，第三条通路输出尺寸为35x35x96，第四条通路输出尺寸为35x35x96。</p>
 ]]></content>
       
         <categories>
