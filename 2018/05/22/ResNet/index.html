@@ -57,20 +57,20 @@
 
 
 
-<meta name="description" content="自VGG19模型出现后，人们认为只需要更深的网络、更大的参数量就可以不断的提高精度，因此只要不断地堆叠卷积层即可。2015年，Kaiming He发表论文Deep Residual Learning for Image Recognition(ResNet)，并在ILSVRC 2015 classification task中位居第一。ResNet通过实验指出：随着网络过度加深，训练集准确率反而">
+<meta name="description" content="自VGG19模型出现后，人们认为只需要更深的网络、更大的参数量就可以不断的提高精度，因此只要不断地堆叠卷积层即可。2015年，Kaiming He发表论文Deep Residual Learning for Image Recognition(ResNet)，并在ILSVRC 2015 classification task中位居第一。ResNet通过实验指出：随着网络过度加深，训练集准确率反">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ResNet">
 <meta property="og:url" content="http://lizonghang.github.io/2018/05/22/ResNet/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="自VGG19模型出现后，人们认为只需要更深的网络、更大的参数量就可以不断的提高精度，因此只要不断地堆叠卷积层即可。2015年，Kaiming He发表论文Deep Residual Learning for Image Recognition(ResNet)，并在ILSVRC 2015 classification task中位居第一。ResNet通过实验指出：随着网络过度加深，训练集准确率反而">
+<meta property="og:description" content="自VGG19模型出现后，人们认为只需要更深的网络、更大的参数量就可以不断的提高精度，因此只要不断地堆叠卷积层即可。2015年，Kaiming He发表论文Deep Residual Learning for Image Recognition(ResNet)，并在ILSVRC 2015 classification task中位居第一。ResNet通过实验指出：随着网络过度加深，训练集准确率反">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://lizonghang.github.io/img/resnet-development.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/resnet-deep-plain.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/resnet-building-block.png">
-<meta property="og:updated_time" content="2018-05-22T13:39:11.760Z">
+<meta property="og:updated_time" content="2018-05-22T13:45:28.912Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ResNet">
-<meta name="twitter:description" content="自VGG19模型出现后，人们认为只需要更深的网络、更大的参数量就可以不断的提高精度，因此只要不断地堆叠卷积层即可。2015年，Kaiming He发表论文Deep Residual Learning for Image Recognition(ResNet)，并在ILSVRC 2015 classification task中位居第一。ResNet通过实验指出：随着网络过度加深，训练集准确率反而">
+<meta name="twitter:description" content="自VGG19模型出现后，人们认为只需要更深的网络、更大的参数量就可以不断的提高精度，因此只要不断地堆叠卷积层即可。2015年，Kaiming He发表论文Deep Residual Learning for Image Recognition(ResNet)，并在ILSVRC 2015 classification task中位居第一。ResNet通过实验指出：随着网络过度加深，训练集准确率反">
 <meta name="twitter:image" content="http://lizonghang.github.io/img/resnet-development.png">
 
 
@@ -309,12 +309,15 @@
       
 
       
-        <p><center><img src="/img/resnet-development.png" style="width: 100%"></center><br></p>
+        <center><img src="/img/resnet-development.png" style="width: 100%"></center>
+
 <p>自VGG19模型出现后，人们认为只需要更深的网络、更大的参数量就可以不断的提高精度，因此只要不断地堆叠卷积层即可。2015年，Kaiming He发表论文<a href="https://arxiv.org/pdf/1512.03385.pdf" target="_blank" rel="external">Deep Residual Learning for Image Recognition</a>(ResNet)，并在ILSVRC 2015 classification task中位居第一。ResNet通过实验指出：随着网络过度加深，训练集准确率反而会下降，这种性能下降是由梯度爆炸或梯度消失导致的，因而正则化方法不能解决这一问题。</p>
 <p>在ResNet出现之前，梯度爆炸和梯度消失问题是由normalized initialization和在网络中间层加入normalization layers解决的，但这只能使得深度为几十层的网络得以收敛。但随着网络深度不断加深，普通堆叠的深度网络的训练精度和测试精度会迅速下降。普通堆叠深度网络的训练误差与测试误差如下图所示：</p>
-<p><center><img src="/img/resnet-deep-plain.png" style="width: 100%"></center><br></p>
+<center><img src="/img/resnet-deep-plain.png" style="width: 100%"></center>
+
 <p>ResNet认为，与其希望每个堆叠的层学习到一个期望的underlying mapping，不如让这些层去学习一个residual mapping。即我们假设期望的underlying mapping是H(x)，我们让堆叠的非线性层去拟合residual mapping: F(x) = H(x) - x，其中x被称为identity mapping，那么原来的underlying mapping就可以表示为residual mapping和identity mapping之和: H(x) = F(x) + x。公式化的表示F(x) + x可以通过前向传播的”shortcut connections”实现，并且不会增加额外的参数或计算复杂度，如下图所示：</p>
-<p><center><img src="/img/resnet-building-block.png" style="width: 300px"></center><br></p>
+<center><img src="/img/resnet-building-block.png" style="width: 300px"></center>
+
 <p>ResNet这么做的理论依据在于：如果网络已经达到最优，继续加深网络，之后加入的residual mapping的参数将被学习为0，于是多余的深度就只是在传递identity mapping，理论上可以保证网络的性能不会随着深度增加而降低，从而使网络保持在最优状态。原文如下描述：</p>
 <blockquote>
 <p>We hypothesize that it is easier to optimize the residual mapping than to optimize the original, unreferenced mapping. To the extreme, if an identity mapping were optimal, it would be easier to push the residual to zero than to fit an identity mapping by a stack of nonlinear layers.</p>
