@@ -13,21 +13,22 @@
 <p>Inception-v4使用了两种Reduction模块，Reduction-A和Reduction-B，作用是在避免瓶颈的情况下减小feature map的size，并增加feature map的depth。Reduction module避免瓶颈的原理在论文<a href="https://arxiv.org/pdf/1512.00567.pdf" target="_blank" rel="external">Rethinking the Inception Architecture for Computer Vision</a>中有详细阐述，简单地说就是多个分支同时减小size，最终将多个分支的输出在depth维上合并。</p>
 <p>Inception-v4使用了<a href="https://arxiv.org/pdf/1312.4400.pdf" target="_blank" rel="external">Network in Network</a>中的average-pooling方法避免full-connect产生大量的网络参数，使网络参数量减少了8x8x1536x1536=144M。最后一层使用softmax得到各个类别的类后验概率，并加入Dropout正则化防止过拟合。</p>
 <p><strong>疑问：</strong>没有想明白为什么不调整Reduction module使得avarage-pooling的输出为1000，然后进行softmax，这样可以减少约1.5M参数，并且使得Inception-v4 net输出的可解释性更强，猜想可能是网络最后加一层full-connect会使表现更好，并且1.5M参数也不算太多。</p>
-<h1 id="Stem"><a href="#Stem" class="headerlink" title="Stem"></a>Stem</h1><p><br></p>
+<p><strong>注意：</strong>后文中，若无特殊说明，图中没有标注stride=2和符号V的都认为是stride=1，padding=SAME的操作。</p>
+<h1 id="Stem-299x299x3-→-35x35x384"><a href="#Stem-299x299x3-→-35x35x384" class="headerlink" title="Stem (299x299x3 → 35x35x384)"></a>Stem (299x299x3 → 35x35x384)</h1><p><br></p>
 <p><center><img src="/img/inception-v4-stem.png" style="width: 250px"></center><br><br><br><strong>注意：</strong>71x71x192的filter concat后接的3x3 Conv应该是(192 stride=2 V)。</p>
 <p>假设网络输入图像尺寸是299x299x3，经过Stem后输出为35x35x384。为了便于理解feature map的维度变化，给出size的计算式：o=⌈(i-k+2p)/2 + 1⌉，其中o为输出size，i为输入size，k为kernel size，p为padding。图中含有”V”的操作表示padding=VALID，否则padding=SAME。</p>
-<h1 id="Inception-A-35x35"><a href="#Inception-A-35x35" class="headerlink" title="Inception-A (35x35)"></a>Inception-A (35x35)</h1><p><br></p>
-<p><center><img src="/img/inception-v4-A.png" style="width: 500px"></center><br><br><br><strong>注意：</strong>Avg Pooling和3x3 Conv应该都是stride=1, padding=SAME的操作。</p>
-<h1 id="Inception-B-17x17"><a href="#Inception-B-17x17" class="headerlink" title="Inception-B (17x17)"></a>Inception-B (17x17)</h1><p><br></p>
-<p><center><img src="/img/inception-v4-B.png" style="width: 500px"></center><br><br><br><strong>注意：</strong>Avg Pooling、1x7 Conv、7x1 Conv应该都是stride=1，padding=SAME的操作。</p>
+<h1 id="Inception-A-35x35x384-→-35x35x384"><a href="#Inception-A-35x35x384-→-35x35x384" class="headerlink" title="Inception-A (35x35x384 → 35x35x384)"></a>Inception-A (35x35x384 → 35x35x384)</h1><p><br></p>
+<p><center><img src="/img/inception-v4-A.png" style="width: 500px"></center><br><br></p>
+<h1 id="Reduction-A-35x35x384-→-17x17x1024"><a href="#Reduction-A-35x35x384-→-17x17x1024" class="headerlink" title="Reduction-A (35x35x384 → 17x17x1024)"></a>Reduction-A (35x35x384 → 17x17x1024)</h1><p><br></p>
+<p><center><img src="/img/inception-v4-RA.png" style="width: 500px"></center><br><br><br>其中k=192, l=224, m=256, n=384。</p>
+<h1 id="Inception-B-17x17x1024-→-17x17x1024"><a href="#Inception-B-17x17x1024-→-17x17x1024" class="headerlink" title="Inception-B (17x17x1024 → 17x17x1024)"></a>Inception-B (17x17x1024 → 17x17x1024)</h1><p><br></p>
+<p><center><img src="/img/inception-v4-B.png" style="width: 500px"></center><br><br></p>
 <p><strong>疑问：</strong>第三个通道中的两个1x7 Conv可能是作者笔误，Github上该部分是1x7 Conv和7x1 Conv。</p>
-<h1 id="Inception-C-8x8"><a href="#Inception-C-8x8" class="headerlink" title="Inception-C (8x8)"></a>Inception-C (8x8)</h1><p><br></p>
-<p><center><img src="/img/inception-v4-C.png" style="width: 500px"></center><br><br><br><strong>注意：</strong>Avg Pooling、1x3 Conv、3x1 Conv应该都是stride=1，padding=SAME的操作。</p>
-<h1 id="Reduction-A"><a href="#Reduction-A" class="headerlink" title="Reduction-A"></a>Reduction-A</h1><p><br></p>
-<p><center><img src="/img/inception-v4-RA.png" style="width: 500px"></center><br><br></p>
-<h1 id="Reduction-B"><a href="#Reduction-B" class="headerlink" title="Reduction-B"></a>Reduction-B</h1><p><br></p>
+<h1 id="Reduction-B-17x17x1024-→-8x8x1536"><a href="#Reduction-B-17x17x1024-→-8x8x1536" class="headerlink" title="Reduction-B (17x17x1024 → 8x8x1536)"></a>Reduction-B (17x17x1024 → 8x8x1536)</h1><p><br></p>
 <p><center><img src="/img/inception-v4-RB.png" style="width: 500px"></center><br><br></p>
-]]></content>
+<h1 id="Inception-C-8x8x1536-→-8x8x1536"><a href="#Inception-C-8x8x1536-→-8x8x1536" class="headerlink" title="Inception-C (8x8x1536 → 8x8x1536)"></a>Inception-C (8x8x1536 → 8x8x1536)</h1><p><br></p>
+<p><center><img src="/img/inception-v4-C.png" style="width: 500px"></center><br><br></p>
+<h1 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h1>]]></content>
       
         <categories>
             
