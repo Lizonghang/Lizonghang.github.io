@@ -73,7 +73,7 @@
 <meta property="og:image" content="http://lizonghang.github.io/img/inception-v4-C.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/inception-v4-top5.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/inception-v4-top1.png">
-<meta property="og:updated_time" content="2018-05-22T13:34:04.685Z">
+<meta property="og:updated_time" content="2018-05-22T13:36:54.110Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Inception-v4">
 <meta name="twitter:description" content="Google于2014年和2015年相继提出了Going Deeper with Convolutions(Inception-v1)和Rethinking the Inception Architecture for Computer Vision(Inception-v2&amp;amp;v3)，在ILSVRC 2012 classification challenge验证集上取得了state-of-">
@@ -316,8 +316,7 @@
 
       
         <p>Google于2014年和2015年相继提出了<a href="https://arxiv.org/pdf/1409.4842.pdf" target="_blank" rel="external">Going Deeper with Convolutions</a>(Inception-v1)和<a href="https://arxiv.org/pdf/1512.00567.pdf" target="_blank" rel="external">Rethinking the Inception Architecture for Computer Vision</a>(Inception-v2&amp;v3)，在ILSVRC 2012 classification challenge验证集上取得了state-of-the-art的表现。但在同月，Microsoft的Kaiming He提出了<a href="https://arxiv.org/pdf/1512.03385.pdf" target="_blank" rel="external">Deep Residual Learning for Image Recognition</a>(ResNet)，使用残差连接的方式堆叠了152层卷积网络，达到了与Inception-v3相近的表现，并在ILSVRC 2015 classification task中位居第一。ResNet认为：使用残差连接的结构可以加速训练，有助于防止梯度消失和梯度爆炸，层数越多效果越好(在没有发生过拟合的情况下)，并认为”想得到深度卷积网络必须使用残差结构”。Google见到这个结论后，于2016年发表<a href="https://arxiv.org/pdf/1602.07261v1.pdf" target="_blank" rel="external">Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning</a>，提出了Inception-v4结构，证明了即使不引入残差结构也能达到和引入残差结构相似的结果，即Inception-v4和Inception-ResNet v2，这两个模型都能取得state-of-the-art的表现。</p>
-<h1 id="Schema-of-the-Inception-v4"><a href="#Schema-of-the-Inception-v4" class="headerlink" title="Schema of the Inception-v4"></a>Schema of the Inception-v4</h1><center><img src="/img/inception-v4-schema.png" style="width: 250px"></center>
-
+<h1 id="Schema-of-the-Inception-v4"><a href="#Schema-of-the-Inception-v4" class="headerlink" title="Schema of the Inception-v4"></a>Schema of the Inception-v4</h1><p><br><center><img src="/img/inception-v4-schema.png" style="width: 250px"></center><br></p>
 <p>Stem是Inception-v4结构的主干，起到基本特征提取的作用。Inception module适用于CNN的中间层，处理高维特征，若直接将Inception module用于低维特征的提取，模型的性能会降低。因此设计了Stem用于提取图像中的低维特征。</p>
 <p>Inception-v4使用了4个Inception-A module、7个Inception-B module、3个Inception-C module，起到高级特征提取的作用。并且各个Inception module的输入输出维度是相同的，Inception-A、Inception-B、Inception-C分别处理输入维度为35x35、17x17、8x8的feature map，Google这种设计是懒人式的，即直接告知哪个module对哪种size的feature map是最合适的，你只需要根据size选择对应的module即可。</p>
 <p>Inception-v4使用了两种Reduction模块，Reduction-A和Reduction-B，作用是在避免瓶颈的情况下减小feature map的size，并增加feature map的depth。Reduction module避免瓶颈的原理在论文<a href="https://arxiv.org/pdf/1512.00567.pdf" target="_blank" rel="external">Rethinking the Inception Architecture for Computer Vision</a>中有详细阐述，简单地说就是多个分支同时减小size，最终将多个分支的输出在depth维上合并。</p>
