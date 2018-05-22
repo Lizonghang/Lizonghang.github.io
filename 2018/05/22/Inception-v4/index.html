@@ -69,7 +69,9 @@
 <meta property="og:image" content="http://lizonghang.github.io/img/inception-v4-A.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/inception-v4-B.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/inception-v4-C.png">
-<meta property="og:updated_time" content="2018-05-22T10:38:35.909Z">
+<meta property="og:image" content="http://lizonghang.github.io/img/inception-v4-RA.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/inception-v4-RB.png">
+<meta property="og:updated_time" content="2018-05-22T10:45:34.583Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Inception-v4">
 <meta name="twitter:description" content="Google于2014年和2015年相继提出了Going Deeper with Convolutions(Inception-v1)和Rethinking the Inception Architecture for Computer Vision(Inception-v2&amp;amp;v3)，在ILSVRC 2012 classification challenge验证集上取得了state-of-">
@@ -324,9 +326,14 @@
 <h1 id="Inception-A-35x35"><a href="#Inception-A-35x35" class="headerlink" title="Inception-A (35x35)"></a>Inception-A (35x35)</h1><p><br></p>
 <p><center><img src="/img/inception-v4-A.png" style="width: 500px"></center><br><br><br><strong>注意：</strong>Avg Pooling和3x3 Conv应该都是stride=1, padding=SAME的操作。</p>
 <h1 id="Inception-B-17x17"><a href="#Inception-B-17x17" class="headerlink" title="Inception-B (17x17)"></a>Inception-B (17x17)</h1><p><br></p>
-<p><center><img src="/img/inception-v4-B.png" style="width: 500px"></center><br><br><br><strong>注意：</strong>Avg Pooling、1x7 Conv、7x1 Conv应该都是stride=1，padding=SAME的操作。第三个通道中的两个1x7 Conv可能是作者笔误，Github上该部分是1x7 Conv和7x1 Conv。</p>
+<p><center><img src="/img/inception-v4-B.png" style="width: 500px"></center><br><br><br><strong>注意：</strong>Avg Pooling、1x7 Conv、7x1 Conv应该都是stride=1，padding=SAME的操作。</p>
+<p><strong>疑问：</strong>第三个通道中的两个1x7 Conv可能是作者笔误，Github上该部分是1x7 Conv和7x1 Conv。</p>
 <h1 id="Inception-C-8x8"><a href="#Inception-C-8x8" class="headerlink" title="Inception-C (8x8)"></a>Inception-C (8x8)</h1><p><br></p>
 <p><center><img src="/img/inception-v4-C.png" style="width: 500px"></center><br><br><br><strong>注意：</strong>Avg Pooling、1x3 Conv、3x1 Conv应该都是stride=1，padding=SAME的操作。</p>
+<h1 id="Reduction-A"><a href="#Reduction-A" class="headerlink" title="Reduction-A"></a>Reduction-A</h1><p><br></p>
+<p><center><img src="/img/inception-v4-RA.png" style="width: 500px"></center><br><br></p>
+<h1 id="Reduction-B"><a href="#Reduction-B" class="headerlink" title="Reduction-B"></a>Reduction-B</h1><p><br></p>
+<p><center><img src="/img/inception-v4-RB.png" style="width: 500px"></center><br><br></p>
 
       
     </div>
@@ -470,7 +477,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Schema-of-the-Inception-v4"><span class="nav-number">1.</span> <span class="nav-text">Schema of the Inception-v4</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Stem"><span class="nav-number">2.</span> <span class="nav-text">Stem</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Inception-A-35x35"><span class="nav-number">3.</span> <span class="nav-text">Inception-A (35x35)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Inception-B-17x17"><span class="nav-number">4.</span> <span class="nav-text">Inception-B (17x17)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Inception-C-8x8"><span class="nav-number">5.</span> <span class="nav-text">Inception-C (8x8)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Schema-of-the-Inception-v4"><span class="nav-number">1.</span> <span class="nav-text">Schema of the Inception-v4</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Stem"><span class="nav-number">2.</span> <span class="nav-text">Stem</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Inception-A-35x35"><span class="nav-number">3.</span> <span class="nav-text">Inception-A (35x35)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Inception-B-17x17"><span class="nav-number">4.</span> <span class="nav-text">Inception-B (17x17)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Inception-C-8x8"><span class="nav-number">5.</span> <span class="nav-text">Inception-C (8x8)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reduction-A"><span class="nav-number">6.</span> <span class="nav-text">Reduction-A</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reduction-B"><span class="nav-number">7.</span> <span class="nav-text">Reduction-B</span></a></li></ol></div>
             
           </div>
         </section>
