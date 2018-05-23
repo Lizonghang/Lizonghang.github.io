@@ -30,7 +30,11 @@
 
 <p>从左图可以看出，34层plain-net比18层plain-net有更高的验证错误率，产生了精度退化问题。此外，作者认为精度退化问题不是由梯度消失导致的，因为作者在plain-net中加入了BN层。</p>
 <p>与plain-net相反，34层resnet比18层resnet验证错误率更低，表明resnet克服了精度退化问题，并且相同层数的resnet比plain-net验证错误率更低。同时，作者还发现resnet收敛速度比plain-net更快。</p>
-<h1 id="Bottleneck-Building-Block"><a href="#Bottleneck-Building-Block" class="headerlink" title="Bottleneck Building Block"></a>Bottleneck Building Block</h1><center><img src="/img/resnet-bottleneck-building-block.png" style="width: 500px"></center>]]></content>
+<h1 id="Deeper-Bottleneck-Architecture"><a href="#Deeper-Bottleneck-Architecture" class="headerlink" title="Deeper Bottleneck Architecture"></a>Deeper Bottleneck Architecture</h1><center><img src="/img/resnet-bottleneck-building-block.png" style="width: 500px"></center>
+
+<p>Bottleneck building block (右图)的目的是降低参数量，为此先使用了64个1x1 Conv降维，用3x3 Conv处理特征后再用256个1x1 Conv恢复维度。</p>
+<p>假设bottleneck building block的输入深度为256，若直接通过左图所示两个3x3 Conv层，每层有256个卷积核，参数量就有3x3x256x2=4.5K；若先使用右图所示1x1 Conv降维，处理后再用1x1 Conv升维，参数量降低到1x1x64 + 3x3x64 + 1x1x256 = 0.875K，相比左图的building block，参数量降低了5倍。</p>
+]]></content>
       
         <categories>
             
