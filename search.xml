@@ -12,7 +12,7 @@
 
 <p>Inception-ResNet-v1&amp;v2的架构相同，如上图所示。该架构与<a href="https://lizonghang.github.io/2018/05/22/Inception-v4/">Inception-v4</a>中的Schema of the Inception-v4类似，区别仅在于Stem、Inception和Reduction模块的结构有些许不同。</p>
 <p><strong>注意：</strong>后文中，若无特殊说明，图中没有标注stride=2和符号V的操作默认为是stride=1，padding=SAME；若没有符号V默认padding=VALID。</p>
-<p><strong>疑问：</strong>论文中给出的Inception-ResNet v2 schema中模块输出维度的depth与标注不匹配。</p>
+<p><strong>疑问：</strong>论文中给出的Inception-ResNet的schema对应Inception-ResNet-v1，下文的channel数需要自行计算。参考<a href="https://github.com/titu1994/Inception-v4" target="_blank" rel="external">titu1994的Inception-v4/Inception-ResNet-v1&amp;v2实现</a>。</p>
 <h1 id="Stem-299x299x3-→-35x35x384"><a href="#Stem-299x299x3-→-35x35x384" class="headerlink" title="Stem (299x299x3 → 35x35x384)"></a>Stem (299x299x3 → 35x35x384)</h1><center><img src="/img/inception-v4-stem.png" style="width: 250px"></center>
 
 <p>Inception-ResNet-v2的Stem结构和Inception-v4是相同的。</p>
