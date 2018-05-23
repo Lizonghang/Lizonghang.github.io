@@ -57,26 +57,25 @@
 
 
 
-<meta name="description" content="代码功能将多张图片合并为一张长图，保持各子图比例相同。需要第三方库PIL和numpy。numpy是一个开源数字扩展库，可以用来处理大型矩阵。 require: 12$ sudo pip install pillow$ sudo pip install numpy 图片素材 合成效果：  代码实现假设文件名为merge.py 1234567891011121314151617181920212223">
+<meta name="description" content="Inception-ResNet是和Inception-v4一起在Google的Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning中提出的，其主要特点就是在Inception-v4-like module中引入了shortcut connections。详细内容请移步Inception-">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python制作长图">
-<meta property="og:url" content="http://lizonghang.github.io/2016/07/14/Python制作长图/index.html">
+<meta property="og:title" content="Inception-ResNet-v2">
+<meta property="og:url" content="http://lizonghang.github.io/2018/05/23/Inception-ResNet-v2/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="代码功能将多张图片合并为一张长图，保持各子图比例相同。需要第三方库PIL和numpy。numpy是一个开源数字扩展库，可以用来处理大型矩阵。 require: 12$ sudo pip install pillow$ sudo pip install numpy 图片素材 合成效果：  代码实现假设文件名为merge.py 1234567891011121314151617181920212223">
+<meta property="og:description" content="Inception-ResNet是和Inception-v4一起在Google的Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning中提出的，其主要特点就是在Inception-v4-like module中引入了shortcut connections。详细内容请移步Inception-">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://lizonghang.github.io/images/menbi1.jpg">
-<meta property="og:image" content="http://lizonghang.github.io/images/menbi2.jpg">
-<meta property="og:image" content="http://lizonghang.github.io/images/menbi3.jpg">
-<meta property="og:image" content="http://lizonghang.github.io/images/menbi4.jpg">
-<meta property="og:image" content="http://lizonghang.github.io/images/menbi5.jpg">
-<meta property="og:image" content="http://lizonghang.github.io/images/menbi6.jpg">
-<meta property="og:image" content="http://lizonghang.github.io/images/menbi7.jpg">
-<meta property="og:image" content="http://lizonghang.github.io/images/MergeImage.jpg">
-<meta property="og:updated_time" content="2018-04-12T06:31:47.129Z">
+<meta property="og:image" content="http://lizonghang.github.io/img/inception-resnet-v2-schema.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/inception-v4-stem.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/inception-resnet-v2-A.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/inception-v4-RA.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/inception-resnet-v2-B.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/inception-resnet-v2-RB.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/inception-resnet-v2-C.png">
+<meta property="og:updated_time" content="2018-05-23T13:50:30.371Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python制作长图">
-<meta name="twitter:description" content="代码功能将多张图片合并为一张长图，保持各子图比例相同。需要第三方库PIL和numpy。numpy是一个开源数字扩展库，可以用来处理大型矩阵。 require: 12$ sudo pip install pillow$ sudo pip install numpy 图片素材 合成效果：  代码实现假设文件名为merge.py 1234567891011121314151617181920212223">
-<meta name="twitter:image" content="http://lizonghang.github.io/images/menbi1.jpg">
+<meta name="twitter:title" content="Inception-ResNet-v2">
+<meta name="twitter:description" content="Inception-ResNet是和Inception-v4一起在Google的Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning中提出的，其主要特点就是在Inception-v4-like module中引入了shortcut connections。详细内容请移步Inception-">
+<meta name="twitter:image" content="http://lizonghang.github.io/img/inception-resnet-v2-schema.png">
 
 
 
@@ -94,7 +93,7 @@
   };
 </script>
 
-  <title> Python制作长图 | 努力学习天天向上 </title>
+  <title> Inception-ResNet-v2 | 努力学习天天向上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -256,7 +255,7 @@
             
             
               
-                Python制作长图
+                Inception-ResNet-v2
               
             
           </h1>
@@ -268,8 +267,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-14T12:27:19+08:00" content="2016-07-14">
-              2016-07-14
+            <time itemprop="dateCreated" datetime="2018-05-23T20:39:58+08:00" content="2018-05-23">
+              2018-05-23
             </time>
           </span>
 
@@ -282,8 +281,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
+                  <a href="/categories/ML-DL/" itemprop="url" rel="index">
+                    <span itemprop="name">ML/DL</span>
                   </a>
                 </span>
 
@@ -314,20 +313,31 @@
       
 
       
-        <p>代码功能将多张图片合并为一张长图，保持各子图比例相同。需要第三方库PIL和numpy。numpy是一个开源数字扩展库，可以用来处理大型矩阵。</p>
-<p>require:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo pip install pillow</div><div class="line">$ sudo pip install numpy</div></pre></td></tr></table></figure>
-<h1 id="图片素材"><a href="#图片素材" class="headerlink" title="图片素材"></a>图片素材</h1><p><img src="/images/menbi1.jpg" alt=""><br><img src="/images/menbi2.jpg" alt=""><br><img src="/images/menbi3.jpg" alt=""><br><img src="/images/menbi4.jpg" alt=""><br><img src="/images/menbi5.jpg" alt=""><br><img src="/images/menbi6.jpg" alt=""><br><img src="/images/menbi7.jpg" alt=""></p>
-<p>合成效果：</p>
-<p><img src="/images/MergeImage.jpg" alt=""></p>
-<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><p>假设文件名为merge.py</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line"># encoding: utf-8</div><div class="line">from PIL import Image</div><div class="line">import numpy</div><div class="line">import os</div><div class="line">import sys</div><div class="line">import random</div><div class="line">import argparse</div><div class="line"></div><div class="line">parser = argparse.ArgumentParser()</div><div class="line">parser.add_argument(&apos;image_dir&apos;, help=&apos;Path to Image Direction&apos;)</div><div class="line">parser.add_argument(&apos;-w&apos;, help=&apos;Image Width&apos;, type=int, default=300)</div><div class="line">args = parser.parse_args()</div><div class="line">root = args.image_dir # 图片文件夹目录</div><div class="line">if root.split(&apos;/&apos;)[-1]:</div><div class="line">    root += &apos;/&apos;</div><div class="line">pxsize = args.w # 单张照片宽度</div><div class="line">images = [] # 存放所有照片路径</div><div class="line"></div><div class="line">def getPhotos():</div><div class="line">    &apos;&apos;&apos;获取所有照片的索引&apos;&apos;&apos;</div><div class="line">    image_num = 0</div><div class="line">    for im in os.listdir(root):</div><div class="line">        suffix = im.split(&apos;.&apos;)[-1]</div><div class="line">        if suffix == &apos;jpg&apos; or suffix == &apos;JPG&apos; or suffix == &apos;jpeg&apos; or suffix == &apos;png&apos;:</div><div class="line">            images.append(root + im)</div><div class="line">            image_num += 1</div><div class="line">    return image_num</div><div class="line"></div><div class="line">xnum = 1 # 行照片数目</div><div class="line">ynum = getPhotos() # 列照片数目</div><div class="line">if ynum &gt; 70:</div><div class="line">    print &apos;图片数目过多，最高70&apos;</div><div class="line">    sys.exit()</div><div class="line"></div><div class="line">def getTotalHeight():</div><div class="line">    &apos;&apos;&apos;获取合并图片总长&apos;&apos;&apos;</div><div class="line">    totalHeight = 0</div><div class="line">    for i in range(xnum):</div><div class="line">        for j in range(ynum): </div><div class="line">            totalHeight += len(transfer(images[j])) + 1</div><div class="line">    return totalHeight</div><div class="line"></div><div class="line">def transfer(img_path):</div><div class="line">    &apos;&apos;&apos;将图片尺寸等比例转换&apos;&apos;&apos;</div><div class="line">    im = Image.open(img_path)</div><div class="line">    rate = float(im.size[0]) / im.size[1]</div><div class="line">    target_width = pxsize</div><div class="line">    target_height = int(pxsize / rate)</div><div class="line">    im = im.resize((target_width, target_height))</div><div class="line">    return numpy.array(im)[:target_height, :target_width]</div><div class="line"></div><div class="line">def mergeImage():</div><div class="line">    &apos;&apos;&apos;合并图片&apos;&apos;&apos;</div><div class="line">    point = 0</div><div class="line">    I = numpy.array(Image.new(&apos;RGB&apos;, (pxsize, getTotalHeight()), (255,255,255)))</div><div class="line">    for i in range(xnum):</div><div class="line">        for j in range(ynum):</div><div class="line">            DA = transfer(images[j]) </div><div class="line">            I[point:point+len(DA), (i*pxsize):((i+1)*pxsize)] = DA</div><div class="line">            point += len(DA) + 1</div><div class="line">    Image.fromarray(I.astype(numpy.uint8)).save(&apos;MergeImage.jpg&apos;, &apos;JPEG&apos;)</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    getPhotos()</div><div class="line">    mergeImage()</div></pre></td></tr></table></figure>
-<h1 id="运行程序"><a href="#运行程序" class="headerlink" title="运行程序"></a>运行程序</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ python merge.py &lt;path-to-image-file&gt; [-w width]</div></pre></td></tr></table></figure>
-<ul>
-<li>path-to-image-file - 必选，指向存放要合并的图片的文件夹</li>
-<li>-w width - 可选，指定生成图片的宽度，默认为300px</li>
-<li>默认生成图片存放路径为文件merge.py同级目录</li>
-</ul>
+        <p>Inception-ResNet是和Inception-v4一起在Google的<a href="https://arxiv.org/pdf/1602.07261v1.pdf" target="_blank" rel="external">Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning</a>中提出的，其主要特点就是在Inception-v4-like module中引入了shortcut connections。详细内容请移步<a href="https://lizonghang.github.io/2018/05/22/Inception-v4/">Inception-v4</a>和<a href="https://lizonghang.github.io/2018/05/22/ResNet/">ResNet</a>。</p>
+<p>本文只展示性能相对更好的Inception-ResNet-v2，Inception-ResNet-v1的结构与v2类似，具体请参阅<a href="https://arxiv.org/pdf/1602.07261v1.pdf" target="_blank" rel="external">Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning</a>。</p>
+<h1 id="Schema-of-the-Inception-ResNet-v2"><a href="#Schema-of-the-Inception-ResNet-v2" class="headerlink" title="Schema of the Inception-ResNet-v2"></a>Schema of the Inception-ResNet-v2</h1><center><img src="/img/inception-resnet-v2-schema.png" style="width: 250px"></center>
+
+<p>Inception-ResNet-v1&amp;v2的架构相同，如上图所示。该架构与<a href="https://lizonghang.github.io/2018/05/22/Inception-v4/">Inception-v4</a>中的Schema of the Inception-v4类似，区别仅在于Stem、Inception和Reduction模块的结构有些许不同。</p>
+<p><strong>注意：</strong>后文中，若无特殊说明，图中没有标注stride=2和符号V的操作默认为是stride=1，padding=SAME；若没有符号V默认padding=VALID。</p>
+<p><strong>疑问：</strong>论文中给出的Inception-ResNet v2 schema中模块输出维度的depth与标注不匹配。</p>
+<h1 id="Stem-299x299x3-→-35x35x384"><a href="#Stem-299x299x3-→-35x35x384" class="headerlink" title="Stem (299x299x3 → 35x35x384)"></a>Stem (299x299x3 → 35x35x384)</h1><center><img src="/img/inception-v4-stem.png" style="width: 250px"></center>
+
+<p>Inception-ResNet-v2的Stem结构和Inception-v4是相同的。</p>
+<h1 id="Inception-ResNet-A-35x35x384-→-35x35x384"><a href="#Inception-ResNet-A-35x35x384-→-35x35x384" class="headerlink" title="Inception-ResNet-A (35x35x384 → 35x35x384)"></a>Inception-ResNet-A (35x35x384 → 35x35x384)</h1><center><img src="/img/inception-resnet-v2-A.png" style="width: 500px"></center>
+
+<p>该结构中引入了shortcut connections，其identity mapping与residual mapping输出维度同为35x35x384，满足F(x)+x的要求。结构Inception-ResNet-B和Inception-ResNet-C也类似，下面不再赘述。</p>
+<h1 id="Reduction-A-35x35x384-→-17x17x1152"><a href="#Reduction-A-35x35x384-→-17x17x1152" class="headerlink" title="Reduction-A (35x35x384 → 17x17x1152)"></a>Reduction-A (35x35x384 → 17x17x1152)</h1><center><img src="/img/inception-v4-RA.png" style="width: 500px"></center>
+
+<p>其中k=256, l=256, m=384, n=384。该结构适用于Inception-v4、Inception-ResNet-v1&amp;v2。</p>
+<h1 id="Inception-ResNet-B-17x17x1152-→-17x17x1152"><a href="#Inception-ResNet-B-17x17x1152-→-17x17x1152" class="headerlink" title="Inception-ResNet-B (17x17x1152 → 17x17x1152)"></a>Inception-ResNet-B (17x17x1152 → 17x17x1152)</h1><center><img src="/img/inception-resnet-v2-B.png" style="width: 500px"></center>
+
+<p><strong>注意：</strong>图中1x1 Conv (1154 Linear)应改为1x1 Conv (1152 Linear)，否则identity mapping与residual mapping输出维度不匹配。</p>
+<h1 id="Reduction-B-17x17x1152-→-8x8x2144"><a href="#Reduction-B-17x17x1152-→-8x8x2144" class="headerlink" title="Reduction-B (17x17x1152 → 8x8x2144)"></a>Reduction-B (17x17x1152 → 8x8x2144)</h1><center><img src="/img/inception-resnet-v2-RB.png" style="width: 500px"></center>
+
+<h1 id="Inception-ResNet-C-8x8x2144-→-8x8x2144"><a href="#Inception-ResNet-C-8x8x2144-→-8x8x2144" class="headerlink" title="Inception-ResNet-C (8x8x2144 → 8x8x2144)"></a>Inception-ResNet-C (8x8x2144 → 8x8x2144)</h1><center><img src="/img/inception-resnet-v2-C.png" style="width: 500px"></center>
+
+<p><strong>注意：</strong>图中1x1 Conv (2048 Linear)应改为1x1 Conv (2144 Linear)，否则identity mapping与residual mapping输出维度不匹配。最后Average Pooling的输出维度为2144，经过带有Dropout正则化的1000输出softmax层得到1000个类别的类后验概率。</p>
+<h1 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h1><p>参考<a href="https://lizonghang.github.io/2018/05/22/Inception-v4/">Inception-v4</a>的Performance部分。</p>
 
       
     </div>
@@ -345,17 +355,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/10/使用pytesser破解简单验证码/" rel="next" title="使用pytesser破解简单验证码">
-                <i class="fa fa-chevron-left"></i> 使用pytesser破解简单验证码
+              <a href="/2018/05/22/ResNet/" rel="next" title="ResNet">
+                <i class="fa fa-chevron-left"></i> ResNet
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/14/socket网络通信——寻址、协议簇和套接字类型/" rel="prev" title="socket网络通信——寻址、协议簇和套接字类型">
-                socket网络通信——寻址、协议簇和套接字类型 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -475,7 +481,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#图片素材"><span class="nav-number">1.</span> <span class="nav-text">图片素材</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码实现"><span class="nav-number">2.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行程序"><span class="nav-number">3.</span> <span class="nav-text">运行程序</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Schema-of-the-Inception-ResNet-v2"><span class="nav-number">1.</span> <span class="nav-text">Schema of the Inception-ResNet-v2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Stem-299x299x3-→-35x35x384"><span class="nav-number">2.</span> <span class="nav-text">Stem (299x299x3 → 35x35x384)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Inception-ResNet-A-35x35x384-→-35x35x384"><span class="nav-number">3.</span> <span class="nav-text">Inception-ResNet-A (35x35x384 → 35x35x384)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reduction-A-35x35x384-→-17x17x1152"><span class="nav-number">4.</span> <span class="nav-text">Reduction-A (35x35x384 → 17x17x1152)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Inception-ResNet-B-17x17x1152-→-17x17x1152"><span class="nav-number">5.</span> <span class="nav-text">Inception-ResNet-B (17x17x1152 → 17x17x1152)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reduction-B-17x17x1152-→-8x8x2144"><span class="nav-number">6.</span> <span class="nav-text">Reduction-B (17x17x1152 → 8x8x2144)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Inception-ResNet-C-8x8x2144-→-8x8x2144"><span class="nav-number">7.</span> <span class="nav-text">Inception-ResNet-C (8x8x2144 → 8x8x2144)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Performance"><span class="nav-number">8.</span> <span class="nav-text">Performance</span></a></li></ol></div>
             
           </div>
         </section>

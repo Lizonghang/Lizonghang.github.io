@@ -4,6 +4,45 @@
   
     
     <entry>
+      <title><![CDATA[Inception-ResNet-v2]]></title>
+      <url>http://lizonghang.github.io/2018/05/23/Inception-ResNet-v2/</url>
+      <content type="html"><![CDATA[<p>Inception-ResNet是和Inception-v4一起在Google的<a href="https://arxiv.org/pdf/1602.07261v1.pdf" target="_blank" rel="external">Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning</a>中提出的，其主要特点就是在Inception-v4-like module中引入了shortcut connections。详细内容请移步<a href="https://lizonghang.github.io/2018/05/22/Inception-v4/">Inception-v4</a>和<a href="https://lizonghang.github.io/2018/05/22/ResNet/">ResNet</a>。</p>
+<p>本文只展示性能相对更好的Inception-ResNet-v2，Inception-ResNet-v1的结构与v2类似，具体请参阅<a href="https://arxiv.org/pdf/1602.07261v1.pdf" target="_blank" rel="external">Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning</a>。</p>
+<h1 id="Schema-of-the-Inception-ResNet-v2"><a href="#Schema-of-the-Inception-ResNet-v2" class="headerlink" title="Schema of the Inception-ResNet-v2"></a>Schema of the Inception-ResNet-v2</h1><center><img src="/img/inception-resnet-v2-schema.png" style="width: 250px"></center>
+
+<p>Inception-ResNet-v1&amp;v2的架构相同，如上图所示。该架构与<a href="https://lizonghang.github.io/2018/05/22/Inception-v4/">Inception-v4</a>中的Schema of the Inception-v4类似，区别仅在于Stem、Inception和Reduction模块的结构有些许不同。</p>
+<p><strong>注意：</strong>后文中，若无特殊说明，图中没有标注stride=2和符号V的操作默认为是stride=1，padding=SAME；若没有符号V默认padding=VALID。</p>
+<p><strong>疑问：</strong>论文中给出的Inception-ResNet v2 schema中模块输出维度的depth与标注不匹配。</p>
+<h1 id="Stem-299x299x3-→-35x35x384"><a href="#Stem-299x299x3-→-35x35x384" class="headerlink" title="Stem (299x299x3 → 35x35x384)"></a>Stem (299x299x3 → 35x35x384)</h1><center><img src="/img/inception-v4-stem.png" style="width: 250px"></center>
+
+<p>Inception-ResNet-v2的Stem结构和Inception-v4是相同的。</p>
+<h1 id="Inception-ResNet-A-35x35x384-→-35x35x384"><a href="#Inception-ResNet-A-35x35x384-→-35x35x384" class="headerlink" title="Inception-ResNet-A (35x35x384 → 35x35x384)"></a>Inception-ResNet-A (35x35x384 → 35x35x384)</h1><center><img src="/img/inception-resnet-v2-A.png" style="width: 500px"></center>
+
+<p>该结构中引入了shortcut connections，其identity mapping与residual mapping输出维度同为35x35x384，满足F(x)+x的要求。结构Inception-ResNet-B和Inception-ResNet-C也类似，下面不再赘述。</p>
+<h1 id="Reduction-A-35x35x384-→-17x17x1152"><a href="#Reduction-A-35x35x384-→-17x17x1152" class="headerlink" title="Reduction-A (35x35x384 → 17x17x1152)"></a>Reduction-A (35x35x384 → 17x17x1152)</h1><center><img src="/img/inception-v4-RA.png" style="width: 500px"></center>
+
+<p>其中k=256, l=256, m=384, n=384。该结构适用于Inception-v4、Inception-ResNet-v1&amp;v2。</p>
+<h1 id="Inception-ResNet-B-17x17x1152-→-17x17x1152"><a href="#Inception-ResNet-B-17x17x1152-→-17x17x1152" class="headerlink" title="Inception-ResNet-B (17x17x1152 → 17x17x1152)"></a>Inception-ResNet-B (17x17x1152 → 17x17x1152)</h1><center><img src="/img/inception-resnet-v2-B.png" style="width: 500px"></center>
+
+<p><strong>注意：</strong>图中1x1 Conv (1154 Linear)应改为1x1 Conv (1152 Linear)，否则identity mapping与residual mapping输出维度不匹配。</p>
+<h1 id="Reduction-B-17x17x1152-→-8x8x2144"><a href="#Reduction-B-17x17x1152-→-8x8x2144" class="headerlink" title="Reduction-B (17x17x1152 → 8x8x2144)"></a>Reduction-B (17x17x1152 → 8x8x2144)</h1><center><img src="/img/inception-resnet-v2-RB.png" style="width: 500px"></center>
+
+<h1 id="Inception-ResNet-C-8x8x2144-→-8x8x2144"><a href="#Inception-ResNet-C-8x8x2144-→-8x8x2144" class="headerlink" title="Inception-ResNet-C (8x8x2144 → 8x8x2144)"></a>Inception-ResNet-C (8x8x2144 → 8x8x2144)</h1><center><img src="/img/inception-resnet-v2-C.png" style="width: 500px"></center>
+
+<p><strong>注意：</strong>图中1x1 Conv (2048 Linear)应改为1x1 Conv (2144 Linear)，否则identity mapping与residual mapping输出维度不匹配。最后Average Pooling的输出维度为2144，经过带有Dropout正则化的1000输出softmax层得到1000个类别的类后验概率。</p>
+<h1 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h1><p>参考<a href="https://lizonghang.github.io/2018/05/22/Inception-v4/">Inception-v4</a>的Performance部分。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> ML/DL </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[ResNet]]></title>
       <url>http://lizonghang.github.io/2018/05/22/ResNet/</url>
       <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><center><img src="/img/resnet-development.png" style="width: 100%"></center>
