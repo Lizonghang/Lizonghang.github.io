@@ -16,6 +16,7 @@
 <center><img src="/img/resnet-building-block.png" style="width: 300px"></center>
 
 <p><strong>注意：</strong>residual mapping function F(x)的输出维度必须与identity mapping的输出维度相同。若输出深度不同，用1x1 Conv进行调整。</p>
+<p><strong>注意：</strong>F(x)的层数可以灵活选择，但若只选择一层，则F(x)类似于一个线性层y=W<sub>1</sub>x+x，实验表明这样的block不能带来优势。</p>
 <p>ResNet这么做的理论依据在于：如果网络已经达到最优，继续加深网络，之后加入的residual mapping的参数将被学习为0，于是多余的深度就只是在传递identity mapping，理论上可以保证网络的性能不会随着深度增加而降低，从而使网络保持在最优状态。原文如下描述：</p>
 <blockquote>
 <p>With the residual learning reformulation, if identity mappings are optimal, the solvers may simply drive the weights of the multiple nonlinear layers towards zero to approach identity mappings.</p>

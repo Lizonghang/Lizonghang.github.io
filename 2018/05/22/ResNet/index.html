@@ -67,7 +67,7 @@
 <meta property="og:image" content="http://lizonghang.github.io/img/resnet-development.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/resnet-deep-plain.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/resnet-building-block.png">
-<meta property="og:updated_time" content="2018-05-23T08:31:42.460Z">
+<meta property="og:updated_time" content="2018-05-23T08:34:53.417Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ResNet">
 <meta name="twitter:description" content="自VGG19模型出现后，人们认为只需要更深的网络、更大的参数量就可以不断的提高精度，因此只要不断地堆叠卷积层即可。2015年，Kaiming He发表论文Deep Residual Learning for Image Recognition(ResNet)，并在ILSVRC 2015 classification task中位居第一。ResNet通过实验指出：随着网络过度加深，训练集准确率反">
@@ -319,6 +319,7 @@
 <center><img src="/img/resnet-building-block.png" style="width: 300px"></center>
 
 <p><strong>注意：</strong>residual mapping function F(x)的输出维度必须与identity mapping的输出维度相同。若输出深度不同，用1x1 Conv进行调整。</p>
+<p><strong>注意：</strong>F(x)的层数可以灵活选择，但若只选择一层，则F(x)类似于一个线性层y=W<sub>1</sub>x+x，实验表明这样的block不能带来优势。</p>
 <p>ResNet这么做的理论依据在于：如果网络已经达到最优，继续加深网络，之后加入的residual mapping的参数将被学习为0，于是多余的深度就只是在传递identity mapping，理论上可以保证网络的性能不会随着深度增加而降低，从而使网络保持在最优状态。原文如下描述：</p>
 <blockquote>
 <p>With the residual learning reformulation, if identity mappings are optimal, the solvers may simply drive the weights of the multiple nonlinear layers towards zero to approach identity mappings.</p>
