@@ -30,7 +30,7 @@
 
 <p>从左图可以看出，34层plain-net比18层plain-net有更高的验证错误率，产生了精度退化问题。此外，作者认为精度退化问题不是由梯度消失导致的，因为作者在plain-net中加入了BN层。</p>
 <p>与plain-net相反，34层resnet比18层resnet验证错误率更低，表明resnet克服了精度退化问题，并且相同层数的resnet比plain-net验证错误率更低。同时，作者还发现resnet收敛速度比plain-net更快。</p>
-]]></content>
+<h1 id="Bottleneck-Building-Block"><a href="#Bottleneck-Building-Block" class="headerlink" title="Bottleneck Building Block"></a>Bottleneck Building Block</h1><center><img src="/img/resnet-bottleneck-building-block.png" style="width: 500px"></center>]]></content>
       
         <categories>
             

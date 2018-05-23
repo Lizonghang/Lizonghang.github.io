@@ -69,7 +69,8 @@
 <meta property="og:image" content="http://lizonghang.github.io/img/resnet-building-block.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/resnet-structure.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/resnet-performance.png">
-<meta property="og:updated_time" content="2018-05-23T09:29:35.559Z">
+<meta property="og:image" content="http://lizonghang.github.io/img/resnet-bottleneck-building-block.png">
+<meta property="og:updated_time" content="2018-05-23T09:34:10.327Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ResNet">
 <meta name="twitter:description" content="前言  自VGG19模型出现后，人们认为只需要更深的网络、更大的参数量就可以不断的提高精度，因此只要不断地堆叠卷积层即可。2015年，Kaiming He发表论文Deep Residual Learning for Image Recognition(ResNet)，并在ILSVRC 2015 classification task中位居第一。ResNet通过实验指出：随着网络过度加深，训练集准确">
@@ -335,7 +336,7 @@
 
 <p>从左图可以看出，34层plain-net比18层plain-net有更高的验证错误率，产生了精度退化问题。此外，作者认为精度退化问题不是由梯度消失导致的，因为作者在plain-net中加入了BN层。</p>
 <p>与plain-net相反，34层resnet比18层resnet验证错误率更低，表明resnet克服了精度退化问题，并且相同层数的resnet比plain-net验证错误率更低。同时，作者还发现resnet收敛速度比plain-net更快。</p>
-
+<h1 id="Bottleneck-Building-Block"><a href="#Bottleneck-Building-Block" class="headerlink" title="Bottleneck Building Block"></a>Bottleneck Building Block</h1><center><img src="/img/resnet-bottleneck-building-block.png" style="width: 500px"></center>
       
     </div>
 
@@ -478,7 +479,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ResNet原理"><span class="nav-number">2.</span> <span class="nav-text">ResNet原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ResNet网络结构"><span class="nav-number">3.</span> <span class="nav-text">ResNet网络结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能评估"><span class="nav-number">4.</span> <span class="nav-text">性能评估</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ResNet原理"><span class="nav-number">2.</span> <span class="nav-text">ResNet原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ResNet网络结构"><span class="nav-number">3.</span> <span class="nav-text">ResNet网络结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能评估"><span class="nav-number">4.</span> <span class="nav-text">性能评估</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bottleneck-Building-Block"><span class="nav-number">5.</span> <span class="nav-text">Bottleneck Building Block</span></a></li></ol></div>
             
           </div>
         </section>
