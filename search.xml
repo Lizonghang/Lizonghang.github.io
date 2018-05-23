@@ -38,7 +38,15 @@
 <center><img src="/img/resnet-building-blocks.png" style="width: 100%"></center>
 
 <p>下表是ResNet各个版本在ImageNet上的单模型验证错误率对比：</p>
-<center><img src="/img/resnet-single-model-performance.png" style="width: 300px"></center>]]></content>
+<center><img src="/img/resnet-single-model-performance.png" style="width: 300px"></center>
+
+<h1 id="Performance-on-Extremely-Deep-ResNet"><a href="#Performance-on-Extremely-Deep-ResNet" class="headerlink" title="Performance on Extremely Deep ResNet"></a>Performance on Extremely Deep ResNet</h1><p>为了探究ResNet是否对任意深的网络都能提高性能，作者在CIFAR-10数据集上对深度1202的ResNet做了性能测试，得到下图所示性能曲线与表格：</p>
+<center><img src="/img/E210AE23-B423-4A1A-9A2D-6DCEF145E5AF.png" style="width: 100%"></center>
+
+<center><img src="/img/E4D51742-D3B9-4BA8-9F67-421A1F9854FD.png" style="width: 100%"></center>
+
+<p>其中虚线为训练错误率曲线，粗实线为测试错误率曲线。可以看出，深度为1202时的测试精度(7.93%)反而比深度为110时的测试精度(6.43%)低，但两者的训练精度是相似的。作者认为是参数量相对CIFAR-10这种小数据集而言过大(19.4M)导致的过拟合，因为作者没有在网络中加入正则化，且网络在训练精度基本不变的情况下测试精度降低。</p>
+]]></content>
       
         <categories>
             

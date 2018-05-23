@@ -72,7 +72,9 @@
 <meta property="og:image" content="http://lizonghang.github.io/img/resnet-bottleneck-building-block.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/resnet-building-blocks.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/resnet-single-model-performance.png">
-<meta property="og:updated_time" content="2018-05-23T11:48:34.496Z">
+<meta property="og:image" content="http://lizonghang.github.io/img/E210AE23-B423-4A1A-9A2D-6DCEF145E5AF.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/E4D51742-D3B9-4BA8-9F67-421A1F9854FD.png">
+<meta property="og:updated_time" content="2018-05-23T12:12:44.875Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ResNet">
 <meta name="twitter:description" content="前言  自VGG19模型出现后，人们认为只需要更深的网络、更大的参数量就可以不断的提高精度，因此只要不断地堆叠卷积层即可。2015年，Kaiming He发表论文Deep Residual Learning for Image Recognition(ResNet)，并在ILSVRC 2015 classification task中位居第一。ResNet通过实验指出：随着网络过度加深，训练集准确">
@@ -347,6 +349,14 @@
 
 <p>下表是ResNet各个版本在ImageNet上的单模型验证错误率对比：</p>
 <center><img src="/img/resnet-single-model-performance.png" style="width: 300px"></center>
+
+<h1 id="Performance-on-Extremely-Deep-ResNet"><a href="#Performance-on-Extremely-Deep-ResNet" class="headerlink" title="Performance on Extremely Deep ResNet"></a>Performance on Extremely Deep ResNet</h1><p>为了探究ResNet是否对任意深的网络都能提高性能，作者在CIFAR-10数据集上对深度1202的ResNet做了性能测试，得到下图所示性能曲线与表格：</p>
+<center><img src="/img/E210AE23-B423-4A1A-9A2D-6DCEF145E5AF.png" style="width: 100%"></center>
+
+<center><img src="/img/E4D51742-D3B9-4BA8-9F67-421A1F9854FD.png" style="width: 100%"></center>
+
+<p>其中虚线为训练错误率曲线，粗实线为测试错误率曲线。可以看出，深度为1202时的测试精度(7.93%)反而比深度为110时的测试精度(6.43%)低，但两者的训练精度是相似的。作者认为是参数量相对CIFAR-10这种小数据集而言过大(19.4M)导致的过拟合，因为作者没有在网络中加入正则化，且网络在训练精度基本不变的情况下测试精度降低。</p>
+
       
     </div>
 
@@ -489,7 +499,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ResNet原理"><span class="nav-number">2.</span> <span class="nav-text">ResNet原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ResNet网络结构"><span class="nav-number">3.</span> <span class="nav-text">ResNet网络结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能评估"><span class="nav-number">4.</span> <span class="nav-text">性能评估</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bottleneck结构"><span class="nav-number">5.</span> <span class="nav-text">Bottleneck结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ResNet-50-101-152"><span class="nav-number">6.</span> <span class="nav-text">ResNet 50/101/152</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ResNet原理"><span class="nav-number">2.</span> <span class="nav-text">ResNet原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ResNet网络结构"><span class="nav-number">3.</span> <span class="nav-text">ResNet网络结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能评估"><span class="nav-number">4.</span> <span class="nav-text">性能评估</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bottleneck结构"><span class="nav-number">5.</span> <span class="nav-text">Bottleneck结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ResNet-50-101-152"><span class="nav-number">6.</span> <span class="nav-text">ResNet 50/101/152</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Performance-on-Extremely-Deep-ResNet"><span class="nav-number">7.</span> <span class="nav-text">Performance on Extremely Deep ResNet</span></a></li></ol></div>
             
           </div>
         </section>
