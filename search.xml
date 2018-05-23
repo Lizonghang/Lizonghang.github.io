@@ -21,8 +21,10 @@
 <blockquote>
 <p>With the residual learning reformulation, if identity mappings are optimal, the solvers may simply drive the weights of the multiple nonlinear layers towards zero to approach identity mappings.</p>
 </blockquote>
-<h1 id="ResNet网络结构"><a href="#ResNet网络结构" class="headerlink" title="ResNet网络结构"></a>ResNet网络结构</h1><center><img src="/img/resnet-structure.png" style="width: 300px"></center>
+<h1 id="ResNet网络结构"><a href="#ResNet网络结构" class="headerlink" title="ResNet网络结构"></a>ResNet网络结构</h1><center><img src="/img/resnet-structure.png" style="width: 500px"></center>
 
+<p>作者展示了三个网络：VGG19、VGG-like 34-layer plain architecture、VGG-like 34-layer residual architecture。VGG19有19.6 billion FLOPs，计算主要耗费在最后三层full-connect上。而VGG-like 34-layer plain architecture只含有3.6 billion的计算量，是VGG19计算量的18%，但网络深度增加到了34层。VGG-like 34-layer plain architecture将VGG19最后三层full-connect替换成了avg pooling，从而节省了参数量和计算量。</p>
+<p>VGG-like 34-layer residual architecture在VGG-like 34-layer plain architecture的基础上引入了shortcut connections。其中黑色线表示输入尺寸与输出尺寸相同，虚线表示输入尺寸与输出尺寸不同，在虚线上使用了1x1 Conv调整尺寸，从而保证F(x)和x具有相同的尺寸。两个网络有近似相同的参数量和计算量。</p>
 ]]></content>
       
         <categories>
