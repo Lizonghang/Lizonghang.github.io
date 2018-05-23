@@ -21,7 +21,9 @@
 <blockquote>
 <p>With the residual learning reformulation, if identity mappings are optimal, the solvers may simply drive the weights of the multiple nonlinear layers towards zero to approach identity mappings.</p>
 </blockquote>
-<h1 id="ResNet网络结构"><a href="#ResNet网络结构" class="headerlink" title="ResNet网络结构"></a>ResNet网络结构</h1>]]></content>
+<h1 id="ResNet网络结构"><a href="#ResNet网络结构" class="headerlink" title="ResNet网络结构"></a>ResNet网络结构</h1><center><img src="/img/resnet-structure.png" style="width: 300px"></center>
+
+]]></content>
       
         <categories>
             
