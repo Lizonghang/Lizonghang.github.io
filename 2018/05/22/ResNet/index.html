@@ -70,7 +70,9 @@
 <meta property="og:image" content="http://lizonghang.github.io/img/resnet-structure.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/resnet-performance.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/resnet-bottleneck-building-block.png">
-<meta property="og:updated_time" content="2018-05-23T11:33:24.741Z">
+<meta property="og:image" content="http://lizonghang.github.io/img/resnet-building-blocks.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/resnet-single-model-performance.png">
+<meta property="og:updated_time" content="2018-05-23T11:48:34.496Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ResNet">
 <meta name="twitter:description" content="前言  自VGG19模型出现后，人们认为只需要更深的网络、更大的参数量就可以不断的提高精度，因此只要不断地堆叠卷积层即可。2015年，Kaiming He发表论文Deep Residual Learning for Image Recognition(ResNet)，并在ILSVRC 2015 classification task中位居第一。ResNet通过实验指出：随着网络过度加深，训练集准确">
@@ -336,11 +338,15 @@
 
 <p>从左图可以看出，34层plain-net比18层plain-net有更高的验证错误率，产生了精度退化问题。此外，作者认为精度退化问题不是由梯度消失导致的，因为作者在plain-net中加入了BN层。</p>
 <p>与plain-net相反，34层resnet比18层resnet验证错误率更低，表明resnet克服了精度退化问题，并且相同层数的resnet比plain-net验证错误率更低。同时，作者还发现resnet收敛速度比plain-net更快。</p>
-<h1 id="Deeper-Bottleneck-Architecture"><a href="#Deeper-Bottleneck-Architecture" class="headerlink" title="Deeper Bottleneck Architecture"></a>Deeper Bottleneck Architecture</h1><center><img src="/img/resnet-bottleneck-building-block.png" style="width: 500px"></center>
+<h1 id="Bottleneck结构"><a href="#Bottleneck结构" class="headerlink" title="Bottleneck结构"></a>Bottleneck结构</h1><center><img src="/img/resnet-bottleneck-building-block.png" style="width: 500px"></center>
 
 <p>Bottleneck building block (右图)的目的是降低参数量，为此先使用了64个1x1 Conv降维，用3x3 Conv处理特征后再用256个1x1 Conv恢复维度。</p>
 <p>假设bottleneck building block的输入深度为256，若直接通过左图所示两个3x3 Conv层，每层有256个卷积核，参数量就有3x3x256x2=4.5K；若先使用右图所示1x1 Conv降维，处理后再用1x1 Conv升维，参数量降低到1x1x64 + 3x3x64 + 1x1x256 = 0.875K，相比左图的building block，参数量降低了5倍。</p>
+<h1 id="ResNet-50-101-152"><a href="#ResNet-50-101-152" class="headerlink" title="ResNet 50/101/152"></a>ResNet 50/101/152</h1><p>这里给出ResNet 18/34/50/101/152的网络模型的building block表，其中ResNet 50/101/152的应用比较多，单个ResNet 152模型可得到4.49%的top-5错误率，作者使用两个ResNet 152模型进行集成得到3.57%的top-5错误率，在ILSVRC 2015中取得第一名。</p>
+<center><img src="/img/resnet-building-blocks.png" style="width: 100%"></center>
 
+<p>下表是ResNet各个版本在ImageNet上的单模型验证错误率对比：</p>
+<center><img src="/img/resnet-single-model-performance.png" style="width: 300px"></center>
       
     </div>
 
@@ -483,7 +489,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ResNet原理"><span class="nav-number">2.</span> <span class="nav-text">ResNet原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ResNet网络结构"><span class="nav-number">3.</span> <span class="nav-text">ResNet网络结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能评估"><span class="nav-number">4.</span> <span class="nav-text">性能评估</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Deeper-Bottleneck-Architecture"><span class="nav-number">5.</span> <span class="nav-text">Deeper Bottleneck Architecture</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ResNet原理"><span class="nav-number">2.</span> <span class="nav-text">ResNet原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ResNet网络结构"><span class="nav-number">3.</span> <span class="nav-text">ResNet网络结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能评估"><span class="nav-number">4.</span> <span class="nav-text">性能评估</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bottleneck结构"><span class="nav-number">5.</span> <span class="nav-text">Bottleneck结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ResNet-50-101-152"><span class="nav-number">6.</span> <span class="nav-text">ResNet 50/101/152</span></a></li></ol></div>
             
           </div>
         </section>
