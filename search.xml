@@ -12,7 +12,7 @@
 <p>在ResNet出现之前，梯度爆炸和梯度消失问题是由normalized initialization和在网络中间层加入normalization layers解决的，但这只能使得深度为几十层的网络得以收敛。但随着网络深度不断加深，普通堆叠的深度网络的训练精度和测试精度会迅速下降。普通堆叠深度网络的训练误差与测试误差如下图所示：</p>
 <center><img src="/img/resnet-deep-plain.png" style="width: 100%"></center>
 
-<h2 id="ResNet原理"><a href="#ResNet原理" class="headerlink" title="ResNet原理"></a>ResNet原理</h2><p>ResNet认为，与其希望每个堆叠的层学习到一个期望的underlying mapping，不如让这些层去学习一个residual mapping。即我们假设期望的underlying mapping是H(x)，我们让堆叠的非线性层去拟合residual mapping: F(x) = H(x) - x，其中x被称为identity mapping，那么原来的underlying mapping就可以表示为residual mapping和identity mapping之和: H(x) = F(x) + x。公式化的表示F(x) + x可以通过前向传播的”shortcut connections”实现，即简单的逐元素加法，并且不会增加额外的参数或计算复杂度，如下图所示：</p>
+<h1 id="ResNet原理"><a href="#ResNet原理" class="headerlink" title="ResNet原理"></a>ResNet原理</h1><p>ResNet认为，与其希望每个堆叠的层学习到一个期望的underlying mapping，不如让这些层去学习一个residual mapping。即我们假设期望的underlying mapping是H(x)，我们让堆叠的非线性层去拟合residual mapping: F(x) = H(x) - x，其中x被称为identity mapping，那么原来的underlying mapping就可以表示为residual mapping和identity mapping之和: H(x) = F(x) + x。公式化的表示F(x) + x可以通过前向传播的”shortcut connections”实现，即简单的逐元素加法，并且不会增加额外的参数或计算复杂度，如下图所示：</p>
 <center><img src="/img/resnet-building-block.png" style="width: 300px"></center>
 
 <p><strong>注意：</strong>residual mapping function F(x)的输出维度必须与identity mapping的输出维度相同。若输出深度不同，用1x1 Conv进行调整。</p>
