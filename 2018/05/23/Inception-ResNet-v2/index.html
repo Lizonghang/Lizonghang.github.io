@@ -71,7 +71,7 @@
 <meta property="og:image" content="http://lizonghang.github.io/img/inception-resnet-v2-B.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/inception-resnet-v2-RB.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/inception-resnet-v2-C.png">
-<meta property="og:updated_time" content="2018-05-23T15:05:29.589Z">
+<meta property="og:updated_time" content="2018-05-23T15:14:25.255Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Inception-ResNet-v2">
 <meta name="twitter:description" content="Inception-ResNet是和Inception-v4一起在Google的Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning中提出的，其主要特点就是在Inception-v4-like module中引入了shortcut connections。详细内容请移步Inception-">
@@ -319,7 +319,7 @@
 
 <p>Inception-ResNet-v1&amp;v2的架构相同，如上图所示。该架构与<a href="https://lizonghang.github.io/2018/05/22/Inception-v4/">Inception-v4</a>中的Schema of the Inception-v4类似，区别仅在于Stem、Inception和Reduction模块的结构有些许不同。</p>
 <p><strong>注意：</strong>后文中，若无特殊说明，图中没有标注stride=2和符号V的操作默认为是stride=1，padding=SAME；若没有符号V默认padding=VALID。</p>
-<p><strong>疑问：</strong>论文中给出的Inception-ResNet的schema对应Inception-ResNet-v1，下文的channel数需要自行计算。参考<a href="https://github.com/titu1994/Inception-v4" target="_blank" rel="external">titu1994的Inception-v4/Inception-ResNet-v1&amp;v2实现</a>。</p>
+<p><strong>特别注意：</strong>论文中给出的Inception-ResNet的schema对应Inception-ResNet-v1，下文的channel数需要自行计算。参考<a href="https://github.com/titu1994/Inception-v4" target="_blank" rel="external">titu1994的Inception-v4/Inception-ResNet-v1&amp;v2实现</a>。</p>
 <h1 id="Stem-299x299x3-→-35x35x384"><a href="#Stem-299x299x3-→-35x35x384" class="headerlink" title="Stem (299x299x3 → 35x35x384)"></a>Stem (299x299x3 → 35x35x384)</h1><center><img src="/img/inception-v4-stem.png" style="width: 250px"></center>
 
 <p>Inception-ResNet-v2的Stem结构和Inception-v4是相同的。</p>
