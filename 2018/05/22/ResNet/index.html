@@ -74,7 +74,7 @@
 <meta property="og:image" content="http://lizonghang.github.io/img/resnet-single-model-performance.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/E4D51742-D3B9-4BA8-9F67-421A1F9854FD.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/E210AE23-B423-4A1A-9A2D-6DCEF145E5AF.png">
-<meta property="og:updated_time" content="2018-05-23T12:22:34.408Z">
+<meta property="og:updated_time" content="2018-05-24T05:28:47.058Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ResNet">
 <meta name="twitter:description" content="前言  自VGG19模型出现后，人们认为只需要更深的网络、更大的参数量就可以不断的提高精度，因此只要不断地堆叠卷积层即可。2015年，Kaiming He发表论文Deep Residual Learning for Image Recognition(ResNet)，并在ILSVRC 2015 classification task中位居第一。ResNet通过实验指出：随着网络过度加深，训练集准确">
@@ -319,14 +319,14 @@
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><center><img src="/img/resnet-development.png" style="width: 100%"></center>
 
 <p>自VGG19模型出现后，人们认为只需要更深的网络、更大的参数量就可以不断的提高精度，因此只要不断地堆叠卷积层即可。2015年，Kaiming He发表论文<a href="https://arxiv.org/pdf/1512.03385.pdf" target="_blank" rel="external">Deep Residual Learning for Image Recognition</a>(ResNet)，并在ILSVRC 2015 classification task中位居第一。ResNet通过实验指出：随着网络过度加深，训练集准确率反而会下降，这种性能下降是由梯度爆炸或梯度消失导致的，因而正则化方法不能解决这一问题。</p>
-<p>在ResNet出现之前，梯度爆炸和梯度消失问题是由normalized initialization和在网络中间层加入normalization layers解决的，但这只能使得深度为几十层的网络得以收敛。但随着网络深度不断加深，普通堆叠的深度网络的训练精度和测试精度会迅速下降。普通堆叠深度网络的训练误差与测试误差如下图所示：</p>
+<p>在ResNet出现之前，梯度爆炸和梯度消失问题是由normalized initialization和在网络中间层加入normalization layers解决的，但这只能使得深度为几十层的网络得以收敛。但随着网络深度不断加深，普通堆叠的深度网络的训练精度和测试精度会迅速下降，如下图所示：</p>
 <center><img src="/img/resnet-deep-plain.png" style="width: 100%"></center>
 
 <h1 id="ResNet原理"><a href="#ResNet原理" class="headerlink" title="ResNet原理"></a>ResNet原理</h1><p>ResNet认为，与其希望每个堆叠的层学习到一个期望的underlying mapping，不如让这些层去学习一个residual mapping。即我们假设期望的underlying mapping是H(x)，我们让堆叠的非线性层去拟合residual mapping: F(x) = H(x) - x，其中x被称为identity mapping，那么原来的underlying mapping就可以表示为residual mapping和identity mapping之和: H(x) = F(x) + x。公式化的表示F(x) + x可以通过前向传播的”shortcut connections”实现，即简单的逐元素加法，并且不会增加额外的参数或计算复杂度，如下图所示：</p>
 <center><img src="/img/resnet-building-block.png" style="width: 300px"></center>
 
-<p><strong>注意：</strong>residual mapping function F(x)的输出维度必须与identity mapping的输出维度相同。若输出深度不同，用1x1 Conv进行调整。</p>
-<p><strong>注意：</strong>F(x)的层数可以灵活选择，但若只选择一层，则F(x)类似于一个线性层y=W<sub>1</sub>x+x，实验表明这样的block不能带来优势。</p>
+<p><strong>注意：</strong>residual mapping的输出维度必须与identity mapping的输出维度相同。若输出深度不同，用1x1 Conv进行调整。</p>
+<p><strong>注意：</strong>F(x)的层数可以灵活选择，但若只选择一层，则F(x)类似于一个线性层y=W<sub>1</sub>x+x，实验表明这样的block不能带来性能提升。</p>
 <p>ResNet这么做的理论依据在于：如果网络已经达到最优，继续加深网络，之后加入的residual mapping的参数将被学习为0，于是多余的深度就只是在传递identity mapping，理论上可以保证网络的性能不会随着深度增加而降低，从而使网络保持在最优状态。原文如下描述：</p>
 <blockquote>
 <p>With the residual learning reformulation, if identity mappings are optimal, the solvers may simply drive the weights of the multiple nonlinear layers towards zero to approach identity mappings.</p>
@@ -335,7 +335,7 @@
 
 <p>作者展示了三个网络：VGG19、VGG-like 34-layer plain architecture、VGG-like 34-layer residual architecture，分别以A、B、C表示。A有19.6 billion FLOPs，计算主要耗费在最后三层full-connect上。而B只含有3.6 billion的计算量，是VGG19计算量的18%，但网络深度增加到了34层。B将VGG19最后三层full-connect替换成了avg pooling，从而节省了参数量和计算量。</p>
 <p>C在B的基础上引入了shortcut connections。其中黑色线表示输入尺寸与输出尺寸相同，虚线表示输入尺寸与输出尺寸不同，在虚线上使用了1x1 Conv调整尺寸，从而保证F(x)和x具有相同的尺寸。两个网络有近似相同的参数量和计算量。</p>
-<h1 id="性能评估"><a href="#性能评估" class="headerlink" title="性能评估"></a>性能评估</h1><p>作者在ImageNet 2012 classification dataset上对不同深度的plain-net和resnet进行性能评估，如下图所示，其中细曲线为训练错误率，粗曲线为验证错误率，左图为深度为18和34的plain-net性能曲线，右图为深度为18和34的resnet性能曲线。</p>
+<h1 id="性能评估"><a href="#性能评估" class="headerlink" title="性能评估"></a>性能评估</h1><p>作者在ImageNet 2012 classification dataset上对不同深度的plain-net和resnet进行性能评估，如下图所示，其中细曲线为训练错误率，粗曲线为验证错误率。</p>
 <center><img src="/img/resnet-performance.png" style="width: 100%"></center>
 
 <p>从左图可以看出，34层plain-net比18层plain-net有更高的验证错误率，产生了精度退化问题。此外，作者认为精度退化问题不是由梯度消失导致的，因为作者在plain-net中加入了BN层。</p>
@@ -355,7 +355,7 @@
 
 <center><img src="/img/E210AE23-B423-4A1A-9A2D-6DCEF145E5AF.png" style="width: 100%"></center>
 
-<p>其中虚线为训练错误率曲线，粗实线为测试错误率曲线。可以看出，深度为1202时的测试精度(7.93%)反而比深度为110时的测试精度(6.43%)低，但两者的训练精度是相似的。作者认为是参数量相对CIFAR-10这种小数据集而言过大(19.4M)导致的过拟合，因为作者没有在网络中加入正则化，且网络在训练精度基本不变的情况下测试精度降低。</p>
+<p>其中虚线为训练错误率曲线，粗实线为测试错误率曲线。可以看出，深度为1202时的测试精度(7.93%)反而比深度为110时的测试精度(6.43%)低，但两者的训练精度是相似的。作者认为是深度为1202的网络参数量(19.4M)相对CIFAR-10这种小数据集而言过大导致的过拟合，因为作者没有在网络中使用正则化，且网络在训练精度基本不变的情况下测试精度降低。</p>
 
       
     </div>

@@ -57,12 +57,12 @@
 
 
 
-<meta name="description" content="Inception-ResNet是和Inception-v4一起在Google的Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning中提出的，其主要特点就是在Inception-v4-like module中引入了shortcut connections。详细内容请移步Inception-">
+<meta name="description" content="Inception-ResNet是和Inception-v4一起在Google的Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning中提出的，其主要特点就是在Inception-v4-like module中引入了shortcut connections。关于Inception-v4和sh">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Inception-ResNet-v2">
 <meta property="og:url" content="http://lizonghang.github.io/2018/05/23/Inception-ResNet-v2/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="Inception-ResNet是和Inception-v4一起在Google的Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning中提出的，其主要特点就是在Inception-v4-like module中引入了shortcut connections。详细内容请移步Inception-">
+<meta property="og:description" content="Inception-ResNet是和Inception-v4一起在Google的Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning中提出的，其主要特点就是在Inception-v4-like module中引入了shortcut connections。关于Inception-v4和sh">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://lizonghang.github.io/img/inception-resnet-v2-schema.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/inception-v4-stem.png">
@@ -71,10 +71,10 @@
 <meta property="og:image" content="http://lizonghang.github.io/img/inception-resnet-v2-B.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/inception-resnet-v2-RB.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/inception-resnet-v2-C.png">
-<meta property="og:updated_time" content="2018-05-23T15:14:25.255Z">
+<meta property="og:updated_time" content="2018-05-24T05:34:11.407Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Inception-ResNet-v2">
-<meta name="twitter:description" content="Inception-ResNet是和Inception-v4一起在Google的Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning中提出的，其主要特点就是在Inception-v4-like module中引入了shortcut connections。详细内容请移步Inception-">
+<meta name="twitter:description" content="Inception-ResNet是和Inception-v4一起在Google的Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning中提出的，其主要特点就是在Inception-v4-like module中引入了shortcut connections。关于Inception-v4和sh">
 <meta name="twitter:image" content="http://lizonghang.github.io/img/inception-resnet-v2-schema.png">
 
 
@@ -313,22 +313,22 @@
       
 
       
-        <p>Inception-ResNet是和Inception-v4一起在Google的<a href="https://arxiv.org/pdf/1602.07261v1.pdf" target="_blank" rel="external">Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning</a>中提出的，其主要特点就是在Inception-v4-like module中引入了shortcut connections。详细内容请移步<a href="https://lizonghang.github.io/2018/05/22/Inception-v4/">Inception-v4</a>和<a href="https://lizonghang.github.io/2018/05/22/ResNet/">ResNet</a>。</p>
+        <p>Inception-ResNet是和Inception-v4一起在Google的<a href="https://arxiv.org/pdf/1602.07261v1.pdf" target="_blank" rel="external">Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning</a>中提出的，其主要特点就是在Inception-v4-like module中引入了shortcut connections。关于Inception-v4和shortcut connections的详细说明请移步<a href="https://lizonghang.github.io/2018/05/22/Inception-v4/">Inception-v4</a>和<a href="https://lizonghang.github.io/2018/05/22/ResNet/">ResNet</a>。</p>
 <p>本文只展示性能相对更好的Inception-ResNet-v2，Inception-ResNet-v1的结构与v2类似，具体请参阅<a href="https://arxiv.org/pdf/1602.07261v1.pdf" target="_blank" rel="external">Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning</a>。</p>
 <h1 id="Schema-of-the-Inception-ResNet-v2"><a href="#Schema-of-the-Inception-ResNet-v2" class="headerlink" title="Schema of the Inception-ResNet-v2"></a>Schema of the Inception-ResNet-v2</h1><center><img src="/img/inception-resnet-v2-schema.png" style="width: 250px"></center>
 
-<p>Inception-ResNet-v1&amp;v2的架构相同，如上图所示。该架构与<a href="https://lizonghang.github.io/2018/05/22/Inception-v4/">Inception-v4</a>中的Schema of the Inception-v4类似，区别仅在于Stem、Inception和Reduction模块的结构有些许不同。</p>
+<p>Inception-ResNet-v1&amp;v2的架构相同，如上图所示。该架构与<a href="https://lizonghang.github.io/2018/05/22/Inception-v4/">Inception-v4</a>的schema类似，区别在于Stem、Inception和Reduction模块的结构不同。</p>
 <p><strong>注意：</strong>后文中，若无特殊说明，图中没有标注stride=2和符号V的操作默认为是stride=1，padding=SAME；若没有符号V默认padding=VALID。</p>
-<p><strong>特别注意：</strong>论文中给出的Inception-ResNet的schema对应Inception-ResNet-v1，下文的channel数需要自行计算。参考<a href="https://github.com/titu1994/Inception-v4" target="_blank" rel="external">titu1994的Inception-v4/Inception-ResNet-v1&amp;v2实现</a>。</p>
+<p><strong>特别注意：</strong>论文中给出的Inception-ResNet的schema中标注的channel对应Inception-ResNet-v1，Inception-ResNet-v2的channel与上图标注的不同。代码参考<a href="https://github.com/titu1994/Inception-v4" target="_blank" rel="external">titu1994的Inception-v4/Inception-ResNet-v1&amp;v2实现</a>。</p>
 <h1 id="Stem-299x299x3-→-35x35x384"><a href="#Stem-299x299x3-→-35x35x384" class="headerlink" title="Stem (299x299x3 → 35x35x384)"></a>Stem (299x299x3 → 35x35x384)</h1><center><img src="/img/inception-v4-stem.png" style="width: 250px"></center>
 
 <p>Inception-ResNet-v2的Stem结构和Inception-v4是相同的。</p>
 <h1 id="Inception-ResNet-A-35x35x384-→-35x35x384"><a href="#Inception-ResNet-A-35x35x384-→-35x35x384" class="headerlink" title="Inception-ResNet-A (35x35x384 → 35x35x384)"></a>Inception-ResNet-A (35x35x384 → 35x35x384)</h1><center><img src="/img/inception-resnet-v2-A.png" style="width: 500px"></center>
 
-<p>该结构中引入了shortcut connections，其identity mapping与residual mapping输出维度同为35x35x384，满足F(x)+x的要求。结构Inception-ResNet-B和Inception-ResNet-C也类似，下面不再赘述。</p>
+<p>该结构中引入了shortcut connections，其identity mapping与residual mapping输出维度同为35x35x384，满足F(x)+x的要求。</p>
 <h1 id="Reduction-A-35x35x384-→-17x17x1152"><a href="#Reduction-A-35x35x384-→-17x17x1152" class="headerlink" title="Reduction-A (35x35x384 → 17x17x1152)"></a>Reduction-A (35x35x384 → 17x17x1152)</h1><center><img src="/img/inception-v4-RA.png" style="width: 500px"></center>
 
-<p>其中k=256, l=256, m=384, n=384。该结构适用于Inception-v4、Inception-ResNet-v1&amp;v2。</p>
+<p>其中k=256, l=256, m=384, n=384。Reduction-A对Inception-v4、Inception-ResNet-v1和v2是通用的。</p>
 <h1 id="Inception-ResNet-B-17x17x1152-→-17x17x1152"><a href="#Inception-ResNet-B-17x17x1152-→-17x17x1152" class="headerlink" title="Inception-ResNet-B (17x17x1152 → 17x17x1152)"></a>Inception-ResNet-B (17x17x1152 → 17x17x1152)</h1><center><img src="/img/inception-resnet-v2-B.png" style="width: 500px"></center>
 
 <p><strong>注意：</strong>图中1x1 Conv (1154 Linear)应改为1x1 Conv (1152 Linear)，否则identity mapping与residual mapping输出维度不匹配。</p>
