@@ -77,7 +77,7 @@
 <meta property="og:image" content="http://lizonghang.github.io/img/11.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/12.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/13.png">
-<meta property="og:updated_time" content="2018-06-26T10:42:52.468Z">
+<meta property="og:updated_time" content="2018-06-26T10:46:34.207Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scaling Distributed Machine Learning with the Parameter Server">
 <meta name="twitter:description" content="We described a parameter server framework to solve distributed machine learning problems. This framework is easy to use: Globally shared parameters can be used as local sparse vectors or matrices to p">
@@ -357,11 +357,11 @@
 <h2 id="User-Defined-Functions-on-the-Server"><a href="#User-Defined-Functions-on-the-Server" class="headerlink" title="User-Defined Functions on the Server"></a>User-Defined Functions on the Server</h2><p>Beyond aggregating data from workers, server nodes can execute user-defined functions.</p>
 <h2 id="Asynchronous-Tasks-and-Dependency"><a href="#Asynchronous-Tasks-and-Dependency" class="headerlink" title="Asynchronous Tasks and Dependency"></a>Asynchronous Tasks and Dependency</h2><p> Tasks may include any number of subtasks. For example, the task WorkerIterate in Algorithm 1 contains one push and one pull. Tasks are executed asynchronously: the caller can perform further computation immediately after issuing a task.</p>
 <p>The caller marks a task as finished only once it receives the callee’s reply. A reply could be the function return of a user-defined function, the (key, value) pairs requested by the pull, or an empty acknowledgement. The callee marks a task as finished only if the call of the task is returned and all subtasks issued by this call are finished.</p>
-<center><img src="/img/5.png" style="width: 400px"></center>
+<center><img src="/img/5.png" style="width: 500px"></center>
 
 <p>By default, callees execute tasks in parallel, for best performance. Figure 5 depicts three example iterations of WorkerIterate. Iterations 10 and 11 are independent, but 12 depends on 11. The callee therefore begins iteration 11 immediately after the local gradients are computed in iteration 10. Iteration 12, however, is postponed until the pull of 11 finishes.</p>
 <h2 id="Flexible-Consistency"><a href="#Flexible-Consistency" class="headerlink" title="Flexible Consistency"></a>Flexible Consistency</h2><p>Independent tasks improve system efficiency via parallelizing the use of CPU, disk and network bandwidth. However, this may lead to data inconsistency between nodes. The best trade-off between system efficiency and algorithm convergence rate usually depends on a variety of factors, including the algorithm’s sensitivity to data inconsistency, feature correlation in training data, and capacity difference of hardware components. Instead of forcing the user to adopt one particular dependency that may be illsuited to the problem, the parameter server gives the algorithm designer flexibility in defining consistency models.</p>
-<center><img src="/img/6.png" style="width: 400px"></center>
+<center><img src="/img/6.png" style="width: 500px"></center>
 
 <ul>
 <li><strong>Sequential:</strong> Also named BSP. In sequential consistency, all tasks are executed one by one. The next task can be started only if the previous one has finished. It produces results identical to the single-thread implementation.</li>
@@ -380,12 +380,12 @@
 <p>Because machine learning problems typically require high bandwidth, message compression is desirable. Training data often remains unchanged between iterations. A worker might send the same key lists again. Hence it is desirable for the receiving node to cache the key lists. Later, the sender only needs to send a hash of the list rather than the list itself.</p>
 <p>Values may contain many zero entries. For example, a large portion of parameters remain unchanged in sparse logistic regression. Likewise, a user-defined filter may also zero out a large fraction of the values. Hence we need only send non-zero (key,value) pairs. We use the fast Snappy compression library to compress messages, effectively removing the zeros.</p>
 <p>Key-caching and value-compression can be used jointly.</p>
-<h2 id="Consistent-Hashing"><a href="#Consistent-Hashing" class="headerlink" title="Consistent Hashing"></a>Consistent Hashing</h2><center><img src="/img/7.png" style="width: 400px"></center>
+<h2 id="Consistent-Hashing"><a href="#Consistent-Hashing" class="headerlink" title="Consistent Hashing"></a>Consistent Hashing</h2><center><img src="/img/7.png" style="width: 200px"></center>
 
 <p>In parameter server, keys and server node IDs are both inserted into the hash ring. Each server node manages the key range starting with its insertion point to the next point by other nodes in the counter-clockwise direction. This node is called the master of this key range. A physical server is often represented in the ring via multiple “virtual” servers to improve load balancing and recovery.</p>
 <h2 id="Replication-and-Consistency"><a href="#Replication-and-Consistency" class="headerlink" title="Replication and Consistency"></a>Replication and Consistency</h2><p>Each server node stores a replica of the k counterclock-wise neighbor key ranges relative to the one it owns. We refer to nodes holding copies as slaves of the appropriate key range. The above diagram shows an example with k = 2, where server 1 replicates the key ranges owned by server 2 and server 3.</p>
 <p>Worker nodes communicate with the master of a key range for both push and pull. Any modification on the master is copied with its timestamp to the slaves. Modifications to data are pushed synchronously to the slaves.</p>
-<center><img src="/img/8.png" style="width: 400px"></center>
+<center><img src="/img/8.png" style="width: 600px"></center>
 
 <p>Figure 8 shows a case where worker 1 pushes x into server 1, which invokes a user defined function f to modify the shared data. The push task is completed only once the data modification f (x) is copied to the slave.</p>
 <p>Naive replication potentially increases the network traffic by k times. This is undesirable for many machine learning applications that depend on high network bandwidth. The parameter server framework permits replication after aggregation. Server nodes often aggregate data from the worker nodes, such as summing local gradients. Servers may therefore postpone replication until aggregation is complete.</p>
@@ -427,16 +427,16 @@
 <li>Fourth, we use a bounded-delay model over iterations and use a “KKT” filter to suppress transmission of parts of the generated gradient update that are small enough that their effect is likely to be negligible.</li>
 </ul>
 <p>We compare the parameter server with two special-purpose systems, named System A and B, developed by a large internet company. Both Systems A and B consist of more than10K lines of code. The parameter server only requires 300 lines of code for the same functionality as System B.</p>
-<center><img src="/img/10.png" style="width: 400px"></center>
+<center><img src="/img/10.png" style="width: 300px"></center>
 
 <p>We first compare these three systems by running them to reach the same objective value. System B outperforms system A because it uses a better algorithm. The parameter server outperforms System B while using the same algorithm, because of the efficacy of reducing the network traffic and the relaxed consistency model.</p>
-<center><img src="/img/11.png" style="width: 400px"></center>
+<center><img src="/img/11.png" style="width: 300px"></center>
 
 <p>Figure 10 shows that the relaxed consistency model substantially increases worker node utilization. Workers in System A are 32% idle, and in system B, they are 53% idle, while waiting for the barrier in each block. The parameter server reduces this cost to under 2%.</p>
-<center><img src="/img/12.png" style="width: 400px"></center>
+<center><img src="/img/12.png" style="width: 600px"></center>
 
 <p>Figure 11 shows the reduction of network traffic by each system components for servers and workers. As can be seen, allowing the senders and receivers to cache the keys can save near 50% traffic. This is because both key (int64) and value (double) are of the same size, and the key set is not changed during optimization. In addition, data compression is effective for compressing the values for both servers (&gt;20x) and workers when applying the KKT filter (&gt;6x). The reason is twofold. First, the l1 regularizer encourages a sparse model (w), so that most of values pulled from servers are 0. Second, the KKT filter forces a large portion of gradients sending to servers to be 0.</p>
-<center><img src="/img/13.png" style="width: 400px"></center>
+<center><img src="/img/13.png" style="width: 300px"></center>
 
 <p>Finally, we analyze the bounded delay consistency model. The time decomposition of workers to achieve the same convergence criteria under different maximum allowed delay (τ ) is shown in Figure 13. As expected, the waiting time decreases when the allowed delay increases. Workers are 50% idle when using the sequential consistency model (τ = 0), while the idle rate is reduced to 1.7% when τ is set to be 16. However, the computing time increases nearly linearly with τ. Because the data inconsistency slows convergence, more iterations are needed to achieve the same convergence criteria. As a result, τ = 8 is the best trade-off between algorithm convergence and system performance.</p>
 
