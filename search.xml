@@ -6,7 +6,7 @@
     <entry>
       <title><![CDATA[Scaling Distributed Machine Learning with the Parameter Server]]></title>
       <url>http://lizonghang.github.io/2018/06/26/Scaling-Distributed-Machine-Learning-with-the-Parameter-Server/</url>
-      <content type="html"><![CDATA[<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Realistic quantities of training data can range between 1TB and 1PB. This allows one to create powerful and complex models with 109 to 1012 parameters [9]. These models are often shared globally by all worker nodes, which must frequently accesses the shared parameters as they perform computation to refine it. Sharing imposes three challenges:</p>
+      <content type="html"><![CDATA[<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Realistic quantities of training data can range between 1TB and 1PB. This allows one to create powerful and complex models with 10^9 to 10^12 parameters. These models are often shared globally by all worker nodes, which must frequently accesses the shared parameters as they perform computation to refine it. Sharing imposes three challenges:</p>
 <ul>
 <li>Accessing the parameters requires an enormous amount of network bandwidth.</li>
 <li>Many machine learning algorithms are sequential. The resulting barriers hurt performance when the cost of synchronization and machine latency is high.</li>
