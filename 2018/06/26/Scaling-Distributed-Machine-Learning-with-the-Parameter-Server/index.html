@@ -57,12 +57,12 @@
 
 
 
-<meta name="description" content="We described a parameter server framework to solve distributed machine learning problems. This framework is easy to use: Globally shared parameters can be used as local sparse vectors or matrices to p">
+<meta name="description" content="IntroductionRealistic quantities of training data can range between 1TB and 1PB. This allows one to create powerful and complex models with 109 to 1012 parameters [9]. These models are often shared gl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Scaling Distributed Machine Learning with the Parameter Server">
 <meta property="og:url" content="http://lizonghang.github.io/2018/06/26/Scaling-Distributed-Machine-Learning-with-the-Parameter-Server/index.html">
 <meta property="og:site_name" content="努力学习天天向上">
-<meta property="og:description" content="We described a parameter server framework to solve distributed machine learning problems. This framework is easy to use: Globally shared parameters can be used as local sparse vectors or matrices to p">
+<meta property="og:description" content="IntroductionRealistic quantities of training data can range between 1TB and 1PB. This allows one to create powerful and complex models with 109 to 1012 parameters [9]. These models are often shared gl">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://lizonghang.github.io/img/1.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/2.png">
@@ -77,10 +77,10 @@
 <meta property="og:image" content="http://lizonghang.github.io/img/11.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/12.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/13.png">
-<meta property="og:updated_time" content="2018-06-26T10:46:34.207Z">
+<meta property="og:updated_time" content="2018-06-26T11:16:47.057Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scaling Distributed Machine Learning with the Parameter Server">
-<meta name="twitter:description" content="We described a parameter server framework to solve distributed machine learning problems. This framework is easy to use: Globally shared parameters can be used as local sparse vectors or matrices to p">
+<meta name="twitter:description" content="IntroductionRealistic quantities of training data can range between 1TB and 1PB. This allows one to create powerful and complex models with 109 to 1012 parameters [9]. These models are often shared gl">
 <meta name="twitter:image" content="http://lizonghang.github.io/img/1.png">
 
 
@@ -319,8 +319,7 @@
       
 
       
-        <p>We described a parameter server framework to solve distributed machine learning problems. This framework is easy to use: Globally shared parameters can be used as local sparse vectors or matrices to perform linear algebra operations with local training data. It is efficient: All com- munication is asynchronous. Flexible consistentcy models are supported to balance the trade-off between system efficiency and fast algorithm convergence rate. Furthermore, it provides elastic scalability and fault tolerance, aiming for stable long term deployment. Finally, we show experiments for several challenging tasks on real datasets with billions of variables to demonstrate its efficiency. We believe that this third generation parameter server is an important building block for scalable machine learning. The codes are available at parameterserver.org.</p>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Realistic quantities of training data can range between 1TB and 1PB. This allows one to create powerful and complex models with 109 to 1012 parameters [9]. These models are often shared globally by all worker nodes, which must frequently accesses the shared parameters as they perform computation to refine it. Sharing imposes three challenges:</p>
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Realistic quantities of training data can range between 1TB and 1PB. This allows one to create powerful and complex models with 109 to 1012 parameters [9]. These models are often shared globally by all worker nodes, which must frequently accesses the shared parameters as they perform computation to refine it. Sharing imposes three challenges:</p>
 <ul>
 <li>Accessing the parameters requires an enormous amount of network bandwidth.</li>
 <li>Many machine learning algorithms are sequential. The resulting barriers hurt performance when the cost of synchronization and machine latency is high.</li>
