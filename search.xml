@@ -5,126 +5,125 @@
     
     <entry>
       <title><![CDATA[Scaling Distributed Machine Learning with the Parameter Server]]></title>
-      <url>http://lizonghang.github.io/2018/06/26/Scaling-Distributed-Machine-Learning-with-the-Parameter-Server/</url>
-      <content type="html"><![CDATA[<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Realistic quantities of training data can range between 1TB and 1PB. This allows one to create powerful and complex models with 10^9 to 10^12 parameters. These models are often shared globally by all worker nodes, which must frequently accesses the shared parameters as they perform computation to refine it. Sharing imposes three challenges:</p>
+      <url>http://lizonghang.github.io/2018/06/30/Scaling-Distributed-Machine-Learning-with-the-Parameter-Server/</url>
+      <content type="html"><![CDATA[<p>论文链接： <a href="https://www.usenix.org/system/files/conference/osdi14/osdi14-paper-li_mu.pdf" target="_blank" rel="external">Scaling Distributed Machine Learning with the Parameter Server</a></p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>现实中训练数据可达到TB或PB级，需要训练包含10<sup>9</sup>~10<sup>12</sup>参数的复杂模型，而这些参数需要被所有worker频繁访问、执行运算与更新，这就带来三个问题：</p>
 <ul>
-<li>Accessing the parameters requires an enormous amount of network bandwidth.</li>
-<li>Many machine learning algorithms are sequential. The resulting barriers hurt performance when the cost of synchronization and machine latency is high.</li>
-<li>At scale, fault tolerance is critical. Learning tasks are often performed in a cloud environment where machines can be unreliable and jobs can be preempted.</li>
+<li>频繁访问大量参数要求极高的网络带宽支持。（Section 3.1,3.2,3.6）</li>
+<li>多数机器学习算法是顺序迭代的，如果机器算力差异大，且采用类似于BSP的同步策略，会造成木桶效应，导致系统整体性能下降。(Section 3.3,3.4,3.5)</li>
+<li>在大规模分布式环境中，容错能力是至关重要的。通常训练任务是部署在云环境中，在云环境下机器是不可靠的，且任务随时可能被中断。(Section 4)</li>
 </ul>
-<h2 id="Contributions"><a href="#Contributions" class="headerlink" title="Contributions"></a>Contributions</h2><p>This paper describes a third generation open source implementation of a parameter server, which provides five key features:</p>
+<p>第三代参数服务器提供了五个特性：</p>
 <ul>
-<li><strong>Efficient communication:</strong> The aysnchronous communication model does not block computation (unless requested). It is optimized for machine learning tasks to reduce network traffic and overhead.</li>
-<li><strong>Flexible consistency models:</strong> Relaxed consistency further hides synchronization cost and latency. We allow the algorithm designer to balance algorithmic convergence rate and system efficiency. The best trade-off depends on data, algorithm, and hardware.</li>
-<li><strong>Elastic Scalability:</strong> Recovery from and repair of non-catastrophic machine failures within 1s, without interrupting computation. </li>
-<li><strong>Ease of Use:</strong> The globally shared parameters are represented as (potentially sparse) vectors and matrices to facilitate development of machine learning applications.</li>
+<li><strong>高效的通信机制</strong>：异步通信机制不会阻塞计算而等待通信（除非必要），且针对机器学习任务做了优化以减少网络流量与负载。</li>
+<li><strong>灵活的一致性模型</strong>：宽松的一致性要求进一步减少了同步的成本和延时。Parameter Server允许用户对算法收敛速度和系统性能做trade-off。</li>
+<li><strong>弹性可扩展性</strong>：新的servers/workers可以动态添加到分布式系统中，且无须重启系统。</li>
+<li><strong>容错能力与耐用性</strong>：从非灾难性的机器故障中恢复只需要1s，且不会中断其它机器的计算。</li>
+<li><strong>便于使用</strong>：全局共享的参数可被表示为vectors、matrices或tensor类型，便于机器学习应用的开发，且线性代数的数据类型有高性能的多线程库。</li>
 </ul>
-<h2 id="Engineering-Challenges"><a href="#Engineering-Challenges" class="headerlink" title="Engineering Challenges"></a>Engineering Challenges</h2><p>When solving distributed data analysis problems, the issue of reading and updating parameters shared between different worker nodes is ubiquitous.The parameter server framework provides an efficient mechanism for aggregating and synchronizing model parameters and statistics between workers. Each parameter server node maintains only a part of the parameters, and each worker node typically requires only a subset of these parameters when operating. Here are two key challenges:</p>
-<ul>
-<li><strong>Communication:</strong> While the parameters could be updated as key-value pairs in a conventional datastore, using this abstraction naively is inefficient: values are typically small (floats or integers), and the overhead of sending each update as a key value operation is high.</li>
-<li><strong>Fault tolerance:</strong> It must not require a full restart of a long-running computation. Live replication of parameters between servers supports hot failover. Failover and self-repair in turn support dynamic scaling by treating machine removal or addition as failure or repair respectively.</li>
-</ul>
-<h1 id="Machine-Learning"><a href="#Machine-Learning" class="headerlink" title="Machine Learning"></a>Machine Learning</h1><h2 id="distributed-subgradient-descent"><a href="#distributed-subgradient-descent" class="headerlink" title="distributed subgradient descent"></a>distributed subgradient descent</h2><center><img src="/img/1.png" style="width: 400px"></center>
+<h1 id="Distributed-Subgradient-Descent"><a href="#Distributed-Subgradient-Descent" class="headerlink" title="Distributed Subgradient Descent"></a>Distributed Subgradient Descent</h1><p>在Parameter Server中，训练数据和模型参数被划分到所有worker中。以逻辑回归为例，算法是迭代运行的。在每次迭代中，每一个worker使用自己的训练数据独立地计算出Δw<sub>i</sub>，更新量Δw<sub>i</sub>可表达为subgradient，它表示模型参数w应该在哪个方向上做调整，使用聚合所有的subgradients后的Δw更新w。Δw的数组可能会很大，因此在算法中需要选择合适的学习率η来确保算法快速收敛。如Algorithm 1和Figure 2所示。</p>
 <center><img src="/img/2.png" style="width: 400px"></center>
+<center><img src="/img/1.png" style="width: 400px"></center>
 
-<p>the training data is partitioned among all of the workers, which jointly learn the parameter vector w. The algorithm operates iteratively. In each iteration, every worker independently uses its own training data to determine what changes should be made to w in order to get closer to an optimal value. Because each worker’s updates reflect only its own training data, the system needs a mechanism to allow these updates to mix. It does so by expressing the updates as a subgradient—a direction in which the parameter vector w should be shifted—and aggregates all subgradients before applying them to w. These gradients are typically scaled down, with considerable attention paid in algorithm design to the right learning rate η that should be applied in order to ensure that the algorithm converges quickly.</p>
-<p>The most expensive step is computing the subgradient to update w. This task is divided among all of the workers, each of which execute WORKERITERATE. As part of this, workers compute w<sup>T</sup>x<sub>ik</sub> , which could be infeasible for very high-dimensional w. Fortunately, a worker needs to know a coordinate of w if and only if some of its training data references that entry.</p>
+<p>需要注意的是，servers共同维持全局的共享参数，但每个server实际上只负责部分参数w<sub>i</sub><sup>r</sup>，每个work也只分到部分数据和处理任务，如下图所示。</p>
+<center><img src="/img/14.gif" style="width: 400px"></center>
+
+<p>在workers中代价最高的步骤是计算subgradient过程中的w<sub>i</sub><sup>T</sup>·x<sub>i<sub>k</sub>&lt;/sub&gt;，当Δw维度很高时（65 billion features）计算将不可行。为了解决这个问题，worker需要知道它的训练数据依赖的w的坐标范围r，将计算简化为(w<sub>i</sub><sup>r</sup>)<sup>T</sup>·x<sub>i<sub>k</sub>&lt;/sub&gt;。</sub></sub></p>
+<p>通过实验验证，随着workers数量的增长，每个worker负责的参数w<sub>i</sub><sup>r</sup>数量和内存占用量都有线性缩减的趋势。当有100个workers时，每个worker需要7.8%的全局参数；当workers增加到10,000个时，每个worker所需参数量缩减到0.15%，如Figure 3所示。</p>
 <center><img src="/img/3.png" style="width: 400px"></center>
 
-<p>For 100 workers, each worker only needs 7.8% of the total parameters. With 10,000 workers this reduces to 0.15%.</p>
-<h1 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h1><p>An instance of the parameter server can run more than one algorithm simultaneously. Parameter server nodes are grouped into a server group and several worker groups as shown below.</p>
+<h1 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h1><p>Parameter Server架构内的节点可分组为一个server group和多个worker group，如Figure 4所示。</p>
 <center><img src="/img/4.png" style="width: 400px"></center>
 
-<p>A server node in the server group maintains a partition of the globally shared parameters. Server nodes communicate with each other to replicate and/or to migrate parameters for reliability and scaling. A server manager node maintains a consistent view of the metadata of the servers, such as node liveness and the assignment of parameter partitions.</p>
-<p>Each worker group runs an application. A worker typically stores locally a portion of the training data to compute local statistics such as gradients. Workers communicate only with the server nodes (not among themselves), updating and retrieving the shared parameters. There is a scheduler node for each worker group. It assigns tasks to workers and monitors their progress. If workers are added or removed, it reschedules unfinished tasks.</p>
-<p>The parameter server supports independent parameter namespaces. This allows a worker group to isolate its set of shared parameters from others. Several worker groups may also share the same namespace: we may use more than one worker group to solve the same deep learning application to increase parallelization.</p>
-<h2 id="Key-Value-Vectors"><a href="#Key-Value-Vectors" class="headerlink" title="(Key,Value) Vectors"></a>(Key,Value) Vectors</h2><p>The model shared among nodes can be represented as a set of (key, value) pairs. Each entry of the model can be read and written locally or remotely by its key and we assume that the keys are ordered.</p>
-<h2 id="Range-Push-and-Pull"><a href="#Range-Push-and-Pull" class="headerlink" title="Range Push and Pull"></a>Range Push and Pull</h2><p>The parameter server optimizes these updates for programmer convenience as well as computational and network bandwidth efficiency by supporting range-based push and pull. If R is a key range, then w.push(R, dest) sends all existing entries of w in key range R to the destination, which can be either a particular node, or a node group such as the server group. Similarly, w.pull(R, dest) reads all existing entries of w in key range R from the destination. If we set R to be the whole key range, then the whole vector w will be communicated. If we set R to include a single key, then only an individual entry will be sent.</p>
-<h2 id="User-Defined-Functions-on-the-Server"><a href="#User-Defined-Functions-on-the-Server" class="headerlink" title="User-Defined Functions on the Server"></a>User-Defined Functions on the Server</h2><p>Beyond aggregating data from workers, server nodes can execute user-defined functions.</p>
-<h2 id="Asynchronous-Tasks-and-Dependency"><a href="#Asynchronous-Tasks-and-Dependency" class="headerlink" title="Asynchronous Tasks and Dependency"></a>Asynchronous Tasks and Dependency</h2><p> Tasks may include any number of subtasks. For example, the task WorkerIterate in Algorithm 1 contains one push and one pull. Tasks are executed asynchronously: the caller can perform further computation immediately after issuing a task.</p>
-<p>The caller marks a task as finished only once it receives the callee’s reply. A reply could be the function return of a user-defined function, the (key, value) pairs requested by the pull, or an empty acknowledgement. The callee marks a task as finished only if the call of the task is returned and all subtasks issued by this call are finished.</p>
+<p>Server group中的每个server都维护了全局共享参数的一部分。Server之间相互通信，或复制或整合，以保证系统的可靠性和可扩展性。Server manager负责维护元数据的一致性，比如各个节点的状态和参数的分配情况等。</p>
+<p>Parameter Server架构可同时运行多个算法，它支持相互独立的参数命名空间，使得每个worker group的共享参数集合和其它worker group隔离。同时也支持多个worker group共享相同的命名空间，因为用户可能使用多个worker group来提高同一个模型训练任务的并行性。一个worker group执行一个模型训练任务。一个worker group中的每个worker只存储训练数据的一部分来计算局部的梯度信息。workers之间没有通信，它们只与自己对应的server进行通信，以更新或拉取参数。每个worker group有一个task scheduler，负责向workers分配任务，并且监控workers的运行情况，当有workers新增或移除，task scheduler负责重新分配未完成的任务。</p>
+<h2 id="Key-Value-Vectors"><a href="#Key-Value-Vectors" class="headerlink" title="(Key,Value) Vectors"></a>(Key,Value) Vectors</h2><p>共享的模型参数可以被表示为(key,value) pairs的集合，通过模型参数的key在本地或远端读写模型参数具体的值，并且假设keys是有序的。以逻辑回归为例，key是feature ID，value是feature的权值，不存在的key就默认为0，如下图所示。</p>
+<center><img src="/img/15.png" style="width: 400px"></center>
+
+<h2 id="Range-Push-and-Pull"><a href="#Range-Push-and-Pull" class="headerlink" title="Range Push and Pull"></a>Range Push and Pull</h2><p>workers和servers之间通过push和pull通信，worker将计算好的梯度push到server，然后worker通过pull从server读取新的参数。由于keys是有序的，为了提高计算性能和带宽效率，Parameter Server支持range push和range pull操作。假设R是一个key range，可以使用如下操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">w.push(R, dest)</div><div class="line">w.pull(R, dest)</div></pre></td></tr></table></figure>
+<p>如果R覆盖了整个key range，那么vector中所有参数都会被发送或读取；如果R只包含了一个key，那么只有一个参数值会被发送或读取。</p>
+<h2 id="User-Defined-Functions-on-the-Server"><a href="#User-Defined-Functions-on-the-Server" class="headerlink" title="User-Defined Functions on the Server"></a>User-Defined Functions on the Server</h2><p>除了聚合workers发送的梯度信息外，servers还可以执行用户自定义的函数。由于servers往往有共享参数更全面更新的信息，支持用户在servers上执行自定义的函数是有益的。</p>
+<h2 id="Asynchronous-Tasks-and-Dependency"><a href="#Asynchronous-Tasks-and-Dependency" class="headerlink" title="Asynchronous Tasks and Dependency"></a>Asynchronous Tasks and Dependency</h2><p>一个task可能由多个subtask构成，例如Algorithm 1中的WORKERITERATE task就包含了一次push subtask和一次pull subtask。在Parameter Server中任务中是异步执行的，即调度器可以在完成一个task后立即执行后续的无依赖关系的另一个task，以下图为例。</p>
 <center><img src="/img/5.png" style="width: 500px"></center>
 
-<p>By default, callees execute tasks in parallel, for best performance. Figure 5 depicts three example iterations of WorkerIterate. Iterations 10 and 11 are independent, but 12 depends on 11. The callee therefore begins iteration 11 immediately after the local gradients are computed in iteration 10. Iteration 12, however, is postponed until the pull of 11 finishes.</p>
-<h2 id="Flexible-Consistency"><a href="#Flexible-Consistency" class="headerlink" title="Flexible Consistency"></a>Flexible Consistency</h2><p>Independent tasks improve system efficiency via parallelizing the use of CPU, disk and network bandwidth. However, this may lead to data inconsistency between nodes. The best trade-off between system efficiency and algorithm convergence rate usually depends on a variety of factors, including the algorithm’s sensitivity to data inconsistency, feature correlation in training data, and capacity difference of hardware components. Instead of forcing the user to adopt one particular dependency that may be illsuited to the problem, the parameter server gives the algorithm designer flexibility in defining consistency models.</p>
+<p>调度器默认使用best performance模式，即并行执行全部tasks。在Figure 5中，第10轮迭代和第11轮迭代是相互独立的，但第12轮迭代依赖于第11轮迭代。因此，在执行完第10轮迭代后，调度器立即执行第11轮迭代；但第12轮迭代会在第11轮迭代完成前被阻塞。</p>
+<h2 id="Flexible-Consistency"><a href="#Flexible-Consistency" class="headerlink" title="Flexible Consistency"></a>Flexible Consistency</h2><p>若tasks之间相互独立，通过并行使用CPU、磁盘、网络带宽能够提高系统效率（best performance模式），但也会造成workers间数据不一致，从而降低算法的收敛速度。在系统效率与算法收敛速度之间存在一个best trade-off，该trade_off取决于：</p>
+<ul>
+<li>算法对数据不一致性的敏感度；</li>
+<li>训练数据特征之间的关联度；</li>
+<li>机器硬件性能差异（计算力差异）。</li>
+</ul>
+<p>Parameter Server针对tasks间的多种依赖方式，为用户提供了灵活的一致性模型：</p>
 <center><img src="/img/6.png" style="width: 500px"></center>
 
 <ul>
-<li><strong>Sequential:</strong> Also named BSP. In sequential consistency, all tasks are executed one by one. The next task can be started only if the previous one has finished. It produces results identical to the single-thread implementation.</li>
-<li><strong>Eventual:</strong> Similar to TSP. All tasks may be started simultaneously. However, this is only recommendable if the underlying algorithms are robust with regard to delays.</li>
-<li><strong>Bounded Delay:</strong> Similar to SSP. When a maximal delay time τ is set, a new task will be blocked until all previous tasks τ times ago have been finished. τ = 0 is the sequential consistency model, and an infinite delay τ = ∞ becomes the eventual consistency model.</li>
+<li>Sequential： （类似于BSP）在Sequential一致性模型中tasks是顺序执行的，只有当正在执行的task完成时，下一个task才能启动。</li>
+<li>Eventual：（类似于TSP）在Eventual一致性模型中tasks同时执行，但只适用于对延迟很robust的算法，实践中不推荐采用Eventual一致性模型。</li>
+<li>Bounded Delay：（类似于SSP）Bounded Delay是Sequential和Eventual的折中。预先设置一个最大延时τ，只有当τ时刻之前的tasks都执行完成后才能执行新的tasks。特殊情况：当τ=0时等同于Sequential一致性模型；当τ=∞时等同于Eventual一致性模型。</li>
 </ul>
-<p>Note that the dependency graphs may be dynamic. For instance the scheduler may increase or decrease the maximal delay according to the runtime progress to balance system efficiency and convergence of the underlying optimization algorithm. In this case the caller traverses the DAG.</p>
-<h2 id="User-defined-Filters"><a href="#User-defined-Filters" class="headerlink" title="User-defined Filters"></a>User-defined Filters</h2><p>The parameter server supports user-defined filters to selectively synchronize individual (key,value) pairs, allowing fine-grained control of data consistency within a task. </p>
-<p>One example is the significantly modified filter, which only pushes entries that have changed by more than a threshold since their last synchronization. Later, we discuss another filter named KKT which takes advantage of the optimality condition of the optimization problem: a worker only pushes gradients that are likely to affect the weights on the servers.</p>
-<h1 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h1><h2 id="Vector-Clock"><a href="#Vector-Clock" class="headerlink" title="Vector Clock"></a>Vector Clock</h2><p>vector clock records the time of each individual node on this (key,value) pair. Vector clocks are convenient, e.g., for tracking aggregation status or rejecting doubly sent data. However, a naive implementation of the vector clock requires O(nm) space to handle n nodes and m parameters. With thousands of nodes and billions of parameters, this is infeasible in terms of memory and bandwidth.</p>
-<p>Many parameters share the same timestamp as a result of the range-based communication pattern of the parameter server: If a node pushes the parameters in a range, then the timestamps of the parameters associated with the node are likely the same. Therefore, they can be compressed into a single range vector clock.</p>
-<p>Initially, there is only one range vector clock for each node i. It covers the entire parameter key space as its range with 0 as its initial timestamp. Each range set may split the range and create at most 3 new vector clocks. Let k be the total number of unique ranges communicated by the algorithm, then there are at most O(mk) vector clocks, where m is the number of nodes. k is typically much smaller than the total number of parameters. This significantly reduces the space required for range vector clocks.</p>
-<h2 id="Messages"><a href="#Messages" class="headerlink" title="Messages"></a>Messages</h2><p>Nodes may send messages to individual nodes or node groups. A message consists of a list of (key,value) pairs in the key range R and the associated range vector clock:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[vc(R), (k1,v1), ..., (kp,vp)] kj ∈ R and j ∈ &#123;1,...p&#125;</div></pre></td></tr></table></figure>
-<p>For tasks, a (key,value) pair might assume the form (task ID, arguments or return results).</p>
-<p>Because machine learning problems typically require high bandwidth, message compression is desirable. Training data often remains unchanged between iterations. A worker might send the same key lists again. Hence it is desirable for the receiving node to cache the key lists. Later, the sender only needs to send a hash of the list rather than the list itself.</p>
-<p>Values may contain many zero entries. For example, a large portion of parameters remain unchanged in sparse logistic regression. Likewise, a user-defined filter may also zero out a large fraction of the values. Hence we need only send non-zero (key,value) pairs. We use the fast Snappy compression library to compress messages, effectively removing the zeros.</p>
-<p>Key-caching and value-compression can be used jointly.</p>
-<h2 id="Consistent-Hashing"><a href="#Consistent-Hashing" class="headerlink" title="Consistent Hashing"></a>Consistent Hashing</h2><center><img src="/img/7.png" style="width: 200px"></center>
-
-<p>In parameter server, keys and server node IDs are both inserted into the hash ring. Each server node manages the key range starting with its insertion point to the next point by other nodes in the counter-clockwise direction. This node is called the master of this key range. A physical server is often represented in the ring via multiple “virtual” servers to improve load balancing and recovery.</p>
-<h2 id="Replication-and-Consistency"><a href="#Replication-and-Consistency" class="headerlink" title="Replication and Consistency"></a>Replication and Consistency</h2><p>Each server node stores a replica of the k counterclock-wise neighbor key ranges relative to the one it owns. We refer to nodes holding copies as slaves of the appropriate key range. The above diagram shows an example with k = 2, where server 1 replicates the key ranges owned by server 2 and server 3.</p>
-<p>Worker nodes communicate with the master of a key range for both push and pull. Any modification on the master is copied with its timestamp to the slaves. Modifications to data are pushed synchronously to the slaves.</p>
-<center><img src="/img/8.png" style="width: 600px"></center>
-
-<p>Figure 8 shows a case where worker 1 pushes x into server 1, which invokes a user defined function f to modify the shared data. The push task is completed only once the data modification f (x) is copied to the slave.</p>
-<p>Naive replication potentially increases the network traffic by k times. This is undesirable for many machine learning applications that depend on high network bandwidth. The parameter server framework permits replication after aggregation. Server nodes often aggregate data from the worker nodes, such as summing local gradients. Servers may therefore postpone replication until aggregation is complete.</p>
-<p>In the righthand side of the diagram, two workers push x and y to the server, respectively. The server first aggregates the push by x + y, then applies the modification f (x + y), and finally performs the replication. With n workers, replication uses only k/n bandwidth. Often k is a small constant, while n is hundreds to thousands. While aggregation increases the delay of the task reply, it can be hidden by relaxed consistency conditions.</p>
-<h2 id="Server-Management"><a href="#Server-Management" class="headerlink" title="Server Management"></a>Server Management</h2><p>To achieve fault tolerance and dynamic scaling we must support addition and removal of nodes. The following steps happen when a server joins:</p>
-<ol>
-<li>The server manager assigns the new node a key range to serve as master. This may cause another key range to split or be removed from a terminated node.</li>
-<li>The node fetches the range of data to maintains as master and k additional ranges to keep as slave.</li>
-<li>The server manager broadcasts the node changes. The recipients of the message may shrink their own data based on key ranges they no longer hold and to resubmit unfinished tasks to the new node.</li>
-</ol>
-<p>Fetching the data in the range R from some node S proceeds in two stages:</p>
-<ol>
-<li>First, S pre-copies all (key,value) pairs in the range together with the associated vector clocks. This may cause a range vector clock to split. If the new node fails at this stage, S remains unchanged. </li>
-<li>Second, S no longer accepts messages affecting the key range R by dropping the messages without executing and replying. At the same time, S sends the new node all changes that occurred in R during the pre-copy stage.</li>
-</ol>
-<p>On receiving the node change message a node N first checks if it also maintains the key range R. If true and if this key range is no longer to be maintained by N, it deletes all associated (key,value) pairs and vector clocks in R. Next, N scans all outgoing messages that have not received replies yet. If a key range intersects with R, then the message will be split and resent.</p>
-<p>Due to delays, failures, and lost acknowledgements N may send messages twice. Due to the use of vector clocks both the original recipient and the new node are able to reject this message and it does not affect correctness.</p>
-<p>The server manager tasks a new node with taking the key range of the leaving node. The server manager detects node failure by a heartbeat sig- nal. Integration with a cluster resource manager such as Yarn or Mesos is left for future work.</p>
-<h2 id="Worker-Management"><a href="#Worker-Management" class="headerlink" title="Worker Management"></a>Worker Management</h2><p>Adding a new worker node W is similar but simpler than adding a new server node:</p>
-<ol>
-<li>The task scheduler assigns W a range of data.</li>
-<li>This node loads the range of training data from a network file system or existing workers. Next, W pulls the shared parameters from servers.</li>
-<li>The task scheduler broadcasts the change, possibly causing other workers to free some training data.</li>
-</ol>
-<p>When a worker departs, the task scheduler may start a replacement. We give the algorithm designer the option to control recovery for two reasons:</p>
-<ul>
-<li>If the training data is huge, recovering a worker node be may more expensive than recovering a server node.</li>
-<li>Losing a small amount of training data during optimization typically affects the model only a little. Hence the algorithm designer may prefer to continue without replacing a failed worker. It may even be desirable to terminate the slowest workers.</li>
-</ul>
-<h1 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h1><p>Sparse logistic regression is one of the most popular algorithms for large scale risk minimization. It combines the logistic loss with the l1 regularizer, which biases a compact solution with a large portion of 0 value entries. </p>
-<p>We collected an ad click prediction dataset with 170 billion examples and 65 billion unique features. This dataset is 636 TB uncompressed (141 TB compressed). We ran the parameter server on 1000 machines, each with 16 physical cores, 192GB DRAM, and connected by 10 Gb Ethernet. 800 machines acted as workers, and 200 were parameter servers. The cluster was in concurrent use by other (unrelated) tasks during operation.</p>
+<p>需要注意的是，tasks之间的依赖可能是动态的，调度器可能需要根据运行时间调整最大延时τ以平衡系统效率和算法收敛速度。此外，τ不是越大/小越好的，达到相同系统性能时的算法收敛时间与τ呈现“U”型曲线关系，因此存在一个系统效率与算法收敛速度的best trade-off τ<sup>*</sup>。曲线见Section 5中Figure 10。</p>
+<p>结合算法Distributed Subgradient Descent与Bounded Delay一致性模型，得到一个state-of-the-art的算法Delayed Block Proximal Gradient，它相比于算法Distributed Subgradient Descent有以下区别：</p>
 <center><img src="/img/9.png" style="width: 400px"></center>
 
-<p>We used a state-of-the-art distributed regression algorithm (Algorithm 3), In which:</p>
+<ol>
+<li>一次迭代只更新了一块参数；</li>
+<li>Workers同时计算了该块参数的梯度和二阶导数的对角部分；</li>
+<li>Servers执行的计算更加复杂，需要基于聚合后的梯度求解一个proximal operater，之后才能用于更新模型参数；</li>
+<li>使用了Bounded Delay一致性模型，并使用KKT过滤器(Section 3.6)抑制低重要度梯度信息的传输。</li>
+</ol>
+<h2 id="User-defined-Filters"><a href="#User-defined-Filters" class="headerlink" title="User-defined Filters"></a>User-defined Filters</h2><p>Parameter Server允许用户使用自定义的滤波器来选择性地同步(key,value) pairs，从而在task中细粒度地调整数据一致性。以significance filter为例，在同步时，当且仅当参数变化量超过预设阈值时才push该参数的更新量。另一个滤波器名为KKT filter，其思想是只push可能影响模型参数的梯度。</p>
+<h1 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h1><h2 id="Vector-Clock"><a href="#Vector-Clock" class="headerlink" title="Vector Clock"></a>Vector Clock</h2><p>Parameter Server使用vector clock记录每个worker/server中的每个(key,value) pairs，能够用来跟踪聚合状态或避免重复发送数据。然而最初的vector clock需要O(mn)的空间复杂度，其中n为workers/servers数量，m是模型参数量。当有上千个节点、上亿个参数时，对于内存和带宽来说都是不可行的。</p>
+<p>Section 3.2的range push和range pull给vector clock的优化带来了可能，一个range中的参数共享一个时间戳，将vector clock的空间复杂度降低到了O(nk)，其中n为workers/servers数量，k是一次通信中实际传输的ranges数量，从而大大降低了空间复杂度。</p>
+<p>初始时，所有的workers/servers共享同一个range vector clock，在该range中时间戳被初始化为0。每次从range中提取一个subrange最多会生成3个新的vector clocks，如Algorithm 2所示。</p>
+<center><img src="/img/16.png" style="width: 400px"></center>
+
+<h2 id="Messages"><a href="#Messages" class="headerlink" title="Messages"></a>Messages</h2><p>一个worker/server可能向其它servers/workers或server/worker groups发送messages，一条message包括一个range vector clock和多个range (key,value) pairs：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[vc(R), (k1,v1), ..., (kp,vp)] kj ∈ R and j ∈ &#123;1,...p&#125;</div></pre></td></tr></table></figure>
+<p>这是Parameter Server中最基本的通信格式，不仅仅是共享的参数才有。Tasks的messages也是类似的格式，tasks的messages中key对应taskID，value对应参数或返回值。</p>
+<p>由于机器学习模型训练任务通常都需要很高的网络带宽，因此压缩messages是必须的。messages的压缩分为压缩keys和压缩values，且二者可同时进行：</p>
 <ul>
-<li>First, only a block of parameters is updated in an iteration.</li>
-<li>Second, the workers compute both gradients and the diagonal part of the second derivative on this block.</li>
-<li>Third, the parameter servers themselves must perform complex computation: the servers update the model by solving a proximal operator based on the aggregated local gradients.</li>
-<li>Fourth, we use a bounded-delay model over iterations and use a “KKT” filter to suppress transmission of parts of the generated gradient update that are small enough that their effect is likely to be negligible.</li>
+<li><strong>压缩keys</strong>：因为一个worker的参数的keys在分配之后都不会发生改变，因此worker无须每次都发送相同的keys，只需要接收方在第一次接收时缓存即可，随后发送方只需要发送keys list的hash和values就行，这样可减少一半的通信量。</li>
+<li><strong>压缩values</strong>：values可能是稀疏的，例如稀疏逻辑回归中大多数参数都为零值，使用ReLU或l1正则化产生零值，使用Section 3.6提到的significance filter或KKT filter产生零值等。为了进一步压缩通信量，我们只需要发送非零值。Parameter Server使用Snappy快速压缩库来压缩values，高效去除零值。</li>
 </ul>
-<p>We compare the parameter server with two special-purpose systems, named System A and B, developed by a large internet company. Both Systems A and B consist of more than10K lines of code. The parameter server only requires 300 lines of code for the same functionality as System B.</p>
+<h2 id="Consistent-Hashing"><a href="#Consistent-Hashing" class="headerlink" title="Consistent Hashing"></a>Consistent Hashing</h2><p>Parameter Server在数据一致性问题上使用了一致性哈希算法，keys和servers’ IDs被插入到hash环中，它的作用是在分布式系统中动态增加或移除节点。每个server管理着它逆时针方向上到下一个server之间的key range，该server被称为这个key ranges的master。且每个server都复制了它逆时钟方向与它管理的key range相邻的k个key ranges，于是该server被称为这k个key ranges的slave。为了对负载均衡和恢复能力进行优化，一个物理server通常在hash ring中表示为多个虚拟servers。如Figure 7所示，其中k=2，S<sub>1</sub>复制了S<sub>2</sub>和S<sub>3</sub>的key ranges。</p>
+<center><img src="/img/7.png" style="width: 200px"></center>
+
+<h2 id="Replication-and-Aggregation"><a href="#Replication-and-Aggregation" class="headerlink" title="Replication and Aggregation"></a>Replication and Aggregation</h2><p>虽然一个key range被备份到了多个servers，但worker仅与该key range的master进行push和pull。任何对master的修改会连同时间戳一起被同步到slaves。</p>
+<center><img src="/img/8.png" style="width: 600px"></center>
+
+<p>Figure 8的左图展示了worker 1 push x 到 server 1，server 1调用用户自定义函数f（Section 3.3）处理接收到的数据，随后将处理结果同步到其它slaves，同步完成后push task结束。假设有n个workers，一轮迭代会进行n次复制，这对需要高网络带宽支持的多数机器学习模型训练任务来说这是不可接受的。</p>
+<p>Parameter Server支持聚合后复制，即servers先聚合从workers接收到的数据后再复制到slaves，如Figure 8右图所示。假设有n个workers，但一轮迭代只复制一次聚合后的数据，从而复制操作占用带宽降低了n倍。聚合操作带来的push完成延时可通过一致性条件缓解。</p>
+<h2 id="Server-Management"><a href="#Server-Management" class="headerlink" title="Server Management"></a>Server Management</h2><p>要实现系统容错能力和动态扩展能力，要求系统支持动态添加和移除节点。若要添加一个server需要执行以下步骤：</p>
+<ol>
+<li>Server manager为新添加的server分配一个key range并将该server作为master。由于使用了一致性哈希支持动态插入，其它的servers管理或备份的key ranges可能会受到影响；</li>
+<li>新插入的server作为master获取管理的key range的对应数据，并作为slave获取备份的k个key ranges的对应数据；</li>
+<li>Server manager广播节点变化信息。接收方（其它servers）移除不再属于自己管理的key range的数据，并将未完成的任务提交给新插入的server。</li>
+</ol>
+<h2 id="Worker-Management"><a href="#Worker-Management" class="headerlink" title="Worker Management"></a>Worker Management</h2><p>添加新的worker W相对更容易些：</p>
+<ol>
+<li>Task scheduler为W分配数据的key range；</li>
+<li>W从网络文件系统或其它workers获取key range中的训练数据，再从servers pull模型参数；</li>
+<li>Task scheduler广播节点变化情况，这可能会使部分workers释放部分训练数据。</li>
+</ol>
+<p>当某个worker宕机时，task scheduler可能会启动替换程序。Parameter Server可以让用户控制恢复程序，有以下两点原因：</p>
+<ul>
+<li>如果训练数据很庞大，恢复worker的代价可能远大于恢复server；</li>
+<li>如果丢失一小部分训练数据仅对模型产生很小的影响，用户可能更倾向于继续训练，而不管出现异常的worker。甚至用户可能想要主动终止运行最慢的worker。</li>
+</ul>
+<h1 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h1><p>实验使用带l1正则化的稀疏逻辑回归模型，数据集是包含170 billion训练样本和65 billion特征的636TB（压缩后141TB）点击预测数据，在16个物理核、192GB DRAM、10Gb以太网连接的1000台机器上做实验，其中800台机器为workers，200台机器为servers。实验过程中有不相关的其它tasks在同时运行。</p>
+<p>实验将Parameter Server和大型网络公司研发的系统A、B作对比。系统A、B都包含了超过一万行代码，而Parameter Server实现相同的功能仅需要200行代码。</p>
+<p>1. 对这三个系统训练算法收敛到相同目标值的用时进行比较，如Figure 9所示。系统B优于系统A，因为系统B使用了更好的算法。Parameter Server使用了和系统B相同的算法，但收敛速度快于系统B，因为Parameter Server节省了网络流量，且使用了宽松的一致性模型。</p>
 <center><img src="/img/10.png" style="width: 300px"></center>
 
-<p>We first compare these three systems by running them to reach the same objective value. System B outperforms system A because it uses a better algorithm. The parameter server outperforms System B while using the same algorithm, because of the efficacy of reducing the network traffic and the relaxed consistency model.</p>
+<p>2. 其次，如Figure 10所示，宽松的一致性模型能够大幅提高workers的算力利用率。系统A的workers算力利用率为32%，系统B为53%，二者的等待比例都较高；而Parameter Server将算力利用率提升到了98%以上。</p>
 <center><img src="/img/11.png" style="width: 300px"></center>
 
-<p>Figure 10 shows that the relaxed consistency model substantially increases worker node utilization. Workers in System A are 32% idle, and in system B, they are 53% idle, while waiting for the barrier in each block. The parameter server reduces this cost to under 2%.</p>
+<p>3. Figure 11显示了caching keys、KKT filter和数据压缩对网络流量的抑制情况。可以看出，允许发送方和接收方缓存keys可以节省近50％的流量。另外，在应用KKT过滤器时，数据压缩方法能高效压缩servers和workers的稀疏值。</p>
 <center><img src="/img/12.png" style="width: 600px"></center>
 
-<p>Figure 11 shows the reduction of network traffic by each system components for servers and workers. As can be seen, allowing the senders and receivers to cache the keys can save near 50% traffic. This is because both key (int64) and value (double) are of the same size, and the key set is not changed during optimization. In addition, data compression is effective for compressing the values for both servers (&gt;20x) and workers when applying the KKT filter (&gt;6x). The reason is twofold. First, the l1 regularizer encourages a sparse model (w), so that most of values pulled from servers are 0. Second, the KKT filter forces a large portion of gradients sending to servers to be 0.</p>
+<p>4. 分析bounded delay一致性模型，如Figure 13所示。在不同的最大允许延迟τ下，workers达到相同的收敛标准时耗时情况如图13所示。可验证当允许的最大延迟增加时，等待时间减少。 当使用Sequence一致性模型（τ= 0）时，workers有50％的空闲率；当τ=16时，空闲率降低到1.7％。还可以观察到计算时间随τ几乎线性增加，这是由于数据不一致会减慢收敛速度，因此需要进行更多迭代才能达到相同的收敛标准。最后，从Figure 13中可看出，τ=8是算法收敛速度和系统性能之间的best trade-off。</p>
 <center><img src="/img/13.png" style="width: 300px"></center>
-
-<p>Finally, we analyze the bounded delay consistency model. The time decomposition of workers to achieve the same convergence criteria under different maximum allowed delay (τ ) is shown in Figure 13. As expected, the waiting time decreases when the allowed delay increases. Workers are 50% idle when using the sequential consistency model (τ = 0), while the idle rate is reduced to 1.7% when τ is set to be 16. However, the computing time increases nearly linearly with τ. Because the data inconsistency slows convergence, more iterations are needed to achieve the same convergence criteria. As a result, τ = 8 is the best trade-off between algorithm convergence and system performance.</p>
 ]]></content>
       
         <categories>

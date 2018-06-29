@@ -1,0 +1,863 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="论文链接： Scaling Distributed Machine Learning with the Parameter Server Introduction现实中训练数据可达到TB或PB级，需要训练包含109~1012参数的复杂模型，而这些参数需要被所有worker频繁访问、执行运算与更新，这就带来三个问题：  频繁访问大量参数要求极高的网络带宽支持。（Section 3.1,3.2,3.6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scaling Distributed Machine Learning with the Parameter Server">
+<meta property="og:url" content="http://lizonghang.github.io/2018/06/30/Scaling-Distributed-Machine-Learning-with-the-Parameter-Server/index.html">
+<meta property="og:site_name" content="努力学习天天向上">
+<meta property="og:description" content="论文链接： Scaling Distributed Machine Learning with the Parameter Server Introduction现实中训练数据可达到TB或PB级，需要训练包含109~1012参数的复杂模型，而这些参数需要被所有worker频繁访问、执行运算与更新，这就带来三个问题：  频繁访问大量参数要求极高的网络带宽支持。（Section 3.1,3.2,3.6">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://lizonghang.github.io/img/2.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/1.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/14.gif">
+<meta property="og:image" content="http://lizonghang.github.io/img/3.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/4.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/15.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/5.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/6.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/9.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/16.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/7.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/8.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/10.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/11.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/12.png">
+<meta property="og:image" content="http://lizonghang.github.io/img/13.png">
+<meta property="og:updated_time" content="2018-06-29T18:21:32.793Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Scaling Distributed Machine Learning with the Parameter Server">
+<meta name="twitter:description" content="论文链接： Scaling Distributed Machine Learning with the Parameter Server Introduction现实中训练数据可达到TB或PB级，需要训练包含109~1012参数的复杂模型，而这些参数需要被所有worker频繁访问、执行运算与更新，这就带来三个问题：  频繁访问大量参数要求极高的网络带宽支持。（Section 3.1,3.2,3.6">
+<meta name="twitter:image" content="http://lizonghang.github.io/img/2.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Scaling Distributed Machine Learning with the Parameter Server | 努力学习天天向上 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80234286-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">努力学习天天向上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">学习日志</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Scaling Distributed Machine Learning with the Parameter Server
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-06-30T02:21:30+08:00" content="2018-06-30">
+              2018-06-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/分布式AI/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式AI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>论文链接： <a href="https://www.usenix.org/system/files/conference/osdi14/osdi14-paper-li_mu.pdf" target="_blank" rel="external">Scaling Distributed Machine Learning with the Parameter Server</a></p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>现实中训练数据可达到TB或PB级，需要训练包含10<sup>9</sup>~10<sup>12</sup>参数的复杂模型，而这些参数需要被所有worker频繁访问、执行运算与更新，这就带来三个问题：</p>
+<ul>
+<li>频繁访问大量参数要求极高的网络带宽支持。（Section 3.1,3.2,3.6）</li>
+<li>多数机器学习算法是顺序迭代的，如果机器算力差异大，且采用类似于BSP的同步策略，会造成木桶效应，导致系统整体性能下降。(Section 3.3,3.4,3.5)</li>
+<li>在大规模分布式环境中，容错能力是至关重要的。通常训练任务是部署在云环境中，在云环境下机器是不可靠的，且任务随时可能被中断。(Section 4)</li>
+</ul>
+<p>第三代参数服务器提供了五个特性：</p>
+<ul>
+<li><strong>高效的通信机制</strong>：异步通信机制不会阻塞计算而等待通信（除非必要），且针对机器学习任务做了优化以减少网络流量与负载。</li>
+<li><strong>灵活的一致性模型</strong>：宽松的一致性要求进一步减少了同步的成本和延时。Parameter Server允许用户对算法收敛速度和系统性能做trade-off。</li>
+<li><strong>弹性可扩展性</strong>：新的servers/workers可以动态添加到分布式系统中，且无须重启系统。</li>
+<li><strong>容错能力与耐用性</strong>：从非灾难性的机器故障中恢复只需要1s，且不会中断其它机器的计算。</li>
+<li><strong>便于使用</strong>：全局共享的参数可被表示为vectors、matrices或tensor类型，便于机器学习应用的开发，且线性代数的数据类型有高性能的多线程库。</li>
+</ul>
+<h1 id="Distributed-Subgradient-Descent"><a href="#Distributed-Subgradient-Descent" class="headerlink" title="Distributed Subgradient Descent"></a>Distributed Subgradient Descent</h1><p>在Parameter Server中，训练数据和模型参数被划分到所有worker中。以逻辑回归为例，算法是迭代运行的。在每次迭代中，每一个worker使用自己的训练数据独立地计算出Δw<sub>i</sub>，更新量Δw<sub>i</sub>可表达为subgradient，它表示模型参数w应该在哪个方向上做调整，使用聚合所有的subgradients后的Δw更新w。Δw的数组可能会很大，因此在算法中需要选择合适的学习率η来确保算法快速收敛。如Algorithm 1和Figure 2所示。</p>
+<center><img src="/img/2.png" style="width: 400px"></center>
+<center><img src="/img/1.png" style="width: 400px"></center>
+
+<p>需要注意的是，servers共同维持全局的共享参数，但每个server实际上只负责部分参数w<sub>i</sub><sup>r</sup>，每个work也只分到部分数据和处理任务，如下图所示。</p>
+<center><img src="/img/14.gif" style="width: 400px"></center>
+
+<p>在workers中代价最高的步骤是计算subgradient过程中的w<sub>i</sub><sup>T</sup>·x<sub>i<sub>k</sub>&lt;/sub&gt;，当Δw维度很高时（65 billion features）计算将不可行。为了解决这个问题，worker需要知道它的训练数据依赖的w的坐标范围r，将计算简化为(w<sub>i</sub><sup>r</sup>)<sup>T</sup>·x<sub>i<sub>k</sub>&lt;/sub&gt;。</sub></sub></p>
+<p>通过实验验证，随着workers数量的增长，每个worker负责的参数w<sub>i</sub><sup>r</sup>数量和内存占用量都有线性缩减的趋势。当有100个workers时，每个worker需要7.8%的全局参数；当workers增加到10,000个时，每个worker所需参数量缩减到0.15%，如Figure 3所示。</p>
+<center><img src="/img/3.png" style="width: 400px"></center>
+
+<h1 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h1><p>Parameter Server架构内的节点可分组为一个server group和多个worker group，如Figure 4所示。</p>
+<center><img src="/img/4.png" style="width: 400px"></center>
+
+<p>Server group中的每个server都维护了全局共享参数的一部分。Server之间相互通信，或复制或整合，以保证系统的可靠性和可扩展性。Server manager负责维护元数据的一致性，比如各个节点的状态和参数的分配情况等。</p>
+<p>Parameter Server架构可同时运行多个算法，它支持相互独立的参数命名空间，使得每个worker group的共享参数集合和其它worker group隔离。同时也支持多个worker group共享相同的命名空间，因为用户可能使用多个worker group来提高同一个模型训练任务的并行性。一个worker group执行一个模型训练任务。一个worker group中的每个worker只存储训练数据的一部分来计算局部的梯度信息。workers之间没有通信，它们只与自己对应的server进行通信，以更新或拉取参数。每个worker group有一个task scheduler，负责向workers分配任务，并且监控workers的运行情况，当有workers新增或移除，task scheduler负责重新分配未完成的任务。</p>
+<h2 id="Key-Value-Vectors"><a href="#Key-Value-Vectors" class="headerlink" title="(Key,Value) Vectors"></a>(Key,Value) Vectors</h2><p>共享的模型参数可以被表示为(key,value) pairs的集合，通过模型参数的key在本地或远端读写模型参数具体的值，并且假设keys是有序的。以逻辑回归为例，key是feature ID，value是feature的权值，不存在的key就默认为0，如下图所示。</p>
+<center><img src="/img/15.png" style="width: 400px"></center>
+
+<h2 id="Range-Push-and-Pull"><a href="#Range-Push-and-Pull" class="headerlink" title="Range Push and Pull"></a>Range Push and Pull</h2><p>workers和servers之间通过push和pull通信，worker将计算好的梯度push到server，然后worker通过pull从server读取新的参数。由于keys是有序的，为了提高计算性能和带宽效率，Parameter Server支持range push和range pull操作。假设R是一个key range，可以使用如下操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">w.push(R, dest)</div><div class="line">w.pull(R, dest)</div></pre></td></tr></table></figure>
+<p>如果R覆盖了整个key range，那么vector中所有参数都会被发送或读取；如果R只包含了一个key，那么只有一个参数值会被发送或读取。</p>
+<h2 id="User-Defined-Functions-on-the-Server"><a href="#User-Defined-Functions-on-the-Server" class="headerlink" title="User-Defined Functions on the Server"></a>User-Defined Functions on the Server</h2><p>除了聚合workers发送的梯度信息外，servers还可以执行用户自定义的函数。由于servers往往有共享参数更全面更新的信息，支持用户在servers上执行自定义的函数是有益的。</p>
+<h2 id="Asynchronous-Tasks-and-Dependency"><a href="#Asynchronous-Tasks-and-Dependency" class="headerlink" title="Asynchronous Tasks and Dependency"></a>Asynchronous Tasks and Dependency</h2><p>一个task可能由多个subtask构成，例如Algorithm 1中的WORKERITERATE task就包含了一次push subtask和一次pull subtask。在Parameter Server中任务中是异步执行的，即调度器可以在完成一个task后立即执行后续的无依赖关系的另一个task，以下图为例。</p>
+<center><img src="/img/5.png" style="width: 500px"></center>
+
+<p>调度器默认使用best performance模式，即并行执行全部tasks。在Figure 5中，第10轮迭代和第11轮迭代是相互独立的，但第12轮迭代依赖于第11轮迭代。因此，在执行完第10轮迭代后，调度器立即执行第11轮迭代；但第12轮迭代会在第11轮迭代完成前被阻塞。</p>
+<h2 id="Flexible-Consistency"><a href="#Flexible-Consistency" class="headerlink" title="Flexible Consistency"></a>Flexible Consistency</h2><p>若tasks之间相互独立，通过并行使用CPU、磁盘、网络带宽能够提高系统效率（best performance模式），但也会造成workers间数据不一致，从而降低算法的收敛速度。在系统效率与算法收敛速度之间存在一个best trade-off，该trade_off取决于：</p>
+<ul>
+<li>算法对数据不一致性的敏感度；</li>
+<li>训练数据特征之间的关联度；</li>
+<li>机器硬件性能差异（计算力差异）。</li>
+</ul>
+<p>Parameter Server针对tasks间的多种依赖方式，为用户提供了灵活的一致性模型：</p>
+<center><img src="/img/6.png" style="width: 500px"></center>
+
+<ul>
+<li>Sequential： （类似于BSP）在Sequential一致性模型中tasks是顺序执行的，只有当正在执行的task完成时，下一个task才能启动。</li>
+<li>Eventual：（类似于TSP）在Eventual一致性模型中tasks同时执行，但只适用于对延迟很robust的算法，实践中不推荐采用Eventual一致性模型。</li>
+<li>Bounded Delay：（类似于SSP）Bounded Delay是Sequential和Eventual的折中。预先设置一个最大延时τ，只有当τ时刻之前的tasks都执行完成后才能执行新的tasks。特殊情况：当τ=0时等同于Sequential一致性模型；当τ=∞时等同于Eventual一致性模型。</li>
+</ul>
+<p>需要注意的是，tasks之间的依赖可能是动态的，调度器可能需要根据运行时间调整最大延时τ以平衡系统效率和算法收敛速度。此外，τ不是越大/小越好的，达到相同系统性能时的算法收敛时间与τ呈现“U”型曲线关系，因此存在一个系统效率与算法收敛速度的best trade-off τ<sup>*</sup>。曲线见Section 5中Figure 10。</p>
+<p>结合算法Distributed Subgradient Descent与Bounded Delay一致性模型，得到一个state-of-the-art的算法Delayed Block Proximal Gradient，它相比于算法Distributed Subgradient Descent有以下区别：</p>
+<center><img src="/img/9.png" style="width: 400px"></center>
+
+<ol>
+<li>一次迭代只更新了一块参数；</li>
+<li>Workers同时计算了该块参数的梯度和二阶导数的对角部分；</li>
+<li>Servers执行的计算更加复杂，需要基于聚合后的梯度求解一个proximal operater，之后才能用于更新模型参数；</li>
+<li>使用了Bounded Delay一致性模型，并使用KKT过滤器(Section 3.6)抑制低重要度梯度信息的传输。</li>
+</ol>
+<h2 id="User-defined-Filters"><a href="#User-defined-Filters" class="headerlink" title="User-defined Filters"></a>User-defined Filters</h2><p>Parameter Server允许用户使用自定义的滤波器来选择性地同步(key,value) pairs，从而在task中细粒度地调整数据一致性。以significance filter为例，在同步时，当且仅当参数变化量超过预设阈值时才push该参数的更新量。另一个滤波器名为KKT filter，其思想是只push可能影响模型参数的梯度。</p>
+<h1 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h1><h2 id="Vector-Clock"><a href="#Vector-Clock" class="headerlink" title="Vector Clock"></a>Vector Clock</h2><p>Parameter Server使用vector clock记录每个worker/server中的每个(key,value) pairs，能够用来跟踪聚合状态或避免重复发送数据。然而最初的vector clock需要O(mn)的空间复杂度，其中n为workers/servers数量，m是模型参数量。当有上千个节点、上亿个参数时，对于内存和带宽来说都是不可行的。</p>
+<p>Section 3.2的range push和range pull给vector clock的优化带来了可能，一个range中的参数共享一个时间戳，将vector clock的空间复杂度降低到了O(nk)，其中n为workers/servers数量，k是一次通信中实际传输的ranges数量，从而大大降低了空间复杂度。</p>
+<p>初始时，所有的workers/servers共享同一个range vector clock，在该range中时间戳被初始化为0。每次从range中提取一个subrange最多会生成3个新的vector clocks，如Algorithm 2所示。</p>
+<center><img src="/img/16.png" style="width: 400px"></center>
+
+<h2 id="Messages"><a href="#Messages" class="headerlink" title="Messages"></a>Messages</h2><p>一个worker/server可能向其它servers/workers或server/worker groups发送messages，一条message包括一个range vector clock和多个range (key,value) pairs：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[vc(R), (k1,v1), ..., (kp,vp)] kj ∈ R and j ∈ &#123;1,...p&#125;</div></pre></td></tr></table></figure>
+<p>这是Parameter Server中最基本的通信格式，不仅仅是共享的参数才有。Tasks的messages也是类似的格式，tasks的messages中key对应taskID，value对应参数或返回值。</p>
+<p>由于机器学习模型训练任务通常都需要很高的网络带宽，因此压缩messages是必须的。messages的压缩分为压缩keys和压缩values，且二者可同时进行：</p>
+<ul>
+<li><strong>压缩keys</strong>：因为一个worker的参数的keys在分配之后都不会发生改变，因此worker无须每次都发送相同的keys，只需要接收方在第一次接收时缓存即可，随后发送方只需要发送keys list的hash和values就行，这样可减少一半的通信量。</li>
+<li><strong>压缩values</strong>：values可能是稀疏的，例如稀疏逻辑回归中大多数参数都为零值，使用ReLU或l1正则化产生零值，使用Section 3.6提到的significance filter或KKT filter产生零值等。为了进一步压缩通信量，我们只需要发送非零值。Parameter Server使用Snappy快速压缩库来压缩values，高效去除零值。</li>
+</ul>
+<h2 id="Consistent-Hashing"><a href="#Consistent-Hashing" class="headerlink" title="Consistent Hashing"></a>Consistent Hashing</h2><p>Parameter Server在数据一致性问题上使用了一致性哈希算法，keys和servers’ IDs被插入到hash环中，它的作用是在分布式系统中动态增加或移除节点。每个server管理着它逆时针方向上到下一个server之间的key range，该server被称为这个key ranges的master。且每个server都复制了它逆时钟方向与它管理的key range相邻的k个key ranges，于是该server被称为这k个key ranges的slave。为了对负载均衡和恢复能力进行优化，一个物理server通常在hash ring中表示为多个虚拟servers。如Figure 7所示，其中k=2，S<sub>1</sub>复制了S<sub>2</sub>和S<sub>3</sub>的key ranges。</p>
+<center><img src="/img/7.png" style="width: 200px"></center>
+
+<h2 id="Replication-and-Aggregation"><a href="#Replication-and-Aggregation" class="headerlink" title="Replication and Aggregation"></a>Replication and Aggregation</h2><p>虽然一个key range被备份到了多个servers，但worker仅与该key range的master进行push和pull。任何对master的修改会连同时间戳一起被同步到slaves。</p>
+<center><img src="/img/8.png" style="width: 600px"></center>
+
+<p>Figure 8的左图展示了worker 1 push x 到 server 1，server 1调用用户自定义函数f（Section 3.3）处理接收到的数据，随后将处理结果同步到其它slaves，同步完成后push task结束。假设有n个workers，一轮迭代会进行n次复制，这对需要高网络带宽支持的多数机器学习模型训练任务来说这是不可接受的。</p>
+<p>Parameter Server支持聚合后复制，即servers先聚合从workers接收到的数据后再复制到slaves，如Figure 8右图所示。假设有n个workers，但一轮迭代只复制一次聚合后的数据，从而复制操作占用带宽降低了n倍。聚合操作带来的push完成延时可通过一致性条件缓解。</p>
+<h2 id="Server-Management"><a href="#Server-Management" class="headerlink" title="Server Management"></a>Server Management</h2><p>要实现系统容错能力和动态扩展能力，要求系统支持动态添加和移除节点。若要添加一个server需要执行以下步骤：</p>
+<ol>
+<li>Server manager为新添加的server分配一个key range并将该server作为master。由于使用了一致性哈希支持动态插入，其它的servers管理或备份的key ranges可能会受到影响；</li>
+<li>新插入的server作为master获取管理的key range的对应数据，并作为slave获取备份的k个key ranges的对应数据；</li>
+<li>Server manager广播节点变化信息。接收方（其它servers）移除不再属于自己管理的key range的数据，并将未完成的任务提交给新插入的server。</li>
+</ol>
+<h2 id="Worker-Management"><a href="#Worker-Management" class="headerlink" title="Worker Management"></a>Worker Management</h2><p>添加新的worker W相对更容易些：</p>
+<ol>
+<li>Task scheduler为W分配数据的key range；</li>
+<li>W从网络文件系统或其它workers获取key range中的训练数据，再从servers pull模型参数；</li>
+<li>Task scheduler广播节点变化情况，这可能会使部分workers释放部分训练数据。</li>
+</ol>
+<p>当某个worker宕机时，task scheduler可能会启动替换程序。Parameter Server可以让用户控制恢复程序，有以下两点原因：</p>
+<ul>
+<li>如果训练数据很庞大，恢复worker的代价可能远大于恢复server；</li>
+<li>如果丢失一小部分训练数据仅对模型产生很小的影响，用户可能更倾向于继续训练，而不管出现异常的worker。甚至用户可能想要主动终止运行最慢的worker。</li>
+</ul>
+<h1 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h1><p>实验使用带l1正则化的稀疏逻辑回归模型，数据集是包含170 billion训练样本和65 billion特征的636TB（压缩后141TB）点击预测数据，在16个物理核、192GB DRAM、10Gb以太网连接的1000台机器上做实验，其中800台机器为workers，200台机器为servers。实验过程中有不相关的其它tasks在同时运行。</p>
+<p>实验将Parameter Server和大型网络公司研发的系统A、B作对比。系统A、B都包含了超过一万行代码，而Parameter Server实现相同的功能仅需要200行代码。</p>
+<p>1. 对这三个系统训练算法收敛到相同目标值的用时进行比较，如Figure 9所示。系统B优于系统A，因为系统B使用了更好的算法。Parameter Server使用了和系统B相同的算法，但收敛速度快于系统B，因为Parameter Server节省了网络流量，且使用了宽松的一致性模型。</p>
+<center><img src="/img/10.png" style="width: 300px"></center>
+
+<p>2. 其次，如Figure 10所示，宽松的一致性模型能够大幅提高workers的算力利用率。系统A的workers算力利用率为32%，系统B为53%，二者的等待比例都较高；而Parameter Server将算力利用率提升到了98%以上。</p>
+<center><img src="/img/11.png" style="width: 300px"></center>
+
+<p>3. Figure 11显示了caching keys、KKT filter和数据压缩对网络流量的抑制情况。可以看出，允许发送方和接收方缓存keys可以节省近50％的流量。另外，在应用KKT过滤器时，数据压缩方法能高效压缩servers和workers的稀疏值。</p>
+<center><img src="/img/12.png" style="width: 600px"></center>
+
+<p>4. 分析bounded delay一致性模型，如Figure 13所示。在不同的最大允许延迟τ下，workers达到相同的收敛标准时耗时情况如图13所示。可验证当允许的最大延迟增加时，等待时间减少。 当使用Sequence一致性模型（τ= 0）时，workers有50％的空闲率；当τ=16时，空闲率降低到1.7％。还可以观察到计算时间随τ几乎线性增加，这是由于数据不一致会减慢收敛速度，因此需要进行更多迭代才能达到相同的收敛标准。最后，从Figure 13中可看出，τ=8是算法收敛速度和系统性能之间的best trade-off。</p>
+<center><img src="/img/13.png" style="width: 300px"></center>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/23/Inception-ResNet-v2/" rel="next" title="Inception-ResNet-v2">
+                <i class="fa fa-chevron-left"></i> Inception-ResNet-v2
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="李宗航" />
+          <p class="site-author-name" itemprop="name">李宗航</p>
+          <p class="site-description motion-element" itemprop="description">学习日志</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives/">
+              <span class="site-state-item-count">58</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizonghang/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Distributed-Subgradient-Descent"><span class="nav-number">2.</span> <span class="nav-text">Distributed Subgradient Descent</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Architecture"><span class="nav-number">3.</span> <span class="nav-text">Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Key-Value-Vectors"><span class="nav-number">3.1.</span> <span class="nav-text">(Key,Value) Vectors</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Range-Push-and-Pull"><span class="nav-number">3.2.</span> <span class="nav-text">Range Push and Pull</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User-Defined-Functions-on-the-Server"><span class="nav-number">3.3.</span> <span class="nav-text">User-Defined Functions on the Server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Asynchronous-Tasks-and-Dependency"><span class="nav-number">3.4.</span> <span class="nav-text">Asynchronous Tasks and Dependency</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flexible-Consistency"><span class="nav-number">3.5.</span> <span class="nav-text">Flexible Consistency</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User-defined-Filters"><span class="nav-number">3.6.</span> <span class="nav-text">User-defined Filters</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Implementation"><span class="nav-number">4.</span> <span class="nav-text">Implementation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vector-Clock"><span class="nav-number">4.1.</span> <span class="nav-text">Vector Clock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Messages"><span class="nav-number">4.2.</span> <span class="nav-text">Messages</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Consistent-Hashing"><span class="nav-number">4.3.</span> <span class="nav-text">Consistent Hashing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Replication-and-Aggregation"><span class="nav-number">4.4.</span> <span class="nav-text">Replication and Aggregation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Server-Management"><span class="nav-number">4.5.</span> <span class="nav-text">Server Management</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Worker-Management"><span class="nav-number">4.6.</span> <span class="nav-text">Worker Management</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Evaluation"><span class="nav-number">5.</span> <span class="nav-text">Evaluation</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李宗航</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+  
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/MathJax.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/config/TeX-AMS-MML_HTMLorMML.js"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
