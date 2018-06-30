@@ -80,7 +80,7 @@
 <meta property="og:image" content="http://lizonghang.github.io/img/11.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/12.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/13.png">
-<meta property="og:updated_time" content="2018-06-30T01:33:11.644Z">
+<meta property="og:updated_time" content="2018-06-30T06:13:36.574Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scaling Distributed Machine Learning with the Parameter Server">
 <meta name="twitter:description" content="论文链接： Scaling Distributed Machine Learning with the Parameter Server Introduction现实中训练数据可达到TB或PB级，需要训练包含109~1012参数的复杂模型，而这些参数需要被所有worker频繁访问、执行运算与更新，这就带来三个问题：  频繁访问大量参数要求极高的网络带宽支持。（Section 3.1,3.2,3.6">
@@ -344,14 +344,14 @@
 <p>需要注意的是，servers共同维持全局的共享参数，但每个server实际上只负责部分参数w<sub>i</sub><sup>r</sup>，每个work也只分到部分数据和处理任务，如下图所示。</p>
 <center><img src="/img/14.gif" style="width: 400px"></center>
 
-<p>在workers中代价最高的步骤是计算subgradient过程中的w<sub>i</sub><sup>T</sup>·x<sub>i<sub>k</sub>&lt;/sub&gt;，当Δw维度很高时（65 billion features）计算将不可行。为了解决这个问题，worker需要知道它的训练数据依赖的w的坐标范围r，将计算简化为(w<sub>i</sub><sup>r</sup>)<sup>T</sup>·x<sub>i<sub>k</sub>&lt;/sub&gt;。</sub></sub></p>
+<p>在workers中代价最高的步骤是计算w<sub>i</sub><sup>T</sup>·x<sub>ik</sub>，当w维度很高时（65 billion features）计算将无法执行。为了解决这个问题，worker需要知道它的训练数据依赖的w的坐标范围r，将计算简化为(w<sub>i</sub><sup>r</sup>)<sup>T</sup>·x<sub>i<sub>k</sub>&lt;/sub&gt;。</sub></p>
 <p>通过实验验证，随着workers数量的增长，每个worker负责的参数w<sub>i</sub><sup>r</sup>数量和内存占用量都有线性缩减的趋势。当有100个workers时，每个worker需要7.8%的全局参数；当workers增加到10,000个时，每个worker所需参数量缩减到0.15%，如Figure 3所示。</p>
 <center><img src="/img/3.png" style="width: 400px"></center>
 
 <h1 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h1><p>Parameter Server架构内的节点可分组为一个server group和多个worker group，如Figure 4所示。</p>
 <center><img src="/img/4.png" style="width: 400px"></center>
 
-<p>Server group中的每个server都维护了全局共享参数的一部分。Server之间相互通信，或复制或整合，以保证系统的可靠性和可扩展性。Server manager负责维护元数据的一致性，比如各个节点的状态和参数的分配情况等。</p>
+<p>Server group中的每个server都维护了全局共享参数的一部分。Server之间相互通信，或复制或迁移，以保证系统的可靠性和可扩展性。Server manager负责维护元数据的一致性，比如各个节点的状态和参数的分配情况等。</p>
 <p>Parameter Server架构可同时运行多个算法，它支持相互独立的参数命名空间，使得每个worker group的共享参数集合和其它worker group隔离。同时也支持多个worker group共享相同的命名空间，因为用户可能使用多个worker group来提高同一个模型训练任务的并行性。一个worker group执行一个模型训练任务。一个worker group中的每个worker只存储训练数据的一部分来计算局部的梯度信息。workers之间没有通信，它们只与自己对应的server进行通信，以更新或拉取参数。每个worker group有一个task scheduler，负责向workers分配任务，并且监控workers的运行情况，当有workers新增或移除，task scheduler负责重新分配未完成的任务。</p>
 <h2 id="Key-Value-Vectors"><a href="#Key-Value-Vectors" class="headerlink" title="(Key,Value) Vectors"></a>(Key,Value) Vectors</h2><p>共享的模型参数可以被表示为(key,value) pairs的集合，通过模型参数的key在本地或远端读写模型参数具体的值，并且假设keys是有序的。以逻辑回归为例，key是feature ID，value是feature的权值，不存在的key就默认为0，如下图所示。</p>
 <center><img src="/img/15.png" style="width: 400px"></center>
@@ -360,11 +360,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">w.push(R, dest)</div><div class="line">w.pull(R, dest)</div></pre></td></tr></table></figure>
 <p>如果R覆盖了整个key range，那么vector中所有参数都会被发送或读取；如果R只包含了一个key，那么只有一个参数值会被发送或读取。</p>
 <h2 id="User-Defined-Functions-on-the-Server"><a href="#User-Defined-Functions-on-the-Server" class="headerlink" title="User-Defined Functions on the Server"></a>User-Defined Functions on the Server</h2><p>除了聚合workers发送的梯度信息外，servers还可以执行用户自定义的函数。由于servers往往有共享参数更全面更新的信息，支持用户在servers上执行自定义的函数是有益的。</p>
-<h2 id="Asynchronous-Tasks-and-Dependency"><a href="#Asynchronous-Tasks-and-Dependency" class="headerlink" title="Asynchronous Tasks and Dependency"></a>Asynchronous Tasks and Dependency</h2><p>一个task可能由多个subtask构成，例如Algorithm 1中的WORKERITERATE task就包含了一次push subtask和一次pull subtask。在Parameter Server中任务中是异步执行的，即调度器可以在完成一个task后立即执行后续的无依赖关系的另一个task，以下图为例。</p>
+<h2 id="Asynchronous-Tasks-and-Dependency"><a href="#Asynchronous-Tasks-and-Dependency" class="headerlink" title="Asynchronous Tasks and Dependency"></a>Asynchronous Tasks and Dependency</h2><p>一个task可能由多个tasks构成，例如Algorithm 1中的WORKERITERATE task就包含了一次push task和一次pull task。在Parameter Server中任务中是异步执行的，即调度器可以在完成一个task后立即执行后续的无依赖关系的另一个task，以下图为例。</p>
 <center><img src="/img/5.png" style="width: 500px"></center>
 
 <p>调度器默认使用best performance模式，即并行执行全部tasks。在Figure 5中，第10轮迭代和第11轮迭代是相互独立的，但第12轮迭代依赖于第11轮迭代。因此，在执行完第10轮迭代后，调度器立即执行第11轮迭代；但第12轮迭代会在第11轮迭代完成前被阻塞。</p>
-<h2 id="Flexible-Consistency"><a href="#Flexible-Consistency" class="headerlink" title="Flexible Consistency"></a>Flexible Consistency</h2><p>若tasks之间相互独立，通过并行使用CPU、磁盘、网络带宽能够提高系统效率（best performance模式），但也会造成workers间数据不一致，从而降低算法的收敛速度。在系统效率与算法收敛速度之间存在一个best trade-off，该trade_off取决于：</p>
+<h2 id="Flexible-Consistency"><a href="#Flexible-Consistency" class="headerlink" title="Flexible Consistency"></a>Flexible Consistency</h2><p>若tasks之间相互独立，通过并行使用CPU、磁盘、网络带宽能够提高系统效率（best performance模式），但也会造成workers间数据不一致，从而降低算法的收敛速度。在系统效率与算法收敛速度之间存在一个best trade-off，该trade-off取决于：</p>
 <ul>
 <li>算法对数据不一致性的敏感度；</li>
 <li>训练数据特征之间的关联度；</li>
@@ -378,7 +378,7 @@
 <li>Eventual：（类似于TSP）在Eventual一致性模型中tasks同时执行，但只适用于对延迟很robust的算法，实践中不推荐采用Eventual一致性模型。</li>
 <li>Bounded Delay：（类似于SSP）Bounded Delay是Sequential和Eventual的折中。预先设置一个最大延时τ，只有当τ时刻之前的tasks都执行完成后才能执行新的tasks。特殊情况：当τ=0时等同于Sequential一致性模型；当τ=∞时等同于Eventual一致性模型。</li>
 </ul>
-<p>需要注意的是，tasks之间的依赖可能是动态的，调度器可能需要根据运行时间调整最大延时τ以平衡系统效率和算法收敛速度。此外，τ不是越大/小越好的，达到相同系统性能时的算法收敛时间与τ呈现“U”型曲线关系，因此存在一个系统效率与算法收敛速度的best trade-off τ<sup>*</sup>。曲线见Section 5中Figure 10。</p>
+<p>需要注意的是，tasks之间的依赖可能是动态的，调度器可能需要根据运行时间调整最大延时τ以平衡系统效率和算法收敛速度。此外，τ不是越大/小越好的，达到相同系统性能时的算法收敛时间与τ呈现“U”型曲线关系，因此存在一个系统效率与算法收敛速度的best trade-off τ<sup>*</sup>，曲线见Figure 13。</p>
 <p>结合算法Distributed Subgradient Descent与Bounded Delay一致性模型，得到一个state-of-the-art的算法Delayed Block Proximal Gradient，它相比于算法Distributed Subgradient Descent有以下区别：</p>
 <center><img src="/img/9.png" style="width: 400px"></center>
 
@@ -394,7 +394,7 @@
 <p>初始时，所有的workers/servers共享同一个range vector clock，在该range中时间戳被初始化为0。每次从range中提取一个subrange最多会生成3个新的vector clocks，如Algorithm 2所示。</p>
 <center><img src="/img/16.png" style="width: 400px"></center>
 
-<h2 id="Messages"><a href="#Messages" class="headerlink" title="Messages"></a>Messages</h2><p>一个worker/server可能向其它servers/workers或server/worker groups发送messages，一条message包括一个range vector clock和多个range (key,value) pairs：</p>
+<h2 id="Messages"><a href="#Messages" class="headerlink" title="Messages"></a>Messages</h2><p>一个worker/server可能向其它servers/workers或server/worker groups发送messages，一条message包括一个range vector clock和多个(key,value) pairs：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[vc(R), (k1,v1), ..., (kp,vp)] kj ∈ R and j ∈ &#123;1,...p&#125;</div></pre></td></tr></table></figure>
 <p>这是Parameter Server中最基本的通信格式，不仅仅是共享的参数才有。Tasks的messages也是类似的格式，tasks的messages中key对应taskID，value对应参数或返回值。</p>
 <p>由于机器学习模型训练任务通常都需要很高的网络带宽，因此压缩messages是必须的。messages的压缩分为压缩keys和压缩values，且二者可同时进行：</p>
@@ -402,15 +402,15 @@
 <li><strong>压缩keys</strong>：因为一个worker的参数的keys在分配之后都不会发生改变，因此worker无须每次都发送相同的keys，只需要接收方在第一次接收时缓存即可，随后发送方只需要发送keys list的hash和values就行，这样可减少一半的通信量。</li>
 <li><strong>压缩values</strong>：values可能是稀疏的，例如稀疏逻辑回归中大多数参数都为零值，使用ReLU或l1正则化产生零值，使用Section 3.6提到的significance filter或KKT filter产生零值等。为了进一步压缩通信量，我们只需要发送非零值。Parameter Server使用Snappy快速压缩库来压缩values，高效去除零值。</li>
 </ul>
-<h2 id="Consistent-Hashing"><a href="#Consistent-Hashing" class="headerlink" title="Consistent Hashing"></a>Consistent Hashing</h2><p>Parameter Server在数据一致性问题上使用了一致性哈希算法，keys和servers’ IDs被插入到hash环中，它的作用是在分布式系统中动态增加或移除节点。每个server管理着它逆时针方向上到下一个server之间的key range，该server被称为这个key ranges的master。且每个server都复制了它逆时钟方向与它管理的key range相邻的k个key ranges，于是该server被称为这k个key ranges的slave。为了对负载均衡和恢复能力进行优化，一个物理server通常在hash ring中表示为多个虚拟servers。如Figure 7所示，其中k=2，S<sub>1</sub>复制了S<sub>2</sub>和S<sub>3</sub>的key ranges。</p>
+<h2 id="Consistent-Hashing"><a href="#Consistent-Hashing" class="headerlink" title="Consistent Hashing"></a>Consistent Hashing</h2><p>Parameter Server在数据一致性问题上使用了一致性哈希算法，keys和servers’ IDs被插入到hash环中，它的作用是在分布式系统中动态增加或移除节点。每个server管理着它逆时针方向上到下一个server之间的key range，该server被称为这个key range的master。且每个server都复制了它逆时钟方向与它管理的key range相邻的k个key ranges，于是该server被称为这k个key ranges的slave。为了对负载均衡和恢复能力进行优化，一个物理server通常在hash ring中表示为多个虚拟servers。如Figure 7所示，其中k=2，S<sub>1</sub>复制了S<sub>2</sub>和S<sub>3</sub>管理的key ranges。</p>
 <center><img src="/img/7.png" style="width: 200px"></center>
 
-<h2 id="Replication-and-Aggregation"><a href="#Replication-and-Aggregation" class="headerlink" title="Replication and Aggregation"></a>Replication and Aggregation</h2><p>虽然一个key range被备份到了多个servers，但worker仅与该key range的master进行push和pull。任何对master的修改会连同时间戳一起被同步到slaves。</p>
+<h2 id="Replication-and-Aggregation"><a href="#Replication-and-Aggregation" class="headerlink" title="Replication and Aggregation"></a>Replication and Aggregation</h2><p>Worker仅与该key range的master进行push和pull，任何对master的修改会连同时间戳一起被同步到slaves。</p>
 <center><img src="/img/8.png" style="width: 600px"></center>
 
 <p>Figure 8的左图展示了worker 1 push x 到 server 1，server 1调用用户自定义函数f（Section 3.3）处理接收到的数据，随后将处理结果同步到其它slaves，同步完成后push task结束。假设有n个workers，一轮迭代会进行n次复制，这对需要高网络带宽支持的多数机器学习模型训练任务来说这是不可接受的。</p>
-<p>Parameter Server支持聚合后复制，即servers先聚合从workers接收到的数据后再复制到slaves，如Figure 8右图所示。假设有n个workers，但一轮迭代只复制一次聚合后的数据，从而复制操作占用带宽降低了n倍。聚合操作带来的push完成延时可通过一致性条件缓解。</p>
-<h2 id="Server-Management"><a href="#Server-Management" class="headerlink" title="Server Management"></a>Server Management</h2><p>要实现系统容错能力和动态扩展能力，要求系统支持动态添加和移除节点。若要添加一个server需要执行以下步骤：</p>
+<p>Parameter Server支持聚合后复制，即servers先聚合从workers接收到的数据后再复制到slaves，如Figure 8右图所示。假设有n个workers，一轮迭代只复制一次聚合后的数据，从而复制操作占用带宽降低了n倍。聚合操作带来的push完成延时可通过一致性条件缓解。</p>
+<h2 id="Server-Management"><a href="#Server-Management" class="headerlink" title="Server Management"></a>Server Management</h2><p>要实现系统容错能力和动态扩展能力，要求系统支持动态添加和移除节点。添加一个server需要执行以下步骤：</p>
 <ol>
 <li>Server manager为新添加的server分配一个key range并将该server作为master。由于使用了一致性哈希支持动态插入，其它的servers管理或备份的key ranges可能会受到影响；</li>
 <li>新插入的server作为master获取管理的key range的对应数据，并作为slave获取备份的k个key ranges的对应数据；</li>
