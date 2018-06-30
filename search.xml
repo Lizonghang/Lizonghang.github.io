@@ -28,7 +28,7 @@
 <p>需要注意的是，servers共同维持全局的共享参数，但每个server实际上只负责部分参数w<sub>i</sub><sup>r</sup>，每个work也只分到部分数据和处理任务，如下图所示。</p>
 <center><img src="/img/14.gif" style="width: 400px"></center>
 
-<p>在workers中代价最高的步骤是计算w<sub>i</sub><sup>T</sup>·x<sub>ik</sub>，当w维度很高时（65 billion features）计算将无法执行。为了解决这个问题，worker需要知道它的训练数据依赖的w的坐标范围r，将计算简化为(w<sub>i</sub><sup>r</sup>)<sup>T</sup>·x<sub>i<sub>k</sub>&lt;/sub&gt;。</sub></p>
+<p>在workers中代价最高的步骤是计算w<sub>i</sub><sup>T</sup>·x<sub>ik</sub>，当w维度很高时（65 billion features）计算将无法执行。为了解决这个问题，worker需要知道它的训练数据依赖的w的坐标范围r，将计算简化为(w<sub>i</sub><sup>r</sup>)<sup>T</sup>·x<sub>ik</sub>。</p>
 <p>通过实验验证，随着workers数量的增长，每个worker负责的参数w<sub>i</sub><sup>r</sup>数量和内存占用量都有线性缩减的趋势。当有100个workers时，每个worker需要7.8%的全局参数；当workers增加到10,000个时，每个worker所需参数量缩减到0.15%，如Figure 3所示。</p>
 <center><img src="/img/3.png" style="width: 400px"></center>
 

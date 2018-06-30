@@ -80,7 +80,7 @@
 <meta property="og:image" content="http://lizonghang.github.io/img/11.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/12.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/13.png">
-<meta property="og:updated_time" content="2018-06-30T06:13:36.574Z">
+<meta property="og:updated_time" content="2018-06-30T06:18:12.492Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scaling Distributed Machine Learning with the Parameter Server">
 <meta name="twitter:description" content="论文链接： Scaling Distributed Machine Learning with the Parameter Server Introduction现实中训练数据可达到TB或PB级，需要训练包含109~1012参数的复杂模型，而这些参数需要被所有worker频繁访问、执行运算与更新，这就带来三个问题：  频繁访问大量参数要求极高的网络带宽支持。（Section 3.1,3.2,3.6">
@@ -344,7 +344,7 @@
 <p>需要注意的是，servers共同维持全局的共享参数，但每个server实际上只负责部分参数w<sub>i</sub><sup>r</sup>，每个work也只分到部分数据和处理任务，如下图所示。</p>
 <center><img src="/img/14.gif" style="width: 400px"></center>
 
-<p>在workers中代价最高的步骤是计算w<sub>i</sub><sup>T</sup>·x<sub>ik</sub>，当w维度很高时（65 billion features）计算将无法执行。为了解决这个问题，worker需要知道它的训练数据依赖的w的坐标范围r，将计算简化为(w<sub>i</sub><sup>r</sup>)<sup>T</sup>·x<sub>i<sub>k</sub>&lt;/sub&gt;。</sub></p>
+<p>在workers中代价最高的步骤是计算w<sub>i</sub><sup>T</sup>·x<sub>ik</sub>，当w维度很高时（65 billion features）计算将无法执行。为了解决这个问题，worker需要知道它的训练数据依赖的w的坐标范围r，将计算简化为(w<sub>i</sub><sup>r</sup>)<sup>T</sup>·x<sub>ik</sub>。</p>
 <p>通过实验验证，随着workers数量的增长，每个worker负责的参数w<sub>i</sub><sup>r</sup>数量和内存占用量都有线性缩减的趋势。当有100个workers时，每个worker需要7.8%的全局参数；当workers增加到10,000个时，每个worker所需参数量缩减到0.15%，如Figure 3所示。</p>
 <center><img src="/img/3.png" style="width: 400px"></center>
 
