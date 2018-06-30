@@ -80,7 +80,7 @@
 <meta property="og:image" content="http://lizonghang.github.io/img/11.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/12.png">
 <meta property="og:image" content="http://lizonghang.github.io/img/13.png">
-<meta property="og:updated_time" content="2018-06-29T18:21:32.793Z">
+<meta property="og:updated_time" content="2018-06-30T01:33:11.644Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scaling Distributed Machine Learning with the Parameter Server">
 <meta name="twitter:description" content="论文链接： Scaling Distributed Machine Learning with the Parameter Server Introduction现实中训练数据可达到TB或PB级，需要训练包含109~1012参数的复杂模型，而这些参数需要被所有worker频繁访问、执行运算与更新，这就带来三个问题：  频繁访问大量参数要求极高的网络带宽支持。（Section 3.1,3.2,3.6">
@@ -329,7 +329,7 @@
 <li>多数机器学习算法是顺序迭代的，如果机器算力差异大，且采用类似于BSP的同步策略，会造成木桶效应，导致系统整体性能下降。(Section 3.3,3.4,3.5)</li>
 <li>在大规模分布式环境中，容错能力是至关重要的。通常训练任务是部署在云环境中，在云环境下机器是不可靠的，且任务随时可能被中断。(Section 4)</li>
 </ul>
-<p>第三代参数服务器提供了五个特性：</p>
+<p>第三代Parameter Server提供了五个特性：</p>
 <ul>
 <li><strong>高效的通信机制</strong>：异步通信机制不会阻塞计算而等待通信（除非必要），且针对机器学习任务做了优化以减少网络流量与负载。</li>
 <li><strong>灵活的一致性模型</strong>：宽松的一致性要求进一步减少了同步的成本和延时。Parameter Server允许用户对算法收敛速度和系统性能做trade-off。</li>
@@ -337,7 +337,7 @@
 <li><strong>容错能力与耐用性</strong>：从非灾难性的机器故障中恢复只需要1s，且不会中断其它机器的计算。</li>
 <li><strong>便于使用</strong>：全局共享的参数可被表示为vectors、matrices或tensor类型，便于机器学习应用的开发，且线性代数的数据类型有高性能的多线程库。</li>
 </ul>
-<h1 id="Distributed-Subgradient-Descent"><a href="#Distributed-Subgradient-Descent" class="headerlink" title="Distributed Subgradient Descent"></a>Distributed Subgradient Descent</h1><p>在Parameter Server中，训练数据和模型参数被划分到所有worker中。以逻辑回归为例，算法是迭代运行的。在每次迭代中，每一个worker使用自己的训练数据独立地计算出Δw<sub>i</sub>，更新量Δw<sub>i</sub>可表达为subgradient，它表示模型参数w应该在哪个方向上做调整，使用聚合所有的subgradients后的Δw更新w。Δw的数组可能会很大，因此在算法中需要选择合适的学习率η来确保算法快速收敛。如Algorithm 1和Figure 2所示。</p>
+<h1 id="Distributed-Subgradient-Descent"><a href="#Distributed-Subgradient-Descent" class="headerlink" title="Distributed Subgradient Descent"></a>Distributed Subgradient Descent</h1><p>在Parameter Server中，训练数据和模型参数被划分到所有worker中。以逻辑回归为例，算法是迭代运行的。在每次迭代中，每一个worker使用自己的训练数据独立地计算出Δw<sub>i</sub>，更新量Δw<sub>i</sub>可表达为subgradient，它表示模型参数w应该在哪个方向上做调整，使用聚合所有的subgradients后的Δw更新w。聚合后Δw的数值可能会很大，因此在算法中需要选择合适的学习率η来确保算法快速收敛。如Algorithm 1和Figure 2所示。</p>
 <center><img src="/img/2.png" style="width: 400px"></center>
 <center><img src="/img/1.png" style="width: 400px"></center>
 
